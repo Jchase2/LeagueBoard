@@ -11,7 +11,7 @@ interface DefaultFormI {
 }
 
 const Authenticate = () => {
-  const [showPassword, setShowPassword] = useState<string>('password');
+  
   const [isRegister, setIsRegister] = useState<boolean>(false);
   const [form, setForm] = useState<DefaultFormI>({
     userEmail: '',
@@ -22,9 +22,7 @@ const Authenticate = () => {
   const dispatch = useDispatch();
   const history: any = useHistory();
 
-  const handleShowPassword = () => {
-    setShowPassword((previousShowPassword) => (previousShowPassword === 'password' ? 'text' : 'password'));
-  };
+  
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -51,7 +49,7 @@ const Authenticate = () => {
 
   const switchIsRegister = () => {
     setIsRegister(!isRegister);
-    setShowPassword('password');
+    
   };
   // use chalkra to create the layout
   return (
