@@ -22,7 +22,6 @@ const Authenticate = () => {
   const dispatch = useDispatch();
   const history: any = useHistory();
 
-  
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -49,7 +48,7 @@ const Authenticate = () => {
 
   const switchIsRegister = () => {
     setIsRegister(!isRegister);
-    
+  
   };
   // use chalkra to create the layout
   return (
