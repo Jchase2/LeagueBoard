@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState, /* ChangeEvent */ } from 'react';
 
-import { Login, Register } from '../redux/actions/Authenticate';
+import { Login, Register } from '../../redux/actions/Authenticate';
 
 interface DefaultFormI {
   email: string,
@@ -11,7 +11,7 @@ interface DefaultFormI {
 }
 
 const Authenticate = () => {
-  
+
   const [isRegister, /* setIsRegister */] = useState<boolean>(false);
   const [form, setForm] = useState<DefaultFormI>({
     email: '',
@@ -29,13 +29,13 @@ const Authenticate = () => {
       // dispatch an action to signup
       if (form.email && form.password && form.confirmPassword) {
         // include extra validation here to check that they have a leagueOfLegends accout
-        if (form.password === form.confirmPassword) dispatch(Register(form, history)); 
+        if (form.password === form.confirmPassword) dispatch(Register(form, history));
         else {
           setForm(current => ({...current, password: '', confirmPassword: ''}));
           alert(`Passwords don't match, try again`);
         }
       } else alert(`Please fill out all fields`);
-      
+
     } else {
       if (form.email && form.password) /* dspatch an action to sign-in */ dispatch(Login(form, history));
       else alert(`Please fill out all fields`);
@@ -48,18 +48,18 @@ const Authenticate = () => {
 
   const switchIsRegister = () => {
     setIsRegister(!isRegister);
-  
+
   }; */
   // use chalkra to create the layout
   return (
     <div>
 
-       
+
         <form  onSubmit={(e) => handleSubmit(e)} noValidate>
-        
+
         </form>
     </div>
-    
+
   );
 };
 
