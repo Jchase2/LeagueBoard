@@ -1,4 +1,4 @@
-import { EReduxActionTypes } from '../actions/ActionTypes';
+import { EReduxActionTypes } from './ActionTypes';
 import { HeaderUserToHomeI } from '../interfaces/HeadUserToHome';
 import { UserI } from '../interfaces/User';
 //need a signIn & signUp that connects to the backend though an api post request
