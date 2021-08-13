@@ -2,13 +2,17 @@ require('dotenv').config();
 import express from 'express';
 import cors from 'cors';
 import { sequelize } from "./Models/index";
+const errorHandler = require('./middleware/error');
+const router = require('./routes/router');
 
 var app = express();
 
 app.use(cors());
 app.use(express.json());
 
-//Use routes
+app.use(router);
+
+app.use(errorHandler);
 
 
 (async () => {
