@@ -11,7 +11,7 @@ export async function signUp(form: UserI) {
   return (
     await axios
       .post(process.env.REACT_APP_BACKEND_URL + '/register' || 'localhost:3000/register', form)
-      .then((res) => res.data)
+      .then((res: { data: any; }) => res.data)
   );
 }
 
@@ -21,6 +21,6 @@ export async function signIn(form: UserI) {
   return (
     await axios
       .post(process.env.REACT_APP_BACKEND_URL + '/login' || 'localhost:3000/login', form)
-      .then((res) => res.data)
+      .then((res: { data: any; }) => res.data)
   );
 }
