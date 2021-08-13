@@ -1,14 +1,19 @@
-import * as dotenv from "dotenv";
+require('dotenv').config();
 import express from 'express';
 import cors from 'cors';
+import { sequelize } from "./Models/index";
 
-dotenv.config();
 var app = express();
 
 app.use(cors());
 app.use(express.json());
 
 //Use routes
+
+
+(async () => {
+  await sequelize.sync({ force: true });
+})();
 
 const PORT = process.env.PORT || 3001;
 const server = app.listen(PORT, () => {
