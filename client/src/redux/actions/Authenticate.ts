@@ -12,9 +12,8 @@ export const Login = (form: IUser, history: any) => async (dispatch: (arg: { typ
       type: EReduxActionTypes.AUTHENTICATE,
       data,
     });
-
-    history.push('/');
     // after login push user to homepage
+    history.push('/');
   } catch (error) {
     console.log(error);
   }
