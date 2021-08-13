@@ -5,7 +5,7 @@ import { useState, ChangeEvent } from 'react';
 import { Login, Register } from '../redux/actions/Authenticate';
 
 interface DefaultFormI {
-  userEmail: string,
+  email: string,
   password: string,
   confirmPassword: string,
 }
@@ -14,7 +14,7 @@ const Authenticate = () => {
   
   const [isRegister, setIsRegister] = useState<boolean>(false);
   const [form, setForm] = useState<DefaultFormI>({
-    userEmail: '',
+    email: '',
     password: '',
     confirmPassword: '',
   });
@@ -27,7 +27,7 @@ const Authenticate = () => {
     e.preventDefault();
     if (isRegister) {
       // dispatch an action to signup
-      if (form.userEmail && form.password && form.confirmPassword) {
+      if (form.email && form.password && form.confirmPassword) {
         // include extra validation here to check that they have a leagueOfLegends accout
         if (form.password === form.confirmPassword) dispatch(Register(form, history)); 
         else {
@@ -37,7 +37,7 @@ const Authenticate = () => {
       } else alert(`Please fill out all fields`);
       
     } else {
-      if (form.userEmail && form.password) /* dspatch an action to sign-in */ dispatch(Login(form, history));
+      if (form.email && form.password) /* dspatch an action to sign-in */ dispatch(Login(form, history));
       else alert(`Please fill out all fields`);
     }
   };
