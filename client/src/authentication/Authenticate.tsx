@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useState, ChangeEvent } from 'react';
+import { useState, /* ChangeEvent */ } from 'react';
 
 import { Login, Register } from '../redux/actions/Authenticate';
 
@@ -12,7 +12,7 @@ interface DefaultFormI {
 
 const Authenticate = () => {
   
-  const [isRegister, setIsRegister] = useState<boolean>(false);
+  const [isRegister, /* setIsRegister */] = useState<boolean>(false);
   const [form, setForm] = useState<DefaultFormI>({
     email: '',
     password: '',
@@ -42,14 +42,14 @@ const Authenticate = () => {
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+ /*  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const switchIsRegister = () => {
     setIsRegister(!isRegister);
   
-  };
+  }; */
   // use chalkra to create the layout
   return (
     <div>
