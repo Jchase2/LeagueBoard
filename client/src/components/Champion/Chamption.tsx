@@ -1,6 +1,6 @@
 
 interface Props {}
 
-export default function Searchbar () {
+export default function Champion () {
   return <div></div>;
 }
