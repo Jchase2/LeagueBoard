@@ -8,6 +8,7 @@ import {
   HStack,
   VStack,
   Icon,
+  useColorMode,
   useColorModeValue,
   Link,
   Drawer,
@@ -21,7 +22,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -33,6 +34,8 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
+import { GoCommentDiscussion } from "react-icons/go"
+import { FaMoon, FaSun } from "react-icons/fa";
 import Searchbar from "../Searchbar/Searchbar"
 
 
@@ -43,8 +46,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome },
   { name: "Trending", icon: FiTrendingUp },
-  { name: "Profile", icon: FiUser },
-  { name: "Settings", icon: FiSettings },
+  { name: "Discussion", icon: GoCommentDiscussion },
 ];
 
 export default function SidebarWithHeader ({
@@ -149,7 +151,11 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
+
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+ const { toggleColorMode } = useColorMode();
+ const colors = useColorModeValue("grey.100", "grey.700");
+ const SwitchIcon = useColorModeValue(FaSun, FaMoon);
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -174,10 +180,18 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
       <HStack spacing={{ base: "0", md: "6" }}>
         <IconButton
-          size="lg"
+          size="md"
           variant="ghost"
           aria-label="open menu"
           icon={<FiBell />}
+        />
+        <IconButton
+          icon={<SwitchIcon />}
+          size="md"
+          aria-label="color Toggle"
+          fontSize="lg"
+          onClick={toggleColorMode}
+          color={colors}
         />
         <Flex alignItems={"center"}>
           <Menu>
@@ -200,7 +214,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   ml="2"
                 >
                   <Text fontSize="sm">SUMMONER ID</Text>
-                  <Text fontSize="xs" color="gray.600">
+                  <Text fontSize="xs" color="gray.300">
                     NA
                   </Text>
                 </VStack>
@@ -219,7 +233,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <Link href="/Profile">
                 <MenuItem>Settings</MenuItem>
               </Link>
-              <MenuDivider/>
+              <MenuDivider />
               <Link href="/Profile">
                 <MenuItem>Sign out</MenuItem>
               </Link>
