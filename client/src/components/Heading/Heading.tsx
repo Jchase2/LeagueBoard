@@ -1,4 +1,4 @@
-import  { ReactNode, ReactText } from "react";
+import { ReactNode, ReactText } from "react";
 import {
   IconButton,
   Avatar,
@@ -22,22 +22,18 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Image,
 } from "@chakra-ui/react";
 import {
   FiHome,
   FiTrendingUp,
-  FiSettings,
   FiMenu,
   FiBell,
   FiChevronDown,
-  FiUser,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
-import { GoCommentDiscussion } from "react-icons/go"
+import { GoCommentDiscussion } from "react-icons/go";
 import { FaMoon, FaSun } from "react-icons/fa";
-import Searchbar from "../Searchbar/Searchbar"
-
+import Searchbar from "../Searchbar/Searchbar";
 
 interface LinkItemProps {
   name: string;
@@ -49,7 +45,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Discussion", icon: GoCommentDiscussion },
 ];
 
-export default function SidebarWithHeader ({
+export default function SidebarWithHeader({
   children,
 }: {
   children: ReactNode;
@@ -99,8 +95,39 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Image src="/League+.png" borderRadius="20px" maxH="50px" />
+      <Flex
+        h="20"
+        alignItems="center"
+        mx="8"
+        justifyContent="space-between"
+        marginTop="10px"
+        marginBottom="10px"
+      >
+        <svg
+          width="72"
+          height="72"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <mask
+            id="a"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="-1"
+            width="72"
+            height="72"
+          >
+            <path fill="#fff" d="M0-.527h72v71.368H0z" />
+          </mask>
+          <g mask="url(#a)">
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M58.509 36.037c0-10.907-7.851-19.947-18.009-21.396V8.394c13.488 1.469 24 13.286 24 27.643 0 7.494-3.78 13.988-3.78 13.988h-7.194a21.965 21.965 0 004.98-13.988h.003zM16.5 58.947c-5.553-5.32-9-12.686-9-20.817 0-8.13 3.447-15.483 9-20.815v11.33a22.075 22.075 0 00-2.16 9.485c0 3.379.786 6.59 2.16 9.487v11.33zm0 5.947l4.989-5.998V11.442L16.5 5.42h18.108V55.2H64.5l-6.681 9.682-41.319.012z"
+              fill="#EFBA52"
+            />
+          </g>
+        </svg>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -153,9 +180,9 @@ interface MobileProps extends FlexProps {
 }
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
- const { toggleColorMode } = useColorMode();
- const colors = useColorModeValue("grey.100", "grey.700");
- const SwitchIcon = useColorModeValue(FaSun, FaMoon);
+  const { toggleColorMode } = useColorMode();
+  const colors = useColorModeValue("grey.100", "grey.700");
+  const SwitchIcon = useColorModeValue(FaSun, FaMoon);
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -171,7 +198,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       <IconButton
         display={{ base: "flex", md: "none" }}
         onClick={onOpen}
-        variant="outline"
+        variant="ghost"
         aria-label="open menu"
         icon={<FiMenu />}
       />
@@ -189,6 +216,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           icon={<SwitchIcon />}
           size="md"
           aria-label="color Toggle"
+          variant="ghost"
           fontSize="lg"
           onClick={toggleColorMode}
           color={colors}
