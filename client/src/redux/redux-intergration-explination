@@ -1,2 +1,0 @@
-the benefit of redux is that you can manage a complex dataset without having to bleed all of that complexity into your UI components. This means that you can easily swap UI implementations, while keeping your state management encapsulated.
-
