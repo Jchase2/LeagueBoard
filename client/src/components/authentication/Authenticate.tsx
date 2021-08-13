@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState, /* ChangeEvent */ } from 'react';
 
-import { Login, Register } from '../redux/actions/Authenticate';
+import { Login, Register } from '../../redux/actions/Authenticate';
 
 interface DefaultFormI {
   email: string,
