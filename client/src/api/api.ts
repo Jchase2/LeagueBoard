@@ -7,7 +7,7 @@ import axios from "axios";
 // Post request to signup
 export async function signUp(user: string, pass: string) {
   return (
-    await axios
+     axios
       .post(process.env.REACT_APP_BACKEND_URL + '/register' || 'localhost:3000/register', { user, pass })
       .then((res) => res.data)
   );
@@ -15,9 +15,9 @@ export async function signUp(user: string, pass: string) {
 
 
 // Post request to login
-export async function login(user: string, pass: string) {
+export async function signIn(user: string, pass: string) {
   return (
-    await axios
+    axios
       .post(process.env.REACT_APP_BACKEND_URL + '/login' || 'localhost:3000/login', { user, pass })
       .then((res) => res.data)
   );
