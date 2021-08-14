@@ -1,13 +1,13 @@
-import express, { Response, Request } from 'express';
-
-
-
 require('dotenv').config();
-const crypto = require('crypto');
-const { User } = require('../Models/user.model');
-const jwt = require('jsonwebtoken');
+import { Response, Request } from 'express';
+const { Region } = require('../Models/region.model');
 
-exports.test = async (req: Request, res: Response, next: Function) => {
 
- 
-}
+export const getRegions = async (req: Request, res: Response, next: Function) => {
+  try {
+    const regions = await Region.findAll({});
+    res.json(regions);
+  } catch (err) {
+    next(err);
+  }
+};
