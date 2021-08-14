@@ -3,10 +3,6 @@ import { Table, Column, Model, CreatedAt, UpdatedAt, DataType, PrimaryKey } from
 @Table
 export class User extends Model {
 
-  @PrimaryKey
-  @Column
-  id!: number;
-
   @Column
   email!: string;
 
