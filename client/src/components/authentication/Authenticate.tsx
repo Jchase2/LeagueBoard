@@ -51,10 +51,9 @@ const Authenticate = () => {
 
   }; */
   // use chalkra to create the layout
+
   return (
     <div>
-
-
         <form  onSubmit={(e) => handleSubmit(e)} noValidate>
 
         </form>

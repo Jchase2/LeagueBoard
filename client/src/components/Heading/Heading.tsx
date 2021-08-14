@@ -1,4 +1,4 @@
-import { ReactNode, ReactText } from "react";
+import { ReactText } from "react";
 import {
   IconButton,
   Avatar,
@@ -45,11 +45,9 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Discussion", icon: GoCommentDiscussion },
 ];
 
-export default function SidebarWithHeader({
+const SidebarWithHeader: React.FC = ({
   children,
-}: {
-  children: ReactNode;
-}) {
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
@@ -79,12 +77,13 @@ export default function SidebarWithHeader({
   );
 }
 
+export default SidebarWithHeader;
+
 interface SidebarProps extends BoxProps {
   onClose: () => void;
 }
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  return (
+const SidebarContent = ({ onClose, ...rest }: SidebarProps) => (
     <Box
       transition="0.5s ease"
       bg={useColorModeValue("white", "gray.900")}
@@ -137,12 +136,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       ))}
     </Box>
   );
-};
 
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
 }
+
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
     <Link href={`${children}`} style={{ textDecoration: "none" }}>
