@@ -9,7 +9,7 @@ interface AuthRequest extends Request {
 }
 
 
-exports.protect = async (req: AuthRequest, res: Response, next: Function) => {
+export const protect = async (req: AuthRequest, res: Response, next: Function) => {
   let token;
 
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
