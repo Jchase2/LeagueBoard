@@ -7,7 +7,7 @@ import { IUser } from "../interfaces/User";
 
 // Post request to signup
 
-export async function signUp(form: IUser) {
+export const signUp = async (form: IUser) => {
   return (
     await axios
       .post(process.env.REACT_APP_BACKEND_URL + '/register' || 'localhost:3000/register', form)
@@ -17,10 +17,12 @@ export async function signUp(form: IUser) {
 
 
 // Post request to login
-export async function signIn(form: IUser) {
+
+export const signIn = async (form: IUser) => {
   return (
     await axios
       .post(process.env.REACT_APP_BACKEND_URL + '/login' || 'localhost:3000/login', form)
       .then((res: { data: any; }) => res.data)
   );
 }
+
