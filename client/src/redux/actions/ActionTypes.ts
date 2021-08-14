@@ -1,15 +1,14 @@
-// this helps us avoid misspelling, less error prone app and easier to scale app
-// eslint-disable-next-line max-len
-// without this, if we mispelled a string it wouldn't give an error, holdings component wouldnt show up and we wouldn't know where the bug is
+// Base action type
 export interface IReduxBaseAction {
   payload: any;
   type: EReduxActionTypes;
   data?: any;
 }
 
+// Enumerated strings for readable errors at runtime.
+// Add action type strings here.
 export enum EReduxActionTypes {
   LOGOUT = 'LOGOUT',
   AUTHENTICATE = 'AUTHENTICATE'
-
 }
 
