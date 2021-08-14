@@ -9,6 +9,9 @@ export interface IReduxBaseAction {
 // Add action type strings here.
 export enum EReduxActionTypes {
   LOGOUT = 'LOGOUT',
-  AUTHENTICATE = 'AUTHENTICATE'
+  AUTHENTICATE = 'AUTHENTICATE',
+  UPDATE_UPCOMING_SCRIMMAGES = 'UPDATE_UPCOMING_SCRIMMAGES',
+  FETCH_UPCOMING_SCRIMMAGES = 'FETCH_UPCOMING_SCRIMMAGES',
+
 }
 
