@@ -86,9 +86,9 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
-      transition="3s ease"
+      transition="0.5s ease"
       bg={useColorModeValue("white", "gray.900")}
-      borderRight="1px"
+      borderRight="2px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
       w={{ base: "full", md: 60 }}
       pos="fixed"
