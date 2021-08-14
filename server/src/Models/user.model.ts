@@ -20,7 +20,7 @@ export class User extends Model {
   regionid!: number;
 
   @Column
-  puuid!: string;
+  puuid?: string;
 
   @CreatedAt
   @Column

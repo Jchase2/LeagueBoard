@@ -1,12 +1,12 @@
 const Router = require('express').Router;
 const router = Router();
-const {register, login} = require('../controllers/auth');
+const {register, login} = require('../Controllers/authController');
 const {protect} = require('../middleware/auth.middleware');
 
 router.post('/register', register);
 router.post('/login', login);
 
-router.post('/protectedXdXd', protect, login);
+router.post('/protected', protect, login);
 
 
 module.exports = router;

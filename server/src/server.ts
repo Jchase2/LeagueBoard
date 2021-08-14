@@ -1,9 +1,9 @@
 require('dotenv').config();
 import express from 'express';
 import cors from 'cors';
-import { sequelize } from "./Models/index";
+import { sequelize } from './Models/index';
 const errorHandler = require('./middleware/error');
-const router = require('./routes/router');
+const router = require('./Routers/router');
 
 var app = express();
 
@@ -17,6 +17,14 @@ app.use(errorHandler);
 
 (async () => {
   await sequelize.sync({ force: true });
+  sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 })();
 
 const PORT = process.env.PORT || 3001;

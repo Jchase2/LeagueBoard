@@ -2,7 +2,7 @@ import express, { Response } from "express";
 
 require('dotenv').config();
 const crypto = require('crypto');
-const User = require('../models/user.model');
+const { User } = require('../Models/user.model');
 const jwt = require('jsonwebtoken');
 
 exports.register = async (req: express.Request, res: express.Response, next: Function) => {
@@ -31,7 +31,7 @@ exports.login = async (req: express.Request, res: express.Response, next: Functi
       email: email,
       password: password
     }});
-    
+
     if (!user) {
       return next(new Error('Invalid email or password'));
     }

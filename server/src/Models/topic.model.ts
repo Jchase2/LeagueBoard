@@ -16,6 +16,9 @@ export class Topic extends Model {
   @Column
   userid!: number;
 
+  @Column
+  parentid!: number;
+
   @CreatedAt
   @Column
   created_at!: Date;
