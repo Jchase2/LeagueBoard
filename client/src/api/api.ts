@@ -27,7 +27,13 @@ export const getVerifyInfo = async (regionId: number, summonerName: string ) => 
   );
 }
 
-
+export const getRegions = async () => {
+  return (
+    await axios
+      .get(process.env.REACT_APP_BACKEND_URL + '/' || 'localhost:3000/',)
+      .then((res: { data: any; }) => res.data)
+  );
+}
 
 // Post request to login
 
