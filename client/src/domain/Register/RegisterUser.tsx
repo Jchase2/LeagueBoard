@@ -18,9 +18,8 @@ interface IRegisterForm {
   email: string;
   password: string;
   confirmPassword: string;
-  regionid: string;
+  regionId: string;
   summonerName: string;
-  puuid: string;
 }
 
 const RegisterUser = () => {
@@ -28,9 +27,8 @@ const RegisterUser = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    regionid: "",
+    regionId: "",
     summonerName: "",
-    puuid: ""
   });
 
   const dispatch = useDispatch();
@@ -69,6 +67,7 @@ const RegisterUser = () => {
       <Box p={2}>
         <Box textAlign="center">
           <Heading>Login</Heading>
+          {/* On submit of register, render verification component with formData.regionId and formData.summonerName as props */}
         </Box>
       </Box>
     </Flex>

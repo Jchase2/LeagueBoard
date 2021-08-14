@@ -15,6 +15,19 @@ export const signUp = async (form: IUser) => {
   );
 }
 
+export const getVerifyInfo = async (regionId: number, summonerName: string ) => {
+  return (
+    await axios
+      .post(process.env.REACT_APP_BACKEND_URL + '/register/verify' || 'localhost:3000/register/verify',
+      {
+        regionId,
+        summonerName
+      })
+      .then((res: { data: any; }) => res.data)
+  );
+}
+
+
 
 // Post request to login
 
@@ -25,4 +38,5 @@ export const signIn = async (form: IUser) => {
       .then((res: { data: any; }) => res.data)
   );
 }
+
 
