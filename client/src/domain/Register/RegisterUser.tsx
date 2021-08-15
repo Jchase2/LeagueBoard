@@ -84,18 +84,19 @@ const RegisterUser = () => {
         boxShadow="lg"
         minW="35vw"
         bg={useColorModeValue("white", "gray.800")}
+        marginBottom="20px"
       >
         <Box textAlign="center">
           <Heading>Register</Heading>
         </Box>
         <Box textAlign="left">
           <form onSubmit={handleSubmit}>
-            <FormControl isRequired mt={6}>
-              <FormControl isRequired mt={6}>
+            <FormControl isRequired mt={4}>
+              <FormControl isRequired mt={4}>
                 <FormLabel> Summoner name </FormLabel>
                 <Input type="summonerName" name="summonerName" size="lg" />
               </FormControl>
-              <FormControl isRequired mt={6} mb={6}>
+              <FormControl isRequired mt={4} mb={4}>
                 <FormLabel> Regional ID </FormLabel>
                 <Input></Input>
                 {/* <Select placeholder="Select Region">
@@ -107,11 +108,11 @@ const RegisterUser = () => {
               <FormLabel> Email </FormLabel>
               <Input type="email" name="password" size="lg" />
             </FormControl>
-            <FormControl isRequired mt={6}>
+            <FormControl isRequired mt={4}>
               <FormLabel> Password </FormLabel>
               <Input type="password" name="password" size="lg" />
             </FormControl>
-            <FormControl isRequired mt={6}>
+            <FormControl isRequired mt={4}>
               <FormLabel> Confirm Password </FormLabel>
               <Input type="password" name="confirmPassword" size="lg" />
             </FormControl>
@@ -119,7 +120,7 @@ const RegisterUser = () => {
               variantColor="teal"
               variant="outline"
               width="full"
-              mt={6}
+              mt={4}
               type="submit"
             >
               Submit
