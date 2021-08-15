@@ -1,6 +1,6 @@
 // User interfaces
 
-export interface UserI {
+export interface IUser {
   email: string
   password: string
 }

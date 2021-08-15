@@ -1,10 +1,17 @@
 import './App.css';
+import SidebarWithHeader from "./components/Heading/Heading";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-    
-    </div>
+    <>
+    <SidebarWithHeader children />
+      <Router>
+        <Switch>
+          <Route path="/" />
+        </Switch>
+      </Router>
+    </>
   );
 }
 
