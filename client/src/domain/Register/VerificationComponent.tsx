@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getVerifyInfo } from '../../api/api';
+import { getVerifyInfo } from '../../api/backendApi';
 
 // Declaring type of props - see "Typing Component Props" for more examples
 type RegisterUserProps = {
@@ -26,9 +26,13 @@ const VerificationComponent = (props: RegisterUserProps) => {
 
   useEffect(() => {
     getVerifyInfo(props.regionId, props.summonerName).then((res) => {
-      setIconLinkArr([...iconLinkArr, res.iconId])
+      if(res.status === 200){
+        setIconLinkArr([...iconLinkArr, res.iconId])
+      }
     });
   });
+
+
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -36,7 +40,7 @@ const VerificationComponent = (props: RegisterUserProps) => {
   };
 
   return (
-    <p>TODO</p>
+    <p></p>
   );
 };
 
