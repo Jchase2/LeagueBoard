@@ -3,7 +3,7 @@ import { EReduxActionTypes, IReduxBaseAction } from '../actions/ActionTypes';
 
 
 // eslint-disable-next-line max-len
-const holdingsReducer = (scrimmages: Scrimmage[] = [], action:IReduxBaseAction) => { // need to inialize state(holdings) , holdings is gunna be an array of objects, reducer returns the new state
+const scrimmageReducer = (scrimmages: Scrimmage[] = [], action:IReduxBaseAction) => { // need to inialize state(holdings) , holdings is gunna be an array of objects, reducer returns the new state
   switch (action.type) {
     case EReduxActionTypes.FETCH_UPCOMING_SCRIMMAGES:
       return action.payload;
@@ -14,4 +14,4 @@ const holdingsReducer = (scrimmages: Scrimmage[] = [], action:IReduxBaseAction) 
   }
 };
 
-export default holdingsReducer;
+export default scrimmageReducer;
