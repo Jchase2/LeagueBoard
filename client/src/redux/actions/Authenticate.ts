@@ -1,13 +1,7 @@
 import { EReduxActionTypes } from './ActionTypes';
-<<<<<<< HEAD
-import { HeaderUserToHomeI } from '../../interfaces/HeadUserToHome';
-import { UserI } from '../../interfaces/User';
-import { signUp, signIn } from '../../api/backendApi';
-=======
 import { IHeaderUserToHome } from '../../interfaces/HeadUserToHome';
 import { IUser } from '../../interfaces/User';
-import { signUp, signIn } from '../../api/api';
->>>>>>> 549f5e049e89d6933a1b021b8fa8fba561f6c682
+import { signUp, signIn } from '../../api/backendApi';
 //need a signIn & signUp that connects to the backend though an api post request
 
 export const Login = (form: IUser, history: any) => async (dispatch: (arg: { type: string; data: IHeaderUserToHome; }) => void) => {
