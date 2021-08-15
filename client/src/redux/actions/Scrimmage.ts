@@ -4,7 +4,7 @@ import { IScrimmage } from '../../interfaces/Scrimmage';
 // Action Creators - functions that return an action
 
 export const getAllScrimmages = () => async (dispatch: (arg: { type: string; payload: { scrimmages: IScrimmage[]; }; }) => void) => {
-  try {
+  /* try {
     const { data } = await getScrimmage(); // decontruct response to grab data from response object
     const { scrimmage } = data;
     const action = {
@@ -14,11 +14,11 @@ export const getAllScrimmages = () => async (dispatch: (arg: { type: string; pay
     dispatch(action);
   } catch (error) {
     console.log(error.message);
-  }
+  } */
 };
 
 export const updateScrimmages = (createScrimmage: IScrimmage) => async (dispatch: (arg: { type: string; payload: { scrimmages: IScrimmage }; }) => void) => {
-  try {
+  /* try {
     const { data } = await putScrimmage(form);
     const { scrimmage } = data;
     const action = {
@@ -28,5 +28,5 @@ export const updateScrimmages = (createScrimmage: IScrimmage) => async (dispatch
     dispatch(action);
   } catch (error) {
     console.log(error.message);
-  }
+  } */
 };

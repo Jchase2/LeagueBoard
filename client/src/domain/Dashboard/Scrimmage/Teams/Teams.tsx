@@ -4,7 +4,7 @@ interface Props {
   
 }
 
-export const BattleMode = (props: Props) => {
+export const Teams = (props: Props) => {
 
 
   
