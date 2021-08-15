@@ -23,7 +23,7 @@ interface IPlayer {
 }
 // Action Creators - functions that return an action
 
-export const getAllScrimmages = () => async (dispatch: (arg: { type: string; payload: { holdings: IScrimmage[]; cash: number; }; }) => void) => {
+export const getAllScrimmages = () => async (dispatch: (arg: { type: string; payload: { holdings: IScrimmage[]; }; }) => void) => {
   try {
     const { data } = await getScrimmage(); // decontruct response to grab data from response object
     const { scrimmage } = data;
@@ -37,7 +37,7 @@ export const getAllScrimmages = () => async (dispatch: (arg: { type: string; pay
   }
 };
 
-export const updateScrimmages = (createScrimmage: IScrimmage) => async (dispatch: (arg: { type: string; payload: { holdings: IScrimmage; cash: number; }; }) => void) => {
+export const updateScrimmages = (createScrimmage: IScrimmage) => async (dispatch: (arg: { type: string; payload: { holdings: IScrimmage }; }) => void) => {
   try {
     const { data } = await putScrimmage(order);
     const { scrimmage } = data;
