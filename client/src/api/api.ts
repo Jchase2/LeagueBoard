@@ -8,41 +8,42 @@ import { IUser } from "../interfaces/User";
 // Post request to signup
 
 export const signUp = async (form: IUser) => {
-  return (
-    await axios
-      .post(process.env.REACT_APP_BACKEND_URL + '/register' || 'localhost:3000/register', form)
-      .then((res: { data: any; }) => res.data)
-  );
-}
+  return axios
+    .post(
+      process.env.REACT_APP_BACKEND_URL + "/register" ||
+        "localhost:3000/register",
+      form
+    )
+    .then((res: { data: any }) => res.data);
+};
 
-export const getVerifyInfo = async (regionId: number, summonerName: string ) => {
-  return (
-    await axios
-      .post(process.env.REACT_APP_BACKEND_URL + '/register/verify' || 'localhost:3000/register/verify',
+export const getVerifyInfo = async (regionId: number, summonerName: string) => {
+  return axios
+    .post(
+      process.env.REACT_APP_BACKEND_URL + "/register/verify" ||
+        "localhost:3000/register/verify",
       {
         regionId,
-        summonerName
-      })
-      .then((res: { data: any; }) => res.data)
-  );
-}
+        summonerName,
+      }
+    )
+    .then((res: { data: any }) => res.data);
+};
 
 export const getRegions = async () => {
-  return (
-    await axios
-      .get(process.env.REACT_APP_BACKEND_URL + '/' || 'localhost:3000/',)
-      .then((res: { data: any; }) => res.data)
-  );
-}
+  return axios
+    .get(process.env.REACT_APP_BACKEND_URL + "/" || "localhost:3000/")
+    .then((res: { data: any }) => res.data);
+};
 
 // Post request to login
 
 export const signIn = async (form: IUser) => {
-  return (
-    await axios
-      .post(process.env.REACT_APP_BACKEND_URL + '/login' || 'localhost:3000/login', form)
-      .then((res: { data: any; }) => res.data)
-  );
-}
-
-
+  return;
+  axios
+    .post(
+      process.env.REACT_APP_BACKEND_URL + "/login" || "localhost:3000/login",
+      form
+    )
+    .then((res: { data: any }) => res.data);
+};

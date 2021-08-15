@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 import { Register } from "../../redux/actions/Authenticate";
 
@@ -11,8 +12,10 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button
-} from '@chakra-ui/react';
+  Button,
+  Image,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 interface IRegisterForm {
   email: string;
@@ -61,13 +64,67 @@ const RegisterUser = () => {
 
   }; */
   // use chalkra to create the layout
+  {
+    /* On submit of register, render verification component with formData.regionId and formData.summonerName as props */
+  }
 
   return (
-    <Flex width="full" align="center" justifyContent="center">
-      <Box p={2}>
+    <Flex
+      minH="100vh"
+      align="center"
+      justifyContent="center"
+      flexDirection="column"
+      bg={useColorModeValue("gray.100", "gray.900")}
+    >
+      <Image src="lol.svg" alt="Logo" mb={6} mt={6} />
+      <Box
+        p={8}
+        borderWidth={1}
+        borderRadius={8}
+        boxShadow="lg"
+        minW="35vw"
+        bg={useColorModeValue("white", "gray.800")}
+      >
         <Box textAlign="center">
-          <Heading>Login</Heading>
-          {/* On submit of register, render verification component with formData.regionId and formData.summonerName as props */}
+          <Heading>Register</Heading>
+        </Box>
+        <Box textAlign="left">
+          <form onSubmit={handleSubmit}>
+            <FormControl isRequired mt={6}>
+              <FormControl isRequired mt={6}>
+                <FormLabel> Summoner name </FormLabel>
+                <Input type="summonerName" name="summonerName" size="lg" />
+              </FormControl>
+              <FormControl isRequired mt={6} mb={6}>
+                <FormLabel> Regional ID </FormLabel>
+                <Input></Input>
+                {/* <Select placeholder="Select Region">
+                {regionArray.map((e: any) => {
+                  <option>e.region</option>;
+                })}
+              </Select> */}
+              </FormControl>
+              <FormLabel> Email </FormLabel>
+              <Input type="email" name="password" size="lg" />
+            </FormControl>
+            <FormControl isRequired mt={6}>
+              <FormLabel> Password </FormLabel>
+              <Input type="password" name="password" size="lg" />
+            </FormControl>
+            <FormControl isRequired mt={6}>
+              <FormLabel> Confirm Password </FormLabel>
+              <Input type="password" name="confirmPassword" size="lg" />
+            </FormControl>
+            <Button
+              variantColor="teal"
+              variant="outline"
+              width="full"
+              mt={6}
+              type="submit"
+            >
+              Submit
+            </Button>
+          </form>
         </Box>
       </Box>
     </Flex>
