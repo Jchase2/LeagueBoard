@@ -111,8 +111,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 <MenuItem>Settings</MenuItem>
               </Link>
               <MenuDivider />
-              <Link href="/Profile">
-                <MenuItem>Sign out</MenuItem>
+              <Link href="/signin">
+                <MenuItem>Sign In</MenuItem>
               </Link>
             </MenuList>
           </Menu>
