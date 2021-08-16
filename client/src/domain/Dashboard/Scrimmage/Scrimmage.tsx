@@ -3,8 +3,8 @@ import mockScrimmage from './mockdata';
 import { IPlayer } from './MockInterface';
 import { Table, Tfoot, Thead, Tbody, Th, Tr, Td, TableCaption, 
   Container, SimpleGrid} from "@chakra-ui/react";
-import PredictionsGraph from './Predictions/PredictionsGraph';
-
+import PredictionsGraph from './Graphs/PredictionsGraph';
+import DonutGraph from './Graphs/DonutGraph';
 
 export const Scrimmage = () => {
   const [data, dataSet] = useState(mockScrimmage) 
@@ -80,10 +80,16 @@ export const Scrimmage = () => {
 
       </SimpleGrid>
 
+      <SimpleGrid columns={2} spacing={1}>
+
       
-      <Container>
-        <PredictionsGraph/>
-      </Container>  
+        <DonutGraph team1={player1Set} team2={player2Set}/>
+ 
+        <PredictionsGraph team1={player1Set} team2={player2Set}/>
+ 
+
+      </SimpleGrid>
+       
     </div>
   );
 }
