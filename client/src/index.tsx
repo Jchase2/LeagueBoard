@@ -9,7 +9,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import App from './App';
 import reducers from './redux/reducers';
-import { Scrimmage } from './domain/Dashboard/Scrimmage/Scrimmage';
 
 declare global {
   interface Window {
@@ -28,10 +27,9 @@ const store = createStore(reducers, composeEnhancers(
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
-      <Provider store={store}>
-        
+      <Provider store={store}>        
         <App />
-        <Scrimmage/>
+        
       </Provider>
     </ChakraProvider>
   </React.StrictMode>,
