@@ -24,6 +24,7 @@ import {
 import { FaMoon, FaSun } from "react-icons/fa";
 import Searchbar from "../Searchbar/Searchbar";
 
+
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
@@ -38,7 +39,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue("#E8E8E8", "gray.900")}
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       justifyContent={{ base: "space-between", md: "flex-end" }}
@@ -77,31 +78,56 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               transition="all 0.3s"
               _focus={{ boxShadow: "none" }}
             >
-              <HStack>
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "" //ICON FOR PLAYER
-                  }
-                />
-                <VStack
-                  display={{ base: "none", md: "flex" }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
-                >
-                  <Text fontSize="sm">SUMMONER ID</Text>
-                  <Text fontSize="xs" color="gray.300">
-                    NA
-                  </Text>
-                </VStack>
-                <Box display={{ base: "none", md: "flex" }}>
-                  <FiChevronDown />
-                </Box>
-              </HStack>
+              {localStorage.getItem("accessToken") ? (
+                <HStack>
+                  <Avatar
+                    size={"sm"}
+                    src={
+                      "" //ICON FOR PLAYER
+                    }
+                  />
+                  <VStack
+                    display={{ base: "none", md: "flex" }}
+                    alignItems="flex-start"
+                    spacing="1px"
+                    ml="2"
+                  >
+                    <Text fontSize="sm">{}</Text>
+                    <Text fontSize="xs" color="gray.300">
+                      NA
+                    </Text>
+                  </VStack>
+                  <Box display={{ base: "none", md: "flex" }}>
+                    <FiChevronDown />
+                  </Box>
+                </HStack>
+              ) : (
+                <HStack>
+                  <Avatar
+                    size={"sm"}
+                    src={
+                      "" //ICON FOR PLAYER
+                    }
+                  />
+                  <VStack
+                    display={{ base: "none", md: "flex" }}
+                    alignItems="flex-start"
+                    spacing="1px"
+                    ml="2"
+                  >
+                    <Text fontSize="sm">SUMMONER ID</Text>
+                    <Text fontSize="xs" color="gray.300">
+                      NA
+                    </Text>
+                  </VStack>
+                  <Box display={{ base: "none", md: "flex" }}>
+                    <FiChevronDown />
+                  </Box>
+                </HStack>
+              )}
             </MenuButton>
             <MenuList
-              bg={useColorModeValue("white", "gray.900")}
+              bg={useColorModeValue("#E8E8E8", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
               <Link href="/Profile">
@@ -115,10 +141,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               {/* get accesToken from localStorage and conditionally render sign in or sign out, if sign out delete token from localstorage */}
               {/* localStorage.getItem('accessToken') ? it exists : it doesn't */}
               {/* localStorage.removeItem('accessToken') */}
-              {localStorage.getItem("accessToken") ? (   
+              {localStorage.getItem("accessToken") ? (
                 <Link href="/">
-                  <MenuItem onClick={() => localStorage.removeItem("accessToken")}>Sign Out</MenuItem>
-                  </Link>   
+                  <MenuItem
+                    onClick={() => localStorage.removeItem("accessToken")}
+                  >
+                    Sign Out
+                  </MenuItem>
+                </Link>
               ) : (
                 <Link href="/signin">
                   <MenuItem>Sign In</MenuItem>

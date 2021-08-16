@@ -7,7 +7,7 @@ import { IRegisterForm } from "../interfaces/RegisterForm";
 
 // Post request to signup
 
-export const signUp = async (formData: IRegisterForm, puuid: string) => {
+export const signUp = async (formData: IRegisterForm, puuid: string, iconid: number) => {
   return axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/register" ||
@@ -17,7 +17,8 @@ export const signUp = async (formData: IRegisterForm, puuid: string) => {
         password: formData.password, 
         regionid: formData.regionId,
         summonerName: formData.summonerName,
-        puuid: puuid 
+        puuid: puuid,
+        iconid: iconid
       }
     )
     .then((res: { data: any }) => res.data);
@@ -41,7 +42,7 @@ export const getVerifyInfo = async (regionId: number, summonerName: string) => {
 
 export const getRegions = async () => {
   return axios
-    .get(process.env.REACT_APP_BACKEND_URL + "/" || "localhost:3001/")
+    .get(process.env.REACT_APP_BACKEND_URL + "/regions" || "localhost:3001/")
     .then((res: { data: any }) => res.data);
 };
 
@@ -55,3 +56,4 @@ export const signIn = async (form: any) => {
     )
     .then((res: { data: any }) => res.data);
 };
+
