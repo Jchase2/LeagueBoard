@@ -24,6 +24,7 @@ export const signUp = async (formData: IRegisterForm, puuid: string) => {
 };
 
 export const getVerifyInfo = async (regionId: number, summonerName: string) => {
+
   let data : any= "";
   await axios
     .post(

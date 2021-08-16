@@ -1,9 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  CloseButton,
-} from "@chakra-ui/react";
+import { Alert, AlertIcon, AlertTitle, CloseButton } from "@chakra-ui/react";
 
 interface Props {
   message: string;
@@ -12,7 +7,6 @@ interface Props {
 }
 
 export const ErrorShow = (props: Props) => {
-  console.log(props);
   return (
     <>
       {props.isClosed && (
@@ -25,9 +19,7 @@ export const ErrorShow = (props: Props) => {
           borderRadius="10px"
         >
           <AlertIcon />
-          <AlertTitle>
-            {props.message}
-          </AlertTitle>
+          <AlertTitle textAlign="center">{props.message}</AlertTitle>
           <CloseButton
             position="absolute"
             right="8px"

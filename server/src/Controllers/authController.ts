@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { Region } from "../Models/region.model";
 import { User } from "../Models/user.model";
-import { getSummonerByNameAndRegion } from "./utils";
+import { getSummonerByNameAndRegion, getSummonerByPuuid } from "./utils";
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -9,6 +9,8 @@ const bcrypt = require("bcryptjs");
 export const register = async (req: Request, res: Response, next: Function) => {
   try {
     let { email, password, regionid, summonerName, puuid } = req.body;
+
+    //validate email and summoner with region
 
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
@@ -30,7 +32,7 @@ export const register = async (req: Request, res: Response, next: Function) => {
 export const verify = async (req: Request, res: Response, next: Function) => {
   try {
     let { regionId, summonerName } = req.body;
-
+    //check regionId in db
     const region: any = await Region.findOne({
       where: { id: regionId },
       attributes: ["code"],
@@ -52,7 +54,7 @@ export const verify = async (req: Request, res: Response, next: Function) => {
     }
 
     res.send({
-      iconid: Number(summoner.profileIconId),
+      iconid: summoner.profileIconId,
       puuid: summoner.puuid,
     });
   } catch (error) {
@@ -67,7 +69,7 @@ export const login = async (req: Request, res: Response, next: Function) => {
   }
 
   try {
-    const user = await User.findOne({
+    let user: any = await User.findOne({
       where: { email: email },
       attributes: ["password"],
     });
@@ -81,18 +83,15 @@ export const login = async (req: Request, res: Response, next: Function) => {
       return next(new Error("Invalid email or password"));
     }
 
+    //user = await getSummonerByPuuid(user.puuid, user.regionid);
     sendToken(user, 200, res);
   } catch (error) {
     next(error);
   }
 };
 
-interface IUser {
-  email: string;
-}
-
-const sendToken = (user: IUser, statusCode: number, res: Response) => {
-  const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+const sendToken = (user: any, statusCode: number, res: Response) => {
+  const token = jwt.sign({ user }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
   res.status(statusCode).json({ success: true, token });

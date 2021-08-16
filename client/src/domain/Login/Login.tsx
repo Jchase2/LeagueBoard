@@ -111,7 +111,6 @@ const Login = () => {
               variant="outline"
               width="full"
               mt={4}
-              type="submit"
               onClick={() => history.push("/signup")}
             >
               Not registered yet ? Sign up!

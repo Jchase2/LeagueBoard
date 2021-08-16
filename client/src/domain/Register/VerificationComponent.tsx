@@ -3,6 +3,7 @@ import { useLocation, useHistory } from "react-router";
 import { getVerifyInfo, signUp } from "../../api/api";
 import { ErrorShow } from "../../components/Error/ErrorShow";
 
+
 import {
   Flex,
   Box,
@@ -17,9 +18,10 @@ const VerificationComponent = () => {
   let history = useHistory();
   const [icon, setIcon] = useState<number>(0);
   const location: any = useLocation();
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(true);
 
   const callFunc = async () => {
+    console.log("Location log: ", location.state.formdata.regionId)
     return getVerifyInfo(
       location.state.formdata.regionId,
       location.state.formdata.summonerName
@@ -38,19 +40,15 @@ const VerificationComponent = () => {
       location.state.formdata.regionId,
       location.state.formdata.summonerName
     );
+    console.log(data.iconid)
     if (data.iconid !== icon) {
       //register call api
-      signUp(location.state.formdata, data.puuid)
-        .then((res) => {
-          if (res.success) {
-            setIsError(false);
-            localStorage.setItem("accessToken", res.token);
-            history.push("/");
-          }
-        })
-        .catch((err) => {
-          setIsError(true);
-        });
+      signUp(location.state.formdata, data.puuid).then((res) => {
+        if(res.success){
+          localStorage.setItem("accessToken", res.token);
+          history.push("/");
+        }
+      });
     }
   };
 
