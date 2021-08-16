@@ -15,6 +15,9 @@ export class Topic extends Model {
   @Column
   parentid!: number;
 
+  @Column
+  closed!: boolean;
+
   @CreatedAt
   @Column
   created_at!: Date;

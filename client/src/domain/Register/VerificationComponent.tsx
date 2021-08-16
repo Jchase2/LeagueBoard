@@ -43,7 +43,7 @@ const VerificationComponent = () => {
     console.log(data.iconid)
     if (data.iconid !== icon) {
       //register call api
-      signUp(location.state.formdata, data.puuid).then((res) => {
+      signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {
         if(res.success){
           localStorage.setItem("accessToken", res.token);
           history.push("/");

@@ -18,6 +18,9 @@ export class User extends Model {
   @Column
   puuid?: string;
 
+  @Column
+  iconid?: number;
+
   @CreatedAt
   @Column
   created_at!: Date;

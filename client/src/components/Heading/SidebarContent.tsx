@@ -32,7 +32,7 @@ const LinkItems: Array<LinkItemProps> = [
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => (
   <Box
     transition="0.5s ease"
-    bg={useColorModeValue("white", "gray.900")}
+    bg={useColorModeValue("	#E8E8E8", "gray.900")}
     borderRight="2px"
     borderRightColor={useColorModeValue("gray.200", "gray.700")}
     w={{ base: "full", md: 60 }}

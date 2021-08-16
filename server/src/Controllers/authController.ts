@@ -8,7 +8,7 @@ const bcrypt = require("bcryptjs");
 
 export const register = async (req: Request, res: Response, next: Function) => {
   try {
-    let { email, password, regionid, summonerName, puuid } = req.body;
+    let { email, password, regionid, summonerName, puuid, iconid } = req.body;
 
     //validate email and summoner with region
 
@@ -21,6 +21,7 @@ export const register = async (req: Request, res: Response, next: Function) => {
       regionid,
       summonerName,
       puuid,
+      iconid,
     });
 
     sendToken(user, 201, res);
