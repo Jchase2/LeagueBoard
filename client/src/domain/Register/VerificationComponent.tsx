@@ -1,57 +1,38 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router";
 import { getVerifyInfo } from "../../api/api";
-import { getRegions } from "../../api/api";
 
 import {
   Flex,
   Box,
   Text,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
   Image,
-  Select,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 
-// Declaring type of props - see "Typing Component Props" for more examples
-type RegisterUserProps = {
-  regionId: number;
-  summonerName: string;
-};
-
 const VerificationComponent = () => {
-  const [regionArray, setRegionArray] = useState<string[]>([]);
-  const [iconLinkArr, setIconLinkArr] = useState<string[]>([]);
+  const [icon, setIcon] = useState<number>(0);
+  const location: any = useLocation();
+
+  const callFunc = async () => {
+    return getVerifyInfo(location.state.formdata.regionId, location.state.formdata.summonerName);
+  };
 
   useEffect(() => {
-    getRegions().then((res) => {
-      setRegionArray([...res.data]);
+    console.log('useeffect');
+    callFunc().then((res) => {
+      console.log(res.iconid, 'xd');
+      setIcon(res.iconid);  
     });
-  });
+  }, []);
 
-  // COME FROM RegisterScreen
-  // props --> {signup fields}
-  // Enter this component call verifyInfo with Summoner and RegionId
-  // verifyInfo returns ---> iconId and the puuid.
-  // puuid needs to be added to signup fields
-  // iconId added to the setIconLink
-
-  // Ask user to change icon, when button clicked call verifyInfo again and add iconId to iconLink.
-  // Check if iconLink[0] === iconLink[1] and iconLink[0] !== defaultIconId
-  // if true call signup request
-  // else  cancel thesis
-  // if icon is already the default, repeat register and change icon before registering
-
-  // useEffect(() => {
-  //   getVerifyInfo(props.regionId, props.summonerName).then((res) => {
-  //     setIconLinkArr([...iconLinkArr, res.iconId]);
-  //   });
-  // });
-
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    console.log(icon);
+    const data = await getVerifyInfo(location.state.formdata.regionId, location.state.formdata.summonerName);
+    if (data.iconid !== icon) {
+    }
   };
 
   return (
@@ -73,25 +54,16 @@ const VerificationComponent = () => {
       >
         <Box textAlign="center">
           <Text display="flex" flexWrap="wrap" justifyContent="center">
-            Enter your Summoner name and Regional ID before pressing verify change your in game icon
+            Please change your user icon on League of Legends, then press
+            verify. After verifying, you may change it back.
           </Text>
         </Box>
         <Box my={4}>
+          <Text> Summoner Name: {location.state.formdata.summonerName} </Text>
+          <Text> Region Id: {location.state.formdata.regionId} </Text>
           <form onSubmit={handleSubmit}>
-            <FormControl isRequired mt={6}>
-              <FormLabel> Summoner name </FormLabel>
-              <Input type="summonerName" name="summonerName" size="lg" />
-            </FormControl>
-            <FormControl isRequired mt={6} mb={6}>
-              <FormLabel> Regional ID </FormLabel>
-              {/* <Select placeholder="Select Region">
-                {regionArray.map((e: any) => {
-                  <option>e.region</option>;
-                })}
-              </Select> */}
-            </FormControl>
             <Button
-              variantColor="teal"
+              variantcolor="teal"
               variant="outline"
               width="full"
               mt={6}

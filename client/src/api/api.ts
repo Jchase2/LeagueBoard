@@ -18,21 +18,23 @@ export const signUp = async (form: IUser) => {
 };
 
 export const getVerifyInfo = async (regionId: number, summonerName: string) => {
-  return axios
+  let data : any= "";
+  await axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/register/verify" ||
-        "localhost:3000/register/verify",
+        "localhost:3001/register/verify",
       {
-        regionId,
-        summonerName,
+        regionId: regionId,
+        summonerName: summonerName,
       }
     )
-    .then((res: { data: any }) => res.data);
+    .then((res: { data: any }) => (data = res.data));
+  return data;
 };
 
 export const getRegions = async () => {
   return axios
-    .get(process.env.REACT_APP_BACKEND_URL + "/" || "localhost:3000/")
+    .get(process.env.REACT_APP_BACKEND_URL + "/" || "localhost:3001/")
     .then((res: { data: any }) => res.data);
 };
 
