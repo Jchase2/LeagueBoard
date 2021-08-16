@@ -6,7 +6,7 @@ import { Scrimmage } from './domain/Dashboard/Scrimmage/Scrimmage';
 function App() {
   return (
     <>
-    <SidebarWithHeader children />
+   
       <Router>
         <Switch>
           

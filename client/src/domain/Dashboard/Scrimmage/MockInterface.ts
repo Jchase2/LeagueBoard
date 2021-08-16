@@ -15,8 +15,8 @@ interface ITeam2 {
   teamName: string,
   players: IPlayer[]
 }
-interface IPlayer {
+export interface IPlayer {
   name: string,
-  rank: 'string',
+  rank: string,
   level: number
 }
