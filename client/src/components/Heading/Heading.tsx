@@ -268,6 +268,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           </Menu>
         </Flex>
       </HStack>
+      
     </Flex>
+
+    
   );
 };

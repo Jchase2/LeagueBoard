@@ -1,9 +1,11 @@
 import { Scrimmage } from '../../domain/Dashboard/Scrimmage/Scrimmage';
 import { EReduxActionTypes, IReduxBaseAction } from '../actions/ActionTypes';
+import { IScrimmage } from '../../interfaces/Scrimmage';
 
 
 // eslint-disable-next-line max-len
-const scrimmageReducer = (scrimmages: Scrimmage[] = [], action:IReduxBaseAction) => { // need to inialize state(holdings) , holdings is gunna be an array of objects, reducer returns the new state
+const scrimmageReducer = (scrimmages: IScrimmage[] = [], action:IReduxBaseAction) => { 
+  // need to inialize state(scrimmages) , scrimmages is gunna be an array of objects, reducer returns the new state
   switch (action.type) {
     case EReduxActionTypes.FETCH_UPCOMING_SCRIMMAGES:
       return action.payload;
