@@ -1,31 +1,22 @@
-import "./App.css";
-import SidebarWithHeader from "./components/Heading/Heading";
 import RegisterUser from "./domain/Register/RegisterUser";
-import VerificationComponent from "./domain/Register/VerificationComponent";
 import {
-  withRouter,
   BrowserRouter as Router,
   Route,
   Switch,
 } from "react-router-dom";
-import Champion from "./domain/Dashboard/Champion/Champion";
+import Login from "./domain/Login/Login";
+import index from "./pages";
+import VerificationComponent from "./domain/Register/VerificationComponent";
 
 function App() {
   return (
     <>
       <Router>
         <Switch>
-          <Route exact path="/">
-            <SidebarWithHeader children />
-            <Champion />
-          </Route>
-          <Route exact path="/signin" component={RegisterUser}></Route>
-          <Route exact path="/verify">
-            <VerificationComponent />
-          </Route>
-          <Route exact path="/scrim">
-            <VerificationComponent />
-          </Route>
+          <Route exact path="/" component={index}></Route>
+          <Route exact path="/signup" component={RegisterUser}></Route>
+          <Route exact path="/signin" component={Login}></Route>
+          <Route exact path="/verify" component={VerificationComponent}></Route>
         </Switch>
       </Router>
     </>

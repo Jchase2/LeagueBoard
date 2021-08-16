@@ -111,8 +111,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 <MenuItem>Settings</MenuItem>
               </Link>
               <MenuDivider />
+
+              {/* get accesToken from localStorage and conditionally render sign in or sign out, if sign out delete token from localstorage */}
+              {/* localStorage.getItem('accessToken') ? it exists : it doesn't */}
+              {/* localStorage.removeItem('accessToken') */}
               <Link href="/signin">
-                <MenuItem>Sign In</MenuItem>
+                <MenuItem>Sign In</MenuItem>                
               </Link>
             </MenuList>
           </Menu>

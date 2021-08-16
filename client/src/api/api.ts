@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IUser } from "../interfaces/User";
+import { IRegisterForm } from "../interfaces/RegisterForm";
 
 // Api file, for now all API calls will be handled from here.
 // If we end up with lots of different calls to the backend, we
@@ -7,12 +7,18 @@ import { IUser } from "../interfaces/User";
 
 // Post request to signup
 
-export const signUp = async (form: IUser) => {
+export const signUp = async (formData: IRegisterForm, puuid: string) => {
   return axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/register" ||
         "localhost:3000/register",
-      form
+      { 
+        email: formData.email, 
+        password: formData.password, 
+        regionid: formData.regionId,
+        summonerName: formData.summonerName,
+        puuid: puuid 
+      }
     )
     .then((res: { data: any }) => res.data);
 };
@@ -40,11 +46,10 @@ export const getRegions = async () => {
 
 // Post request to login
 
-export const signIn = async (form: IUser) => {
-  return;
-  axios
+export const signIn = async (form: any) => {
+  return axios
     .post(
-      process.env.REACT_APP_BACKEND_URL + "/login" || "localhost:3000/login",
+      process.env.REACT_APP_BACKEND_URL + "/login" || "localhost:3001/login",
       form
     )
     .then((res: { data: any }) => res.data);

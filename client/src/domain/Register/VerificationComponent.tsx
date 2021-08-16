@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router";
-import { getVerifyInfo } from "../../api/api";
+import { useLocation, useHistory } from "react-router";
+import { getVerifyInfo, signUp } from "../../api/api";
+import { ErrorShow } from "../../components/Error/ErrorShow";
 
 import {
   Flex,
@@ -9,29 +10,46 @@ import {
   Button,
   Image,
   useColorModeValue,
+  Heading,
 } from "@chakra-ui/react";
 
 const VerificationComponent = () => {
+  let history = useHistory();
   const [icon, setIcon] = useState<number>(0);
   const location: any = useLocation();
+  const [isError, setIsError] = useState<boolean>(true);
 
   const callFunc = async () => {
-    return getVerifyInfo(location.state.formdata.regionId, location.state.formdata.summonerName);
+    return getVerifyInfo(
+      location.state.formdata.regionId,
+      location.state.formdata.summonerName
+    );
   };
 
   useEffect(() => {
-    console.log('useeffect');
     callFunc().then((res) => {
-      console.log(res.iconid, 'xd');
-      setIcon(res.iconid);  
+      setIcon(res.iconid);
     });
   }, []);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(icon);
-    const data = await getVerifyInfo(location.state.formdata.regionId, location.state.formdata.summonerName);
+    const data = await getVerifyInfo(
+      location.state.formdata.regionId,
+      location.state.formdata.summonerName
+    );
     if (data.iconid !== icon) {
+      //register call api
+      signUp(location.state.formdata, data.puuid)
+        .then((res) => {
+          if (res.success) {
+            localStorage.setItem("accessToken", res.token);
+            history.push("/");
+          }
+        })
+        .catch((err) => {
+          setIsError(true);
+        });
     }
   };
 
@@ -44,6 +62,11 @@ const VerificationComponent = () => {
       bg={useColorModeValue("gray.100", "gray.900")}
     >
       <Image src="lol.svg" alt="Logo" mb={6} />
+      <ErrorShow
+        message={"Please change your League of Legends Icon and press verify."}
+        isClosed={isError}
+        setIsError={setIsError}
+      />
       <Box
         p={8}
         borderWidth={1}
@@ -53,10 +76,16 @@ const VerificationComponent = () => {
         bg={useColorModeValue("white", "gray.800")}
       >
         <Box textAlign="center">
-          <Text display="flex" flexWrap="wrap" justifyContent="center">
+          <Heading
+            as="h2"
+            size="1xl"
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="center"
+          >
             Please change your user icon on League of Legends, then press
             verify. After verifying, you may change it back.
-          </Text>
+          </Heading>
         </Box>
         <Box my={4}>
           <Text> Summoner Name: {location.state.formdata.summonerName} </Text>
