@@ -1,44 +1,52 @@
-import React from 'react'
-import { MockScrimmage } from './mockdata'
+import React, { useState } from 'react'
+import mockScrimmage from './mockdata'
 import { IScrimmage } from './MockInterface'
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, 
+import { Table, Thead, Tbody, Tr, Td, TableCaption, 
   Container, SimpleGrid} from "@chakra-ui/react"
 
 
-export const Scrimmage = (MockScrimmage:IScrimmage) => {
-  const data = MockScrimmage;
-  const team1 = data.teams.team1;
-  const team2 = data.teams.team2;
+export const Scrimmage = () => {
+  const [data, dataSet] = useState(mockScrimmage)
+  const team1 = data?.teams.team1;
+  const team2 = data?.teams.team2;
 
+  
+  
+  
   return (
+    data ?
     <div>
       <Container>
       <SimpleGrid columns={2} spacing={2}>
-      <Table variant="striped" colorScheme="teal">
+      <Table className="team1Table" variant="striped" colorScheme="teal">
           <TableCaption>{data.date} {data.time}</TableCaption>
           {
-            
-            <Tbody>
-            <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
-          </Tbody>
+          team1?.players.forEach(element => {
+            <Tbody >
+              <Tr key={element.name}>
+                 <Td>{element.name}</Td>
+                 <Td>{element.level}</Td>
+                 <Td>{element.rank}</Td>
+              </Tr>
+           </Tbody>
+          })
           }
-          
-
         </Table>
-        <Table variant="striped" colorScheme="teal">
+
+        <Table className="team2Table" variant="striped" colorScheme="teal">
           <TableCaption></TableCaption>
 
-          <Tbody>
-            <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
-          </Tbody>
+          {
+          team2?.players.forEach(element => {
+            <Tbody className="team2Table">
+              <Tr key={element.name}>
+                 <Td>{element.name}</Td>
+                 <Td>{element.level}</Td>
+                 <Td>{element.rank}</Td>
+              </Tr>
+           </Tbody>
+          })
+          }
 
         </Table>
       </SimpleGrid>
@@ -46,5 +54,6 @@ export const Scrimmage = (MockScrimmage:IScrimmage) => {
       </Container>
     
     </div>
+    : null
   );
 }

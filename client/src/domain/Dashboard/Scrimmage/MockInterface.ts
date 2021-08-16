@@ -1,6 +1,6 @@
 export interface IScrimmage {
-  date: Date,
-  time: TimeRanges,
+  date: string,
+  time: string,
   teams: {
     team1: ITeam1,
     team2: ITeam2
@@ -8,18 +8,15 @@ export interface IScrimmage {
 }
 
 interface ITeam1 {
-  name: string,
+  teamName: string,
   players: IPlayer[]
 }
 interface ITeam2 {
-  name: string,
+  teamName: string,
   players: IPlayer[]
 }
 interface IPlayer {
   name: string,
-  playInfo: IPlayerInfo[]
-}
-interface IPlayerInfo {
   rank: 'string',
   level: number
 }
