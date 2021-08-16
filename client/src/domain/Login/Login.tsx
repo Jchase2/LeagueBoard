@@ -24,7 +24,7 @@ const Login = () => {
     password: "",
   });
 
-  const [isError, setIsError] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();

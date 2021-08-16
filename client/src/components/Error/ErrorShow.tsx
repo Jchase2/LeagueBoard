@@ -19,26 +19,20 @@ export const ErrorShow = (props: Props) => {
         <Alert
           status="error"
           mb="10px"
-          align="center"
-          justifyContent="center"
           flexDirection="column"
+          minW="35vw"
           maxW="35vw"
           borderRadius="10px"
         >
           <AlertIcon />
-          <AlertTitle
-            mr={2}
-            display="flex"
-            flexWrap="wrap"
-            justifyContent="center"
-          >
+          <AlertTitle>
             {props.message}
           </AlertTitle>
           <CloseButton
             position="absolute"
             right="8px"
             top="8px"
-            onClick={() => props.setIsError(!props.isClosed)}
+            onClick={() => props.setIsError(false)}
           />
         </Alert>
       )}

@@ -17,7 +17,7 @@ const VerificationComponent = () => {
   let history = useHistory();
   const [icon, setIcon] = useState<number>(0);
   const location: any = useLocation();
-  const [isError, setIsError] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const callFunc = async () => {
     return getVerifyInfo(
@@ -43,6 +43,7 @@ const VerificationComponent = () => {
       signUp(location.state.formdata, data.puuid)
         .then((res) => {
           if (res.success) {
+            setIsError(false);
             localStorage.setItem("accessToken", res.token);
             history.push("/");
           }
