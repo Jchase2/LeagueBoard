@@ -41,7 +41,6 @@ const DonutGraph = ({team1, team2}:any) => {
             indexLabel: "{name}: {y}",
             yValueFormatString: "#,###'%'",
             dataPoints: [
-              { name: "Avg-kill-rate", y: 5 },
               { name: "lowest-kill-rate", y: 31 },
               { name: "highest-kill-rate", y: 40 }
             ]
