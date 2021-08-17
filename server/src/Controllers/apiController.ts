@@ -6,7 +6,6 @@ const { User } = require('../Models/user.model');
 const { Topic } = require('../Models/topic.model');
 import { getMatchesByPuuid, getMatchInfoByMatchId } from './utils';
 
-
 export const getRegions = async (req: Request, res: Response, next: Function) => {
   try {
     const regions = await Region.findAll({});
@@ -33,6 +32,16 @@ export const getRecentMatches = async (req: Request, res: Response, next: Functi
     next(err);
   }
 };
+
+export const getForumTopicById = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { topicid } = req.params;
+    const topic = await Topic.findByPk(topicid);
+    res.json(topic);
+  } catch (err) {
+    next(err);
+  }
+}
 
 export const getForumTopics = async (req: Request, res: Response, next: Function) => {
   try {

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IRegisterForm } from "../interfaces/RegisterForm";
+import { ITopic } from "../interfaces/Topics";
 
 // Api file, for now all API calls will be handled from here.
 // If we end up with lots of different calls to the backend, we
@@ -14,9 +15,9 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
     .post(
       baseURL + "/register" ||
         "localhost:3001/register",
-      { 
-        email: formData.email, 
-        password: formData.password, 
+      {
+        email: formData.email,
+        password: formData.password,
         regionid: formData.regionId,
         summonerName: formData.summonerName,
         puuid: puuid,
@@ -26,8 +27,17 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
     .then((res: { data: any }) => res.data);
 };
 
-export const getVerifyInfo = async (regionId: number, summonerName: string) => {
+// Post request to login
+export const signIn = async (form: any) => {
+  return axios
+    .post(
+      process.env.REACT_APP_BACKEND_URL + "/login" || "http://localhost:3001/login",
+      form
+    )
+    .then((res: { data: any }) => res.data);
+};
 
+export const getVerifyInfo = async (regionId: number, summonerName: string) => {
   let data : any= "";
   await axios
     .post(
@@ -48,9 +58,13 @@ export const getRegions = async () => {
     .then((res: { data: any }) => res.data);
 };
 
-// Post request to login
+export const getForumTopic = async (topicid: number) => {
+  return axios
+    .get(process.env.REACT_APP_BACKEND_URL + `/topics/${topicid}` || `http://localhost:3001/topics/${topicid}`)
+    .then((res: { data: any }) => res.data);
+};
 
-export const signIn = async (form: any) => {
+export const getForumTopics = async () => {
   return axios
     .post(
       baseURL + "/login" || "localhost:3001/login",
