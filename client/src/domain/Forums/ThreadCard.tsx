@@ -1,5 +1,4 @@
 import {
-  Text,
   Box,
   Link,
 } from "@chakra-ui/react";
@@ -22,8 +21,8 @@ const Forums = (props: Props) => {
         letterSpacing="wide"
         color="teal.600"
       >
-        <Link href={`/forums/${threadData.topicid}`}>
-          {threadData.title}
+        <Link href={`/forums/${props.topicid}`}>
+          {props.title}
         </Link>
       </Box>
       <Box
@@ -33,7 +32,7 @@ const Forums = (props: Props) => {
         fontSize="xs"
         textTransform="uppercase"
       >
-      By: {threadData.user}
+      By: {props.userid}
       </Box>
     </Box>
   );

@@ -7,7 +7,8 @@ import {
 import Login from "./domain/Login/Login";
 import index from "./pages";
 import VerificationComponent from "./domain/Register/VerificationComponent";
-import Forums from './domain/Forums/Forums';
+import Topics from './domain/Forums/Topics';
+import CreateTopic from './domain/Forums/CreateTopic';
 import Thread from './domain/Forums/Thread';
 
 
@@ -20,8 +21,9 @@ function App() {
           <Route exact path="/signup" component={RegisterUser}></Route>
           <Route exact path="/signin" component={Login}></Route>
           <Route exact path="/verify" component={VerificationComponent}></Route>
-          <Route exact path="/forums" component={Forums}></Route>
-          <Route exact path="/forums:id" component={Thread}></Route>
+          <Route exact path="/topics" component={Topics}></Route>
+          <Route exact path="/topics/create" component={CreateTopic}></Route>
+          <Route exact path="/topics:id" component={Thread}></Route>
 
         </Switch>
       </Router>

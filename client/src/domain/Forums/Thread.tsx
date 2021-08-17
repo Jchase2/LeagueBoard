@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, Box, Link } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 const Thread = () => {
   const [threadData, setThreadData] = useState({
     title: "A Default Title Title",

@@ -2,10 +2,10 @@ import { Flex, Box, useColorModeValue, Heading } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ThreadCard from "./ThreadCard";
 import { getForumTopics } from "../../api/api";
-import { IThread } from "../../interfaces/Forums";
+import { ITopic } from "../../interfaces/Topics";
 
-const Forums = () => {
-  const [threadArray, setThreadArray] = useState<IThread[]>([]);
+const Topics = () => {
+  const [threadArray, setThreadArray] = useState<ITopic[]>([]);
 
   useEffect(() => {
     getForumTopics().then((res) => {
@@ -24,9 +24,9 @@ const Forums = () => {
         <Heading>Forums</Heading>
       </Box>
 
-      <Box>{threadArray.map((thread) => <ThreadCard title={thread.title} id={thread.id} text={thread.text}/>)}</Box>
+      <Box>{threadArray.map((thread) => <ThreadCard title={thread.title} text={thread.text}/>)}</Box>
     </Flex>
   );
 };
 
-export default Forums;
+export default Topics;
