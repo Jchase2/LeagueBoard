@@ -13,6 +13,7 @@ import {
   Image,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { ErrorShow } from "../../components/Error/ErrorShow";
 
 const RegisterUser = () => {
   let history = useHistory();
@@ -23,16 +24,13 @@ const RegisterUser = () => {
     regionId: 0,
     summonerName: "",
   });
-  const [error, setError] = useState<string>("");
+  const [isError, setIsError] = useState<boolean>(false);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setFormData({ ...formData, password: "", confirmPassword: "" });
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-      return setError("Passwords do not match");
+      return setIsError(true);
     }
     history.push({
       pathname: "/verify",
@@ -53,6 +51,11 @@ const RegisterUser = () => {
       bg={useColorModeValue("gray.100", "gray.900")}
     >
       <Image src="lol.svg" alt="Logo" mb={6} mt={6} />
+      <ErrorShow
+        message={"Password and confirm password are not the same."}
+        isClosed={isError}
+        setIsError={setIsError}
+      />
       <Box
         p={8}
         borderWidth={1}
@@ -126,7 +129,6 @@ const RegisterUser = () => {
             >
               Register
             </Button>
-            {error && <span className="error-message">{error}</span>}
           </form>
         </Box>
       </Box>

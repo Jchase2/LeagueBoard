@@ -3,7 +3,6 @@ import { useLocation, useHistory } from "react-router";
 import { getVerifyInfo, signUp } from "../../api/api";
 import { ErrorShow } from "../../components/Error/ErrorShow";
 
-
 import {
   Flex,
   Box,
@@ -18,10 +17,9 @@ const VerificationComponent = () => {
   let history = useHistory();
   const [icon, setIcon] = useState<number>(0);
   const location: any = useLocation();
-  const [isError, setIsError] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const callFunc = async () => {
-    console.log("Location log: ", location.state.formdata.regionId)
     return getVerifyInfo(
       location.state.formdata.regionId,
       location.state.formdata.summonerName
@@ -36,20 +34,20 @@ const VerificationComponent = () => {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
     const data = await getVerifyInfo(
       location.state.formdata.regionId,
       location.state.formdata.summonerName
     );
-    console.log(data.iconid)
     if (data.iconid !== icon) {
       //register call api
       signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {
-        if(res.success){
+        if (res.success) {
           localStorage.setItem("accessToken", res.token);
           history.push("/");
         }
       });
-    }
+    } else setIsError(true);
   };
 
   return (

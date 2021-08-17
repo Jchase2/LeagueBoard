@@ -72,7 +72,6 @@ export const login = async (req: Request, res: Response, next: Function) => {
   try {
     let user: any = await User.findOne({
       where: { email: email },
-      attributes: ["password"],
     });
 
     if (!user) {
@@ -84,7 +83,7 @@ export const login = async (req: Request, res: Response, next: Function) => {
       return next(new Error("Invalid email or password"));
     }
 
-    //user = await getSummonerByPuuid(user.puuid, user.regionid);
+    user.password = "";
     sendToken(user, 200, res);
   } catch (error) {
     next(error);
