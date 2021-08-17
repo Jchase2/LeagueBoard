@@ -22,7 +22,7 @@ const VerificationComponent = () => {
   const callFunc = async () => {
     return getVerifyInfo(
       location.state.formdata.regionId,
-      location.state.formdata.summonerName
+      location.state.formdata.summoner_name
     );
   };
 
@@ -37,7 +37,7 @@ const VerificationComponent = () => {
 
     const data = await getVerifyInfo(
       location.state.formdata.regionId,
-      location.state.formdata.summonerName
+      location.state.formdata.summoner_name
     );
     console.log(data.iconid, icon)
      console.log(location.state.formdata,);
@@ -87,7 +87,7 @@ const VerificationComponent = () => {
           </Heading>
         </Box>
         <Box my={4}>
-          <Text> Summoner Name: {location.state.formdata.summonerName} </Text>
+          <Text> Summoner Name: {location.state.formdata.summoner_name} </Text>
           <Text> Region Id: {location.state.formdata.regionId} </Text>
           <form onSubmit={handleSubmit}>
             <Button

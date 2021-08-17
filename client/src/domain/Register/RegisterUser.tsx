@@ -22,7 +22,7 @@ const RegisterUser = () => {
     password: "",
     confirmPassword: "",
     regionId: 0,
-    summonerName: "",
+    summoner_name: "",
   });
   const [isError, setIsError] = useState<boolean>(false);
 
@@ -75,8 +75,8 @@ const RegisterUser = () => {
                 <FormLabel> Summoner name </FormLabel>
                 <Input
                   type="text"
-                  name="summonerName"
-                  value={formData.summonerName || ""}
+                  name="summoner_name"
+                  value={formData.summoner_name || ""}
                   size="lg"
                   onChange={handleChange}
                 />
