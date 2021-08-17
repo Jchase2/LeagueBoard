@@ -19,18 +19,18 @@ export const Login = (form: IUser, history: any) => async (dispatch: (arg: { typ
   }
 };
 
-export const Register = (form: IUser, history: string[]) => async (dispatch: (arg: { type: string; data: IHeaderUserToHome; }) => void) => {
-  try {
-    // use signUp here
-    const { data } = await signUp(form);
+// export const Register = (form: IUser, history: string[]) => async (dispatch: (arg: { type: string; data: IHeaderUserToHome; }) => void) => {
+//   try {
+//     // use signUp here
+//     const { data } = await signUp(form);
 
-    dispatch({
-      type: EReduxActionTypes.AUTHENTICATE,
-      data,
-    });
+//     dispatch({
+//       type: EReduxActionTypes.AUTHENTICATE,
+//       data,
+//     });
 
-    history.push('/');
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     history.push('/');
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

@@ -3,14 +3,17 @@ import { Table, Column, Model, CreatedAt, UpdatedAt, DataType, PrimaryKey } from
 @Table
 export class Region extends Model {
 
-  @PrimaryKey
   @Column
-  id!: number;
+  code!: string;
 
   @Column
   name!: string;
 
+  @Column
+  region!: string;
+
   @CreatedAt
   @Column
   created_at!: Date;
+  
 }

@@ -3,10 +3,6 @@ import { Table, Column, Model, CreatedAt, UpdatedAt, DataType, PrimaryKey } from
 @Table
 export class Topic extends Model {
 
-  @PrimaryKey
-  @Column
-  id!: number;
-
   @Column
   title!: string;
 
@@ -18,6 +14,9 @@ export class Topic extends Model {
 
   @Column
   parentid!: number;
+
+  @Column
+  closed!: boolean;
 
   @CreatedAt
   @Column
