@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router";
-import { getVerifyInfo, signUp } from "../../api/api";
+import { getVerifyInfo, signUp } from "../../api/backendApi";
 import { ErrorShow } from "../../components/Error/ErrorShow";
 
 import {
