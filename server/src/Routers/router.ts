@@ -1,7 +1,7 @@
 const Router = require('express').Router;
 const router = Router();
 import {register, verify, login} from '../Controllers/authController';
-import {getRegions, getForumTopics, postForumTopic} from '../Controllers/apiController';
+import {getRegions, getRecentMatches, getForumTopics, postForumTopic} from '../Controllers/apiController';
 import {protect} from '../Middleware/auth.middleware';
 
 
@@ -14,5 +14,6 @@ router.get('/topics', getForumTopics)
 
 //private
 router.get('/regions', getRegions);
+router.get('/matches/:puuid', getRecentMatches);
 
 module.exports = router;

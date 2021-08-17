@@ -12,7 +12,7 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
   return axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/register" ||
-        "http://localhost:3000/register",
+        "localhost:3001/register",
       {
         email: formData.email,
         password: formData.password,
