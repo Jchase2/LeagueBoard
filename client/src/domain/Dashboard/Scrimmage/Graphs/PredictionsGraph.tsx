@@ -2,7 +2,7 @@ import React from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
 
 
-const PredictionsGraph = ({team1:any, team2:any}) => {
+const PredictionsGraph = ({team1, team2}) => {
   return (
     <div>
       <CanvasJSChart

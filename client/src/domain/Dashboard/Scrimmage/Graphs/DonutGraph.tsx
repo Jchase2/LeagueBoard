@@ -1,9 +1,6 @@
 import React, {useEffect} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
 
-
-
-
 const DonutGraph = ({team1, team2}:any) => {
 
   useEffect(() => {
