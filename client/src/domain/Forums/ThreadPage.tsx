@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Button, Link } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces/Topics";
 import { getForumTopic } from "../../api/api";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 const ThreadPage = () => {
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -27,13 +27,9 @@ const ThreadPage = () => {
     });
   }, []);
 
+  let history = useHistory();
   return (
-    <Flex
-      minH="100vh"
-      align="center"
-      flexDirection="column"
-      m={2}
-    >
+    <Flex minH="100vh" align="center" flexDirection="column" m={2}>
       <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg">
         <Box
           fontWeight="bold"
@@ -54,9 +50,15 @@ const ThreadPage = () => {
           {/* Need to replace this with username */}
           By: {threadData.id}
         </Box>
-        <Box border="1px" borderRadius="1g" p={2} m={2} color="gray.500">
+        <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
           <Text>{threadData.text}</Text>
         </Box>
+        <Button onClick={() => history.push("/topics")} m={1}>
+          Back
+        </Button>
+        <Button onClick={() => history.push("/topics/create")} m={1}>
+          Reply
+        </Button>
       </Box>
     </Flex>
   );

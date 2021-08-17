@@ -7,13 +7,12 @@ import { Props } from "framer-motion/types/types";
 const Forums = (props: Props) => {
 
   return (
-    <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg">
+    <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" m={2}>
       <Box
         fontWeight="bold"
         textTransform="uppercase"
         fontSize="sm"
         letterSpacing="wide"
-        color="teal.600"
       >
         <Link href={`/topics/${props.topicid}`}>
           {props.title}
@@ -25,6 +24,7 @@ const Forums = (props: Props) => {
         letterSpacing="wide"
         fontSize="xs"
         textTransform="uppercase"
+        borderRadius="lg"
       >
         {/* Note, user doesn't exist yet. We'll replace userid with user here when we have access to it.*/}
         By: {String(props.userid)}

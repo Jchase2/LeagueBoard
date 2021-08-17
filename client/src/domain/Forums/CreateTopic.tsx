@@ -1,6 +1,7 @@
 import { Input, FormControl, FormLabel, Button, Flex, Textarea } from "@chakra-ui/react";
 import { createTopic } from "../../api/api";
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 const CreateTopic = () => {
   const [topicData, setTopicData] = useState({
@@ -10,11 +11,18 @@ const CreateTopic = () => {
     closed: false,
   });
 
+  let history = useHistory();
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    createTopic(topicData).then(resp => {
-      console.log(resp)
-    })
+    try {
+      createTopic(topicData).then(resp => {
+        console.log("Successfully created topic.")
+        history.push(`/topics/${resp.id}`)
+      })
+    } catch (error) {
+      alert("Something went wrong when creating your topic, please try again!")
+      console.log(error)
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,6 +57,9 @@ const CreateTopic = () => {
           />
           <Button type="submit" m={1}>
             Create
+          </Button>
+          <Button onClick={() => history.push('/topics')} m={1}>
+            Cancel
           </Button>
         </FormControl>
       </form>
