@@ -3,14 +3,8 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
-import { useState } from "react";
 
 const Forums = (props: Props) => {
-  const [threadData, setThreadData] = useState({
-    title: "A Default Title Title",
-    user: "DefaultUser",
-    topicid: 1,
-  });
 
   return (
     <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg">
@@ -21,7 +15,7 @@ const Forums = (props: Props) => {
         letterSpacing="wide"
         color="teal.600"
       >
-        <Link href={`/forums/${props.topicid}`}>
+        <Link href={`/topics/${props.topicid}`}>
           {props.title}
         </Link>
       </Box>
@@ -32,7 +26,8 @@ const Forums = (props: Props) => {
         fontSize="xs"
         textTransform="uppercase"
       >
-      By: {props.userid}
+        {/* Note, user doesn't exist yet. We'll replace userid with user here when we have access to it.*/}
+        By: {String(props.userid)}
       </Box>
     </Box>
   );

@@ -33,6 +33,16 @@ export const getRecentMatches = async (req: Request, res: Response, next: Functi
   }
 };
 
+export const getForumTopicById = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { topicid } = req.params;
+    const topic = await Topic.findByPk(topicid);
+    res.json(topic);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export const getForumTopics = async (req: Request, res: Response, next: Function) => {
   try {
     const topics = await Topic.findAll({});

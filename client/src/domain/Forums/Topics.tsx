@@ -2,10 +2,10 @@ import { Flex, Box, useColorModeValue, Heading } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ThreadCard from "./ThreadCard";
 import { getForumTopics } from "../../api/api";
-import { ITopic } from "../../interfaces/Topics";
+import { ITopicResp } from "../../interfaces/Topics";
 
 const Topics = () => {
-  const [threadArray, setThreadArray] = useState<ITopic[]>([]);
+  const [threadArray, setThreadArray] = useState<ITopicResp[]>([]);
 
   useEffect(() => {
     getForumTopics().then((res) => {
@@ -23,8 +23,7 @@ const Topics = () => {
       <Box textAlign="center">
         <Heading>Forums</Heading>
       </Box>
-
-      <Box>{threadArray.map((thread) => <ThreadCard title={thread.title} text={thread.text}/>)}</Box>
+      <Box>{threadArray.map((thread) => <ThreadCard key={thread.title} userid={thread.userid} topicid={thread.id} title={thread.title} text={thread.text}/>)}</Box>
     </Flex>
   );
 };

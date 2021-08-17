@@ -56,6 +56,12 @@ export const getRegions = async () => {
     .then((res: { data: any }) => res.data);
 };
 
+export const getForumTopic = async (topicid: number) => {
+  return axios
+    .get(process.env.REACT_APP_BACKEND_URL + `/topics/${topicid}` || `http://localhost:3001/topics/${topicid}`)
+    .then((res: { data: any }) => res.data);
+};
+
 export const getForumTopics = async () => {
   return axios
     .get(process.env.REACT_APP_BACKEND_URL + "/topics" || "http://localhost:3001/topics")

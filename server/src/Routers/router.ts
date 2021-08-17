@@ -1,7 +1,7 @@
 const Router = require('express').Router;
 const router = Router();
 import {register, verify, login} from '../Controllers/authController';
-import {getRegions, getRecentMatches, getForumTopics, postForumTopic} from '../Controllers/apiController';
+import {getRegions, getRecentMatches, getForumTopics, postForumTopic, getForumTopicById} from '../Controllers/apiController';
 import {protect} from '../Middleware/auth.middleware';
 
 
@@ -11,6 +11,8 @@ router.post('/register/verify', verify);
 router.post('/login', login);
 router.post('/topics', postForumTopic)
 router.get('/topics', getForumTopics)
+router.get('/topics/:topicid', getForumTopicById)
+
 
 //private
 router.get('/regions', getRegions);

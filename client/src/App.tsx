@@ -9,7 +9,7 @@ import index from "./pages";
 import VerificationComponent from "./domain/Register/VerificationComponent";
 import Topics from './domain/Forums/Topics';
 import CreateTopic from './domain/Forums/CreateTopic';
-import Thread from './domain/Forums/Thread';
+import ThreadPage from './domain/Forums/ThreadPage';
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
           <Route exact path="/verify" component={VerificationComponent}></Route>
           <Route exact path="/topics" component={Topics}></Route>
           <Route exact path="/topics/create" component={CreateTopic}></Route>
-          <Route exact path="/topics:id" component={Thread}></Route>
+          <Route exact path="/topics/:id" component={ThreadPage}></Route>
 
         </Switch>
       </Router>
