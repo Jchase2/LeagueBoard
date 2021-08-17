@@ -1,46 +1,108 @@
 import { useState, useEffect } from "react";
-import { getVerifyInfo } from '../../api/backendApi';
+import { useLocation, useHistory } from "react-router";
+import { getVerifyInfo, signUp } from "../../api/backendApi";
+import { ErrorShow } from "../../components/Error/ErrorShow";
 
-// Declaring type of props - see "Typing Component Props" for more examples
-type RegisterUserProps = {
-  regionId: number;
-  summonerName: string;
-};
+import {
+  Flex,
+  Box,
+  Text,
+  Button,
+  Image,
+  useColorModeValue,
+  Heading,
+} from "@chakra-ui/react";
 
-const VerificationComponent = (props: RegisterUserProps) => {
-  const [iconLinkArr, setIconLinkArr] = useState<string[]>([]);
+const VerificationComponent = () => {
+  let history = useHistory();
+  const [icon, setIcon] = useState<number>(0);
+  const location: any = useLocation();
+  const [isError, setIsError] = useState<boolean>(false);
 
-
-//COME FROM RegisterScreen
-//props --> {signup fields}
-//Enter this component call verifyInfo with Summoner and RegionId
-//verifyInfo returns ---> iconId and the puuid.
-//puuid needs to be added to signup fields
-// iconId added to the setIconLink
-
-//Ask user to change icon, when button clicked call verifyInfo again and add iconId to iconLink.
-//Check if iconLink[0] === iconLink[1] and iconLink[0] !== defaultIconId
-//if true call signup request
-//else  cancel thesis
-//if icon is already the default, repeat register and change icon before registering
+  const callFunc = async () => {
+    return getVerifyInfo(
+      location.state.formdata.regionId,
+      location.state.formdata.summonerName
+    );
+  };
 
   useEffect(() => {
-    getVerifyInfo(props.regionId, props.summonerName).then((res) => {
-      if(res.status === 200){
-        setIconLinkArr([...iconLinkArr, res.iconId])
-      }
+    callFunc().then((res) => {
+      setIcon(res.iconid);
     });
-  });
+  }, []);
 
-
-
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
+    const data = await getVerifyInfo(
+      location.state.formdata.regionId,
+      location.state.formdata.summonerName
+    );
+    console.log(data.iconid, icon)
+     console.log(location.state.formdata,);
+    if (data.iconid !== icon) {
+      //register call api
+      signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {
+        if (res.success) {
+          localStorage.setItem("accessToken", res.token);
+          history.push("/");
+        }
+      });
+    } else setIsError(true);
   };
 
   return (
-    <p></p>
+    <Flex
+      minH="100vh"
+      align="center"
+      justifyContent="center"
+      flexDirection="column"
+      bg={useColorModeValue("gray.100", "gray.900")}
+    >
+      <Image src="lol.svg" alt="Logo" mb={6} />
+      <ErrorShow
+        message={"Please change your League of Legends Icon and press verify."}
+        isClosed={isError}
+        setIsError={setIsError}
+      />
+      <Box
+        p={8}
+        borderWidth={1}
+        borderRadius={8}
+        boxShadow="lg"
+        minW="35vw"
+        bg={useColorModeValue("white", "gray.800")}
+      >
+        <Box textAlign="center">
+          <Heading
+            as="h2"
+            size="1xl"
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="center"
+          >
+            Please change your user icon on League of Legends, then press
+            verify. After verifying, you may change it back.
+          </Heading>
+        </Box>
+        <Box my={4}>
+          <Text> Summoner Name: {location.state.formdata.summonerName} </Text>
+          <Text> Region Id: {location.state.formdata.regionId} </Text>
+          <form onSubmit={handleSubmit}>
+            <Button
+              variantcolor="teal"
+              variant="outline"
+              width="full"
+              mt={6}
+              type="submit"
+            >
+              Verify
+            </Button>
+          </form>
+        </Box>
+      </Box>
+    </Flex>
   );
 };
 

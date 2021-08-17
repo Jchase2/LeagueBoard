@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { sequelize } from './Models/index';
 import { Region } from './Models/region.model';
-import { regionsNames, regionsCode } from './Utils/mockData/regionMock';
+import { regionsNames, regionsCode, regions } from './Utils/mockData/regionMock';
 const errorHandler = require('./middleware/error');
 const router = require('./Routers/router');
 
@@ -18,9 +18,9 @@ app.use(errorHandler);
 
 
 (async () => {
-  await sequelize.sync({ force: true }).then(() => {
-    regionsCode.forEach((region:string, i: number) => {
-      Region.create({code: region, name: regionsNames[i]});  
+  await sequelize.sync({ alter: true }).then(() => {
+    regionsCode.forEach((regionCode:string, i: number) => {
+      Region.create({code: regionCode, name: regionsNames[i], region: regions[i] });  
     });
   });
   sequelize
