@@ -7,8 +7,8 @@ const header = {
   'Origin': `https://developer.riotgames.com`
 }
 
-export const getSummonerByNameAndRegion = async (summonerName: string, region: string) => {
-  const url = `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}`;
+export const getSummonerByNameAndRegion = async (summoner_name: string, region: string) => {
+  const url = `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner_name}`;
   
   const { data } = await axios.get(url, {
     headers: header

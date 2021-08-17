@@ -104,7 +104,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         spacing="1px"
                         ml="2"
                       >
-                        <Text fontSize="md">{`${decoded.user.summonerName}`}</Text>
+                        <Text fontSize="md">{`${decoded.user.summoner_name}`}</Text>
                         <Text fontSize="xs" color="gray.300">
                           {regionName}
                         </Text>
