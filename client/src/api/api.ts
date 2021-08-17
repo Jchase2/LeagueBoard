@@ -26,8 +26,6 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
 };
 
 export const getVerifyInfo = async (regionId: number, summoner_name: string) => {
-
-export const getVerifyInfo = async (regionId: number, summonerName: string) => {
   let data : any= "";
   await axios
     .post(
@@ -71,6 +69,16 @@ export const createTopic = async (formData: ITopic) => {
         "userid": formData.userid,
         "closed": formData.closed
       }
+    )
+    .then((res: { data: any }) => res.data);
+};
+
+// Post request to login
+export const signIn = async (form: any) => {
+  return axios
+    .post(
+      process.env.REACT_APP_BACKEND_URL + "/login" || "localhost:3001/login",
+      form
     )
     .then((res: { data: any }) => res.data);
 };
