@@ -29,7 +29,7 @@ const DonutGraph = ({team1, team2}:any) => {
             fontColor: "#b5b5c6",
 	        },
           subtitles: [{
-            text: "71% Positive",
+            text: "Kill Rate",
             verticalAlign: "center",
             fontSize: 24,
             dockInsidePlotArea: true
@@ -38,15 +38,12 @@ const DonutGraph = ({team1, team2}:any) => {
           backgroundColor: "#ffffff",
           data: [{
             type: "doughnut",
-            showInLegend: true,
             indexLabel: "{name}: {y}",
             yValueFormatString: "#,###'%'",
             dataPoints: [
-              { name: "Unsatisfied", y: 5 },
-              { name: "Very Unsatisfied", y: 31 },
-              { name: "Very Satisfied", y: 40 },
-              { name: "Satisfied", y: 17 },
-              { name: "Neutral", y: 7 }
+              { name: "Avg-kill-rate", y: 5 },
+              { name: "lowest-kill-rate", y: 31 },
+              { name: "highest-kill-rate", y: 40 }
             ]
           }]
         } }
