@@ -48,7 +48,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => (
       marginTop="10px"
       marginBottom="10px"
     >
-      <Image src="lol.svg" alt="Logo" />
+      <Image src="/lol.svg" alt="Logo" />
       <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
     </Flex>
     {LinkItems.map((link) => (
