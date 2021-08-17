@@ -1,27 +1,34 @@
 import React, {useEffect, useState} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
-import { getRecentMatches } from '../../../../api/backendApi';
+//import { getRecentMatches } from '../../../../api/backendApi';
 import { useSelector } from 'react-redux';
 
 const DonutGraph = ({team1, team2}:any) => {
   const [userHistory, setUserHistory] = useState<any[]>([])
 
-  const { matches } = useSelector((state: any[]) => state.userMatches);
-
+  const matches = useSelector((state: any[]) => state?.userMatches);
+  console.log(matches);
 
   useEffect(() => {
     const getUserHistoy = async () => {
-      let userMatches: any[] = await Promise.all(matches);
+      let userMatches: any[] = await Promise?.all(matches);
       //const userMatches = await getRecentMatches();
       
       console.log(JSON.stringify(userHistory));
       
       
-      console.log(userMatches);
+      //console.log(matches);
       
       setUserHistory(userMatches);
+      //let user = await Promise.all(getRecentMatches);
+     
+      //console.log(JSON.stringify(user));
+      
     }
     getUserHistoy();
+
+    
+
   }, [matches, userHistory]);
   
   
