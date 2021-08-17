@@ -51,13 +51,28 @@ export const getForumTopics = async (req: Request, res: Response, next: Function
   }
 };
 
+export const getForumComments = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { parentid } = req.params;
+    console.log("topicid: ", parentid)
+    const topics = await Topic.findAll({
+      where: {
+        parentid: parentid
+      }
+    });
+    res.json(topics);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const postForumTopic = async (req: Request, res: Response, next: Function) => {
   try {
     const topics = await Topic.create({
       title: req.body.title,
       text: req.body.text,
       userid: req.body.userid,
-      parentid: req.body?.parentid,
+      parentid: req.body.parentid,
       closed: false,
     })
     res.status(201);
