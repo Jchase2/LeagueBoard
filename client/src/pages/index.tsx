@@ -1,10 +1,9 @@
 import SidebarWithHeader from "../components/Heading/Heading";
-import Champion from "../domain/Dashboard/Champion/Champion";
+import Layout from "../components/Profile/Layout";
 
 const index = () => {
   return <>
   <SidebarWithHeader />
-  <Champion />
   </>
 };
 
