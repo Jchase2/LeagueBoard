@@ -1,6 +1,8 @@
 require('dotenv').config();
 import { Response, Request } from 'express';
-const { Region, Topic } = require('../Models/region.model');
+const { Region } = require('../Models/region.model');
+const { Topic } = require('../Models/topic.model');
+
 
 
 export const getRegions = async (req: Request, res: Response, next: Function) => {
@@ -26,7 +28,7 @@ export const postForumTopic = async (req: Request, res: Response, next: Function
     const topics = await Topic.create({
       title: req.body.title,
       text: req.body.text,
-      userid: req.body.userId,
+      userid: req.body.userid,
       parentid: req.body?.parentid,
       closed: false,
     })
