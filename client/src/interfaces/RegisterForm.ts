@@ -3,5 +3,5 @@ export interface IRegisterForm {
   password: string;
   confirmPassword: string;
   regionId: number;
-  summonerName: string;
+  summoner_name: string;
 }

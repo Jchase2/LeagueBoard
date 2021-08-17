@@ -40,7 +40,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     }
   });
   const { toggleColorMode } = useColorMode();
-  const colors = useColorModeValue("grey.100", "grey.700");
+  const colors = useColorModeValue("grey.200", "grey.700");
   const SwitchIcon = useColorModeValue(FaSun, FaMoon);
   return (
     <>
@@ -49,7 +49,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         px={{ base: 4, md: 4 }}
         height="20"
         alignItems="center"
-        bg={useColorModeValue("grey.300", "gray.900")}
+        bg={useColorModeValue("white", "gray.900")}
         borderBottomWidth="1px"
         borderBottomColor={useColorModeValue("gray.200", "gray.700")}
         justifyContent={{ base: "space-between", md: "flex-end" }}
@@ -101,8 +101,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         spacing="1px"
                         ml="2"
                       >
-                        <Text fontSize="md">{`${decoded.user.summonerName}`}</Text>
-                        <Text fontSize="xs"   >
+                        <Text fontSize="md">{`${decoded.user.summoner_name}`}</Text>
+                        <Text fontSize="xs" color="gray.300">
                           {regionName}
                         </Text>
                       </VStack>

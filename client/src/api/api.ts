@@ -11,12 +11,12 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
   return axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/register" ||
-        "localhost:3000/register",
+        "localhost:3001/register",
       { 
         email: formData.email, 
         password: formData.password, 
         regionid: formData.regionId,
-        summonerName: formData.summonerName,
+        summoner_name: formData.summoner_name,
         puuid: puuid,
         iconid: iconid
       }
@@ -24,7 +24,7 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
     .then((res: { data: any }) => res.data);
 };
 
-export const getVerifyInfo = async (regionId: number, summonerName: string) => {
+export const getVerifyInfo = async (regionId: number, summoner_name: string) => {
 
   let data : any= "";
   await axios
@@ -33,7 +33,7 @@ export const getVerifyInfo = async (regionId: number, summonerName: string) => {
         "localhost:3001/register/verify",
       {
         regionId: regionId,
-        summonerName: summonerName,
+        summoner_name: summoner_name,
       }
     )
     .then((res: { data: any }) => (data = res.data));
