@@ -11,7 +11,7 @@ export class User extends Model {
   password!: string;
 
   @Column
-  summonerName!: string;
+  summoner_name!: string;
 
   @Column
   regionid!: number;

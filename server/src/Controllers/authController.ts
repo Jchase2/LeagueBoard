@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
 import { Region } from "../Models/region.model";
 import { User } from "../Models/user.model";
+import { sequelize } from '../Models/index'
 import { getSummonerByNameAndRegion, getSummonerByPuuid } from "./utils";
 
 const jwt = require("jsonwebtoken");
@@ -8,8 +9,12 @@ const bcrypt = require("bcryptjs");
 
 export const register = async (req: Request, res: Response, next: Function) => {
   try {
-    let { email, password, regionid, summonerName, puuid, iconid } = req.body;
+    let { email, password, regionid, summoner_name, puuid, iconid } = req.body;
 
+    let query: any = await sequelize.query(`SELECT id FROM public."Users" as U 
+      WHERE email = '${email}' OR (summoner_name = '${summoner_name}' AND regionid = '${regionid}');`);
+    
+    console.log(query);
     //validate email and summoner with region
 
     const salt = await bcrypt.genSalt(10);
@@ -19,7 +24,7 @@ export const register = async (req: Request, res: Response, next: Function) => {
       email,
       password,
       regionid,
-      summonerName,
+      summoner_name,
       puuid,
       iconid,
     });
@@ -32,7 +37,7 @@ export const register = async (req: Request, res: Response, next: Function) => {
 
 export const verify = async (req: Request, res: Response, next: Function) => {
   try {
-    let { regionId, summonerName } = req.body;
+    let { regionId, summoner_name } = req.body;
     //check regionId in db
     const region: any = await Region.findOne({
       where: { id: regionId },
@@ -46,7 +51,7 @@ export const verify = async (req: Request, res: Response, next: Function) => {
       });
     }
     //create api call to return iconId
-    const summoner = await getSummonerByNameAndRegion(summonerName, regionName);
+    const summoner = await getSummonerByNameAndRegion(summoner_name, regionName);
     if (!summoner) {
       return res.status(404).send({
         message: "summoner not found",
