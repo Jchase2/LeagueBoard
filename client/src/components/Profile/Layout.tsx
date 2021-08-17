@@ -5,7 +5,9 @@ interface Props {
 }
 
 const Layout = (props: Props) => {
-    return <Container>Hello</Container>;
+    return <Container>
+        
+    </Container>;
 }
 
 export default Layout

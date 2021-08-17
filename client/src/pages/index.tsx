@@ -4,6 +4,7 @@ import Layout from "../components/Profile/Layout";
 const index = () => {
   return <>
   <SidebarWithHeader />
+  <Layout />
   </>
 };
 
