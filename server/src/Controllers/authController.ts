@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { Region } from "../Models/region.model";
 import { User } from "../Models/user.model";
-import { sequelize } from '../Models/index'
+import { sequelize } from "../Models/index";
 import { getSummonerByNameAndRegion, getSummonerByPuuid } from "./utils";
 
 const jwt = require("jsonwebtoken");
@@ -62,7 +62,10 @@ export const verify = async (req: Request, res: Response, next: Function) => {
       });
     }
     //create api call to return iconId
-    const summoner = await getSummonerByNameAndRegion(summoner_name, regionName);
+    const summoner = await getSummonerByNameAndRegion(
+      summoner_name,
+      regionName
+    );
     if (!summoner) {
       return res.status(404).send({
         message: "summoner not found",
