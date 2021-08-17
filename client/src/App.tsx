@@ -8,6 +8,8 @@ import Login from "./domain/Login/Login";
 import index from "./pages";
 import VerificationComponent from "./domain/Register/VerificationComponent";
 import Forums from './domain/Forums/Forums';
+import Thread from './domain/Forums/Thread';
+
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route exact path="/signin" component={Login}></Route>
           <Route exact path="/verify" component={VerificationComponent}></Route>
           <Route exact path="/forums" component={Forums}></Route>
+          <Route exact path="/forums:id" component={Thread}></Route>
+
         </Switch>
       </Router>
     </>

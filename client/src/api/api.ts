@@ -12,9 +12,9 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
     .post(
       process.env.REACT_APP_BACKEND_URL + "/register" ||
         "localhost:3000/register",
-      { 
-        email: formData.email, 
-        password: formData.password, 
+      {
+        email: formData.email,
+        password: formData.password,
         regionid: formData.regionId,
         summonerName: formData.summonerName,
         puuid: puuid,
@@ -42,12 +42,17 @@ export const getVerifyInfo = async (regionId: number, summonerName: string) => {
 
 export const getRegions = async () => {
   return axios
-    .get(process.env.REACT_APP_BACKEND_URL + "/regions" || "localhost:3001/")
+    .get(process.env.REACT_APP_BACKEND_URL + "/regions" || "localhost:3001/regions")
+    .then((res: { data: any }) => res.data);
+};
+
+export const getForumTopics = async () => {
+  return axios
+    .get(process.env.REACT_APP_BACKEND_URL + "/topics" || "localhost:3001/topics")
     .then((res: { data: any }) => res.data);
 };
 
 // Post request to login
-
 export const signIn = async (form: any) => {
   return axios
     .post(

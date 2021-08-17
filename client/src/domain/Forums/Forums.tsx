@@ -1,7 +1,18 @@
-import { Flex, Box, Center, Text, useColorModeValue, Heading } from "@chakra-ui/react";
-import ThreadCard from './ThreadCard';
+import { Flex, Box, useColorModeValue, Heading } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import ThreadCard from "./ThreadCard";
+import { getForumTopics } from "../../api/api";
+import { IThread } from "../../interfaces/Forums";
 
 const Forums = () => {
+  const [threadArray, setThreadArray] = useState<IThread[]>([]);
+
+  useEffect(() => {
+    getForumTopics().then((res) => {
+      setThreadArray(res);
+    });
+  }, []);
+
   return (
     <Flex
       minH="100vh"
@@ -13,12 +24,9 @@ const Forums = () => {
         <Heading>Forums</Heading>
       </Box>
 
-    <Box>
-      <ThreadCard />
-    </Box>
-
+      <Box>{threadArray.map((thread) => <ThreadCard title={thread.title} id={thread.id} text={thread.text}/>)}</Box>
     </Flex>
-  )
+  );
 };
 
 export default Forums;
