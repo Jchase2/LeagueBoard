@@ -43,8 +43,14 @@ const VerificationComponent = () => {
      console.log(location.state.formdata,);
     if (data.iconid !== icon) {
       //register call api
+    
+      
+  
       signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {
         if (res.success) {
+          
+          console.log('hello');
+          
           localStorage.setItem("accessToken", res.token);
           history.push("/");
         }

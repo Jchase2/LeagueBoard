@@ -68,7 +68,21 @@ export const getForumTopics = async () => {
   return axios
     .post(
       baseURL + "/login" || "localhost:3001/login",
-      form
+    )
+    .then((res: { data: any }) => res.data);
+};
+
+export const createTopic = async (formData: ITopic) => {
+  return axios
+    .post(
+      baseURL + "/topics" ||
+        "http://localhost:3000/topics",
+      {
+        "title": formData.text,
+        "text": formData.text,
+        "userid": formData.userid,
+        "closed": formData.closed
+      }
     )
     .then((res: { data: any }) => res.data);
 };

@@ -1,5 +1,5 @@
 import { Input, FormControl, FormLabel, Button, Flex, Textarea } from "@chakra-ui/react";
-import { createTopic } from "../../api/api";
+import { createTopic } from "../../api/backendApi";
 import { useState } from "react";
 
 const CreateTopic = () => {

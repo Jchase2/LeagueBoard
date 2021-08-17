@@ -11,7 +11,8 @@ export const register = async (req: Request, res: Response, next: Function) => {
     let { email, password, regionid, summonerName, puuid, iconid } = req.body;
 
     //validate email and summoner with region
-
+    console.log("heloooo", email, password, regionid, summonerName, puuid, iconid );
+    
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
 
@@ -23,7 +24,8 @@ export const register = async (req: Request, res: Response, next: Function) => {
       puuid,
       iconid,
     });
-
+    console.log(user);
+    
     sendToken(user, 201, res);
   } catch (error) {
     next(error);

@@ -1,7 +1,7 @@
 import { Flex, Box, useColorModeValue, Heading } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ThreadCard from "./ThreadCard";
-import { getForumTopics } from "../../api/api";
+import { getForumTopics } from "../../api/backendApi";
 import { ITopicResp } from "../../interfaces/Topics";
 
 const Topics = () => {

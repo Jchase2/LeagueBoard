@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces/Topics";
-import { getForumTopic } from "../../api/api";
+import { getForumTopic } from "../../api/backendApi";
 import { useParams } from "react-router-dom";
 const ThreadPage = () => {
   const [threadData, setThreadData] = useState<ITopicResp>({
