@@ -9,7 +9,11 @@ export class Region extends Model {
   @Column
   name!: string;
 
+  @Column
+  region!: string;
+
   @CreatedAt
   @Column
   created_at!: Date;
+  
 }

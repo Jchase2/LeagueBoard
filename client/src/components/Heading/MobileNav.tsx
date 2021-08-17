@@ -40,10 +40,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       regionName = region.name;
     }
   });
-  console.log(decoded)
-  console.log(regions)
   const { toggleColorMode } = useColorMode();
-  const colors = useColorModeValue("grey.100", "grey.700");
+  const colors = useColorModeValue("grey.200", "grey.700");
   const SwitchIcon = useColorModeValue(FaSun, FaMoon);
   return (
     <>
@@ -52,7 +50,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         px={{ base: 4, md: 4 }}
         height="20"
         alignItems="center"
-        bg={useColorModeValue("#E8E8E8", "gray.900")}
+        bg={useColorModeValue("white", "gray.900")}
         borderBottomWidth="1px"
         borderBottomColor={useColorModeValue("gray.200", "gray.700")}
         justifyContent={{ base: "space-between", md: "flex-end" }}
@@ -120,7 +118,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   <>
                     <HStack>
                       <Avatar
-                        size={"sm"}
+                        size={"md"}
                         src={
                           "" //ICON FOR PLAYER
                         }
