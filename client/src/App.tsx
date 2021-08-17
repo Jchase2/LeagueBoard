@@ -7,6 +7,7 @@ import {
 import Login from "./domain/Login/Login";
 import index from "./pages";
 import VerificationComponent from "./domain/Register/VerificationComponent";
+import { Scrimmage } from "./domain/Dashboard/Scrimmage/Scrimmage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/signup" component={RegisterUser}></Route>
           <Route exact path="/signin" component={Login}></Route>
           <Route exact path="/verify" component={VerificationComponent}></Route>
+          <Route exact path="/scrim" component={Scrimmage}></Route>
         </Switch>
       </Router>
       

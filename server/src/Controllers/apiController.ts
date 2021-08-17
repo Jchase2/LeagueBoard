@@ -20,7 +20,7 @@ export const getRecentMatches = async (req: Request, res: Response, next: Functi
   try {
     let { puuid } = req.params;
     puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow';
-    const resArr: any = [];
+    const resArr: any[] = [];
     let query: any = await sequelize.query(`SELECT region FROM public."Users" as U LEFT JOIN public."Regions" as R on U.regionid = R.id WHERE puuid = '${puuid}';`);
     let region = query[0][0].region;
     const matches = await getMatchesByPuuid(puuid, region);

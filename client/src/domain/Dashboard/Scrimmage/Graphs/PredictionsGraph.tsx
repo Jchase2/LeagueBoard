@@ -3,6 +3,10 @@ import { CanvasJSChart } from 'canvasjs-react-charts';
 
 
 const PredictionsGraph = ({team1, team2}) => {
+ 
+ // const { holdings } = useSelector((state: any) => state.holdings);
+  
+ 
   return (
     <div>
       <CanvasJSChart
