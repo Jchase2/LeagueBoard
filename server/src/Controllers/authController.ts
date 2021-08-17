@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { Region } from "../Models/region.model";
 import { User } from "../Models/user.model";
-import { sequelize } from '../Models/index'
+import { sequelize } from "../Models/index";
 import { getSummonerByNameAndRegion, getSummonerByPuuid } from "./utils";
 
 const jwt = require("jsonwebtoken");
@@ -13,8 +13,6 @@ export const register = async (req: Request, res: Response, next: Function) => {
 
     let query: any = await sequelize.query(`SELECT id FROM public."Users" as U 
       WHERE email = '${email}' OR (summoner_name = '${summoner_name}' AND regionid = '${regionid}');`);
-    
-    console.log(query);
     //validate email and summoner with region
 
     const salt = await bcrypt.genSalt(10);
@@ -51,7 +49,10 @@ export const verify = async (req: Request, res: Response, next: Function) => {
       });
     }
     //create api call to return iconId
-    const summoner = await getSummonerByNameAndRegion(summoner_name, regionName);
+    const summoner = await getSummonerByNameAndRegion(
+      summoner_name,
+      regionName
+    );
     if (!summoner) {
       return res.status(404).send({
         message: "summoner not found",

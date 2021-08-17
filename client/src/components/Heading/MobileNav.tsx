@@ -102,7 +102,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         ml="2"
                       >
                         <Text fontSize="md">{`${decoded.user.summoner_name}`}</Text>
-                        <Text fontSize="xs" color="gray.300">
+                        <Text fontSize="xs">
                           {regionName}
                         </Text>
                       </VStack>
