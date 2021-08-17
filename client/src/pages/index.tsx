@@ -1,11 +1,14 @@
 import SidebarWithHeader from "../components/Heading/Heading";
-import Champion from "../domain/Dashboard/Champion/Champion";
+import Layout from "../domain/Profile/Layout";
 
 const index = () => {
-  return <>
-  <SidebarWithHeader />
-  <Champion />
-  </>
+  return (
+    <>
+      <SidebarWithHeader>
+        <Layout />
+      </SidebarWithHeader>
+    </>
+  );
 };
 
 export default index
