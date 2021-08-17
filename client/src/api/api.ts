@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IRegisterForm } from "../interfaces/RegisterForm";
 import { ITopic } from "../interfaces/Topics";
+import { IUser } from "../interfaces/User";
 
 // Api file, for now all API calls will be handled from here.
 // If we end up with lots of different calls to the backend, we
@@ -40,6 +41,8 @@ export const getVerifyInfo = async (regionId: number, summoner_name: string) => 
   return data;
 };
 
+
+
 export const getRegions = async () => {
   return axios
     .get(process.env.REACT_APP_BACKEND_URL + "/regions" || "http://localhost:3001/regions")
@@ -49,6 +52,12 @@ export const getRegions = async () => {
 export const getForumTopic = async (topicid: number) => {
   return axios
     .get(process.env.REACT_APP_BACKEND_URL + `/topics/${topicid}` || `http://localhost:3001/topics/${topicid}`)
+    .then((res: { data: any }) => res.data);
+};
+
+export const getForumComments = async (parentid: number) => {
+  return axios
+    .get(process.env.REACT_APP_BACKEND_URL + `/topics/comments/${parentid}` || "http://localhost:3001/topics")
     .then((res: { data: any }) => res.data);
 };
 
@@ -64,21 +73,21 @@ export const createTopic = async (formData: ITopic) => {
       process.env.REACT_APP_BACKEND_URL + "/topics" ||
         "http://localhost:3000/topics",
       {
-        "title": formData.text,
+        "title": formData.title,
         "text": formData.text,
         "userid": formData.userid,
-        "closed": formData.closed
+        "closed": formData.closed,
+        "parentid": formData.parentid
       }
     )
     .then((res: { data: any }) => res.data);
 };
 
 // Post request to login
-export const signIn = async (form: any) => {
-  return axios
-    .post(
-      process.env.REACT_APP_BACKEND_URL + "/login" || "localhost:3001/login",
-      form
-    )
-    .then((res: { data: any }) => res.data);
-};
+export const signIn = async (form: IUser) => {
+  return (
+    await axios
+      .post(process.env.REACT_APP_BACKEND_URL + '/login' || 'localhost:3000/login', form)
+      .then((res: { data: any; }) => res.data)
+  );
+}

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { Box, Flex, Text, Button, Link } from "@chakra-ui/react";
+import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces/Topics";
-import { getForumTopic } from "../../api/api";
+import { getForumComments, getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
 import SidebarWithHeader from "../../components/Heading/Heading";
+import Comment from "./Comment";
+
 const ThreadPage = () => {
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -16,26 +18,30 @@ const ThreadPage = () => {
     created_at: "",
     updated_at: "",
   });
-
   const [isReply, setIsReply] = useState(false);
+  const [commentsArray, setCommentsArray] = useState<ITopicResp[]>([]);
 
   type urlParams = {
     id: string;
   };
 
+  const updateComments = () => {
+    getForumComments(+id).then((res) => {
+      setCommentsArray(res);
+    });
+  };
+
   let { id } = useParams<urlParams>();
   useEffect(() => {
-    console.log("Threadid: ", id);
-    getForumTopic(Number(id)).then((res) => {
+    getForumTopic(+id).then((res) => {
       setThreadData(res);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    updateComments();
   }, []);
 
   let history = useHistory();
   return (
-    <>
-      <SidebarWithHeader />
+    <SidebarWithHeader>
       <Flex minH="100vh" align="center" flexDirection="column" m={2}>
         <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px">
           <Box
@@ -55,12 +61,18 @@ const ThreadPage = () => {
             textTransform="uppercase"
           >
             {/* Need to replace this with username */}
-            By: {threadData.id}
+            By: {threadData.userid}
           </Box>
           <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
             <Text>{threadData.text}</Text>
           </Box>
-          {isReply ? <ReplyTopic setIsReply={setIsReply} /> : null}
+          {isReply ? (
+            <ReplyTopic
+              setIsReply={setIsReply}
+              topicid={id}
+              updateComments={updateComments}
+            />
+          ) : null}
           {!isReply ? (
             <Button onClick={() => setIsReply(true)} m={1}>
               Reply
@@ -70,8 +82,20 @@ const ThreadPage = () => {
             Back
           </Button>
         </Box>
+        <Box>
+          {commentsArray.map((thread) => (
+            <>
+              {thread.parentid === +id ? (
+                <>
+                  {console.log("Thread: ", thread)}
+                  <Comment id={thread.id} />
+                </>
+              ) : null}
+            </>
+          ))}
+        </Box>
       </Flex>
-    </>
+    </SidebarWithHeader>
   );
 };
 

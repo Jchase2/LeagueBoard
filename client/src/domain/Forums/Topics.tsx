@@ -1,10 +1,4 @@
-import {
-  Flex,
-  Box,
-  useColorModeValue,
-  Heading,
-  Button,
-} from "@chakra-ui/react";
+import { Flex, Box, Heading, Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import ThreadCard from "./ThreadCard";
@@ -33,13 +27,18 @@ const Topics = () => {
             New Thread
           </Button>
           {threadArray.map((thread) => (
-            <ThreadCard
-              key={thread.title}
-              userid={thread.userid}
-              topicid={thread.id}
-              title={thread.title}
-              text={thread.text}
-            />
+            <>
+              {console.log(thread)}
+              {!(thread.parentid >= 1) ? (
+                <ThreadCard
+                  key={thread.title}
+                  userid={thread.userid}
+                  topicid={thread.id}
+                  title={thread.title}
+                  text={thread.text}
+                />
+              ) : null}
+            </>
           ))}
         </Box>
       </Flex>

@@ -17,6 +17,7 @@ const CreateTopic = () => {
     title: "",
     text: "",
     closed: false,
+    parentid: 0
   });
 
   let history = useHistory();

@@ -1,35 +1,47 @@
-import { Input, FormControl, FormLabel, Button, Flex, Textarea } from "@chakra-ui/react";
+import {
+  Input,
+  FormControl,
+  FormLabel,
+  Button,
+  Flex,
+  Textarea,
+} from "@chakra-ui/react";
 import { createTopic } from "../../api/api";
 import { useState } from "react";
-import { useHistory } from "react-router";
 import { Props } from "framer-motion/types/types";
 
 interface myProps extends Props {
-  setIsReply: Function
+  setIsReply: Function;
 }
 
 const ReplyTopic = (props: myProps) => {
   const [topicData, setTopicData] = useState({
+    parentid: Number(props.topicid),
     userid: 1,
     title: "",
     text: "",
     closed: false,
   });
 
-  let history = useHistory();
   const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      createTopic(topicData).then(resp => {
-        console.log("Successfully created reply.")
-      })
+      createTopic(topicData).then((resp) => {
+        props.setIsReply(false);
+        props.updateComments();
+        console.log("Successfully created reply.");
+      });
     } catch (error) {
-      alert("Something went wrong when creating your reply, please try again!")
-      console.log(error)
+      alert("Something went wrong when creating your reply, please try again!");
+      console.log(error);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setTopicData({
       ...topicData,
       [e.currentTarget.name]: e.currentTarget.value,
