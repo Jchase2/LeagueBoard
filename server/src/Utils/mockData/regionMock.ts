@@ -10,9 +10,6 @@ export const regionsCode = [
   'oce1',
   'tr1',
   'ru',
-  'americas',
-  'asia',
-  'europe',
 ]
 
 export const regionsNames = [
@@ -27,4 +24,18 @@ export const regionsNames = [
   'Oceania',
   'Turkey',
   'Russia'
+]
+
+export const regions = [
+  'americas',
+  'europe',
+  'europe',
+  'asia',
+  'asia',
+  'americas',
+  'americas',
+  'americas',
+  'americas',
+  'europe',
+  'europe'
 ]

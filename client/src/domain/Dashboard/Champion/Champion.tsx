@@ -2,5 +2,5 @@
 interface Props {}
 
 export default function Champion () {
-  return <div></div>;
+  return <div>sdfsdfsfddsfsdfsfsdfsffffffffffffffffff</div>;
 }

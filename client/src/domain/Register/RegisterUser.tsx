@@ -1,8 +1,6 @@
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
-
-import { Register } from "../../redux/actions/Authenticate";
+import { IRegisterForm } from "../../interfaces/RegisterForm";
 
 import {
   Flex,
@@ -11,63 +9,127 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button
-} from '@chakra-ui/react';
-
-interface IRegisterForm {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  regionId: string;
-  summonerName: string;
-}
+  Button,
+  Image,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { ErrorShow } from "../../components/Error/ErrorShow";
 
 const RegisterUser = () => {
+  let history = useHistory();
   const [formData, setFormData] = useState<IRegisterForm>({
     email: "",
     password: "",
     confirmPassword: "",
-    regionId: "",
+    regionId: 0,
     summonerName: "",
   });
+  const [isError, setIsError] = useState<boolean>(false);
 
-  const dispatch = useDispatch();
-  const history: any = useHistory();
-
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // dispatch an action to signup
-    if (formData.email && formData.password && formData.confirmPassword) {
-      // include extra validation here to check that they have a leagueOfLegends accout
-      if (formData.password === formData.confirmPassword)
-        dispatch(Register(formData, history));
-      else {
-        setFormData((current: any) => ({
-          ...current,
-          password: "",
-          confirmPassword: "",
-        }));
-        alert(`Passwords don't match, try again`);
-      }
-    } else alert(`Please fill out all fields`);
+    if (formData.password !== formData.confirmPassword) {
+      setFormData({ ...formData, password: "", confirmPassword: "" });
+      return setIsError(true);
+    }
+    history.push({
+      pathname: "/verify",
+      state: { formdata: formData },
+    });
   };
 
-  /*  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.currentTarget.name]: e.currentTarget.value });
   };
-
-  const switchIsRegister = () => {
-    setIsRegister(!isRegister);
-
-  }; */
-  // use chalkra to create the layout
 
   return (
-    <Flex width="full" align="center" justifyContent="center">
-      <Box p={2}>
+    <Flex
+      minH="100vh"
+      align="center"
+      justifyContent="center"
+      flexDirection="column"
+      bg={useColorModeValue("gray.100", "gray.900")}
+    >
+      <Image src="lol.svg" alt="Logo" mb={6} mt={6} />
+      <ErrorShow
+        message={"Password and confirm password are not the same."}
+        isClosed={isError}
+        setIsError={setIsError}
+      />
+      <Box
+        p={8}
+        borderWidth={1}
+        borderRadius={8}
+        boxShadow="lg"
+        minW="35vw"
+        bg={useColorModeValue("white", "gray.800")}
+        marginBottom="20px"
+      >
         <Box textAlign="center">
-          <Heading>Login</Heading>
-          {/* On submit of register, render verification component with formData.regionId and formData.summonerName as props */}
+          <Heading>Register</Heading>
+        </Box>
+        <Box textAlign="left">
+          <form onSubmit={handleSubmit}>
+            <FormControl isRequired mt={4}>
+              <FormControl isRequired mt={4}>
+                <FormLabel> Summoner name </FormLabel>
+                <Input
+                  type="text"
+                  name="summonerName"
+                  value={formData.summonerName || ""}
+                  size="lg"
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <FormControl isRequired mt={4} mb={4}>
+                <FormLabel> Regional ID </FormLabel>
+                <Input
+                  type="number"
+                  name="regionId"
+                  value={formData.regionId || ""}
+                  size="lg"
+                  onChange={handleChange}
+                ></Input>
+              </FormControl>
+              <FormLabel> Email </FormLabel>
+              <Input
+                type="email"
+                value={formData.email || ""}
+                name="email"
+                size="lg"
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl isRequired mt={4}>
+              <FormLabel> Password </FormLabel>
+              <Input
+                type="password"
+                name="password"
+                value={formData.password || ""}
+                onChange={handleChange}
+                size="lg"
+              />
+            </FormControl>
+            <FormControl isRequired mt={4}>
+              <FormLabel> Confirm Password </FormLabel>
+              <Input
+                type="password"
+                value={formData.confirmPassword || ""}
+                name="confirmPassword"
+                onChange={handleChange}
+                size="lg"
+              />
+            </FormControl>
+            <Button
+              variantcolor="teal"
+              variant="outline"
+              width="full"
+              mt={4}
+              type="submit"
+            >
+              Register
+            </Button>
+          </form>
         </Box>
       </Box>
     </Flex>
