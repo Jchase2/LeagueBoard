@@ -13,7 +13,7 @@ router.post('/login', login);
 
 router.post('/topics', postForumTopic)
 router.get('/topics', getForumTopics)
-router.get('/topics/:topicid', getForumTopicById)
+//router.get('/topics/:topicid', getForumTopicById)
 
 
 //private

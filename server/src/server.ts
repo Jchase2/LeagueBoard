@@ -18,7 +18,7 @@ app.use(errorHandler);
 
 
 (async () => {
-  await sequelize.sync({ alter: true }).then(() => {
+  await sequelize.sync({ force: true }).then(() => {
     regionsCode.forEach((regionCode:string, i: number) => {
       Region.create({code: regionCode, name: regionsNames[i], region: regions[i] });  
     });

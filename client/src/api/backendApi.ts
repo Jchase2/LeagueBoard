@@ -19,7 +19,7 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
         email: formData.email,
         password: formData.password,
         regionid: formData.regionId,
-        summonerName: formData.summonerName,
+        summoner_name: formData.summoner_name,
         puuid: puuid,
         iconid: iconid
       }
@@ -37,7 +37,7 @@ export const signIn = async (form: any) => {
     .then((res: { data: any }) => res.data);
 };
 
-export const getVerifyInfo = async (regionId: number, summonerName: string) => {
+export const getVerifyInfo = async (regionId: number, summoner_name: string) => {
   let data : any= "";
   await axios
     .post(
@@ -45,7 +45,7 @@ export const getVerifyInfo = async (regionId: number, summonerName: string) => {
         "localhost:3001/register/verify",
       {
         regionId: regionId,
-        summonerName: summonerName,
+        summoner_name: summoner_name,
       }
     )
     .then((res: { data: any }) => (data = res.data));
@@ -70,6 +70,26 @@ export const getForumTopics = async () => {
       baseURL + "/login" || "localhost:3001/login",
     )
     .then((res: { data: any }) => res.data);
+};
+
+export const verifyEmailAndUser = async (regionId: number, summoner_name: string, email: string) => {
+
+  let data : any= "";
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'email': email,
+      'regionId': regionId,
+      'summoner_name': summoner_name
+    }
+  }
+
+  await axios
+    .get(
+      process.env.REACT_APP_BACKEND_URL + "/verify/register/user" ||
+        "localhost:3001/verify/register/user", config)
+    .then((res: { data: any }) => (data = res.data));
+  return data;
 };
 
 export const createTopic = async (formData: ITopic) => {

@@ -23,9 +23,9 @@ function stepOne () {
             })
             
           Promise.all(leagueObjs).then((res) => {
-            const summonerNames = [];
+            const summoner_names = [];
             res.flat().forEach(el => {
-              !summonerNames.find(summonerEl => summonerEl.id === el.id) && .summonerNames.push(el);
+              !summoner_names.find(summonerEl => summonerEl.id === el.id) && .summoner_names.push(el);
             })
 
             
