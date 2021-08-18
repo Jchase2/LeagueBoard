@@ -61,16 +61,33 @@ export const getForumTopics = async (req: Request, res: Response, next: Function
   }
 };
 
-export const getForumComments = async (req: Request, res: Response, next: Function) => {
+export const getForumComments = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     let { parentid } = req.params;
-    console.log("topicid: ", parentid)
-    const topics = await Topic.findAll({
-      where: {
-        parentid: parentid
-      }
-    });
-    res.json(topics);
+    let query: any = await sequelize.query(
+      `WITH RECURSIVE sub_tree AS (
+        SELECT
+          id, title, text, userid, parentid, closed, created_at
+      FROM
+          public."Topics" AS P
+      WHERE
+          P.id = ${parentid}
+
+      UNION ALL
+
+      SELECT
+          p.id, P.title, p.text, p.userid, p.parentid, p.closed, p.created_at
+      FROM
+          public."Topics" AS P
+      INNER JOIN sub_tree s ON s.ID = p.parentid
+  )
+
+  SELECT * FROM sub_tree;`);
+    res.json(query[0]);
   } catch (err) {
     next(err);
   }
