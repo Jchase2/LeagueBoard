@@ -6,10 +6,10 @@ interface Props {
   setIsError: Function;
 }
 
-export const ErrorShow = (props: Props) => {
+export const ErrorShow: React.FC<Props> = ({ message, isClosed, setIsError }) => {
   return (
     <>
-      {props.isClosed && (
+      {isClosed && (
         <Alert
           status="error"
           mb="10px"
@@ -19,12 +19,12 @@ export const ErrorShow = (props: Props) => {
           borderRadius="10px"
         >
           <AlertIcon />
-          <AlertTitle textAlign="center">{props.message}</AlertTitle>
+          <AlertTitle textAlign="center">{message}</AlertTitle>
           <CloseButton
             position="absolute"
             right="8px"
             top="8px"
-            onClick={() => props.setIsError(false)}
+            onClick={() => setIsError(false)}
           />
         </Alert>
       )}

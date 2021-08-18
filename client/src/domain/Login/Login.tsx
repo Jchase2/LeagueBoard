@@ -14,6 +14,7 @@ import {
   Button,
   Image,
   useColorModeValue,
+  Link,
 } from "@chakra-ui/react";
 
 const Login = () => {
@@ -31,14 +32,14 @@ const Login = () => {
     //set token in localstorage and redirect to index
     signIn(loginData)
       .then((res) => {
-        if (res.success) {
+        if (res.data.success) {
           setIsError(false);
-          localStorage.setItem("accessToken", res.token);
-          history.push("/");
+          window.location.href = "/"
         }
       })
       .catch((err) => {
         setIsError(true);
+        console.log(err)
       });
   };
 
@@ -97,15 +98,16 @@ const Login = () => {
                 size="lg"
               />
             </FormControl>
-            <Button
-              variantcolor="teal"
-              variant="outline"
-              width="full"
-              mt={4}
-              type="submit"
-            >
-              Login
-            </Button>
+              <Button
+                variantcolor="teal"
+                variant="outline"
+                width="full"
+                mt={4}
+                type="submit"
+              >
+                Login
+              </Button>
+
             <Button
               variantcolor="teal"
               variant="outline"

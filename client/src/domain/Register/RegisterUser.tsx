@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { IRegisterForm } from "../../interfaces/RegisterForm";
+import { verifyEmailAndUser } from "../../api/api";
 
 import {
   Flex,
@@ -22,19 +23,30 @@ const RegisterUser = () => {
     password: "",
     confirmPassword: "",
     regionId: 0,
-    summonerName: "",
+    summoner_name: "",
   });
   const [isError, setIsError] = useState<boolean>(false);
+  const [stateMessage, setStateMessage] = useState<string>("");
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setFormData({ ...formData, password: "", confirmPassword: "" });
+      setStateMessage('Password and confirm password are not the same.');
       return setIsError(true);
     }
-    history.push({
-      pathname: "/verify",
-      state: { formdata: formData },
+
+    verifyEmailAndUser(formData.regionId, formData.summoner_name, formData.email)
+    .then((res) => {
+      console.log("test")
+      history.push({
+        pathname: "/verify",
+        state: { formdata: formData },
+      });
+    })
+    .catch((err) => {
+      setIsError(true);
+      setStateMessage('Summoner or email already exist.');
     });
   };
 
@@ -52,7 +64,7 @@ const RegisterUser = () => {
     >
       <Image src="lol.svg" alt="Logo" mb={6} mt={6} />
       <ErrorShow
-        message={"Password and confirm password are not the same."}
+        message={stateMessage}
         isClosed={isError}
         setIsError={setIsError}
       />
@@ -75,8 +87,8 @@ const RegisterUser = () => {
                 <FormLabel> Summoner name </FormLabel>
                 <Input
                   type="text"
-                  name="summonerName"
-                  value={formData.summonerName || ""}
+                  name="summoner_name"
+                  value={formData.summoner_name || ""}
                   size="lg"
                   onChange={handleChange}
                 />

@@ -29,7 +29,9 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Discussion", icon: GoCommentDiscussion },
 ];
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => (
+// Change REACT.FC for types of components
+
+const SidebarContent: React.FC<SidebarProps> = ({ onClose, ...rest }) => (
   <Box
     transition="0.5s ease"
     bg={useColorModeValue("	white", "gray.900")}
@@ -48,7 +50,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => (
       marginTop="10px"
       marginBottom="10px"
     >
-      <Image src="lol.svg" alt="Logo" />
+      <Image src="/lol.svg" alt="Logo" />
       <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
     </Flex>
     {LinkItems.map((link) => (

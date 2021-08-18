@@ -11,4 +11,3 @@
 // export { default as NumberUtils} from './NumberUtils';
 
 export const nothing = () => null;
-

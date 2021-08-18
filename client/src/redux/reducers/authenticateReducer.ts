@@ -9,7 +9,6 @@ const authReducer = (state = { authData: null }, action: IReduxBaseAction) => {
     case EReduxActionTypes.LOGOUT:
       localStorage.clear();
       return { ...state, authData: null };
-
     default:
       return state;
   }

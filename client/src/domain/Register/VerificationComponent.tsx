@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useHistory } from "react-router";
+import { useLocation } from "react-router";
 import { getVerifyInfo, signUp } from "../../api/api";
 import { ErrorShow } from "../../components/Error/ErrorShow";
 
@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 
 const VerificationComponent = () => {
-  let history = useHistory();
   const [icon, setIcon] = useState<number>(0);
   const location: any = useLocation();
   const [isError, setIsError] = useState<boolean>(false);
@@ -22,7 +21,7 @@ const VerificationComponent = () => {
   const callFunc = async () => {
     return getVerifyInfo(
       location.state.formdata.regionId,
-      location.state.formdata.summonerName
+      location.state.formdata.summoner_name
     );
   };
 
@@ -37,16 +36,14 @@ const VerificationComponent = () => {
 
     const data = await getVerifyInfo(
       location.state.formdata.regionId,
-      location.state.formdata.summonerName
+      location.state.formdata.summoner_name
     );
-    console.log(data.iconid, icon)
-     console.log(location.state.formdata,);
     if (data.iconid !== icon) {
       //register call api
       signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {
-        if (res.success) {
-          localStorage.setItem("accessToken", res.token);
-          history.push("/");
+        if (res.data.success) {
+          setIsError(false);
+          window.location.href = "/";
         }
       });
     } else setIsError(true);
@@ -87,7 +84,7 @@ const VerificationComponent = () => {
           </Heading>
         </Box>
         <Box my={4}>
-          <Text> Summoner Name: {location.state.formdata.summonerName} </Text>
+          <Text> Summoner Name: {location.state.formdata.summoner_name} </Text>
           <Text> Region Id: {location.state.formdata.regionId} </Text>
           <form onSubmit={handleSubmit}>
             <Button
