@@ -8,6 +8,7 @@ export interface ITopic {
 
 export interface ITopicResp extends ITopic {
   "id": number,
+  "parenttitle": string,
   "created_at": string,
   "updated_at": string
 }

@@ -18,6 +18,7 @@ const ThreadPage: React.FC = () => {
     title: "",
     text: "",
     closed: false,
+    parenttitle: "",
     created_at: "",
     updated_at: "",
   });
@@ -89,7 +90,7 @@ const ThreadPage: React.FC = () => {
               {thread.parentid ? (
                 <>
                   {console.log("Thread: ", thread)}
-                  <Comment id={thread.id} />
+                  <Comment id={thread.id} thread={thread} updateComments={updateComments}/>
                 </>
               ) : null}
             </>

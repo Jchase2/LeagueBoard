@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Button, Text } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces/";
-import { getForumComments, getForumTopic } from "../../api/api";
 import { Props } from "framer-motion/types/types";
 import ReplyTopic from "./ReplyTopic";
 
@@ -13,28 +12,21 @@ const Comment: React.FC<Props> = (props) => {
     title: "",
     text: "",
     closed: false,
+    parenttitle: "",
     created_at: "",
     updated_at: "",
   });
 
   const [isReply, setIsReply] = useState(false);
-  const [commentsArray, setCommentsArray] = useState<ITopicResp[]>([]);
-
   useEffect(() => {
-    getForumTopic(props.id).then((res) => setThreadData(res));
-    updateComments()
+    setThreadData(props.thread);
+    props.updateComments()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const updateComments = () => {
-    getForumComments(threadData.id).then((res) => {
-      setCommentsArray(res);
-    })
-  };
-
-
   return (
     <Box w="48vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px" m={2}>
+      {threadData.parenttitle && <Box><Text>Reply To: {threadData.parenttitle}</Text></Box>}
       <Box
         fontWeight="bold"
         textTransform="uppercase"
@@ -61,7 +53,7 @@ const Comment: React.FC<Props> = (props) => {
         <ReplyTopic
           setIsReply={setIsReply}
           topicid={threadData.id}
-          updateComments={updateComments}
+          updateComments={props.updateComments}
         />
       )}
       {!isReply && (
@@ -69,13 +61,6 @@ const Comment: React.FC<Props> = (props) => {
           Reply
         </Button>
       )}
-      {commentsArray?.map((thread) => (
-        <>
-          {thread.parentid === threadData.id && (
-            <Comment id={thread.id} />
-          )}
-        </>
-      ))}
     </Box>
   );
 };
