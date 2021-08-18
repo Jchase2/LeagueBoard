@@ -80,7 +80,11 @@ export const getForumTopics = async (
   next: Function
 ) => {
 try {
-    const topics = await Topic.findAll({});
+    const topics = await Topic.findAll({
+      order: [
+        ['created_at', 'DESC'],
+    ],
+    });
     res.json(topics);
   } catch (err) {
     next(err);
