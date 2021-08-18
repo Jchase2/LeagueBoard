@@ -32,12 +32,13 @@ const RegisterUser = () => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setFormData({ ...formData, password: "", confirmPassword: "" });
-      setStateMessage('Password and confirm password are not the same.z');
+      setStateMessage('Password and confirm password are not the same.');
       return setIsError(true);
     }
 
     verifyEmailAndUser(formData.regionId, formData.summoner_name, formData.email)
-    .then(() => {
+    .then((res) => {
+      console.log("test")
       history.push({
         pathname: "/verify",
         state: { formdata: formData },

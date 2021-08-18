@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ITopic, IUser } from "../interfaces";
 import { IRegisterForm } from "../interfaces/RegisterForm";
 import { setToken } from "./helpers";
 
@@ -50,11 +51,11 @@ export const verifyEmailAndUser = async (
     headers: {
       "Content-Type": "application/json",
       email: email,
-      regionId: regionId,
+      regionid: regionId,
       summoner_name: summoner_name,
     },
   };
-
+  console.log("regionid: ", regionId, " summoner_name: ", summoner_name, " email: ", email)
   await axios
     .get(
       process.env.REACT_APP_BACKEND_URL + "/verify/register/user" ||
@@ -62,7 +63,7 @@ export const verifyEmailAndUser = async (
       configVerify
     )
     .then((res: { data: any }) => (data = res.data))
-    .catch((err) => console.log(err));
+    .catch((err) => {throw new Error(err)});
   return data;
 };
 
@@ -85,6 +86,7 @@ export const getVerifyInfo = async (
   return data;
 };
 
+
 export const getRegions = async () => {
   return axios
     .get(
@@ -95,7 +97,43 @@ export const getRegions = async () => {
     .catch((err) => console.log(err));
 };
 
-// Post request to login
+export const getForumTopic = async (topicid: number) => {
+  return axios
+    .get(process.env.REACT_APP_BACKEND_URL + `/topics/${topicid}` || `http://localhost:3001/topics/${topicid}`)
+    .then((res: { data: any }) => res.data);
+};
+
+export const getForumComments = async (parentid: number) => {
+  return axios
+    .get(process.env.REACT_APP_BACKEND_URL + `/topics/comments/${parentid}` || "http://localhost:3001/topics")
+    .then((res: { data: any }) => res.data);
+};
+
+export const getForumTopics = async () => {
+  return axios
+    .get(process.env.REACT_APP_BACKEND_URL + "/topics" || "http://localhost:3001/topics")
+    .then((res: { data: any }) => res.data);
+};
+
+export const createTopic = async (formData: ITopic) => {
+  return axios
+    .post(
+      process.env.REACT_APP_BACKEND_URL + "/topics" ||
+        "http://localhost:3000/topics",
+      {
+        "title": formData.title,
+        "text": formData.text,
+        "userid": formData.userid,
+        "closed": formData.closed,
+        "parentid": formData.parentid
+      }
+    )
+    .then((res: any) => {
+      setToken(res);
+      return res;
+    })
+    .catch((err) => console.log(err));
+};
 
 export const signIn = async (form: any) => {
   return axios

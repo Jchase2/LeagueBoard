@@ -8,11 +8,7 @@ import { getMatchesByPuuid, getMatchInfoByMatchId } from "./utils";
 import { asyncForEach } from "../Utils/helpers";
 const jwt = require('jsonwebtoken');
 
-export const getRegions = async (
-  req: Request,
-  res: Response,
-  next: Function
-) => {
+export const getRegions = async (req: Request, res: Response, next: Function) => {
   try {
     const regions = await Region.findAll({});
     res.json(regions);
@@ -41,12 +37,22 @@ export const getRecentMatches = async (
         const matchInfo = await getMatchInfoByMatchId(match, region);
         resArr.push(matchInfo);
       });
-   
+
     res.send(resArr);
   } catch (err) {
     next(err);
   }
 };
+
+export const getForumTopicById = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { topicid } = req.params;
+    const topic = await Topic.findByPk(topicid);
+    res.json(topic);
+  } catch (err) {
+    next(err);
+  }
+}
 
 export const getUserInfo = async (req: Request, res: Response, next: Function) => {
   try {
@@ -55,7 +61,7 @@ export const getUserInfo = async (req: Request, res: Response, next: Function) =
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
     }
-  
+
     const decoded = jwt.decode(token);
     const user = await User.findOne({ where: { id: decoded.id } });
     if(user) {
@@ -73,7 +79,7 @@ export const getForumTopics = async (
   res: Response,
   next: Function
 ) => {
-  try {
+try {
     const topics = await Topic.findAll({});
     res.json(topics);
   } catch (err) {
@@ -81,17 +87,45 @@ export const getForumTopics = async (
   }
 };
 
-export const postForumTopic = async (
+export const getForumComments = async (
   req: Request,
   res: Response,
   next: Function
 ) => {
   try {
+    let { parentid } = req.params;
+    let query: any = await sequelize.query(
+      `WITH RECURSIVE comments AS (
+        SELECT
+        id, title, text, userid, parentid, closed, created_at, text('') as parenttitle
+      FROM
+          public."Topics" AS P
+      WHERE
+          P.id = ${parentid}
+
+      UNION ALL
+
+      SELECT
+        p.id, P.title, p.text, p.userid, p.parentid, p.closed, p.created_at, s.title as parenttitle
+      FROM
+          public."Topics" AS P
+      INNER JOIN comments s ON s.ID = p.parentid
+  )
+
+  SELECT * FROM comments ORDER BY parentid, id;`);
+    res.json(query[0]);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const postForumTopic = async (req: Request, res: Response, next: Function) => {
+  try {
     const topics = await Topic.create({
       title: req.body.title,
       text: req.body.text,
       userid: req.body.userid,
-      parentid: req.body?.parentid,
+      parentid: req.body.parentid,
       closed: false,
     });
     res.status(201);
