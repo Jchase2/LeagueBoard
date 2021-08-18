@@ -6,7 +6,7 @@ import {
   Flex,
   Textarea,
 } from "@chakra-ui/react";
-import { createTopic } from "../../api/api";
+import { createNewTopic } from "../../api/api";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import SidebarWithHeader from "../../components/Heading/Heading";
@@ -25,7 +25,7 @@ const CreateTopic: React.FC = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      createTopic(topicData).then((resp) => {
+      createNewTopic(topicData).then(resp => {
         console.log("Successfully created topic.");
         history.push(`/topics/${resp.id}`);
       });
@@ -50,7 +50,6 @@ const CreateTopic: React.FC = () => {
     <SidebarWithHeader>
       <Flex align="center" flexDirection="column">
         <form onSubmit={handleSubmit}>
-          <FormControl m={2}>
             <FormLabel m={1}>New Topic</FormLabel>
             <Input
               type="text"
@@ -59,6 +58,7 @@ const CreateTopic: React.FC = () => {
               name="title"
               value={topicData.title}
               onChange={handleChange}
+              rounded="md"
               m={1}
             />
             <Textarea
@@ -76,7 +76,6 @@ const CreateTopic: React.FC = () => {
             <Button onClick={() => history.push("/topics")} m={1}>
               Cancel
             </Button>
-          </FormControl>
         </form>
       </Flex>
     </SidebarWithHeader>
