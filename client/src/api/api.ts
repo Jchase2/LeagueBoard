@@ -75,7 +75,7 @@ export const getVerifyInfo = async (
   await axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/register/verify" ||
-        "http://localhost:3001/register/verify",
+        "localhost:3001/register/verify",
       {
         regionId: regionId,
         summoner_name: summoner_name,
@@ -85,7 +85,6 @@ export const getVerifyInfo = async (
     .catch((err) => console.log(err));
   return data;
 };
-
 
 
 export const getRegions = async () => {
@@ -136,11 +135,15 @@ export const createTopic = async (formData: ITopic) => {
     .catch((err) => console.log(err));
 };
 
-// Post request to login
-export const signIn = async (form: IUser) => {
-  return (
-    await axios
-      .post(process.env.REACT_APP_BACKEND_URL + '/login' || 'localhost:3000/login', form)
-      .then((res: { data: any; }) => res.data)
-  );
-}
+export const signIn = async (form: any) => {
+  return axios
+    .post(
+      process.env.REACT_APP_BACKEND_URL + "/login" || "localhost:3001/login",
+      form
+    )
+    .then((res: any) => {
+      setToken(res);
+      return res;
+    })
+    .catch((err) => console.log(err));
+};
