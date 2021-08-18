@@ -31,15 +31,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   //useMemo in react, only recompute if certain values has changed only read again if decoded user changes
   // more custom hooks, DRY be DRY
   // after login you can get the user object returned and thats where you can access the regions etc..
-  const token: string | null = localStorage.getItem("accessToken");
   const [user, setUser] = useState<any>();
 
-  
   useEffect(() => {
-    getUserInfo().then(res => setUser(res))
-    console.log(token)
-    console.log(user)
-  }, []) 
+   localStorage.getItem("accessToken") && getUserInfo().then(res => setUser(res))
+  }, [])
+
   // let decoded: any;
   // let regionName = "";
 

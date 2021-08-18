@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useHistory } from "react-router";
+import { useLocation } from "react-router";
 import { getVerifyInfo, signUp } from "../../api/api";
 import { ErrorShow } from "../../components/Error/ErrorShow";
 
@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 
 const VerificationComponent = () => {
-  let history = useHistory();
   const [icon, setIcon] = useState<number>(0);
   const location: any = useLocation();
   const [isError, setIsError] = useState<boolean>(false);
