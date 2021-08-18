@@ -11,16 +11,17 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import SidebarWithHeader from "../../components/Heading/Heading";
 
-const CreateTopic = () => {
+const CreateTopic: React.FC = () => {
+  let history = useHistory();
+
   const [topicData, setTopicData] = useState({
     userid: 1,
     title: "",
     text: "",
     closed: false,
-    parentid: 0
+    parentid: 0,
   });
 
-  let history = useHistory();
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {

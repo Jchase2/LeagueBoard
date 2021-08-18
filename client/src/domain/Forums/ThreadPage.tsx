@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
-import { ITopicResp } from "../../interfaces/Topics";
+import { ITopicResp } from "../../interfaces";
 import { getForumComments, getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
 import SidebarWithHeader from "../../components/Heading/Heading";
 import Comment from "./Comment";
 
-const ThreadPage = () => {
+const ThreadPage: React.FC = () => {
+
+  let history = useHistory();
+
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
     userid: 1,
@@ -37,9 +40,8 @@ const ThreadPage = () => {
       setThreadData(res);
     });
     updateComments();
-  }, []);
+  }, [id]);
 
-  let history = useHistory();
   return (
     <SidebarWithHeader>
       <Flex minH="100vh" align="center" flexDirection="column" m={2}>
@@ -60,7 +62,7 @@ const ThreadPage = () => {
             fontSize="xs"
             textTransform="uppercase"
           >
-            {/* Need to replace this with username */}
+            {/* TODO: Need to replace this with username */}
             By: {threadData.userid}
           </Box>
           <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
@@ -84,7 +86,7 @@ const ThreadPage = () => {
           <Box>
           {commentsArray.map((thread) => (
             <>
-              {thread.parentid === +id ? (
+              {thread.parentid ? (
                 <>
                   {console.log("Thread: ", thread)}
                   <Comment id={thread.id} />

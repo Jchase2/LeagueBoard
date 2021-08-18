@@ -2,7 +2,7 @@ import { Box, Link } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { useHistory } from "react-router";
 
-const Forums = (props: Props) => {
+const Forums: React.FC<Props> = (props) => {
   let history = useHistory();
   return (
     <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" m={2}>

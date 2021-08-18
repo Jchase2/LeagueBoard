@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import ThreadCard from "./ThreadCard";
 import { getForumTopics } from "../../api/api";
-import { ITopicResp } from "../../interfaces/Topics";
+import { ITopicResp } from "../../interfaces";
 import SidebarWithHeader from "../../components/Heading/Heading";
 
-const Topics = () => {
+const Topics: React.FC = () => {
   const [threadArray, setThreadArray] = useState<ITopicResp[]>([]);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Topics = () => {
           {threadArray.map((thread) => (
             <>
               {console.log(thread)}
-              {!(thread.parentid >= 1) ? (
+              {!(thread.parentid >= 1) && (
                 <ThreadCard
                   key={thread.title}
                   userid={thread.userid}
@@ -37,7 +37,7 @@ const Topics = () => {
                   title={thread.title}
                   text={thread.text}
                 />
-              ) : null}
+              )}
             </>
           ))}
         </Box>
