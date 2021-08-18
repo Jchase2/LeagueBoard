@@ -1,4 +1,5 @@
 import axios from "axios";
+//API request for user information
 
 export const getUserMatches = async ( puuid: string ) => {
     return axios

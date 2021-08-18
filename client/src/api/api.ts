@@ -6,7 +6,7 @@ import { IUser } from "../interfaces/User";
 // Api file, for now all API calls will be handled from here.
 // If we end up with lots of different calls to the backend, we
 // can split this out into multiple files.
-
+// add catch blocks lol
 // Post request to signup
 
 export const signUp = async (formData: IRegisterForm, puuid: string, iconid: number) => {

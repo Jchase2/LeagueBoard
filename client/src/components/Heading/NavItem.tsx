@@ -1,11 +1,5 @@
 import { ReactText } from "react";
-import {
-  Flex,
-  Icon,
-  Link,
-  FlexProps,
-
-} from "@chakra-ui/react";
+import { Flex, Icon, Link, FlexProps } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 
 interface NavItemProps extends FlexProps {
@@ -13,7 +7,7 @@ interface NavItemProps extends FlexProps {
   children: ReactText;
 }
 
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem: React.FC<NavItemProps> = ({ icon, children, ...rest }) => {
   return (
     <Link href={`${children}`} style={{ textDecoration: "none" }}>
       <Flex
