@@ -115,7 +115,7 @@ export const getForumTopics = async () => {
     .then((res: { data: any }) => res.data);
 };
 
-export const createTopic = async (formData: ITopic) => {
+export const createNewTopic = async (formData: ITopic) => {
   return axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/topics" ||
@@ -128,10 +128,7 @@ export const createTopic = async (formData: ITopic) => {
         "parentid": formData.parentid
       }
     )
-    .then((res: any) => {
-      setToken(res);
-      return res;
-    })
+    .then((res: { data: any }) => res.data)
     .catch((err) => console.log(err));
 };
 
