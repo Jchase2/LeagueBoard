@@ -81,8 +81,7 @@ const ThreadPage = () => {
           <Button onClick={() => history.push("/topics")} m={1}>
             Back
           </Button>
-        </Box>
-        <Box>
+          <Box>
           {commentsArray.map((thread) => (
             <>
               {thread.parentid === +id ? (
@@ -93,6 +92,7 @@ const ThreadPage = () => {
               ) : null}
             </>
           ))}
+        </Box>
         </Box>
       </Flex>
     </SidebarWithHeader>
