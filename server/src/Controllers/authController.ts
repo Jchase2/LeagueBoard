@@ -1,21 +1,30 @@
 import { Response, Request } from "express";
 import { Region } from "../Models/region.model";
 import { User } from "../Models/user.model";
-import { sequelize } from '../Models/index'
+import { sequelize } from "../Models/index";
 import { getSummonerByNameAndRegion, getSummonerByPuuid } from "./utils";
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+export const verifyEmailAndUser = async (req: Request, res: Response, next: Function) => {
+  const { regionid, summoner_name, email } = req.headers;
+
+  let query: any = await sequelize.query(`SELECT id FROM public."Users" as U 
+  WHERE email = '${email}' OR (summoner_name = '${summoner_name}' AND regionid = '${regionid}');`);
+
+  if (query[0][0] === undefined) {
+    res.status(200).send();
+  } else {
+    res.status(409).send({
+      message: "Summoner or email already exists.",
+    });
+  }
+}
+
 export const register = async (req: Request, res: Response, next: Function) => {
   try {
     let { email, password, regionid, summoner_name, puuid, iconid } = req.body;
-
-    let query: any = await sequelize.query(`SELECT id FROM public."Users" as U 
-      WHERE email = '${email}' OR (summoner_name = '${summoner_name}' AND regionid = '${regionid}');`);
-    
-    console.log(query);
-    //validate email and summoner with region
 
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
@@ -30,6 +39,7 @@ export const register = async (req: Request, res: Response, next: Function) => {
     });
 
     sendToken(user, 201, res);
+
   } catch (error) {
     next(error);
   }
@@ -51,7 +61,10 @@ export const verify = async (req: Request, res: Response, next: Function) => {
       });
     }
     //create api call to return iconId
-    const summoner = await getSummonerByNameAndRegion(summoner_name, regionName);
+    const summoner = await getSummonerByNameAndRegion(
+      summoner_name,
+      regionName
+    );
     if (!summoner) {
       return res.status(404).send({
         message: "summoner not found",

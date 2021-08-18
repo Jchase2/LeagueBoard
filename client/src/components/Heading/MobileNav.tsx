@@ -27,13 +27,12 @@ import jwt_decode from "jwt-decode";
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
-
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   let decoded: any
   let regionName = ''
   const [regions, setRegions] = useState<Regions[]>([]);
   useEffect(() => { getRegions().then((res) => setRegions(res)) }, []);
-  const user: any = (localStorage.getItem("accessToken"))
+  const user: any = (localStorage.getItem("accessToken"));
   if (user) {decoded = jwt_decode(user)}
   regions.forEach((region) => {
     if (region.id === decoded?.user?.regionid) {
@@ -63,9 +62,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           aria-label="open menu"
           icon={<FiMenu />}
         />
-
         <Searchbar />
-
         <HStack spacing={{ base: "0", md: "6" }}>
           <IconButton
             size="md"
@@ -105,7 +102,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         ml="2"
                       >
                         <Text fontSize="md">{`${decoded.user.summoner_name}`}</Text>
-                        <Text fontSize="xs" color="gray.300">
+                        <Text fontSize="xs">
                           {regionName}
                         </Text>
                       </VStack>
@@ -120,7 +117,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                       <Avatar
                         size={"md"}
                         src={
-                          "" //ICON FOR PLAYER
+                          "" 
                         }
                       />
                       <VStack
@@ -129,10 +126,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         spacing="1px"
                         ml="2"
                       >
-                        <Text fontSize="sm">SUMMONER ID</Text>
-                        <Text fontSize="xs" color="gray.300">
-                          NA
-                        </Text>
                       </VStack>
                       <Box display={{ base: "none", md: "flex" }}>
                         <FiChevronDown />
@@ -152,10 +145,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   <MenuItem>Settings</MenuItem>
                 </Link>
                 <MenuDivider />
-
-                {/* get accesToken from localStorage and conditionally render sign in or sign out, if sign out delete token from localstorage */}
-                {/* localStorage.getItem('accessToken') ? it exists : it doesn't */}
-                {/* localStorage.removeItem('accessToken') */}
                 {user ? (
                   <Link href="/">
                     <MenuItem

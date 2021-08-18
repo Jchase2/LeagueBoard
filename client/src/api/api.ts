@@ -26,6 +26,26 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
     .then((res: { data: any }) => res.data);
 };
 
+export const verifyEmailAndUser = async (regionId: number, summoner_name: string, email: string) => {
+
+  let data : any= "";
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'email': email,
+      'regionId': regionId,
+      'summoner_name': summoner_name
+    }
+  }
+
+  await axios
+    .get(
+      process.env.REACT_APP_BACKEND_URL + "/verify/register/user" ||
+        "localhost:3001/verify/register/user", config)
+    .then((res: { data: any }) => (data = res.data));
+  return data;
+};
+
 export const getVerifyInfo = async (regionId: number, summoner_name: string) => {
   let data : any= "";
   await axios
