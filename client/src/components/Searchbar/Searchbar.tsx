@@ -5,18 +5,16 @@ interface Props {
  
 }
 
-export default function Searchbar () {
-  
+const Searchbar: React.FC<Props> = () => {
   return (
     <Container marginLeft="25px" padding="0px">
-      <InputGroup size="md" >
+      <InputGroup size="md">
         <InputLeftAddon children={<SearchIcon color="gray.900" />} />
-        <Input
-        variant="filled"
-          type="tel"
-          placeholder="Search"
-        />
+        <Input variant="filled" type="tel" placeholder="Search" />
       </InputGroup>
     </Container>
   );
 };
+
+
+export default Searchbar

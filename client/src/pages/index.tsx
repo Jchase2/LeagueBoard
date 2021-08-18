@@ -1,7 +1,7 @@
 import SidebarWithHeader from "../components/Heading/Heading";
 import Layout from "../domain/Profile/Layout";
 
-const index = () => {
+const Index = () => {
   return (
     <>
       <SidebarWithHeader>
@@ -11,4 +11,4 @@ const index = () => {
   );
 };
 
-export default index
+export default Index

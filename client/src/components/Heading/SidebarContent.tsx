@@ -29,7 +29,9 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Discussion", icon: GoCommentDiscussion },
 ];
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => (
+// Change REACT.FC for types of components
+
+const SidebarContent: React.FC<SidebarProps> = ({ onClose, ...rest }) => (
   <Box
     transition="0.5s ease"
     bg={useColorModeValue("	white", "gray.900")}

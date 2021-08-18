@@ -25,6 +25,7 @@ export const getRecentMatches = async (
   next: Function
 ) => {
   try {
+    //get token decode and pass whatever value the call needs.
     let { puuid } = req.params;
     //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow';
     const resArr: any = [];

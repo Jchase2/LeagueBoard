@@ -5,20 +5,26 @@ import { getUserMatches } from "../../api/profileAPI"
 
 interface Props {}
 
-const Layout = (props: Props) => {
-    let decoded: any
-    const user: string | null = localStorage.getItem("accessToken");
-    if (user) {
-      decoded = jwt_decode(user);
+const Layout: React.FC<Props> = (props: Props) => {
+  // use custom react hook, import use User hook, deconstruct outside
+  // dont decode here, decode tokens in the backend, gets the user ID and get information attach to the header of the request
+  let decoded: any;
+  const user: string | null = localStorage.getItem("accessToken");
+  if (user) {
+    decoded = jwt_decode(user);
+  }
+  const [userMatches, setuserMatches] = useState<any[]>([]);
+  useEffect(() => {
+    if (decoded) {
+      getUserMatches(decoded?.user?.puuid).then((res) => setuserMatches(res));
     }
-    const [userMatches, setuserMatches] = useState([])
-    useEffect(() => {
-        getUserMatches(decoded?.user?.puuid).then((res) => setuserMatches(res));
-    }, [])
-    console.log(userMatches);
-    return <Flex justifyContent="center" alignContent="center">
-        Hello world
-    </Flex>;
+  }, []);
+  console.log(userMatches);
+  return (
+    <Flex justifyContent="center" alignContent="center">
+      Hello world
+    </Flex>
+  );
 }
 
 export default Layout
