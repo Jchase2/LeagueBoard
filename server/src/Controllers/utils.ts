@@ -12,11 +12,9 @@ export const getSummonerByNameAndRegion = async (
   region: string
 ) => {
   const url = `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner_name}`;
-
-  const { data } = await axios.get(url, {
+  return await axios.get(url, {
     headers: header,
   });
-  return data;
 };
 
 export const getSummonerByPuuid = async (puuid: string, region: string) => {
@@ -26,6 +24,16 @@ export const getSummonerByPuuid = async (puuid: string, region: string) => {
     headers: header,
   });
   return data;
+};
+
+export const getSummonerEntriesByAccountIdAndRegion = async (
+  id: string,
+  region: string
+) => {
+  const url = `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}`;
+  return await axios.get(url, {
+    headers: header,
+  });
 };
 
 export const getMatchesByPuuid = async (puuid: string, region: string) => {

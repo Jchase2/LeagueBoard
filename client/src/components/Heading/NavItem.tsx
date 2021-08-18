@@ -9,7 +9,7 @@ interface NavItemProps extends FlexProps {
 
 const NavItem: React.FC<NavItemProps> = ({ icon, children, ...rest }) => {
   return (
-    <Link href={`${children}`} style={{ textDecoration: "none" }}>
+    <Link href={`/${children}`} style={{ textDecoration: "none" }}>
       <Flex
         align="center"
         p="4"

@@ -26,7 +26,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome },
   { name: "Trending", icon: FiTrendingUp },
-  { name: "Discussion", icon: GoCommentDiscussion },
+  { name: "Topics", icon: GoCommentDiscussion },
 ];
 
 // Change REACT.FC for types of components
