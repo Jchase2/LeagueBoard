@@ -32,7 +32,7 @@ const RegisterUser = () => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setFormData({ ...formData, password: "", confirmPassword: "" });
-      setStateMessage('Password and confirm password are not the same.');
+      setStateMessage('Password and confirm password are not the same.z');
       return setIsError(true);
     }
 
