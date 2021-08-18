@@ -1,7 +1,7 @@
 import axios from "axios";
+import { ITopic, IUser } from "../interfaces";
 import { IRegisterForm } from "../interfaces/RegisterForm";
-import { ITopic } from "../interfaces/Topics";
-import { IUser } from "../interfaces/User";
+import { setToken } from "./helpers";
 
 // Api file, for now all API calls will be handled from here.
 // If we end up with lots of different calls to the backend, we
@@ -9,7 +9,18 @@ import { IUser } from "../interfaces/User";
 // add catch blocks lol
 // Post request to signup
 
-export const signUp = async (formData: IRegisterForm, puuid: string, iconid: number) => {
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("accessToken"),
+  },
+};
+
+export const signUp = async (
+  formData: IRegisterForm,
+  puuid: string,
+  iconid: number
+) => {
   return axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/register" ||
@@ -20,34 +31,47 @@ export const signUp = async (formData: IRegisterForm, puuid: string, iconid: num
         regionid: formData.regionId,
         summoner_name: formData.summoner_name,
         puuid: puuid,
-        iconid: iconid
+        iconid: iconid,
       }
     )
-    .then((res: { data: any }) => res.data);
+    .then((res: any) => {
+      setToken(res);
+      return res;
+    })
+    .catch((err) => console.log(err));
 };
 
-export const verifyEmailAndUser = async (regionId: number, summoner_name: string, email: string) => {
-
-  let data : any= "";
-  let config = {
+export const verifyEmailAndUser = async (
+  regionId: number,
+  summoner_name: string,
+  email: string
+) => {
+  let data: any = "";
+  let configVerify = {
     headers: {
-      'Content-Type': 'application/json',
-      'email': email,
-      'regionId': regionId,
-      'summoner_name': summoner_name
-    }
-  }
+      "Content-Type": "application/json",
+      email: email,
+      regionId: regionId,
+      summoner_name: summoner_name,
+    },
+  };
 
   await axios
     .get(
       process.env.REACT_APP_BACKEND_URL + "/verify/register/user" ||
-        "localhost:3001/verify/register/user", config)
-    .then((res: { data: any }) => (data = res.data));
+        "localhost:3001/verify/register/user",
+      configVerify
+    )
+    .then((res: { data: any }) => (data = res.data))
+    .catch((err) => console.log(err));
   return data;
 };
 
-export const getVerifyInfo = async (regionId: number, summoner_name: string) => {
-  let data : any= "";
+export const getVerifyInfo = async (
+  regionId: number,
+  summoner_name: string
+) => {
+  let data: any = "";
   await axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/register/verify" ||
@@ -57,7 +81,8 @@ export const getVerifyInfo = async (regionId: number, summoner_name: string) => 
         summoner_name: summoner_name,
       }
     )
-    .then((res: { data: any }) => (data = res.data));
+    .then((res: { data: any }) => (data = res.data))
+    .catch((err) => console.log(err));
   return data;
 };
 
@@ -65,8 +90,12 @@ export const getVerifyInfo = async (regionId: number, summoner_name: string) => 
 
 export const getRegions = async () => {
   return axios
-    .get(process.env.REACT_APP_BACKEND_URL + "/regions" || "http://localhost:3001/regions")
-    .then((res: { data: any }) => res.data);
+    .get(
+      process.env.REACT_APP_BACKEND_URL + "/regions" || "localhost:3001/",
+      config
+    )
+    .then((res: { data: any }) => res.data)
+    .catch((err) => console.log(err));
 };
 
 export const getForumTopic = async (topicid: number) => {
@@ -100,7 +129,11 @@ export const createTopic = async (formData: ITopic) => {
         "parentid": formData.parentid
       }
     )
-    .then((res: { data: any }) => res.data);
+    .then((res: any) => {
+      setToken(res);
+      return res;
+    })
+    .catch((err) => console.log(err));
 };
 
 // Post request to login

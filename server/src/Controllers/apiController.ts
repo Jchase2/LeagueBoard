@@ -3,8 +3,10 @@ import { Response, Request } from "express";
 import { sequelize } from "../Models/index";
 const { Region } = require("../Models/region.model");
 const { Topic } = require("../Models/topic.model");
+const { User } = require("../Models/user.model");
 import { getMatchesByPuuid, getMatchInfoByMatchId } from "./utils";
 import { asyncForEach } from "../Utils/helpers";
+const jwt = require('jsonwebtoken');
 
 export const getRegions = async (req: Request, res: Response, next: Function) => {
   try {
@@ -52,8 +54,32 @@ export const getForumTopicById = async (req: Request, res: Response, next: Funct
   }
 }
 
-export const getForumTopics = async (req: Request, res: Response, next: Function) => {
+export const getUserInfo = async (req: Request, res: Response, next: Function) => {
   try {
+    let token;
+
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+      token = req.headers.authorization.split(' ')[1];
+    }
+
+    const decoded = jwt.decode(token);
+    const user = await User.findOne({ where: { id: decoded.id } });
+    if(user) {
+      res.status(200).send(user);
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getForumTopics = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
+try {
     const topics = await Topic.findAll({});
     res.json(topics);
   } catch (err) {
