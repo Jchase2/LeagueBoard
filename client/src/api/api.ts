@@ -51,11 +51,11 @@ export const verifyEmailAndUser = async (
     headers: {
       "Content-Type": "application/json",
       email: email,
-      regionId: regionId,
+      regionid: regionId,
       summoner_name: summoner_name,
     },
   };
-
+  console.log("regionid: ", regionId, " summoner_name: ", summoner_name, " email: ", email)
   await axios
     .get(
       process.env.REACT_APP_BACKEND_URL + "/verify/register/user" ||
@@ -63,7 +63,7 @@ export const verifyEmailAndUser = async (
       configVerify
     )
     .then((res: { data: any }) => (data = res.data))
-    .catch((err) => console.log(err));
+    .catch((err) => {throw new Error(err)});
   return data;
 };
 

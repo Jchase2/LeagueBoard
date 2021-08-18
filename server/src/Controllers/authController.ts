@@ -14,7 +14,7 @@ export const verifyEmailAndUser = async (
 ) => {
   const { regionid, summoner_name, email } = req.headers;
 
-  let query: any = await sequelize.query(`SELECT id FROM public."Users" as U 
+  let query: any = await sequelize.query(`SELECT id FROM public."Users" as U
   WHERE email = '${email}' OR (summoner_name = '${summoner_name}' AND regionid = '${regionid}');`);
 
   if (query[0][0] === undefined) {
