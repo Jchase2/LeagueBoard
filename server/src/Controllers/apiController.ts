@@ -71,7 +71,7 @@ export const getForumComments = async (
     let query: any = await sequelize.query(
       `WITH RECURSIVE sub_tree AS (
         SELECT
-          id, title, text, userid, parentid, closed, created_at
+        id, title, text, userid, parentid, closed, created_at, text('') as parenttitle
       FROM
           public."Topics" AS P
       WHERE
@@ -80,7 +80,7 @@ export const getForumComments = async (
       UNION ALL
 
       SELECT
-          p.id, P.title, p.text, p.userid, p.parentid, p.closed, p.created_at
+        p.id, P.title, p.text, p.userid, p.parentid, p.closed, p.created_at, s.title as parenttitle
       FROM
           public."Topics" AS P
       INNER JOIN sub_tree s ON s.ID = p.parentid
