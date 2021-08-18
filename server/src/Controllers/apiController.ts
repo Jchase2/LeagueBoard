@@ -69,7 +69,7 @@ export const getForumComments = async (
   try {
     let { parentid } = req.params;
     let query: any = await sequelize.query(
-      `WITH RECURSIVE sub_tree AS (
+      `WITH RECURSIVE comments AS (
         SELECT
         id, title, text, userid, parentid, closed, created_at, text('') as parenttitle
       FROM
@@ -83,10 +83,10 @@ export const getForumComments = async (
         p.id, P.title, p.text, p.userid, p.parentid, p.closed, p.created_at, s.title as parenttitle
       FROM
           public."Topics" AS P
-      INNER JOIN sub_tree s ON s.ID = p.parentid
+      INNER JOIN comments s ON s.ID = p.parentid
   )
 
-  SELECT * FROM sub_tree;`);
+  SELECT * FROM comments ORDER BY parentid, id;`);
     res.json(query[0]);
   } catch (err) {
     next(err);
