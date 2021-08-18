@@ -115,7 +115,7 @@ export const getForumTopics = async () => {
     .then((res: { data: any }) => res.data);
 };
 
-export const createTopic = async (formData: ITopic) => {
+export const signIn = async (formData: any) => {
   return axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/topics" ||
@@ -127,19 +127,6 @@ export const createTopic = async (formData: ITopic) => {
         "closed": formData.closed,
         "parentid": formData.parentid
       }
-    )
-    .then((res: any) => {
-      setToken(res);
-      return res;
-    })
-    .catch((err) => console.log(err));
-};
-
-export const signIn = async (form: any) => {
-  return axios
-    .post(
-      process.env.REACT_APP_BACKEND_URL + "/login" || "localhost:3001/login",
-      form
     )
     .then((res: any) => {
       setToken(res);

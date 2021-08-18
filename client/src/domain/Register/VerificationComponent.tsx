@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { useLocation } from "react-router";
 import { getVerifyInfo, signUp } from "../../api/api";
+=======
+import { useLocation, useHistory } from "react-router";
+import { getVerifyInfo, signUp } from "../../api/backendApi";
+>>>>>>> sarah/redux
 import { ErrorShow } from "../../components/Error/ErrorShow";
 
 import {
@@ -40,10 +45,22 @@ const VerificationComponent = () => {
     );
     if (data.iconid !== icon) {
       //register call api
+    
+      
+  
       signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {
+<<<<<<< HEAD
         if (res.data.success) {
           setIsError(false);
           window.location.href = "/";
+=======
+        if (res.success) {
+          
+          console.log('hello');
+          
+          localStorage.setItem("accessToken", res.token);
+          history.push("/");
+>>>>>>> sarah/redux
         }
       });
     } else setIsError(true);

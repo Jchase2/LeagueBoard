@@ -6,7 +6,7 @@ import {
   Flex,
   Textarea,
 } from "@chakra-ui/react";
-import { createTopic } from "../../api/api";
+import { createTopic } from "../../api/backendApi";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import SidebarWithHeader from "../../components/Heading/Heading";

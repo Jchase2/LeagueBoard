@@ -27,8 +27,9 @@ const store = createStore(reducers, composeEnhancers(
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
-      <Provider store={store}>
+      <Provider store={store}>        
         <App />
+        
       </Provider>
     </ChakraProvider>
   </React.StrictMode>,

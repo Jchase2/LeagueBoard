@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
 import { getForumComments, getForumTopic } from "../../api/api";
@@ -11,6 +12,13 @@ const ThreadPage: React.FC = () => {
 
   let history = useHistory();
 
+=======
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { ITopicResp } from "../../interfaces/Topics";
+import { getForumTopic } from "../../api/backendApi";
+import { useParams } from "react-router-dom";
+const ThreadPage = () => {
+>>>>>>> sarah/redux
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
     userid: 1,

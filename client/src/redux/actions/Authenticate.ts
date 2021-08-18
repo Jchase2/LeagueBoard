@@ -1,7 +1,8 @@
 import { EReduxActionTypes } from './ActionTypes';
 import { IHeaderUserToHome } from '../../interfaces/HeadUserToHome';
+import { IRegisterForm } from '../../interfaces/RegisterForm';
 import { IUser } from '../../interfaces/User';
-import { signUp, signIn } from '../../api/api';
+import { signUp, signIn } from '../../api/backendApi';
 //need a signIn & signUp that connects to the backend though an api post request
 
 export const Login = (form: IUser, history: any) => async (dispatch: (arg: { type: string; data: IHeaderUserToHome; }) => void) => {
@@ -19,18 +20,18 @@ export const Login = (form: IUser, history: any) => async (dispatch: (arg: { typ
   }
 };
 
-// export const Register = (form: IUser, history: string[]) => async (dispatch: (arg: { type: string; data: IHeaderUserToHome; }) => void) => {
-//   try {
-//     // use signUp here
-//     const { data } = await signUp(form);
+ export const Register = (formData: IRegisterForm, puuid: string, iconid: number, history: string[]) => async (dispatch: (arg: { type: string; data: IHeaderUserToHome; }) => void) => {
+   try {
+     // use signUp here
+     const { data } = await signUp(formData, puuid, iconid);
 
-//     dispatch({
-//       type: EReduxActionTypes.AUTHENTICATE,
-//       data,
-//     });
+     dispatch({
+       type: EReduxActionTypes.AUTHENTICATE,
+       data,
+     });
 
-//     history.push('/');
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+     history.push('/');
+   } catch (error) {
+     console.log(error);
+   }
+ };

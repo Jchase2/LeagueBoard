@@ -20,7 +20,7 @@ import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { FaMoon, FaSun } from "react-icons/fa";
 import Searchbar from "../Searchbar/Searchbar";
 import { Regions } from "../../interfaces/Regions";
-import { getRegions } from "../../api/api";
+import { getRegions } from "../../api/backendApi";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../../api/profileAPI";
 
