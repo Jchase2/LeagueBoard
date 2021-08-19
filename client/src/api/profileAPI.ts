@@ -21,3 +21,9 @@ export const getUserInfo = async () => {
     .then((res: { data: any }) => res.data)
     .catch((err) => console.log(err));
 };
+
+export const getUserRank = async () => {
+  return axios.get(process.env.REACT_APP_BACKEND_URL + "/user/ranked", config)
+  .then((res: { data: any }) => res.data)
+  .catch((err) => console.log(err));
+}
