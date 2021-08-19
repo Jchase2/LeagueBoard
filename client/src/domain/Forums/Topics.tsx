@@ -5,6 +5,7 @@ import ThreadCard from "./ThreadCard";
 import SidebarWithHeader from "../../components/Heading/Heading";
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { fetchForumTopics } from "../../redux/slices/topicsSlice";
+import MapComments from "./MapComments";
 
 const Topics: React.FC = () => {
   let history = useHistory();
@@ -28,13 +29,7 @@ const Topics: React.FC = () => {
           <Button onClick={() => history.push("/topics/create")} m={1}>
             New Thread
           </Button>
-          {threadArray && threadArray.map((thread) => (
-            <div key={thread.id}>
-              {!(thread.parentid >= 1) && (
-                <ThreadCard thread={thread} />
-              )}
-            </div>
-          ))}
+          <MapComments />
         </Box>
       </Flex>
     </SidebarWithHeader>

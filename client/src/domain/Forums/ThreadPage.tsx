@@ -37,7 +37,6 @@ const ThreadPage: React.FC = () => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);
       dispatch(fetchComments(res.id));
-
     });
   }, [id, dispatch]);
 
@@ -96,7 +95,7 @@ const ThreadPage: React.FC = () => {
             Delete
           </Button>
           <Box>
-            {console.log("comments array: ", commentsArray)}
+            {console.log("commentsArray: ", commentsArray)}
             {commentsArray.map((thread) => (
               <div key={thread.id}>
                 {thread.parentid !== 0 && (

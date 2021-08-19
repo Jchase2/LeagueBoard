@@ -34,7 +34,8 @@ export const commentsSlice = createSlice({
   // Will create fetchUserInfo action that can be used via dispatch
   extraReducers: (builder) => {
     builder.addCase(fetchComments.fulfilled, (state, { payload }) => {
-      state.comments = payload
+      let nextState = [...payload]
+      state.comments = nextState
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
     builder.addCase(fetchComments.rejected, (state, action: any) => {
