@@ -2,14 +2,11 @@ import {
   Heading,
   Avatar,
   Box,
-  Center,
   Text,
   Stack,
   Button,
-  Link,
-  Badge,
+  Flex,
   useColorModeValue,
-  Popover,
 } from "@chakra-ui/react";
 
 interface props {
@@ -59,13 +56,14 @@ const ProfileIcon: React.FC<props> = ({ users, userRank }) => {
       <Text fontWeight={600} color={"gray.500"} mb={4}>
         North America
       </Text>
+      <Flex>
       <Text
-        textAlign={"center"}
         color={useColorModeValue("gray.700", "gray.400")}
         px={3}
       >
         Rank : {`${userRank[0]?.tier}`} {`${userRank[0]?.rank}`}
       </Text>
+      </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>
         <Button
           bgGradient="linear(to-l, #7928CA,#FF0080)"
