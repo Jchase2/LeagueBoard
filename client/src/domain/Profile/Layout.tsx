@@ -7,7 +7,7 @@ import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchUserInfo, fetchUserRank } from "../../redux/slices";
+import { fetchRegions, fetchUserInfo, fetchUserRank } from "../../redux/slices";
 
 interface Props {}
 
@@ -15,28 +15,22 @@ const Layout: React.FC<Props> = (props: Props) => {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.userReducer.userState);
     const userRank = useAppSelector((state) => state.userReducer.userRank);
+    const regions = useAppSelector((state) => state.regionReducer.regionState);
+
 
     const [userMatches, setUserMatches] = useState<any>([]);
     const [isLargerThan] = useMediaQuery("(min-width:1050px)");
 
     useEffect(() => {
       dispatch(fetchUserInfo());
+      dispatch(fetchRegions())
       dispatch(fetchUserRank())
     }, [dispatch]);
 
     console.log(userMatches);
-    console.log(user)
-  // use custom react hook, import use User hook, deconstruct outside
-  // dont decode here, decode tokens in the backend, gets the user ID and get information attach to the header of the request
-  const [current, setCurrent] = useState<any>()
-  //const [userMatches, setUserMatches] = useState()
-  let decoded: any;
- 
-  useEffect(() => {
-    if (user) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      decoded = jwt_decode(user);
-      setCurrent(decoded);
+    console.log("user: ", user)
+    console.log("userRank: ", userRank)
+    console.log("Regions: ", regions)
 
       console.log(current);
       
