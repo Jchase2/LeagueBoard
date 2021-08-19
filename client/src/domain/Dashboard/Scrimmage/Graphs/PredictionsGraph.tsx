@@ -1,14 +1,15 @@
 import React from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
+import { Container, Divider } from "@chakra-ui/react"
 
-
-const PredictionsGraph = ({team1, team2}) => {
+const PredictionsGraph = () => {
  
  // const { holdings } = useSelector((state: any) => state.holdings);
   
  
   return (
     <div>
+      <Divider orientation="horizontal"></Divider>
       <CanvasJSChart
         options={ {
           title: {

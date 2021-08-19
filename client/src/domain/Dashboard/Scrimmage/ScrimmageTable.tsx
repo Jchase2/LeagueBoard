@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import mockScrimmage from './mockdata';
 import { IPlayer } from './MockInterface';
-import { Table, Tfoot, Thead, Tbody, Th, Tr, Td, TableCaption, 
+import { Box, Table, Tfoot, Thead, Tbody, Th, Tr, Td, TableCaption, 
   Container, SimpleGrid} from "@chakra-ui/react";
 import PredictionsGraph from './Graphs/PredictionsGraph';
 import DonutGraph from './Graphs/DonutGraph';
 
-export const Scrimmage = () => {
+export const ScrimmageTable = () => {
   const [data, dataSet] = useState(mockScrimmage) 
   const team10 = data.teams.team1;
   const team20 = data.teams.team2;
@@ -27,11 +27,7 @@ export const Scrimmage = () => {
   
   
   return (
-
-
     <div>
-      
-        
       <SimpleGrid columns={2} spacing={2}>
 
         <Table className="team1Table" variant="striped" colorScheme="blue">
@@ -78,18 +74,7 @@ export const Scrimmage = () => {
           </Tfoot>
         </Table>
 
-      </SimpleGrid>
-
-      <SimpleGrid columns={2} spacing={1}>
-
-      
-        <DonutGraph/>
- 
-        <PredictionsGraph team1={player1Set} team2={player2Set}/>
- 
-
-      </SimpleGrid>
-       
+      </SimpleGrid>  
     </div>
   );
 }
