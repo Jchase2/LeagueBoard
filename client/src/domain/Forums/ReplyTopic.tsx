@@ -8,12 +8,12 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Props } from "framer-motion/types/types";
-import { fetchComments, createNewTopic } from "../../redux/slices";
+import { createNewTopic } from "../../redux/slices";
 import { useAppDispatch } from "../../redux/hooks";
 
 
 interface myProps extends Props {
-  setIsReply: Function;
+  setIsReply: Function
 }
 
 const ReplyTopic: React.FC<myProps> = (props) => {
@@ -32,7 +32,6 @@ const ReplyTopic: React.FC<myProps> = (props) => {
     e.preventDefault();
     try {
       dispatch(createNewTopic(topicData));
-      dispatch(fetchComments(props.topicid))
       props.setIsReply(false);
     } catch (error) {
       alert("Something went wrong when creating your reply, please try again!");

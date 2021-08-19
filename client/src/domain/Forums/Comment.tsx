@@ -20,8 +20,7 @@ const Comment: React.FC<Props> = (props) => {
   const [isReply, setIsReply] = useState(false);
   useEffect(() => {
     setThreadData(props.thread);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.thread]);
 
   return (
     <Box w="48vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px" m={2}>
