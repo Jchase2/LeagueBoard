@@ -20,7 +20,6 @@ export const getRegions = async (
 ) => {
   try {
     const regions = await Region.findAll({});
-    console.log("REGIONS: ", regions)
     res.json(regions);
   } catch (err) {
     next(err);

@@ -20,13 +20,13 @@ const Layout: React.FC<Props> = (props: Props) => {
 
     useEffect(() => {
       dispatch(fetchUserInfo());
-      dispatch(fetchUserRank())
       dispatch(fetchRegions())
+      dispatch(fetchUserRank())
     }, [dispatch]);
 
     console.log(userMatches);
     console.log("user: ", user)
-    console.log(userRank)
+    console.log("userRank: ", userRank)
     console.log("Regions: ", regions)
 
   return (

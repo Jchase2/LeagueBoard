@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 interface props {
-    users: any 
+    users: any
     userRank: any
 }
 
