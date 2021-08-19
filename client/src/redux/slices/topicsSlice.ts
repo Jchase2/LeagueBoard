@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ITopicResp } from "../../interfaces";
 
 // Creates a thunk which wraps our async calls for redux.
 export const fetchForumTopics = createAsyncThunk(

@@ -10,6 +10,10 @@ export const fetchUserInfo = createAsyncThunk<IUser>(
 
 
 // Slice: Handles actions and reducers at the same time.
+// TODO: Expand userState to be more than email and pw.
+// Check out topicSlice for example. Also may end up needing
+// to remove IUser from the createAsyncThunk above, same as
+// topicsSlice.
 export const userSlice = createSlice({
   // Name of state and initial state
   name: "user",
