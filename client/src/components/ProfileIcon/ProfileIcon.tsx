@@ -10,8 +10,6 @@ import {
   Badge,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useState, useEffect } from 'react'
-import { getUserInfo } from "../../api/profileAPI";
 
 interface props {
     users: any 
@@ -21,7 +19,6 @@ const ProfileIcon: React.FC<props> = ({ users }) => {
 
   return (
     <Box
-    
       w={"full"}
       bg={useColorModeValue("white", "gray.900")}
       boxShadow={"2xl"}
@@ -67,11 +64,12 @@ const ProfileIcon: React.FC<props> = ({ users }) => {
 
       <Stack mt={8} direction={"row"} spacing={4}>
         <Button
+          bgGradient="linear(to-l, #7928CA,#FF0080)"
           flex={1}
           fontSize={"sm"}
           rounded={"full"}
-          _focus={{
-            bg: "gray.200",
+          _hover={{
+            bg: "red.500",
           }}
         >
           Update
