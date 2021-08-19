@@ -1,51 +1,39 @@
-import { Flex, useMediaQuery, Box } from "@chakra-ui/react"
+import { Flex, useMediaQuery } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
-import { getUserInfo, getUserMatches, getUserRank } from "../../api/profileAPI"
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchUserInfo, fetchUserRank } from "../../redux/slices";
 
 interface Props {}
 
 const Layout: React.FC<Props> = (props: Props) => {
-    const [user, setUser] = useState<any>();
+    const dispatch = useAppDispatch();
+    const user = useAppSelector((state) => state.userReducer.userState);
+    const userRank = useAppSelector((state) => state.userReducer.userRank);
+
     const [userMatches, setUserMatches] = useState<any>([]);
-    const [userRank, setUserRank] = useState<any>([])
     const [isLargerThan] = useMediaQuery("(min-width:1050px)");
 
     useEffect(() => {
-      localStorage.getItem("accessToken") &&
-        getUserInfo().then((res:any) => setUser(res));
-    }, []);
+      dispatch(fetchUserInfo());
+      dispatch(fetchUserRank())
+    }, [dispatch]);
 
-      //user && getUserMatches(user.puuid).then(res => setUserMatches(res));
-
-  useEffect(() => {
-    getUserRank().then((res) => setUserRank(res));
-  }, [])
     console.log(userMatches);
     console.log(user)
     console.log(userRank)
-  // use custom react hook, import use User hook, deconstruct outside
-  // dont decode here, decode tokens in the backend, gets the user ID and get information attach to the header of the request
-  // let decoded: any;
-  // const user: string | null = localStorage.getItem("accessToken");
-  // if (user) {
-  //   decoded = jwt_decode(user);
-  // }
-  // console.log(userMatches);
-  // console.log(decoded)
-  // const user = useGetUsers();
-  // console.log(user)
+
   return (
     <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
       <Flex minW="20vw" justifyContent="center" alignContent="center">
-        <ProfileIcon users={user} />
+        <ProfileIcon users={user} userRank={userRank}/>
       </Flex>
       <Flex minW="55vw" justifyContent="center" alignContent="center">
-        
+
         {userMatches?.map((match:any)=> (
-          <ProfileMatch 
+          <ProfileMatch
             match={match}
             key={uuidv4()}
           />

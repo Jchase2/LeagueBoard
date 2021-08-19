@@ -9,13 +9,15 @@ import {
   Link,
   Badge,
   useColorModeValue,
+  Popover,
 } from "@chakra-ui/react";
 
 interface props {
     users: any 
+    userRank: any
 }
 
-const ProfileIcon: React.FC<props> = ({ users }) => {
+const ProfileIcon: React.FC<props> = ({ users, userRank }) => {
 
   return (
     <Box
@@ -51,6 +53,9 @@ const ProfileIcon: React.FC<props> = ({ users }) => {
       <Heading fontSize={"2xl"} fontFamily={"body"}>
         {users ? `${users?.summoner_name}` : ""}
       </Heading>
+      <Button size="xs" colorScheme="teal" variant="solid" margin="5px">
+        Button
+      </Button>
       <Text fontWeight={600} color={"gray.500"} mb={4}>
         North America
       </Text>
@@ -59,9 +64,8 @@ const ProfileIcon: React.FC<props> = ({ users }) => {
         color={useColorModeValue("gray.700", "gray.400")}
         px={3}
       >
-        SILVER 2 RANK
+        Rank : {`${userRank[0]?.tier}`} {`${userRank[0]?.rank}`}
       </Text>
-
       <Stack mt={8} direction={"row"} spacing={4}>
         <Button
           bgGradient="linear(to-l, #7928CA,#FF0080)"

@@ -1,24 +1,18 @@
 import { Flex, Box, Heading, Button } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useHistory } from "react-router";
-import ThreadCard from "./ThreadCard";
-import { getForumTopics } from "../../api/api";
-import { ITopicResp } from "../../interfaces";
+import { useAppDispatch } from '../../redux/hooks';
+import { fetchForumTopics } from "../../redux/slices/topicsSlice";
+import MapTopics from "./MapTopics";
 
 const Topics: React.FC = () => {
-  const [threadArray, setThreadArray] = useState<ITopicResp[]>([]);
+  let history = useHistory();
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    updateTopics()
-  }, []);
+    dispatch(fetchForumTopics());
+  }, [dispatch]);
 
-  const updateTopics = () => {
-    getForumTopics().then((res) => {
-      setThreadArray(res);
-    });
-  }
-
-  let history = useHistory();
   return (
       <Flex minH="100vh" align="center" flexDirection="column">
         <Box textAlign="center">
@@ -28,14 +22,7 @@ const Topics: React.FC = () => {
           <Button onClick={() => history.push("/topics/create")} m={1}>
             New Thread
           </Button>
-          {threadArray.map((thread) => (
-            <>
-              {console.log(thread)}
-              {!(thread.parentid >= 1) && (
-                <ThreadCard thread={thread} />
-              )}
-            </>
-          ))}
+          <MapTopics />
         </Box>
       </Flex>
   );

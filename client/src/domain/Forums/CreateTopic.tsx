@@ -1,18 +1,18 @@
 import {
   Input,
-  FormControl,
   FormLabel,
   Button,
   Flex,
   Textarea,
 } from "@chakra-ui/react";
-import { createNewTopic } from "../../api/api";
 import { useState } from "react";
 import { useHistory } from "react-router";
-import SidebarWithHeader from "../../components/Heading/Heading";
+import { createNewTopic } from "../../redux/slices/topicsSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 const CreateTopic: React.FC = () => {
   let history = useHistory();
+  const dispatch = useAppDispatch()
 
   const [topicData, setTopicData] = useState({
     userid: 1,
@@ -25,12 +25,10 @@ const CreateTopic: React.FC = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      createNewTopic(topicData).then(resp => {
-        console.log("Successfully created topic.");
-        history.push(`/topic/${resp.id}`);
-      });
+      dispatch(createNewTopic(topicData));
+      history.push('/topics')
     } catch (error) {
-      alert("Something went wrong when creating your topic, please try again!");
+      alert("Something went wrong when creating your reply, please try again!");
       console.log(error);
     }
   };
