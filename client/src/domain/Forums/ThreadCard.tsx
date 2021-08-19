@@ -12,7 +12,7 @@ const Forums: React.FC<Props> = ({thread}) => {
         fontSize="sm"
         letterSpacing="wide"
       >
-        <Link to={`/topics/${thread.topicid}`}>
+        <Link to={`/topic/${thread.id}`}>
           {thread.title}
         </Link>
       </Box>

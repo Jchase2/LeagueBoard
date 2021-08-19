@@ -33,7 +33,6 @@ const ReplyTopic: React.FC<myProps> = (props) => {
       });
     } catch (error) {
       alert("Something went wrong when creating your reply, please try again!");
-      console.log(error);
     }
   };
 

@@ -4,11 +4,13 @@ import { ITopicResp } from "../../interfaces";
 import { deleteForumTopic, getForumComments, getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
-import SidebarWithHeader from "../../components/Heading/Heading";
 import Comment from "./Comment";
 
 const ThreadPage: React.FC = () => {
+
   let history = useHistory();
+  let { id } = useParams<urlParams>();
+
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -34,7 +36,6 @@ const ThreadPage: React.FC = () => {
     });
   };
 
-  let { id } = useParams<urlParams>();
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);
@@ -48,46 +49,50 @@ const ThreadPage: React.FC = () => {
   }
 
   return (
-    <Flex minH="100vh" align="center" flexDirection="column" m={2}>
-      <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px">
-        <Box
-          fontWeight="bold"
-          textTransform="uppercase"
-          fontSize="sm"
-          letterSpacing="wide"
-          color="fff"
-        >
-          {threadData.title}
-        </Box>
-        <Box
-          color="gray.500"
-          fontWeight="semibold"
-          letterSpacing="wide"
-          fontSize="xs"
-          textTransform="uppercase"
-        >
-          {/* TODO: Need to replace this with username */}
-          By: {threadData.userid}
-        </Box>
-        <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
-          <Text>{threadData.text}</Text>
-        </Box>
-        {isReply ? (
-          <ReplyTopic
-            setIsReply={setIsReply}
-            topicid={id}
-            updateComments={updateComments}
-          />
-        ) : null}
-        {!isReply ? (
-          <Button onClick={() => setIsReply(true)} m={1}>
-            Reply
+      <Flex minH="100vh" align="center" flexDirection="column" m={2}>
+        <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px">
+          <Box
+            fontWeight="bold"
+            textTransform="uppercase"
+            fontSize="sm"
+            letterSpacing="wide"
+            color="fff"
+          >
+            {threadData.title}
+          </Box>
+          <Box
+            color="gray.500"
+            fontWeight="semibold"
+            letterSpacing="wide"
+            fontSize="xs"
+            textTransform="uppercase"
+          >
+            {/* TODO: Need to replace this with username */}
+            <Text>By: {threadData.userid}</Text>
+            <Text>At {new Date(threadData.created_at).toLocaleTimeString() + ' on ' + new Date(threadData.created_at).toLocaleDateString()}</Text>
+          </Box>
+          <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
+            <Text>{threadData.text}</Text>
+          </Box>
+          {isReply ? (
+            <ReplyTopic
+              setIsReply={setIsReply}
+              topicid={id}
+              updateComments={updateComments}
+            />
+          ) : null}
+          {!isReply ? (
+            <Button onClick={() => setIsReply(true)} m={1}>
+              Reply
+            </Button>
+          ) : null}
+          <Button onClick={handleDelete} >
+            Delete
           </Button>
-        ) : null}
-        <Button onClick={() => history.push("/topics")} m={1}>
-          Back
-        </Button>
-        <Box>
+          <Button onClick={() => history.push("/topics")} m={1}>
+            Back
+          </Button>
+          <Box>
           {commentsArray.map((thread) => (
             <>
               {thread.parentid ? (
@@ -98,8 +103,8 @@ const ThreadPage: React.FC = () => {
             </>
           ))}
         </Box>
-      </Box>
-    </Flex>
+        </Box>
+      </Flex>
   );
 };
 
