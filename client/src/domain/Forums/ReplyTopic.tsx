@@ -17,12 +17,9 @@ interface myProps extends Props {
 }
 
 const ReplyTopic: React.FC<myProps> = (props) => {
-<<<<<<< HEAD
 
   const dispatch = useAppDispatch()
 
-=======
->>>>>>> lewis-branch
   const [topicData, setTopicData] = useState({
     parentid: Number(props.topicid),
     userid: 1,

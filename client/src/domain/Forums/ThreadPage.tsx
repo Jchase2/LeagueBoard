@@ -4,8 +4,6 @@ import { ITopicResp } from "../../interfaces";
 import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
-<<<<<<< HEAD
-import SidebarWithHeader from "../../components/Heading/Heading";
 import { useAppDispatch } from "../../redux/hooks";
 import { deleteForumTopic } from "../../redux/slices";
 import MapComments from './MapComments';
@@ -15,15 +13,6 @@ const ThreadPage: React.FC = () => {
   const history = useHistory();
   const { id } = useParams<urlParams>();
   const dispatch = useAppDispatch();
-=======
-import Comment from "./Comment";
-
-const ThreadPage: React.FC = () => {
-
-  let history = useHistory();
-  let { id } = useParams<urlParams>();
-
->>>>>>> lewis-branch
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -42,15 +31,6 @@ const ThreadPage: React.FC = () => {
     id: string;
   };
 
-<<<<<<< HEAD
-=======
-  const updateComments = () => {
-    getForumComments(+id).then((res) => {
-      setCommentsArray(res);
-    });
-  };
-
->>>>>>> lewis-branch
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);

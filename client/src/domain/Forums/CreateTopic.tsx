@@ -7,7 +7,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useHistory } from "react-router";
-import SidebarWithHeader from "../../components/Heading/Heading";
 import { createNewTopic } from "../../redux/slices/topicsSlice";
 import { useAppDispatch } from "../../redux/hooks";
 
@@ -26,15 +25,8 @@ const CreateTopic: React.FC = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-<<<<<<< HEAD
       dispatch(createNewTopic(topicData));
       history.push('/topics')
-=======
-      createNewTopic(topicData).then(resp => {
-        console.log("Successfully created topic.");
-        history.push(`/topic/${resp.id}`);
-      });
->>>>>>> lewis-branch
     } catch (error) {
       alert("Something went wrong when creating your reply, please try again!");
       console.log(error);

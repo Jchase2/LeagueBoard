@@ -1,16 +1,9 @@
 import { Flex, Box, Heading, Button } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
-<<<<<<< HEAD
-import SidebarWithHeader from "../../components/Heading/Heading";
 import { useAppDispatch } from '../../redux/hooks';
 import { fetchForumTopics } from "../../redux/slices/topicsSlice";
 import MapTopics from "./MapTopics";
-=======
-import ThreadCard from "./ThreadCard";
-import { getForumTopics } from "../../api/api";
-import { ITopicResp } from "../../interfaces";
->>>>>>> lewis-branch
 
 const Topics: React.FC = () => {
   let history = useHistory();
