@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import mockScrimmage from './mockdata';
 import { IPlayer } from './MockInterface';
-import { Box, Table, Tfoot, Thead, Tbody, Th, Tr, Td, TableCaption, 
-  Container, SimpleGrid} from "@chakra-ui/react";
+import { Box, Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td, TableCaption, 
+  Container, SimpleGrid, Center} from "@chakra-ui/react";
 import PredictionsGraph from './Graphs/PredictionsGraph';
 import DonutGraph from './Graphs/DonutGraph';
 
@@ -28,6 +28,15 @@ export const ScrimmageTable = () => {
   
   return (
     <div>
+      <Center>
+      
+        <Heading as="h4" size="md">
+          Battle Date: {data.date}  at  {data.time}
+        </Heading>
+
+      </Center>
+       
+       
       <SimpleGrid columns={2} spacing={2}>
 
         <Table className="team1Table" variant="striped" colorScheme="blue">

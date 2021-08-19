@@ -56,7 +56,7 @@ const UserDonutGraph = ({team1, team2}:any) => {
             let matchInfo = userMatches[i][j];
             let participants = matchInfo.info['participants'];
             participants.forEach(element => {
-              if (element['summonerName'] === currentUser) resultArr.push(element); 
+              if (element['summoner_name'] === currentUser) resultArr.push(element); 
             });  
             j++;
           }
