@@ -67,11 +67,18 @@ export const getForumTopicById = async (
   }
 };
 
-export const getUserInfo = async (
-  req: Request,
-  res: Response,
-  next: Function
-) => {
+export const deleteForumTopic = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { topicid } = req.params;
+    const topic = await Topic.findByPk(topicid);
+    await topic.destroy();
+    res.status(204)
+  } catch (err) {
+    next(err);
+  }
+}
+
+export const getUserInfo = async (req: Request, res: Response, next: Function) => {
   try {
     let token;
 

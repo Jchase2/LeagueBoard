@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
-import { getForumComments, getForumTopic } from "../../api/api";
+import { deleteForumTopic, getForumComments, getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
 import SidebarWithHeader from "../../components/Heading/Heading";
@@ -41,6 +41,11 @@ const ThreadPage: React.FC = () => {
     });
     updateComments();
   }, [id]);
+
+  const handleDelete = () => {
+    deleteForumTopic(threadData.id);
+    history.push('/topics')
+  }
 
   return (
     <Flex minH="100vh" align="center" flexDirection="column" m={2}>
@@ -87,12 +92,7 @@ const ThreadPage: React.FC = () => {
             <>
               {thread.parentid ? (
                 <>
-                  {console.log("Thread: ", thread)}
-                  <Comment
-                    id={thread.id}
-                    thread={thread}
-                    updateComments={updateComments}
-                  />
+                  <Comment id={thread.id} thread={thread} updateComments={updateComments}/>
                 </>
               ) : null}
             </>
