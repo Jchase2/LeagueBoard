@@ -1,20 +1,24 @@
-import { Flex } from "@chakra-ui/react"
+import { Flex, useMediaQuery } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { getUserInfo, getUserMatches } from "../../api/profileAPI"
+import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 
 interface Props {}
 
 const Layout: React.FC<Props> = (props: Props) => {
     const [user, setUser] = useState<any>();
     const [userMatches, setUserMatches] = useState<any>([]);
+    const [isLargerThan] = useMediaQuery("(min-width:765px)");
 
     useEffect(() => {
       localStorage.getItem("accessToken") &&
         getUserInfo().then((res:any) => setUser(res));
     }, []);
+    
     if (user) {
       getUserMatches(user.puuid).then((res) => setUserMatches(res));
     }
+
     console.log(userMatches);
     console.log(user)
   // use custom react hook, import use User hook, deconstruct outside
@@ -29,8 +33,13 @@ const Layout: React.FC<Props> = (props: Props) => {
   // const user = useGetUsers();
   // console.log(user)
   return (
-    <Flex justifyContent="center" alignContent="center">
-      dsfsdfsf
+    <Flex padding="20px" flexDirection="column">
+    <Flex maxW={isLargerThan ? "25vw": ""} justifyContent="center" alignContent="center">
+      <ProfileIcon users={user}/>
+    </Flex>
+    <Flex  justifyContent="center" alignContent="center">
+dsfsdfsd
+    </Flex>
     </Flex>
   );
 }

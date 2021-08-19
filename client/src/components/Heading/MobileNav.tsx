@@ -123,7 +123,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         ml="2"
                       >
                         <Text fontSize="md">{user ? `${user?.summoner_name}` : ""}</Text>
-                        <Text fontSize="xs">{}</Text>
+                        <Text fontSize="xs">North America</Text>
                       </VStack>
                       <Box display={{ base: "none", md: "flex" }}>
                         <FiChevronDown />
