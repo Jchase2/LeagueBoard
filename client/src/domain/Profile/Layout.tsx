@@ -34,6 +34,8 @@ const Layout: React.FC<Props> = (props: Props) => {
     console.log("userRank: ", userRank)
     console.log("Regions: ", regions)
 
+    regions.forEach(e => console.log(e))
+
   return (
     <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
       <Flex minW="20vw" justifyContent="center" alignContent="center">
