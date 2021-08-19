@@ -54,23 +54,12 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
         Button
       </Button>
       <Text fontWeight={600} color={"gray.500"} mb={4}>
-<<<<<<< HEAD
-        North America
-      </Text>
-      <Text
-        textAlign={"center"}
-        color={useColorModeValue("gray.700", "gray.400")}
-        px={3}
-      >
-        {/* //Rank : {`${userRank[0]?.tier}`} {`${userRank[0]?.rank}`} */}
-=======
         {regionName}
->>>>>>> lewis-branch
       </Text>
       <Flex>
-      
+
         <Text as="em" color={useColorModeValue("gray.700", "gray.300")} px={3}>
-        Rank : {userRank ?  `${userRank[0].tier} ${userRank[0].rank}` : "Unranked"}
+        Rank : {userRank.length ?  `${userRank[0].tier} ${userRank[0].rank}` : "Unranked"}
         </Text>
       </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>
