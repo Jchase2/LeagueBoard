@@ -29,6 +29,7 @@ const VerificationComponent = () => {
     callFunc().then((res) => {
       setIcon(res.iconid);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {

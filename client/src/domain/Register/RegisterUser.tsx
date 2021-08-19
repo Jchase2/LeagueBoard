@@ -12,7 +12,6 @@ import {
   Button,
   Image,
   useColorModeValue,
-  Select,
 } from "@chakra-ui/react";
 import { SelectRegion } from './SelectRegion';
 import { ErrorShow } from "../../components/Error/ErrorShow";
