@@ -1,14 +1,14 @@
 import React, { useEffect, useState} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
-import { getRecentMatches } from '../../../../api/backendApi';
+/* import { getRecentMatches } from '../../../../api/backendApi';
 import { useSelector } from 'react-redux';
 import jwt_decode from 'jwt-decode';
-import { getUserMatches } from '../../../../api/profileAPI';
-import { allMatches } from './matchData';
-import { Container, Radio, RadioGroup, Stack } from "@chakra-ui/react"
+import { getUserMatches } from '../../../../api/profileAPI'; */
+import { allMatches } from '../Dashboard/Scrimmage/Graphs/matchData';
+import { Center, Container, Radio, RadioGroup, Stack, Divider } from "@chakra-ui/react"
 
 const UserDonutGraph = ({team1, team2}:any) => {
-  //const [userHistory, setUserHistory] = useState<any[]>([])
+  const [userHistory, setUserHistory] = useState<any[]>([])
   const [userMatches, setuserMatches] = useState<any[]>([])
   const [userDeathHistory, setUserDeathHistory] = useState<any>({});
   const [userKillHistory, setUserKillHistory] = useState<any>({});
@@ -38,9 +38,9 @@ const UserDonutGraph = ({team1, team2}:any) => {
         let array:any = [];
         getUserMatches(decoded?.user?.puuid).then(async (res) => {
           
-          setuserMatches(await array)
-        } );
-          */
+          setUserHistory(await array)
+        } ); */
+         
         let current = 'demon6kitty2';
         
           let userKills = {avg: 0, high: 0, low: 0};
@@ -52,11 +52,11 @@ const UserDonutGraph = ({team1, team2}:any) => {
           let deaths:any[] = [];
           let assists:any[] = [];
           for (let i:number = 0; i < allMatches.length; i++) {
-            console.log(userMatches)
+            console.log(allMatches)
             let matchInfo = allMatches[i][j];
             let participants = matchInfo.info['participants'];
             participants.forEach(element => {
-              if (element['summoner_name'] === current) resultArr.push(element); 
+              if (element['summonerName'] === current) resultArr.push(element); 
             });  
             j++;
           }
@@ -125,13 +125,20 @@ const UserDonutGraph = ({team1, team2}:any) => {
   return (
     <div>
       <Container>
+        <Divider orientation="horizontal"/>
+       
         <RadioGroup defaultValue={'kills'} onChange={(value) => setValue(value)}>
           <Stack direction="row">
+            <Divider orientation="vertical" />
             <Radio value="kills">kills</Radio>
             <Radio value="deaths">deaths</Radio>
             <Radio value="assists">assists</Radio>
+           
           </Stack>
         </RadioGroup>
+
+        <Divider orientation="vertical" />
+
         {console.log(userValue)}
          <CanvasJSChart
           options={{
@@ -162,7 +169,7 @@ const UserDonutGraph = ({team1, team2}:any) => {
           } } 
 
         />
-
+        <Center><h3>kill/death/assist Stats from Past 10 Games</h3></Center>
         </Container>
       
     </div>

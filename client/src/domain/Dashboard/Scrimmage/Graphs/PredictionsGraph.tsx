@@ -34,7 +34,7 @@ const PredictionsGraph = () => {
             dataPoints: [
               { label: "team1",   y: 85 },
             ]
-          },{
+          }/*,{
             type: "stackedBar100",
             color: "#3457D5",
             name: "Team-1 Player2",
@@ -44,7 +44,7 @@ const PredictionsGraph = () => {
             dataPoints: [
               { label: "team1",   y: 85 },
             ]
-          },{
+          }, {
             type: "stackedBar100",
             color: "#1E90FF",
             name: "Team-1 Player3",
@@ -84,7 +84,7 @@ const PredictionsGraph = () => {
             dataPoints: [
               { label: "team2",   y: 34 },
             ]
-          },{
+          } ,{
             type: "stackedBar100",
             color: "#B7410E",
             name: "Team-2 Player2",
@@ -115,7 +115,7 @@ const PredictionsGraph = () => {
             dataPoints: [
               { label: "team2",   y: 34 },
             ]
-          },{
+          }*/,{
             type: "stackedBar100",
             color: "#B7410E",
             name: "Team-2 Player5",
