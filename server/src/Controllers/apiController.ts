@@ -26,28 +26,28 @@ export const getRegions = async (
   }
 };
 
-export const getRecentMatches = async (
-  req: Request,
-  res: Response,
-  next: Function
-) => {
+export const getRecentMatches = async (req: Request, res: Response, next: Function) => {
   try {
-    //get token decode and pass whatever value the call needs.
     let { puuid } = req.params;
-    //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow';
-    const resArr: any = [];
+    puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
 
     let query: any = await sequelize.query(
       `SELECT region FROM public."Users" as U LEFT JOIN public."Regions" as R on U.regionid = R.id WHERE puuid = '${puuid}';`
     );
     let region = query[0][0].region;
+
     const matches = await getMatchesByPuuid(puuid, region);
     await asyncForEach(matches, async (match: string) => {
-      const matchInfo = await getMatchInfoByMatchId(match, region);
-      resArr.push(matchInfo);
+      const { data } = await getMatchInfoByMatchId(match, region);
+      // console.log(data.info, 'DATA');
+      // console.count();
     });
 
-    res.send(resArr);
+    //insert in db the matchInfo 
+    // await sequelize.query(
+    //   `INSERT INTO public."MatchInfos" (matchid, region, matchinfo) VALUES ('${matches[0]}', '${region}', '${JSON.stringify(
+    
+    res.send().status(200);
   } catch (err) {
     next(err);
   }
@@ -92,19 +92,46 @@ export const getUserInfo = async (req: Request, res: Response, next: Function) =
     const decoded = jwt.decode(token);
     const user = await User.findOne({ where: { id: decoded.id } });
     if (user) {
+      user.password = '';
+      res.status(200).send(user);
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
+export const getUserRanked = async (req: Request, res: Response, next: Function) => {
+  try {
+    let token;
+
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    }
+
+    const decoded = jwt.decode(token);
+    const user = await User.findOne({ where: { id: decoded.id } });
+    if (user) {
       let query: any = await sequelize.query(
         `SELECT code, region FROM public."Users" as U LEFT JOIN public."Regions" as R on U.regionid = R.id WHERE puuid = '${user.dataValues.puuid}';`
       );
       let regionCode = query[0][0].code;
 
+      //Getting ID from user in region, not the PUUID
       let { data } = await getSummonerByNameAndRegion(
         user.dataValues.summoner_name,
         regionCode
       );
+
+      //getting ranked info with that id
       const summoner = await getSummonerEntriesByAccountIdAndRegion(data.id, regionCode);
-      user.data = summoner.data;
-      res.status(200).send(user);
+      
+      if(summoner.data) res.status(200).send(summoner.data);
+      else res.status(404).send('No summoner data.');
     } else {
       res.status(404).send("User not found");
     }

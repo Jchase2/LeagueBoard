@@ -42,6 +42,7 @@ export const register = async (req: Request, res: Response, next: Function) => {
       iconid,
     });
 
+    user.password = '';
     sendToken(user, 201, res);
   } catch (error) {
     next(error);
