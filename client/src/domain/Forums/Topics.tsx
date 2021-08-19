@@ -2,6 +2,7 @@ import { Flex, Box, Heading, Button } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
 import { useAppDispatch } from '../../redux/hooks';
+import { fetchUserInfo } from "../../redux/slices";
 import { fetchForumTopics } from "../../redux/slices/topicsSlice";
 import MapTopics from "./MapTopics";
 
@@ -11,6 +12,7 @@ const Topics: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchForumTopics());
+    dispatch(fetchUserInfo())
   }, [dispatch]);
 
   return (
