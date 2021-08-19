@@ -37,7 +37,7 @@ const RegisterUser = () => {
     }
 
     verifyEmailAndUser(formData.regionId, formData.summoner_name, formData.email)
-    .then((res) => {
+    .then(() => {
       history.push({
         pathname: "/verify",
         state: { formdata: formData },

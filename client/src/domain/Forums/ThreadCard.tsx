@@ -1,9 +1,9 @@
-import { Box, Link } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
-import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import { Text } from "@chakra-ui/layout";
 
-const Forums: React.FC<Props> = (props) => {
-  let history = useHistory();
+const Forums: React.FC<Props> = ({thread}) => {
   return (
     <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" m={2}>
       <Box
@@ -12,8 +12,8 @@ const Forums: React.FC<Props> = (props) => {
         fontSize="sm"
         letterSpacing="wide"
       >
-        <Link onClick={() => history.push(`/topics/${props.topicid}`)}>
-          {props.title}
+        <Link to={`/topic/${thread.id}`}>
+          {thread.title}
         </Link>
       </Box>
       <Box
@@ -24,7 +24,9 @@ const Forums: React.FC<Props> = (props) => {
         textTransform="uppercase"
       >
         {/* Note, user doesn't exist yet. We'll replace userid with user here when we have access to it.*/}
-        By: {String(props.userid)}
+        By: {String(thread.userid)}
+        <Text>At {new Date(thread.created_at).toLocaleTimeString() + ' on ' + new Date(thread.created_at).toLocaleDateString()}</Text>
+
       </Box>
     </Box>
   );

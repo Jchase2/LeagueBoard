@@ -8,7 +8,7 @@ import { allMatches } from './matchData';
 import { Container, Radio, RadioGroup, Stack } from "@chakra-ui/react"
 
 const UserDonutGraph = ({team1, team2}:any) => {
-  const [userHistory, setUserHistory] = useState<any[]>([])
+  //const [userHistory, setUserHistory] = useState<any[]>([])
   const [userMatches, setuserMatches] = useState<any[]>([])
   const [userDeathHistory, setUserDeathHistory] = useState<any>({});
   const [userKillHistory, setUserKillHistory] = useState<any>({});
@@ -38,7 +38,7 @@ const UserDonutGraph = ({team1, team2}:any) => {
         let array:any = [];
         getUserMatches(decoded?.user?.puuid).then(async (res) => {
           
-          setUserHistory(await array)
+          setuserMatches(await array)
         } );
          
         //let current = 'demon6kitty2';

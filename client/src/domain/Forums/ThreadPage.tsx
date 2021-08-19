@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
-import { getForumComments, getForumTopic } from "../../api/api";
+import { deleteForumTopic, getForumComments, getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
 import SidebarWithHeader from "../../components/Heading/Heading";
@@ -10,6 +10,8 @@ import Comment from "./Comment";
 const ThreadPage: React.FC = () => {
 
   let history = useHistory();
+  let { id } = useParams<urlParams>();
+
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -35,13 +37,17 @@ const ThreadPage: React.FC = () => {
     });
   };
 
-  let { id } = useParams<urlParams>();
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);
     });
     updateComments();
   }, [id]);
+
+  const handleDelete = () => {
+    deleteForumTopic(threadData.id);
+    history.push('/topics')
+  }
 
   return (
     <SidebarWithHeader>
@@ -64,7 +70,8 @@ const ThreadPage: React.FC = () => {
             textTransform="uppercase"
           >
             {/* TODO: Need to replace this with username */}
-            By: {threadData.userid}
+            <Text>By: {threadData.userid}</Text>
+            <Text>At {new Date(threadData.created_at).toLocaleTimeString() + ' on ' + new Date(threadData.created_at).toLocaleDateString()}</Text>
           </Box>
           <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
             <Text>{threadData.text}</Text>
@@ -81,6 +88,9 @@ const ThreadPage: React.FC = () => {
               Reply
             </Button>
           ) : null}
+          <Button onClick={handleDelete} >
+            Delete
+          </Button>
           <Button onClick={() => history.push("/topics")} m={1}>
             Back
           </Button>
@@ -89,7 +99,6 @@ const ThreadPage: React.FC = () => {
             <>
               {thread.parentid ? (
                 <>
-                  {console.log("Thread: ", thread)}
                   <Comment id={thread.id} thread={thread} updateComments={updateComments}/>
                 </>
               ) : null}

@@ -6,7 +6,7 @@ import {
   Flex,
   Textarea,
 } from "@chakra-ui/react";
-import { createTopic } from "../../api/api";
+import { createNewTopic } from "../../api/api";
 import { useState } from "react";
 import { Props } from "framer-motion/types/types";
 
@@ -27,7 +27,7 @@ const ReplyTopic: React.FC<myProps> = (props) => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      createTopic(topicData).then((resp) => {
+      createNewTopic(topicData).then((resp) => {
         props.setIsReply(false);
         props.updateComments();
         console.log("Successfully created reply.");
