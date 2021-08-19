@@ -1,17 +1,25 @@
 import { useState, useEffect } from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
-import { deleteForumTopic, getForumComments, getForumTopic } from "../../api/api";
+import {
+  getForumComments,
+  getForumTopic,
+} from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
 import SidebarWithHeader from "../../components/Heading/Heading";
 import Comment from "./Comment";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { deleteForumTopic } from "../../redux/slices/topicsSlice";
+
 
 const ThreadPage: React.FC = () => {
-
   let history = useHistory();
   let { id } = useParams<urlParams>();
+  const dispatch = useAppDispatch()
 
+
+  const threadArray = useAppSelector((state) => state.topicsReducer.topics);
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -45,9 +53,11 @@ const ThreadPage: React.FC = () => {
   }, [id]);
 
   const handleDelete = () => {
-    deleteForumTopic(threadData.id);
-    history.push('/topics')
-  }
+    dispatch(deleteForumTopic(threadData.id));
+    history.push("/topics");
+  };
+
+  console.log("threadArray: ", threadArray);
 
   return (
     <SidebarWithHeader>
@@ -71,40 +81,45 @@ const ThreadPage: React.FC = () => {
           >
             {/* TODO: Need to replace this with username */}
             <Text>By: {threadData.userid}</Text>
-            <Text>At {new Date(threadData.created_at).toLocaleTimeString() + ' on ' + new Date(threadData.created_at).toLocaleDateString()}</Text>
+            <Text>
+              At{" "}
+              {new Date(threadData.created_at).toLocaleTimeString() +
+                " on " +
+                new Date(threadData.created_at).toLocaleDateString()}
+            </Text>
           </Box>
           <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
             <Text>{threadData.text}</Text>
           </Box>
-          {isReply ? (
+          {isReply && (
             <ReplyTopic
               setIsReply={setIsReply}
               topicid={id}
               updateComments={updateComments}
             />
-          ) : null}
-          {!isReply ? (
+          )}
+          {!isReply && (
             <Button onClick={() => setIsReply(true)} m={1}>
               Reply
             </Button>
-          ) : null}
-          <Button onClick={handleDelete} >
-            Delete
-          </Button>
+          )}
           <Button onClick={() => history.push("/topics")} m={1}>
             Back
           </Button>
+          <Button m={1} onClick={handleDelete}>Delete</Button>
           <Box>
-          {commentsArray.map((thread) => (
-            <>
-              {thread.parentid ? (
-                <>
-                  <Comment id={thread.id} thread={thread} updateComments={updateComments}/>
-                </>
-              ) : null}
-            </>
-          ))}
-        </Box>
+            {commentsArray.map((thread) => (
+              <div key={thread.id}>
+                {thread.parentid !== 0 && (
+                  <Comment
+                    id={thread.id}
+                    thread={thread}
+                    updateComments={updateComments}
+                  />
+                )}
+              </div>
+            ))}
+          </Box>
         </Box>
       </Flex>
     </SidebarWithHeader>
@@ -112,3 +127,7 @@ const ThreadPage: React.FC = () => {
 };
 
 export default ThreadPage;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+

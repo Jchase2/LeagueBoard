@@ -9,6 +9,12 @@ export const fetchForumTopics = createAsyncThunk(
   .then((res: { data: any }) => res.data)
 );
 
+export const deleteForumTopic = createAsyncThunk(
+  "topics/deleteTopics",
+  async (topicid: number) => axios
+    .delete(process.env.REACT_APP_BACKEND_URL + `/topics/${topicid}` || `http://localhost:3001/topics/${topicid}`)
+    .then((res: { data: any }) => res.data)
+);
 
 // Slice: Handles actions and reducers at the same time.
 export const topicSlice = createSlice({
@@ -41,6 +47,18 @@ export const topicSlice = createSlice({
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
     builder.addCase(fetchForumTopics.rejected, (state, action: any) => {
+      if (action.payload) {
+        state.error = action.payload.errorMessage;
+      } else {
+        state.error = action.error;
+      }
+    });
+    builder.addCase(deleteForumTopic.fulfilled, (state, action,) => {
+      console.log("payload: ", action.payload)
+      state.topics = state.topics.filter((topic) => topic.id !== action.payload.id)
+    });
+    // TODO: Fix any on action. Should probably be type of fetchUserInfo
+    builder.addCase(deleteForumTopic.rejected, (state, action: any) => {
       if (action.payload) {
         state.error = action.payload.errorMessage;
       } else {
