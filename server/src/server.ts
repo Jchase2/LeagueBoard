@@ -29,6 +29,7 @@ app.use(errorHandler);
     Region.destroy({truncate: true});
     regionsCode.forEach((regionCode: string, i: number) => {
       Region.create({
+        id: i+1,
         code: regionCode,
         name: regionsNames[i],
         region: regions[i],

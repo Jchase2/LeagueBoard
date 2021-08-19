@@ -32,7 +32,7 @@ const Layout: React.FC<Props> = (props: Props) => {
   return (
     <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
       <Flex minW="20vw" justifyContent="center" alignContent="center">
-        <ProfileIcon users={user} />
+        <ProfileIcon users={user} userRank={userRank}/>
       </Flex>
       <Flex minW="55vw" justifyContent="center" alignContent="center">
 
