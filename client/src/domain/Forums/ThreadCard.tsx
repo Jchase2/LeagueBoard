@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Text } from "@chakra-ui/layout";
 
 const Forums: React.FC<Props> = ({thread}) => {
-  console.log(thread)
   return (
     <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" m={2}>
       <Box

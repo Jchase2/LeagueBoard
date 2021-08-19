@@ -1,12 +1,15 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getUserInfo } from "../../api/profileAPI";
 import { IUser } from "../../interfaces";
 
+// Creates a thunk which wraps our async calls for redux.
 export const fetchUserInfo = createAsyncThunk<IUser>(
   "user/getUser",
   async () => await getUserInfo()
 );
 
+
+// Slice: Handles actions and reducers at the same time.
 export const userSlice = createSlice({
   // Name of state and initial state
   name: "user",
@@ -21,9 +24,12 @@ export const userSlice = createSlice({
 
   // All reducer functions
   reducers: {},
+
+  // Will create fetchUserInfo action that can be used via dispatch
   extraReducers: (builder) => {
     builder.addCase(fetchUserInfo.fulfilled, (state, { payload }) => {
-      state.userState = payload;
+      state.userState.email = payload.email
+      state.userState.password = payload.password
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
     builder.addCase(fetchUserInfo.rejected, (state, action: any) => {
@@ -36,7 +42,4 @@ export const userSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
-export const {} = userSlice.actions;
-
-export default userSlice.reducer;
+export default userSlice.reducer
