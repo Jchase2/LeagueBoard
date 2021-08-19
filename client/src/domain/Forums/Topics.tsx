@@ -4,7 +4,6 @@ import { useHistory } from "react-router";
 import ThreadCard from "./ThreadCard";
 import { getForumTopics } from "../../api/api";
 import { ITopicResp } from "../../interfaces";
-import SidebarWithHeader from "../../components/Heading/Heading";
 
 const Topics: React.FC = () => {
   const [threadArray, setThreadArray] = useState<ITopicResp[]>([]);
@@ -17,7 +16,6 @@ const Topics: React.FC = () => {
 
   let history = useHistory();
   return (
-    <SidebarWithHeader>
       <Flex minH="100vh" align="center" flexDirection="column">
         <Box textAlign="center">
           <Heading>Forums</Heading>
@@ -42,7 +40,6 @@ const Topics: React.FC = () => {
           ))}
         </Box>
       </Flex>
-    </SidebarWithHeader>
   );
 };
 

@@ -36,7 +36,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
   useEffect(() => {
    localStorage.getItem("accessToken") && getUserInfo().then(res => setUser(res))
-  }, [])
+  }, []);
+  
   console.log(user)
 
   // let decoded: any;

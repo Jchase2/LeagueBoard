@@ -4,9 +4,7 @@ import Layout from "../domain/Profile/Layout";
 const Index = () => {
   return (
     <>
-      <SidebarWithHeader>
         <Layout />
-      </SidebarWithHeader>
     </>
   );
 };

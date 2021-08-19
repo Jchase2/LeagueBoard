@@ -15,7 +15,6 @@ interface myProps extends Props {
 }
 
 const ReplyTopic: React.FC<myProps> = (props) => {
-
   const [topicData, setTopicData] = useState({
     parentid: Number(props.topicid),
     userid: 1,

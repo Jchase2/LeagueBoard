@@ -9,6 +9,7 @@ export interface IReduxBaseAction {
 // Add action type strings here.
 export enum EReduxActionTypes {
   LOGOUT = 'LOGOUT',
-  AUTHENTICATE = 'AUTHENTICATE'
+  AUTHENTICATE = 'AUTHENTICATE',
+  FETCH_USER_INFO = 'FETCH_USER_INFO'
 }
 

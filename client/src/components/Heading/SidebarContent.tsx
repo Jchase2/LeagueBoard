@@ -20,13 +20,14 @@ interface SidebarProps extends BoxProps {
 
 interface LinkItemProps {
   name: string;
+  linkName: string;
   icon: IconType;
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Topics", icon: GoCommentDiscussion },
+  { name: "Home", icon: FiHome, linkName: "/" },
+  { name: "Trending", icon: FiTrendingUp, linkName: "Trending" },
+  { name: "Topics", icon: GoCommentDiscussion, linkName: "/topics" },
 ];
 
 // Change REACT.FC for types of components
@@ -54,7 +55,7 @@ const SidebarContent: React.FC<SidebarProps> = ({ onClose, ...rest }) => (
       <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
     </Flex>
     {LinkItems.map((link) => (
-      <NavItem key={link.name} icon={link.icon}>
+      <NavItem key={link.name} icon={link.icon} linkName={link.linkName}>
         {link.name}
       </NavItem>
     ))}
