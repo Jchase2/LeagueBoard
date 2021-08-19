@@ -40,7 +40,7 @@ const VerificationComponent = () => {
     );
     if (data.iconid !== icon) {
       //register call api
-
+      console.log(data)
 
 
       signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {

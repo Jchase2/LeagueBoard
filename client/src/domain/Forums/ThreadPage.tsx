@@ -4,7 +4,6 @@ import { ITopicResp } from "../../interfaces";
 import { deleteForumTopic, getForumComments, getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
-import SidebarWithHeader from "../../components/Heading/Heading";
 import Comment from "./Comment";
 
 const ThreadPage: React.FC = () => {
@@ -50,7 +49,6 @@ const ThreadPage: React.FC = () => {
   }
 
   return (
-    <SidebarWithHeader>
       <Flex minH="100vh" align="center" flexDirection="column" m={2}>
         <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px">
           <Box
@@ -107,7 +105,6 @@ const ThreadPage: React.FC = () => {
         </Box>
         </Box>
       </Flex>
-    </SidebarWithHeader>
   );
 };
 

@@ -31,11 +31,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   //useMemo in react, only recompute if certain values has changed only read again if decoded user changes
   // more custom hooks, DRY be DRY
   // after login you can get the user object returned and thats where you can access the regions etc..
+
   const [user, setUser] = useState<any>();
 
   useEffect(() => {
    localStorage.getItem("accessToken") && getUserInfo().then(res => setUser(res))
-  }, [])
+  }, []);
+  
+  console.log(user)
 
   // let decoded: any;
   // let regionName = "";
@@ -105,13 +108,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 transition="all 0.3s"
                 _focus={{ boxShadow: "none" }}
               >
-                {user ? (
                   <>
                     <HStack>
                       <Avatar
                         size={"md"}
                         src={
-                          `http://ddragon.leagueoflegends.com/cdn/11.16.1/img/profileicon/${user?.iconid}.png` //change this it is ugly, store in the redux store
+                          user ?`http://ddragon.leagueoflegends.com/cdn/11.16.1/img/profileicon/${user?.iconid}.png`: "" //change this it is ugly, store in the redux store
                         }
                       />
                       <VStack
@@ -120,30 +122,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         spacing="1px"
                         ml="2"
                       >
-                        <Text fontSize="md">{`${user?.summoner_name}`}</Text>
-                        <Text fontSize="xs">{}</Text>
+                        <Text fontSize="md">{user ? `${user?.summoner_name}` : ""}</Text>
+                        <Text fontSize="xs">North America</Text>
                       </VStack>
                       <Box display={{ base: "none", md: "flex" }}>
                         <FiChevronDown />
                       </Box>
                     </HStack>
                   </>
-                ) : (
-                  <>
-                    <HStack>
-                      <Avatar size={"md"} src={""} />
-                      <VStack
-                        display={{ base: "none", md: "flex" }}
-                        alignItems="flex-start"
-                        spacing="1px"
-                        ml="2"
-                      ></VStack>
-                      <Box display={{ base: "none", md: "flex" }}>
-                        <FiChevronDown />
-                      </Box>
-                    </HStack>
-                  </>
-                )}
               </MenuButton>
               <MenuList
                 bg={useColorModeValue("#E8E8E8", "gray.900")}
@@ -156,19 +142,13 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   <MenuItem>Settings</MenuItem>
                 </Link>
                 <MenuDivider />
-                {user ? (
-                  <Link href="/">
-                    <MenuItem
-                      onClick={() => localStorage.removeItem("accessToken")}
-                    >
-                      Sign Out
-                    </MenuItem>
+                  <Link href={user ? "/Home" : "/signin"}>
+                  <MenuItem
+                      onClick={ () => localStorage.removeItem("accessToken") }
+                    > 
+                      {user ? "Sign Out" : "Sign In"}
+                    </MenuItem> 
                   </Link>
-                ) : (
-                  <Link href="/signin">
-                    <MenuItem>Sign In</MenuItem>
-                  </Link>
-                )}
               </MenuList>
             </Menu>
           </Flex>

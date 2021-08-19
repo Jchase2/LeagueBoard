@@ -34,7 +34,7 @@ const Login = () => {
       .then((res) => {
         if (res.data.success) {
           setIsError(false);
-          window.location.href = "/"
+          window.location.href = "/Home"
         }
       })
       .catch((err) => {

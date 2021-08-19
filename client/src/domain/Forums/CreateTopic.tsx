@@ -47,7 +47,6 @@ const CreateTopic: React.FC = () => {
   };
 
   return (
-    <SidebarWithHeader>
       <Flex align="center" flexDirection="column">
         <form onSubmit={handleSubmit}>
             <FormLabel m={1}>New Topic</FormLabel>
@@ -78,7 +77,6 @@ const CreateTopic: React.FC = () => {
             </Button>
         </form>
       </Flex>
-    </SidebarWithHeader>
   );
 };
 

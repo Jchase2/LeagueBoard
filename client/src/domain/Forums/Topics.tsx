@@ -6,6 +6,8 @@ import SidebarWithHeader from "../../components/Heading/Heading";
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { fetchForumTopics } from "../../redux/slices/topicsSlice";
 
+import { getForumTopics } from "../../api/api";
+import { ITopicResp } from "../../interfaces";
 
 const Topics: React.FC = () => {
   let history = useHistory();
@@ -20,7 +22,6 @@ const Topics: React.FC = () => {
 
   console.log("Thread Array: ", threadArray)
   return (
-    <SidebarWithHeader>
       <Flex minH="100vh" align="center" flexDirection="column">
         <Box textAlign="center">
           <Heading>Forums</Heading>
@@ -38,7 +39,6 @@ const Topics: React.FC = () => {
           ))}
         </Box>
       </Flex>
-    </SidebarWithHeader>
   );
 };
 

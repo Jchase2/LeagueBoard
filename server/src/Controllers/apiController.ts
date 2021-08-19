@@ -4,11 +4,20 @@ import { sequelize } from "../Models/index";
 const { Region } = require("../Models/region.model");
 const { Topic } = require("../Models/topic.model");
 const { User } = require("../Models/user.model");
-import { getMatchesByPuuid, getMatchInfoByMatchId } from "./utils";
+import {
+  getMatchesByPuuid,
+  getMatchInfoByMatchId,
+  getSummonerByNameAndRegion,
+  getSummonerEntriesByAccountIdAndRegion,
+} from "./utils";
 import { asyncForEach } from "../Utils/helpers";
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-export const getRegions = async (req: Request, res: Response, next: Function) => {
+export const getRegions = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     const regions = await Region.findAll({});
     res.json(regions);
@@ -17,34 +26,38 @@ export const getRegions = async (req: Request, res: Response, next: Function) =>
   }
 };
 
-export const getRecentMatches = async (
-  req: Request,
-  res: Response,
-  next: Function
-) => {
+export const getRecentMatches = async (req: Request, res: Response, next: Function) => {
   try {
-    //get token decode and pass whatever value the call needs.
     let { puuid } = req.params;
-    //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow';
-    const resArr: any = [];
+    puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
 
     let query: any = await sequelize.query(
       `SELECT region FROM public."Users" as U LEFT JOIN public."Regions" as R on U.regionid = R.id WHERE puuid = '${puuid}';`
     );
     let region = query[0][0].region;
-    const matches = await getMatchesByPuuid(puuid, region);
-    await asyncForEach (matches, async (match: string) => {
-        const matchInfo = await getMatchInfoByMatchId(match, region);
-        resArr.push(matchInfo);
-      });
 
-    res.send(resArr);
+    const matches = await getMatchesByPuuid(puuid, region);
+    await asyncForEach(matches, async (match: string) => {
+      const { data } = await getMatchInfoByMatchId(match, region);
+      // console.log(data.info, 'DATA');
+      // console.count();
+    });
+
+    //insert in db the matchInfo 
+    // await sequelize.query(
+    //   `INSERT INTO public."MatchInfos" (matchid, region, matchinfo) VALUES ('${matches[0]}', '${region}', '${JSON.stringify(
+    
+    res.send().status(200);
   } catch (err) {
     next(err);
   }
 };
 
-export const getForumTopicById = async (req: Request, res: Response, next: Function) => {
+export const getForumTopicById = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     let { topicid } = req.params;
     const topic = await Topic.findByPk(topicid);
@@ -52,7 +65,7 @@ export const getForumTopicById = async (req: Request, res: Response, next: Funct
   } catch (err) {
     next(err);
   }
-}
+};
 
 export const deleteForumTopic = async (req: Request, res: Response, next: Function) => {
   try {
@@ -69,16 +82,58 @@ export const getUserInfo = async (req: Request, res: Response, next: Function) =
   try {
     let token;
 
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-      token = req.headers.authorization.split(' ')[1];
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
     }
 
     const decoded = jwt.decode(token);
     const user = await User.findOne({ where: { id: decoded.id } });
-    if(user) {
+    if (user) {
+      user.password = '';
       res.status(200).send(user);
     } else {
-      res.status(404).send('User not found');
+      res.status(404).send("User not found");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getUserRanked = async (req: Request, res: Response, next: Function) => {
+  try {
+    let token;
+
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    }
+
+    const decoded = jwt.decode(token);
+    const user = await User.findOne({ where: { id: decoded.id } });
+    if (user) {
+      let query: any = await sequelize.query(
+        `SELECT code, region FROM public."Users" as U LEFT JOIN public."Regions" as R on U.regionid = R.id WHERE puuid = '${user.dataValues.puuid}';`
+      );
+      let regionCode = query[0][0].code;
+
+      //Getting ID from user in region, not the PUUID
+      let { data } = await getSummonerByNameAndRegion(
+        user.dataValues.summoner_name,
+        regionCode
+      );
+
+      //getting ranked info with that id
+      const summoner = await getSummonerEntriesByAccountIdAndRegion(data.id, regionCode);
+      
+      if(summoner.data) res.status(200).send(summoner.data);
+      else res.status(404).send('No summoner data.');
+    } else {
+      res.status(404).send("User not found");
     }
   } catch (err) {
     next(err);
@@ -90,12 +145,8 @@ export const getForumTopics = async (
   res: Response,
   next: Function
 ) => {
-try {
-    const topics = await Topic.findAll({
-      order: [
-        ['created_at', 'DESC'],
-    ],
-    });
+  try {
+    const topics = await Topic.findAll({});
     res.json(topics);
   } catch (err) {
     next(err);
@@ -127,14 +178,19 @@ export const getForumComments = async (
       INNER JOIN comments s ON s.ID = p.parentid
   )
 
-  SELECT * FROM comments ORDER BY parentid, id;`);
+  SELECT * FROM comments ORDER BY parentid, id;`
+    );
     res.json(query[0]);
   } catch (err) {
     next(err);
   }
 };
 
-export const postForumTopic = async (req: Request, res: Response, next: Function) => {
+export const postForumTopic = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     const topics = await Topic.create({
       title: req.body.title,
