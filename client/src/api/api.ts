@@ -103,12 +103,6 @@ export const getForumTopic = async (topicid: number) => {
     .then((res: { data: any }) => res.data);
 };
 
-export const getForumComments = async (parentid: number) => {
-  return axios
-    .get(process.env.REACT_APP_BACKEND_URL + `/topics/comments/${parentid}` || "http://localhost:3001/topics")
-    .then((res: { data: any }) => res.data);
-};
-
 export const createNewTopic = async (formData: ITopic) => {
   return axios
     .post(

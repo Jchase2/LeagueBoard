@@ -20,7 +20,6 @@ const Comment: React.FC<Props> = (props) => {
   const [isReply, setIsReply] = useState(false);
   useEffect(() => {
     setThreadData(props.thread);
-    props.updateComments()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -53,7 +52,6 @@ const Comment: React.FC<Props> = (props) => {
         <ReplyTopic
           setIsReply={setIsReply}
           topicid={threadData.id}
-          updateComments={props.updateComments}
         />
       )}
       {!isReply && (

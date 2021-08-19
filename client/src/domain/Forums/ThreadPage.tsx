@@ -1,25 +1,21 @@
 import { useState, useEffect } from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
-import {
-  getForumComments,
-  getForumTopic,
-} from "../../api/api";
+import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
 import SidebarWithHeader from "../../components/Heading/Heading";
 import Comment from "./Comment";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { deleteForumTopic } from "../../redux/slices/topicsSlice";
-
+import { fetchComments } from "../../redux/slices";
 
 const ThreadPage: React.FC = () => {
-  let history = useHistory();
-  let { id } = useParams<urlParams>();
-  const dispatch = useAppDispatch()
 
-
-  const threadArray = useAppSelector((state) => state.topicsReducer.topics);
+  const history = useHistory();
+  const { id } = useParams<urlParams>();
+  const dispatch = useAppDispatch();
+  const commentsArray = useAppSelector(state => state.commentsReducer.comments)
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -33,31 +29,23 @@ const ThreadPage: React.FC = () => {
     updated_at: "",
   });
   const [isReply, setIsReply] = useState(false);
-  const [commentsArray, setCommentsArray] = useState<ITopicResp[]>([]);
 
   type urlParams = {
     id: string;
   };
 
-  const updateComments = () => {
-    getForumComments(+id).then((res) => {
-      setCommentsArray(res);
-    });
-  };
-
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);
+      dispatch(fetchComments(res.id));
+
     });
-    updateComments();
-  }, [id]);
+  }, [id, dispatch]);
 
   const handleDelete = () => {
     dispatch(deleteForumTopic(threadData.id));
     history.push("/topics");
   };
-
-  console.log("threadArray: ", threadArray);
 
   return (
     <SidebarWithHeader>
@@ -95,7 +83,6 @@ const ThreadPage: React.FC = () => {
             <ReplyTopic
               setIsReply={setIsReply}
               topicid={id}
-              updateComments={updateComments}
             />
           )}
           {!isReply && (
@@ -106,15 +93,17 @@ const ThreadPage: React.FC = () => {
           <Button onClick={() => history.push("/topics")} m={1}>
             Back
           </Button>
-          <Button m={1} onClick={handleDelete}>Delete</Button>
+          <Button m={1} onClick={handleDelete}>
+            Delete
+          </Button>
           <Box>
+            {console.log("comments array: ", commentsArray)}
             {commentsArray.map((thread) => (
               <div key={thread.id}>
                 {thread.parentid !== 0 && (
                   <Comment
                     id={thread.id}
                     thread={thread}
-                    updateComments={updateComments}
                   />
                 )}
               </div>
@@ -127,7 +116,3 @@ const ThreadPage: React.FC = () => {
 };
 
 export default ThreadPage;
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}
-

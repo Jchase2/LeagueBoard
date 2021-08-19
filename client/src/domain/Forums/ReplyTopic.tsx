@@ -6,15 +6,19 @@ import {
   Flex,
   Textarea,
 } from "@chakra-ui/react";
-import { createNewTopic } from "../../api/api";
 import { useState } from "react";
 import { Props } from "framer-motion/types/types";
+import { createNewTopic } from "../../redux/slices/topicsSlice";
+import { useAppDispatch } from "../../redux/hooks";
+
 
 interface myProps extends Props {
   setIsReply: Function;
 }
 
 const ReplyTopic: React.FC<myProps> = (props) => {
+
+  const dispatch = useAppDispatch()
 
   const [topicData, setTopicData] = useState({
     parentid: Number(props.topicid),
@@ -27,11 +31,7 @@ const ReplyTopic: React.FC<myProps> = (props) => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      createNewTopic(topicData).then((resp) => {
-        props.setIsReply(false);
-        props.updateComments();
-        console.log("Successfully created reply.");
-      });
+      dispatch(createNewTopic(topicData));
     } catch (error) {
       alert("Something went wrong when creating your reply, please try again!");
       console.log(error);
