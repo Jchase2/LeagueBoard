@@ -27,7 +27,7 @@ const CreateTopic: React.FC = () => {
     try {
       createNewTopic(topicData).then(resp => {
         console.log("Successfully created topic.");
-        history.push(`/topics/${resp.id}`);
+        history.push(`/topic/${resp.id}`);
       });
     } catch (error) {
       alert("Something went wrong when creating your topic, please try again!");

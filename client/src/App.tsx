@@ -23,7 +23,7 @@ function App() {
           <Route exact path="/verify" component={VerificationComponent}></Route>
           <Route exact path="/topics" component={Topics}></Route>
           <Route exact path="/topics/create" component={CreateTopic}></Route>
-          <Route exact path="/topics/:id" component={ThreadPage}></Route>
+          <Route exact path="/topic/:id" component={ThreadPage}></Route>
 
         </Switch>
       </Router>

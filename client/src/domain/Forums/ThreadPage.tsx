@@ -10,6 +10,8 @@ import Comment from "./Comment";
 const ThreadPage: React.FC = () => {
 
   let history = useHistory();
+  let { id } = useParams<urlParams>();
+
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -35,7 +37,6 @@ const ThreadPage: React.FC = () => {
     });
   };
 
-  let { id } = useParams<urlParams>();
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);

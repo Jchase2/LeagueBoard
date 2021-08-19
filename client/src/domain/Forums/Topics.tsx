@@ -32,7 +32,6 @@ const Topics: React.FC = () => {
           </Button>
           {threadArray.map((thread) => (
             <>
-              {console.log(thread)}
               {!(thread.parentid >= 1) && (
                 <ThreadCard thread={thread} />
               )}
