@@ -124,7 +124,7 @@ const PredictionsGraph = () => {
             indexLabelFontColor: "white",
             yValueFormatString: "#,###'%'",
             dataPoints: [
-              { label: "team2",   y: 34 },
+              { label: "team2",   y: 13 },
             ]
           },{
             type: "stackedBar100",

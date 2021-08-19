@@ -12,13 +12,13 @@ export const regionSlice = createSlice({
   initialState: {
     status: "",
     error: "",
-    regionState: {
+    regionState: [{
       id: 0,
       code: "",
       name: "",
       created_at: "",
       updatedAt: "",
-    },
+    }],
   },
 
   // All reducer functions

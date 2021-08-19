@@ -10,12 +10,12 @@ import {
 } from "@chakra-ui/react";
 
 interface props {
-    users: any
-    userRank: any
+  users: any;
+  userRank: any;
+  regionName: string
 }
 
-const ProfileIcon: React.FC<props> = ({ users, userRank }) => {
-
+const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
   return (
     <Box
       w={"full"}
@@ -54,15 +54,13 @@ const ProfileIcon: React.FC<props> = ({ users, userRank }) => {
         Button
       </Button>
       <Text fontWeight={600} color={"gray.500"} mb={4}>
-        North America
+        {regionName}
       </Text>
       <Flex>
-      <Text
-        color={useColorModeValue("gray.700", "gray.400")}
-        px={3}
-      >
-        Rank : {/* {`${userRank[0]?.tier}`} {`${userRank[0]?.rank}`} */}
-      </Text>
+      
+        <Text as="em" color={useColorModeValue("gray.700", "gray.300")} px={3}>
+        Rank : {userRank ?  `${userRank[0].tier} ${userRank[0].rank}` : "Unranked"}
+        </Text>
       </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>
         <Button
@@ -97,6 +95,6 @@ const ProfileIcon: React.FC<props> = ({ users, userRank }) => {
       </Stack>
     </Box>
   );
-}
+};
 
 export default ProfileIcon
