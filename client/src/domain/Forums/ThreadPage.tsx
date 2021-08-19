@@ -4,6 +4,7 @@ import { ITopicResp } from "../../interfaces";
 import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
+<<<<<<< HEAD
 import SidebarWithHeader from "../../components/Heading/Heading";
 import { useAppDispatch } from "../../redux/hooks";
 import { deleteForumTopic } from "../../redux/slices";
@@ -14,6 +15,15 @@ const ThreadPage: React.FC = () => {
   const history = useHistory();
   const { id } = useParams<urlParams>();
   const dispatch = useAppDispatch();
+=======
+import Comment from "./Comment";
+
+const ThreadPage: React.FC = () => {
+
+  let history = useHistory();
+  let { id } = useParams<urlParams>();
+
+>>>>>>> lewis-branch
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -32,6 +42,15 @@ const ThreadPage: React.FC = () => {
     id: string;
   };
 
+<<<<<<< HEAD
+=======
+  const updateComments = () => {
+    getForumComments(+id).then((res) => {
+      setCommentsArray(res);
+    });
+  };
+
+>>>>>>> lewis-branch
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);
@@ -44,7 +63,6 @@ const ThreadPage: React.FC = () => {
   };
 
   return (
-    <SidebarWithHeader>
       <Flex minH="100vh" align="center" flexDirection="column" m={2}>
         <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px">
           <Box
@@ -97,7 +115,6 @@ const ThreadPage: React.FC = () => {
           </Box>
         </Box>
       </Flex>
-    </SidebarWithHeader>
   );
 };
 

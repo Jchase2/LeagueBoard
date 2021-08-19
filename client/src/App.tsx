@@ -5,7 +5,6 @@ import {
   Switch,
 } from "react-router-dom";
 import Login from "./domain/Login/Login";
-import index from "./pages";
 import VerificationComponent from "./domain/Register/VerificationComponent";
 import Topics from './domain/Forums/Topics';
 import CreateTopic from './domain/Forums/CreateTopic';

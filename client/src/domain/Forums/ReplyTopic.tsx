@@ -17,9 +17,12 @@ interface myProps extends Props {
 }
 
 const ReplyTopic: React.FC<myProps> = (props) => {
+<<<<<<< HEAD
 
   const dispatch = useAppDispatch()
 
+=======
+>>>>>>> lewis-branch
   const [topicData, setTopicData] = useState({
     parentid: Number(props.topicid),
     userid: 1,
@@ -35,7 +38,6 @@ const ReplyTopic: React.FC<myProps> = (props) => {
       props.setIsReply(false);
     } catch (error) {
       alert("Something went wrong when creating your reply, please try again!");
-      console.log(error);
     }
   };
 

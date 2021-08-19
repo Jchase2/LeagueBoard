@@ -26,8 +26,15 @@ const CreateTopic: React.FC = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
+<<<<<<< HEAD
       dispatch(createNewTopic(topicData));
       history.push('/topics')
+=======
+      createNewTopic(topicData).then(resp => {
+        console.log("Successfully created topic.");
+        history.push(`/topic/${resp.id}`);
+      });
+>>>>>>> lewis-branch
     } catch (error) {
       alert("Something went wrong when creating your reply, please try again!");
       console.log(error);
@@ -46,7 +53,6 @@ const CreateTopic: React.FC = () => {
   };
 
   return (
-    <SidebarWithHeader>
       <Flex align="center" flexDirection="column">
         <form onSubmit={handleSubmit}>
             <FormLabel m={1}>New Topic</FormLabel>
@@ -77,7 +83,6 @@ const CreateTopic: React.FC = () => {
             </Button>
         </form>
       </Flex>
-    </SidebarWithHeader>
   );
 };
 
