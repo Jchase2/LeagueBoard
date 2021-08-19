@@ -7,8 +7,8 @@ export const fetchUserInfo = createAsyncThunk(
   async () => await getUserInfo()
 );
 
-export const fetchUserRank = createAsyncThunk("user/getRank", async () =>
-  getUserRank()
+export const fetchUserRank = createAsyncThunk("user/getRank",
+async () => getUserRank()
 );
 
 // Slice: Handles actions and reducers at the same time.

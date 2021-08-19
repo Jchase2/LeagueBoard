@@ -43,10 +43,10 @@ export const getRecentMatches = async (req: Request, res: Response, next: Functi
       // console.count();
     });
 
-    //insert in db the matchInfo 
+    //insert in db the matchInfo
     // await sequelize.query(
     //   `INSERT INTO public."MatchInfos" (matchid, region, matchinfo) VALUES ('${matches[0]}', '${region}', '${JSON.stringify(
-    
+
     res.send().status(200);
   } catch (err) {
     next(err);
@@ -130,7 +130,7 @@ export const getUserRanked = async (req: Request, res: Response, next: Function)
 
       //getting ranked info with that id
       const summoner = await getSummonerEntriesByAccountIdAndRegion(data.id, regionCode);
-      
+
       if(summoner.data) res.status(200).send(summoner.data);
       else res.status(404).send('No summoner data.');
     } else {
