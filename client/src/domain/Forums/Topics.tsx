@@ -9,18 +9,16 @@ import { fetchForumTopics } from "../../redux/slices/topicsSlice";
 import { getForumTopics } from "../../api/api";
 import { ITopicResp } from "../../interfaces";
 
+import MapTopics from "./MapTopics";
+
 const Topics: React.FC = () => {
   let history = useHistory();
   const dispatch = useAppDispatch()
 
-  //const [threadArray, setThreadArray] = useState<ITopicResp[]>([]);
-  const threadArray = useAppSelector(state => state.topicsReducer.topics)
-
   useEffect(() => {
     dispatch(fetchForumTopics());
-  }, []);
+  }, [dispatch]);
 
-  console.log("Thread Array: ", threadArray)
   return (
       <Flex minH="100vh" align="center" flexDirection="column">
         <Box textAlign="center">
@@ -30,13 +28,7 @@ const Topics: React.FC = () => {
           <Button onClick={() => history.push("/topics/create")} m={1}>
             New Thread
           </Button>
-          {threadArray.map((thread) => (
-            <>
-              {!(thread.parentid >= 1) && (
-                <ThreadCard thread={thread} />
-              )}
-            </>
-          ))}
+          <MapTopics />
         </Box>
       </Flex>
   );

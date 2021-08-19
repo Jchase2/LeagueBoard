@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
-import { deleteForumTopic, getForumComments, getForumTopic } from "../../api/api";
+import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
-import Comment from "./Comment";
+import { useAppDispatch } from "../../redux/hooks";
+import { deleteForumTopic } from "../../redux/slices";
+import MapComments from './MapComments';
 
 const ThreadPage: React.FC = () => {
 
-  let history = useHistory();
-  let { id } = useParams<urlParams>();
-
+  const history = useHistory();
+  const { id } = useParams<urlParams>();
+  const dispatch = useAppDispatch();
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -24,29 +26,21 @@ const ThreadPage: React.FC = () => {
     updated_at: "",
   });
   const [isReply, setIsReply] = useState(false);
-  const [commentsArray, setCommentsArray] = useState<ITopicResp[]>([]);
 
   type urlParams = {
     id: string;
-  };
-
-  const updateComments = () => {
-    getForumComments(+id).then((res) => {
-      setCommentsArray(res);
-    });
   };
 
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);
     });
-    updateComments();
-  }, [id]);
+  }, [id, dispatch]);
 
   const handleDelete = () => {
-    deleteForumTopic(threadData.id);
-    history.push('/topics')
-  }
+    dispatch(deleteForumTopic(threadData.id));
+    history.push("/topics");
+  };
 
   return (
       <Flex minH="100vh" align="center" flexDirection="column" m={2}>
@@ -69,40 +63,36 @@ const ThreadPage: React.FC = () => {
           >
             {/* TODO: Need to replace this with username */}
             <Text>By: {threadData.userid}</Text>
-            <Text>At {new Date(threadData.created_at).toLocaleTimeString() + ' on ' + new Date(threadData.created_at).toLocaleDateString()}</Text>
+            <Text>
+              At{" "}
+              {new Date(threadData.created_at).toLocaleTimeString() +
+                " on " +
+                new Date(threadData.created_at).toLocaleDateString()}
+            </Text>
           </Box>
           <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
             <Text>{threadData.text}</Text>
           </Box>
-          {isReply ? (
+          {isReply && (
             <ReplyTopic
               setIsReply={setIsReply}
               topicid={id}
-              updateComments={updateComments}
             />
-          ) : null}
-          {!isReply ? (
+          )}
+          {!isReply && (
             <Button onClick={() => setIsReply(true)} m={1}>
               Reply
             </Button>
-          ) : null}
-          <Button onClick={handleDelete} >
-            Delete
-          </Button>
+          )}
           <Button onClick={() => history.push("/topics")} m={1}>
             Back
           </Button>
+          <Button m={1} onClick={handleDelete}>
+            Delete
+          </Button>
           <Box>
-          {commentsArray.map((thread) => (
-            <>
-              {thread.parentid ? (
-                <>
-                  <Comment id={thread.id} thread={thread} updateComments={updateComments}/>
-                </>
-              ) : null}
-            </>
-          ))}
-        </Box>
+            <MapComments id={threadData.id}/>
+          </Box>
         </Box>
       </Flex>
   );

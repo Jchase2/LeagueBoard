@@ -72,6 +72,7 @@ export const deleteForumTopic = async (req: Request, res: Response, next: Functi
     let { topicid } = req.params;
     const topic = await Topic.findByPk(topicid);
     await topic.destroy();
+    res.json(topic)
     res.status(204)
   } catch (err) {
     next(err);

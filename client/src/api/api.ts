@@ -103,24 +103,6 @@ export const getForumTopic = async (topicid: number) => {
     .then((res: { data: any }) => res.data);
 };
 
-export const deleteForumTopic = async (topicid: number) => {
-  return axios
-    .delete(process.env.REACT_APP_BACKEND_URL + `/topics/${topicid}` || `http://localhost:3001/topics/${topicid}`)
-    .then(res => res);
-};
-
-export const getForumComments = async (parentid: number) => {
-  return axios
-    .get(process.env.REACT_APP_BACKEND_URL + `/topics/comments/${parentid}` || "http://localhost:3001/topics")
-    .then((res: { data: any }) => res.data);
-};
-
-export const getForumTopics = async () => {
-  return axios
-    .get(process.env.REACT_APP_BACKEND_URL + "/topics" || "http://localhost:3001/topics")
-    .then((res: { data: any }) => res.data);
-};
-
 export const createNewTopic = async (formData: ITopic) => {
   return axios
     .post(

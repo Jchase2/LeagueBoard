@@ -26,22 +26,22 @@ const UserDonutGraph = ({team1, team2}:any) => {
 
 
     useEffect(() => {
-      let currentUser = '';
+      /* let currentUser = '';
       let decoded: any
       const user: string | null = localStorage.getItem("accessToken");
       if (user) {
         decoded = jwt_decode(user);
-      }
+      } */
       const match = async () => {
-         currentUser = decoded?.user.summoner_name;
+         /* currentUser = decoded?.user.summoner_name;
         console.log(currentUser)
         let array:any = [];
         getUserMatches(decoded?.user?.puuid).then(async (res) => {
           
           setuserMatches(await array)
         } );
-         
-        //let current = 'demon6kitty2';
+          */
+        let current = 'demon6kitty2';
         
           let userKills = {avg: 0, high: 0, low: 0};
           let userDeaths = {avg: 0, high: 0, low: 0};
@@ -51,12 +51,12 @@ const UserDonutGraph = ({team1, team2}:any) => {
           let kills:any[] = [];
           let deaths:any[] = [];
           let assists:any[] = [];
-          for (let i:number = 0; i < userMatches.length; i++) {
+          for (let i:number = 0; i < allMatches.length; i++) {
             console.log(userMatches)
-            let matchInfo = userMatches[i][j];
+            let matchInfo = allMatches[i][j];
             let participants = matchInfo.info['participants'];
             participants.forEach(element => {
-              if (element['summoner_name'] === currentUser) resultArr.push(element); 
+              if (element['summoner_name'] === current) resultArr.push(element); 
             });  
             j++;
           }
