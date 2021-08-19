@@ -2,6 +2,8 @@ import { Flex, useMediaQuery } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { getUserInfo, getUserMatches } from "../../api/profileAPI"
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
+import ProfileMatch from "./ProfileMatch";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {}
 
@@ -33,13 +35,19 @@ const Layout: React.FC<Props> = (props: Props) => {
   // const user = useGetUsers();
   // console.log(user)
   return (
-    <Flex padding="20px" flexDirection="column">
-    <Flex maxW={isLargerThan ? "25vw": ""} justifyContent="center" alignContent="center">
-      <ProfileIcon users={user}/>
-    </Flex>
-    <Flex  justifyContent="center" alignContent="center">
-dsfsdfsd
-    </Flex>
+    <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
+      <Flex minW="20vw" justifyContent="center" alignContent="center">
+        <ProfileIcon users={user} />
+      </Flex>
+      <Flex minW="55vw" justifyContent="center" alignContent="center">
+        {userMatches?.map((match:any)=> (
+          <ProfileMatch 
+            match={match}
+            key={uuidv4()}
+          />
+        ))}
+        dsnjfjksdnfbkjs
+      </Flex>
     </Flex>
   );
 }
