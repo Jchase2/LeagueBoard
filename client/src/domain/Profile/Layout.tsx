@@ -22,10 +22,12 @@ const Layout: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     getUserRank().then((res) => setUserRank(res));
-  }, [])
+  }, []);
+  
     console.log(userMatches);
     console.log(user)
-    console.log(userRank)
+    console.log(userRank);
+
   // use custom react hook, import use User hook, deconstruct outside
   // dont decode here, decode tokens in the backend, gets the user ID and get information attach to the header of the request
   // let decoded: any;
@@ -40,7 +42,7 @@ const Layout: React.FC<Props> = (props: Props) => {
   return (
     <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
       <Flex minW="20vw" justifyContent="center" alignContent="center">
-        <ProfileIcon users={user} />
+        <ProfileIcon users={user} userRank={userRank}/>
       </Flex>
       <Flex minW="55vw" justifyContent="center" alignContent="center">
         
