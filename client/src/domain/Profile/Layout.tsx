@@ -13,10 +13,15 @@ const Layout: React.FC<Props> = (props: Props) => {
     const user = useAppSelector((state) => state.userReducer.userState);
     const userRank = useAppSelector((state) => state.userReducer.userRank);
     const regions = useAppSelector((state) => state.regionReducer.regionState);
-
+    let regionName: any
 
     const [userMatches, setUserMatches] = useState<any>([]);
     const [isLargerThan] = useMediaQuery("(min-width:1050px)");
+
+  console.log(regions);
+    // regions.forEach((region: any) => {
+    //   if (region.id === user.regionid) region.name = regionName
+    // })
 
     useEffect(() => {
       dispatch(fetchUserInfo());
@@ -29,20 +34,14 @@ const Layout: React.FC<Props> = (props: Props) => {
     console.log("userRank: ", userRank)
     console.log("Regions: ", regions)
 
-    regions.forEach(e => console.log(e))
-
   return (
     <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
       <Flex minW="20vw" justifyContent="center" alignContent="center">
-        <ProfileIcon users={user} userRank={userRank}/>
+        <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
       </Flex>
       <Flex minW="55vw" justifyContent="center" alignContent="center">
-
-        {userMatches?.map((match:any)=> (
-          <ProfileMatch
-            match={match}
-            key={uuidv4()}
-          />
+        {userMatches?.map((match: any) => (
+          <ProfileMatch match={match} key={uuidv4()} />
         ))}
         sdfsdfsdf
       </Flex>
