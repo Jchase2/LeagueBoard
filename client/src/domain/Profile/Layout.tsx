@@ -13,10 +13,15 @@ const Layout: React.FC<Props> = (props: Props) => {
     const user = useAppSelector((state) => state.userReducer.userState);
     const userRank = useAppSelector((state) => state.userReducer.userRank);
     const regions = useAppSelector((state) => state.regionReducer.regionState);
-
+    let regionName: any
 
     const [userMatches, setUserMatches] = useState<any>([]);
     const [isLargerThan] = useMediaQuery("(min-width:1050px)");
+
+
+    // regions.forEach((region: any) => {
+
+    // })
 
     useEffect(() => {
       dispatch(fetchUserInfo());
