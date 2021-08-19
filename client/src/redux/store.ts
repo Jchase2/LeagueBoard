@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { userSlice, topicSlice, commentsSlice } from './slices'
+import { userSlice, topicSlice, commentsSlice, regionSlice } from './slices'
 
 // Add slices to reducer here
 export const store = configureStore({
   reducer: {
     userReducer: userSlice.reducer,
     topicsReducer: topicSlice.reducer,
-    commentsReducer: commentsSlice.reducer
+    commentsReducer: commentsSlice.reducer,
+    regionReducer: regionSlice.reducer
   },
 })
 

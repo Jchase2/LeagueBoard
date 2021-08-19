@@ -4,7 +4,7 @@ import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchUserInfo, fetchUserRank } from "../../redux/slices";
+import { fetchRegions, fetchUserInfo, fetchUserRank } from "../../redux/slices";
 
 interface Props {}
 
@@ -12,6 +12,8 @@ const Layout: React.FC<Props> = (props: Props) => {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.userReducer.userState);
     const userRank = useAppSelector((state) => state.userReducer.userRank);
+    const regions = useAppSelector((state) => state.regionReducer.regionState);
+
 
     const [userMatches, setUserMatches] = useState<any>([]);
     const [isLargerThan] = useMediaQuery("(min-width:1050px)");
@@ -19,11 +21,13 @@ const Layout: React.FC<Props> = (props: Props) => {
     useEffect(() => {
       dispatch(fetchUserInfo());
       dispatch(fetchUserRank())
+      dispatch(fetchRegions())
     }, [dispatch]);
 
     console.log(userMatches);
-    console.log(user)
+    console.log("user: ", user)
     console.log(userRank)
+    console.log("Regions: ", regions)
 
   return (
     <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
