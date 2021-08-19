@@ -10,10 +10,14 @@ const Topics: React.FC = () => {
   const [threadArray, setThreadArray] = useState<ITopicResp[]>([]);
 
   useEffect(() => {
+    updateTopics()
+  }, []);
+
+  const updateTopics = () => {
     getForumTopics().then((res) => {
       setThreadArray(res);
     });
-  }, []);
+  }
 
   let history = useHistory();
   return (
@@ -30,13 +34,7 @@ const Topics: React.FC = () => {
             <>
               {console.log(thread)}
               {!(thread.parentid >= 1) && (
-                <ThreadCard
-                  key={thread.title}
-                  userid={thread.userid}
-                  topicid={thread.id}
-                  title={thread.title}
-                  text={thread.text}
-                />
+                <ThreadCard thread={thread} />
               )}
             </>
           ))}
