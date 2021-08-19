@@ -7,10 +7,14 @@ import { getSummonerByNameAndRegion, getSummonerByPuuid } from "./utils";
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-export const verifyEmailAndUser = async (req: Request, res: Response, next: Function) => {
+export const verifyEmailAndUser = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   const { regionid, summoner_name, email } = req.headers;
 
-  let query: any = await sequelize.query(`SELECT id FROM public."Users" as U 
+  let query: any = await sequelize.query(`SELECT id FROM public."Users" as U
   WHERE email = '${email}' OR (summoner_name = '${summoner_name}' AND regionid = '${regionid}');`);
 
   if (query[0][0] === undefined) {
@@ -20,7 +24,7 @@ export const verifyEmailAndUser = async (req: Request, res: Response, next: Func
       message: "Summoner or email already exists.",
     });
   }
-}
+};
 
 export const register = async (req: Request, res: Response, next: Function) => {
   try {
@@ -40,7 +44,6 @@ export const register = async (req: Request, res: Response, next: Function) => {
     console.log(user);
     
     sendToken(user, 201, res);
-
   } catch (error) {
     next(error);
   }
@@ -109,11 +112,12 @@ export const login = async (req: Request, res: Response, next: Function) => {
   }
 };
 
-const sendToken = (user: any, statusCode: number, res: Response) => {
-  const token = jwt.sign({ user }, process.env.JWT_SECRET, {
+const sendToken = (user: User, statusCode: number, res: Response) => {
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-  res.status(statusCode).json({ success: true, token });
+  res.setHeader('Authorization', 'Bearer ' + token);
+  res.status(statusCode).json({ success: true});
 };
 
 function comparePasswords(candidatePassword: string, userPassword: string) {

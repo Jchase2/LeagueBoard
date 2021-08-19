@@ -22,23 +22,42 @@ import Searchbar from "../Searchbar/Searchbar";
 import { Regions } from "../../interfaces/Regions";
 import { getRegions } from "../../api/backendApi";
 import { useEffect, useState } from "react";
-import jwt_decode from "jwt-decode";
+import { getUserInfo } from "../../api/profileAPI";
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  let decoded: any
-  let regionName = ''
-  const [regions, setRegions] = useState<Regions[]>([]);
-  useEffect(() => { getRegions().then((res) => setRegions(res)) }, []);
-  const user: any = (localStorage.getItem("accessToken"));
-  if (user) {decoded = jwt_decode(user)}
-  regions.forEach((region) => {
-    if (region.id === decoded?.user?.regionid) {
-      regionName = region.name;
-    }
-  });
+  //useMemo in react, only recompute if certain values has changed only read again if decoded user changes
+  // more custom hooks, DRY be DRY
+  // after login you can get the user object returned and thats where you can access the regions etc..
+  const [user, setUser] = useState<any>();
+
+  useEffect(() => {
+   localStorage.getItem("accessToken") && getUserInfo().then(res => setUser(res))
+  }, [])
+
+  // let decoded: any;
+  // let regionName = "";
+
+  // const [regions, setRegions] = useState<Regions[]>([]);
+  
+  // useEffect(() => {
+  //   getRegions().then((res) => setRegions(res));
+  // }, []);
+
+  // const user: any = localStorage.getItem("accessToken");
+
+  // if (user) {
+  //   decoded = jwt_decode(user);
+  // }
+
+  // regions.forEach((region) => {
+  //   if (region.id === decoded?.user?.regionid) {
+  //     regionName = region.name;
+  //   }
+  // });
+
   const { toggleColorMode } = useColorMode();
   const colors = useColorModeValue("grey.200", "grey.700");
   const SwitchIcon = useColorModeValue(FaSun, FaMoon);
@@ -86,13 +105,13 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 transition="all 0.3s"
                 _focus={{ boxShadow: "none" }}
               >
-                {decoded ? (
+                {user ? (
                   <>
                     <HStack>
                       <Avatar
                         size={"md"}
                         src={
-                          `http://ddragon.leagueoflegends.com/cdn/11.16.1/img/profileicon/${decoded.user.iconid}.png` //ICON FOR PLAYER
+                          `http://ddragon.leagueoflegends.com/cdn/11.16.1/img/profileicon/${user?.iconid}.png` //change this it is ugly, store in the redux store
                         }
                       />
                       <VStack
@@ -101,10 +120,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         spacing="1px"
                         ml="2"
                       >
-                        <Text fontSize="md">{`${decoded.user.summoner_name}`}</Text>
-                        <Text fontSize="xs">
-                          {regionName}
-                        </Text>
+                        <Text fontSize="md">{`${user?.summoner_name}`}</Text>
+                        <Text fontSize="xs">{}</Text>
                       </VStack>
                       <Box display={{ base: "none", md: "flex" }}>
                         <FiChevronDown />
@@ -114,19 +131,13 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 ) : (
                   <>
                     <HStack>
-                      <Avatar
-                        size={"md"}
-                        src={
-                          "" 
-                        }
-                      />
+                      <Avatar size={"md"} src={""} />
                       <VStack
                         display={{ base: "none", md: "flex" }}
                         alignItems="flex-start"
                         spacing="1px"
                         ml="2"
-                      >
-                      </VStack>
+                      ></VStack>
                       <Box display={{ base: "none", md: "flex" }}>
                         <FiChevronDown />
                       </Box>

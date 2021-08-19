@@ -22,7 +22,7 @@ export const protect = async (req: AuthRequest, res: Response, next: Function) =
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findOne({ where: { email: decoded.email } });
+    const user = await User.findOne({ where: { id: decoded.id } });
     
     if (!user) {
       return next(new errorResponse('Not found', 404));

@@ -1,21 +1,18 @@
-import {
-  Box,
-  Link,
-} from "@chakra-ui/react";
+import { Box, Link } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
+import { useHistory } from "react-router";
 
-const Forums = (props: Props) => {
-
+const Forums: React.FC<Props> = (props) => {
+  let history = useHistory();
   return (
-    <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg">
+    <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" m={2}>
       <Box
         fontWeight="bold"
         textTransform="uppercase"
         fontSize="sm"
         letterSpacing="wide"
-        color="teal.600"
       >
-        <Link href={`/topics/${props.topicid}`}>
+        <Link onClick={() => history.push(`/topics/${props.topicid}`)}>
           {props.title}
         </Link>
       </Box>
