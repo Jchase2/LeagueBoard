@@ -64,11 +64,11 @@ export const verify = async (req: Request, res: Response, next: Function) => {
       });
     }
     //create api call to return iconId
-    const summoner = await getSummonerByNameAndRegion(
+    const { data } = await getSummonerByNameAndRegion(
       summoner_name,
       regionName
     );
-    if (!summoner) {
+    if (!data) {
       return res.status(404).send({
         message: "summoner not found",
         errorCode: 2,
@@ -76,8 +76,8 @@ export const verify = async (req: Request, res: Response, next: Function) => {
     }
 
     res.send({
-      iconid: summoner.profileIconId,
-      puuid: summoner.puuid,
+      iconid: data.profileIconId,
+      puuid: data.puuid,
     });
   } catch (error) {
     next(error);
