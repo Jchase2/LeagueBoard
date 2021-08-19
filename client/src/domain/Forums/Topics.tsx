@@ -1,23 +1,18 @@
 import { Flex, Box, Heading, Button } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
-import ThreadCard from "./ThreadCard";
 import SidebarWithHeader from "../../components/Heading/Heading";
-import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { fetchForumTopics } from "../../redux/slices/topicsSlice";
-import MapComments from "./MapComments";
+import MapTopics from "./MapTopics";
 
 const Topics: React.FC = () => {
   let history = useHistory();
   const dispatch = useAppDispatch()
 
-  const threadArray = useAppSelector(state => state.topicsReducer.status === "resolved" ? state.topicsReducer.topics :  [])
-
   useEffect(() => {
     dispatch(fetchForumTopics());
   }, [dispatch]);
-
-  console.log("Thread array: ", threadArray)
 
   return (
     <SidebarWithHeader>
@@ -29,7 +24,7 @@ const Topics: React.FC = () => {
           <Button onClick={() => history.push("/topics/create")} m={1}>
             New Thread
           </Button>
-          <MapComments />
+          <MapTopics />
         </Box>
       </Flex>
     </SidebarWithHeader>

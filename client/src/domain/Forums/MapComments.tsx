@@ -1,16 +1,28 @@
-import ThreadCard from "./ThreadCard";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useEffect } from "react";
+import { fetchComments } from "../../redux/slices";
+import Comment from "./Comment";
 
-const MapComments: React.FC = () => {
-  const threadArray = useAppSelector((state) => state.topicsReducer.topics);
+interface myProps {
+  id: number
+}
+
+const MapComments: React.FC<myProps> = (props: myProps) => {
+  const dispatch = useAppDispatch();
+  const commentsArray = useAppSelector(
+    (state) => state.commentsReducer.comments
+  );
+
+  useEffect(() => {
+    dispatch(fetchComments(props.id));
+  }, [dispatch, commentsArray, props.id]);
   return (
     <>
-      {threadArray &&
-        threadArray.map((thread) => (
-          <div key={thread.id}>
-            {!(thread.parentid >= 1) && <ThreadCard thread={thread} />}
-          </div>
-        ))}
+      {commentsArray?.map((thread: any) => (
+        <div key={thread.id}>
+          {thread.parentid !== 0 && <Comment id={thread.id} thread={thread} />}
+        </div>
+      ))}
     </>
   );
 };

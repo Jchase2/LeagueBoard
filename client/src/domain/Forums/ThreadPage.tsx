@@ -5,16 +5,15 @@ import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
 import SidebarWithHeader from "../../components/Heading/Heading";
-import Comment from "./Comment";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchComments, deleteForumTopic } from "../../redux/slices";
+import { useAppDispatch } from "../../redux/hooks";
+import { deleteForumTopic } from "../../redux/slices";
+import MapComments from './MapComments';
 
 const ThreadPage: React.FC = () => {
 
   const history = useHistory();
   const { id } = useParams<urlParams>();
   const dispatch = useAppDispatch();
-  const commentsArray = useAppSelector(state => state.commentsReducer.comments)
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -36,7 +35,6 @@ const ThreadPage: React.FC = () => {
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);
-      dispatch(fetchComments(res.id));
     });
   }, [id, dispatch]);
 
@@ -95,17 +93,7 @@ const ThreadPage: React.FC = () => {
             Delete
           </Button>
           <Box>
-            {console.log("commentsArray: ", commentsArray)}
-            {commentsArray.map((thread) => (
-              <div key={thread.id}>
-                {thread.parentid !== 0 && (
-                  <Comment
-                    id={thread.id}
-                    thread={thread}
-                  />
-                )}
-              </div>
-            ))}
+            <MapComments id={threadData.id}/>
           </Box>
         </Box>
       </Flex>
