@@ -83,7 +83,7 @@ export const Scrimmage = () => {
       <SimpleGrid columns={2} spacing={1}>
 
       
-        <DonutGraph team1={player1Set} team2={player2Set}/>
+        <DonutGraph/>
  
         <PredictionsGraph team1={player1Set} team2={player2Set}/>
  
