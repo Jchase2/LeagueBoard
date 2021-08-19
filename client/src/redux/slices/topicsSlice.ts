@@ -62,6 +62,7 @@ export const topicSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchForumTopics.fulfilled, (state, { payload }) => {
       console.log("payload: ", payload)
+      state.status = "resolved";
       state.topics = payload
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
@@ -73,7 +74,7 @@ export const topicSlice = createSlice({
       }
     });
     builder.addCase(createNewTopic.fulfilled, (state, action,) => {
-      state.topics = action.payload
+      state.topics = [action.payload, ...state.topics].sort((a, b) => b.created_at - a.created_at)
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
     builder.addCase(createNewTopic.rejected, (state, action: any) => {

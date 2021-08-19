@@ -7,8 +7,7 @@ import ReplyTopic from "./ReplyTopic";
 import SidebarWithHeader from "../../components/Heading/Heading";
 import Comment from "./Comment";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { deleteForumTopic } from "../../redux/slices/topicsSlice";
-import { fetchComments } from "../../redux/slices";
+import { fetchComments, deleteForumTopic } from "../../redux/slices";
 
 const ThreadPage: React.FC = () => {
 

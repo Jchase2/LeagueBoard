@@ -10,12 +10,13 @@ const Topics: React.FC = () => {
   let history = useHistory();
   const dispatch = useAppDispatch()
 
-  //const [threadArray, setThreadArray] = useState<ITopicResp[]>([]);
-  const threadArray = useAppSelector(state => state.topicsReducer.topics)
+  const threadArray = useAppSelector(state => state.topicsReducer.status === "resolved" ? state.topicsReducer.topics :  [])
 
   useEffect(() => {
     dispatch(fetchForumTopics());
   }, [dispatch]);
+
+  console.log("Thread array: ", threadArray)
 
   return (
     <SidebarWithHeader>
@@ -27,7 +28,7 @@ const Topics: React.FC = () => {
           <Button onClick={() => history.push("/topics/create")} m={1}>
             New Thread
           </Button>
-          {threadArray.map((thread) => (
+          {threadArray && threadArray.map((thread) => (
             <div key={thread.id}>
               {!(thread.parentid >= 1) && (
                 <ThreadCard thread={thread} />

@@ -25,7 +25,11 @@ const Comment: React.FC<Props> = (props) => {
 
   return (
     <Box w="48vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px" m={2}>
-      {threadData.parenttitle && <Box><Text>Reply To: {threadData.parenttitle}</Text></Box>}
+      {threadData.parenttitle && (
+        <Box>
+          <Text>Reply To: {threadData.parenttitle}</Text>
+        </Box>
+      )}
       <Box
         fontWeight="bold"
         textTransform="uppercase"
@@ -43,16 +47,19 @@ const Comment: React.FC<Props> = (props) => {
         textTransform="uppercase"
       >
         {/* TODO: Need to replace this with username */}
-        By: {threadData.userid}
+        <Text>By: {threadData.userid}</Text>
+        <Text>
+          At{" "}
+          {new Date(threadData.created_at).toLocaleTimeString() +
+            " on " +
+            new Date(threadData.created_at).toLocaleDateString()}
+        </Text>
       </Box>
       <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
         <Text>{threadData.text}</Text>
       </Box>
       {isReply && (
-        <ReplyTopic
-          setIsReply={setIsReply}
-          topicid={threadData.id}
-        />
+        <ReplyTopic setIsReply={setIsReply} topicid={threadData.id} />
       )}
       {!isReply && (
         <Button onClick={() => setIsReply(true)} m={1}>
