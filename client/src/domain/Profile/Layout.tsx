@@ -32,14 +32,10 @@ const Layout: React.FC<Props> = (props: Props) => {
     console.log("userRank: ", userRank)
     console.log("Regions: ", regions)
 
-      console.log(current);
       
-    }
-    if (decoded) {
-      getUserMatches(current?.puuid).then((res) => setUserMatches(res));
-      console.log(userMatches)
-    }
-  }, [])
+      
+    
+    
   
 
   //const user = useGetUsers();

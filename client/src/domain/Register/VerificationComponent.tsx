@@ -38,10 +38,11 @@ const VerificationComponent = () => {
       location.state.formdata.regionId,
       location.state.formdata.summoner_name
     );
+      console.log(data.iconid)
     if (data.iconid !== icon) {
       //register call api
       console.log(data)
-
+      console.log(data.iconid)
 
       signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {
         if (res.data.success) {
