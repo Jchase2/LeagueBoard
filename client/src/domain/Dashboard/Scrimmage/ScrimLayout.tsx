@@ -5,6 +5,7 @@ import { Box, Divider, Container, SimpleGrid, Flex, Spacer, Center, Square, Circ
 import PredictionsGraph from './Graphs/PredictionsGraph';
 import DonutGraph from './Graphs/DonutGraph';
 import { ScrimmageTable } from './ScrimmageTable';
+import SidebarWithHeader from '../../../components/Heading/Heading';
 
 
 export const ScrimLayout = () => {

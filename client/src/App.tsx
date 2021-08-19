@@ -44,13 +44,18 @@ function App() {
               <ThreadPage />
             </SidebarWithHeader>
           </Route>
+          <Route exact path="/topics/scrim">
+            <SidebarWithHeader>
+              <ScrimLayout/>
+            </SidebarWithHeader>
+          </Route>
           <Route exact path="/signup" component={RegisterUser}></Route>
           <Route exact path="/signin" component={Login}></Route>
           <Route exact path="/verify" component={VerificationComponent}></Route>
           <Route exact path="/topics" component={Topics}></Route>
           <Route exact path="/topics/create" component={CreateTopic}></Route>
           <Route exact path="/topics/:id" component={ThreadPage}></Route>
-          <Route exact path="/scrim" component={ScrimLayout}></Route>
+          <Route exact path="/topics/scrim" component={ScrimLayout}></Route>
 
         </Switch>
       </Router>
