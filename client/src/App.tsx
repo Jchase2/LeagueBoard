@@ -18,25 +18,35 @@ function App() {
     <>
       <Router>
         <Switch>
+          <Route exact path="/">
+            <SidebarWithHeader>
+              <Layout />
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="/Home">
+            <SidebarWithHeader>
+              <Layout />
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="/topics">
+            <SidebarWithHeader>
+              <Topics />
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="/topics/create">
+            <SidebarWithHeader>
+              <CreateTopic />
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="/topic/:id">
+            <SidebarWithHeader>
+              <ThreadPage />
+            </SidebarWithHeader>
+          </Route>
           <Route exact path="/signup" component={RegisterUser}></Route>
           <Route exact path="/signin" component={Login}></Route>
           <Route exact path="/verify" component={VerificationComponent}></Route>
         </Switch>
-        <Router>
-          <Switch>
-            <SidebarWithHeader>
-              <Route exact path="/" component={Layout}></Route>
-              <Route exact path="/Home" component={Layout}></Route>
-              <Route exact path="/topics" component={Topics}></Route>
-              <Route
-                exact
-                path="/topics/create"
-                component={CreateTopic}
-              ></Route>
-              <Route exact path="/topic/:id" component={ThreadPage}></Route>
-            </SidebarWithHeader>
-          </Switch>
-        </Router>
       </Router>
     </>
   );
