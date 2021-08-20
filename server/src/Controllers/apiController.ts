@@ -4,6 +4,8 @@ import { sequelize } from "../Models/index";
 const { Region } = require("../Models/region.model");
 const { Topic } = require("../Models/topic.model");
 const { User } = require("../Models/user.model");
+const { Matches } = require("../Models/match.model");
+
 import {
   getMatchesByPuuid,
   getMatchInfoByMatchId,
@@ -26,10 +28,22 @@ export const getRegions = async (
   }
 };
 
-export const getRecentMatches = async (req: Request, res: Response, next: Function) => {
+export const getMatches = async (req: Request, res: Response, next: Function) => {
   try {
     let { puuid } = req.params;
-    puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
+    //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
+
+    const matches = await Matches.findAll({where: { puuid: puuid }});    
+    res.send(matches).status(200);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const updateMatchesInDb = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { puuid } = req.params;
+    //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
 
     let query: any = await sequelize.query(
       `SELECT region FROM public."Users" as U LEFT JOIN public."Regions" as R on U.regionid = R.id WHERE puuid = '${puuid}';`
@@ -37,16 +51,22 @@ export const getRecentMatches = async (req: Request, res: Response, next: Functi
     let region = query[0][0].region;
 
     const matches = await getMatchesByPuuid(puuid, region);
+    await Matches.destroy({
+      where: {
+        puuid: puuid
+      }
+    });
+    
+    await sequelize.query(
+      `INSERT INTO public."Matches" (puuid, "updatedAt") VALUES ('${puuid}', '2021-08-19 21:16:44.969-03');`
+    );
+    let i = 1;
     await asyncForEach(matches, async (match: string) => {
       const { data } = await getMatchInfoByMatchId(match, region);
-      // console.log(data.info, 'DATA');
-      // console.count();
+      let query = `UPDATE public."Matches" SET match${i} = '${JSON.stringify(data.info)}'::jsonb WHERE puuid = '${puuid}';`;
+      await sequelize.query(query);
+      i++;
     });
-
-    //insert in db the matchInfo
-    // await sequelize.query(
-    //   `INSERT INTO public."MatchInfos" (matchid, region, matchinfo) VALUES ('${matches[0]}', '${region}', '${JSON.stringify(
-
     res.send().status(200);
   } catch (err) {
     next(err);
@@ -130,7 +150,7 @@ export const getUserRanked = async (req: Request, res: Response, next: Function)
 
       //getting ranked info with that id
       const summoner = await getSummonerEntriesByAccountIdAndRegion(data.id, regionCode);
-
+      
       if(summoner.data) res.status(200).send(summoner.data);
       else res.status(404).send('No summoner data.');
     } else {
