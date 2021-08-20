@@ -63,7 +63,7 @@ const ThreadPage: React.FC = () => {
             fontSize="xs"
             textTransform="uppercase"
           >
-            <Text>By: {user.summoner_name}</Text>
+            <Text>By: {user?.summoner_name}</Text>
             <Text>
               At{" "}
               {new Date(threadData.created_at).toLocaleTimeString() +

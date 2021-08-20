@@ -13,7 +13,7 @@ const Forums: React.FC<Props> = ({thread}) => {
         letterSpacing="wide"
       >
         <Link to={`/topic/${thread.id}`}>
-          <Text><b>{thread.title}</b> by: {user.summoner_name}</Text>
+          <Text><b>{thread.title}</b> by: {user?.summoner_name}</Text>
         </Link>
       </Box>
       <Box

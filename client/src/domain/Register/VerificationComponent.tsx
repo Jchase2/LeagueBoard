@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { getVerifyInfo, signUp } from "../../api/api";
 import { ErrorShow } from "../../components/Error/ErrorShow";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchRegions, fetchUserInfo, fetchUserRank } from "../../redux/slices";
 
 import {
   Flex,
@@ -17,6 +19,14 @@ const VerificationComponent = () => {
   const [icon, setIcon] = useState<number>(0);
   const location: any = useLocation();
   const [isError, setIsError] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
+   const regions = useAppSelector((state) => state.regionReducer.regionState);
+   const regionName = regions[location.state.formdata.regionId - 1]?.name;
+
+    useEffect(() => {
+      dispatch(fetchRegions());
+    }, [dispatch]);
 
   const callFunc = async () => {
     return getVerifyInfo(
@@ -74,8 +84,7 @@ const VerificationComponent = () => {
       >
         <Box textAlign="center">
           <Heading
-            as="h2"
-            size="1xl"
+            size="md"
             display="flex"
             flexWrap="wrap"
             justifyContent="center"
@@ -85,8 +94,11 @@ const VerificationComponent = () => {
           </Heading>
         </Box>
         <Box my={4}>
-          <Text> Summoner Name: {location.state.formdata.summoner_name} </Text>
-          <Text> Region Id: {location.state.formdata.regionId} </Text>
+          <Text fontSize="2xl">
+            {" "}
+            Summoner : {location.state.formdata.summoner_name}{" "}
+          </Text>
+          <Text fontSize="2xl"> Region : {regionName} </Text>
           <form onSubmit={handleSubmit}>
             <Button
               variantcolor="teal"

@@ -48,7 +48,7 @@ const Comment: React.FC<Props> = (props) => {
         fontSize="xs"
         textTransform="uppercase"
       >
-        <Text>By: {user.summoner_name}</Text>
+        <Text>By: {user?.summoner_name}</Text>
         <Text>
           At{" "}
           {new Date(threadData.created_at).toLocaleTimeString() +
