@@ -3,10 +3,14 @@ import { Box, Button, Text } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces/";
 import { Props } from "framer-motion/types/types";
 import ReplyTopic from "./ReplyTopic";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { deleteForumTopic } from "../../redux/slices";
+import { useHistory } from "react-router";
 
 const Comment: React.FC<Props> = (props) => {
   const user = useAppSelector((state) => state.userReducer.userState);
+  const dispatch = useAppDispatch();
+  const history = useHistory();
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -25,6 +29,9 @@ const Comment: React.FC<Props> = (props) => {
     setThreadData(props.thread);
   }, [props.thread]);
 
+  const handleDelete = () => {
+    dispatch(deleteForumTopic(threadData.id));
+  };
   return (
     <Box w="48vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px" m={2}>
       {threadData.parenttitle && (
@@ -63,9 +70,14 @@ const Comment: React.FC<Props> = (props) => {
         <ReplyTopic setIsReply={setIsReply} topicid={threadData.id} />
       )}
       {!isReply && (
-        <Button onClick={() => setIsReply(true)} m={1}>
-          Reply
-        </Button>
+        <>
+          <Button onClick={() => setIsReply(true)} m={1}>
+            Reply
+          </Button>
+          <Button m={1} onClick={handleDelete}>
+            Delete
+          </Button>
+        </>
       )}
     </Box>
   );
