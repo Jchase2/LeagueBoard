@@ -9,7 +9,7 @@ const Badges:React.FC<Props> = ({ userRank }) => {
 
     return (
       <>
-        {userRank.length && (
+        {userRank?.length && (
           <>
             {userRank[0].freshBlood ? (
               <Tooltip hasArrow label="This player is new to the game">

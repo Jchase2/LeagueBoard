@@ -12,6 +12,7 @@ import {
 import Badges from "./Badges";
 import RankImage from "./RankImage";
 
+
 interface props {
   users: any;
   userRank: any;

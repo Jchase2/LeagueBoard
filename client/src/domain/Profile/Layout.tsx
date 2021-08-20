@@ -1,4 +1,4 @@
-import { Flex, useMediaQuery } from "@chakra-ui/react"
+import { Flex, useMediaQuery, Image } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
@@ -35,10 +35,14 @@ const Layout: React.FC<Props> = (props: Props) => {
         <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
       </Flex>
       <Flex minW="55vw" justifyContent="center" alignContent="center">
+        <Flex flexDirection="column">
         {userMatches?.map((match: any) => (
           <ProfileMatch match={match} key={uuidv4()} />
         ))}
-        Matches will be here when rafel wants to make the endpoint
+        Matches will be here when rafel wants to make the endpoint.
+        Also just realized it isnt in redux so im going to sleep
+        <Image src="10.jpg" alt="coming soon" />
+        </Flex>
       </Flex>
     </Flex>
   );
