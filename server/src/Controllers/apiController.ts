@@ -32,9 +32,8 @@ export const getMatches = async (req: Request, res: Response, next: Function) =>
   try {
     let { puuid } = req.params;
     //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
-
     const matches = await Matches.findAll({where: { puuid: puuid }});
-    res.send(matches).status(200);
+    res.send(matches[0].dataValues).status(200);
   } catch (err) {
     next(err);
   }
@@ -192,16 +191,13 @@ export const getForumComments = async (
           public."Topics" AS P
       WHERE
           P.id = ${parentid}
-
       UNION ALL
-
       SELECT
         p.id, P.title, p.text, p.userid, p.parentid, p.closed, p.created_at, s.title as parenttitle
       FROM
           public."Topics" AS P
       INNER JOIN comments s ON s.ID = p.parentid
   )
-
   SELECT * FROM comments ORDER BY created_at asc;`
     );
     res.json(query[0]);

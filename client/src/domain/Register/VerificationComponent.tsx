@@ -101,7 +101,6 @@ const VerificationComponent = () => {
           <Text fontSize="2xl"> Region : {regionName} </Text>
           <form onSubmit={handleSubmit}>
             <Button
-              isLoading
               variantcolor="teal"
               variant="outline"
               width="full"
