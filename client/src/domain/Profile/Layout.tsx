@@ -41,7 +41,7 @@ const Layout: React.FC<Props> = (props: Props) => {
         ))}
         Matches will be here when rafel wants to make the endpoint.
         Also just realized it isnt in redux so im going to sleep
-        <Image src="10.jpg" alt="coming soon" />
+        <Image src="10.jpg" alt="coming soon" borderRadius="20px"/>
         </Flex>
       </Flex>
     </Flex>
