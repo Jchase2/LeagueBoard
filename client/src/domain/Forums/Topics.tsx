@@ -38,10 +38,14 @@ const Topics: React.FC = () => {
       <Flex flexDirection="column" padding="10px">
         <Flex flexDirection="column">
           <InputGroup size="sm" mb={4}>
-            <InputLeftAddon borderRadius="10px" children={<SearchIcon color="gray.900" />} />
+            <InputLeftAddon
+              borderRadius="10px"
+              children={<SearchIcon color="gray.900" />}
+            />
             <Input
               size="sm"
               backgroundColor={useColorModeValue("#F0F8FF", "gray.900")}
+              onChange={(event) => filteringTopics(event.target.value)}
               borderRadius="10px"
               type="tel"
               placeholder="Search Thread"
