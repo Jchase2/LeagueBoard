@@ -1,8 +1,7 @@
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import { IRegisterForm } from "../../interfaces/RegisterForm";
 import { verifyEmailAndUser } from "../../api/api";
-
 import {
   Flex,
   Box,
@@ -14,10 +13,17 @@ import {
   Image,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { SelectRegion } from './SelectRegion';
 import { ErrorShow } from "../../components/Error/ErrorShow";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchRegions } from "../../redux/slices";
 
 const RegisterUser = () => {
   let history = useHistory();
+  const regions = useAppSelector((state) => state.regionReducer.regionState);
+  const dispatch = useAppDispatch();
+
   const [formData, setFormData] = useState<IRegisterForm>({
     email: "",
     password: "",
@@ -28,28 +34,42 @@ const RegisterUser = () => {
   const [isError, setIsError] = useState<boolean>(false);
   const [stateMessage, setStateMessage] = useState<string>("");
 
+  useEffect(() => {
+    dispatch(fetchRegions());
+  }, [dispatch]);
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    console.log("FormData: ", formData);
     if (formData.password !== formData.confirmPassword) {
       setFormData({ ...formData, password: "", confirmPassword: "" });
-      setStateMessage('Password and confirm password are not the same.');
+      setStateMessage("Password and confirm password are not the same.");
       return setIsError(true);
     }
 
-    verifyEmailAndUser(formData.regionId, formData.summoner_name, formData.email)
-    .then(() => {
-      history.push({
-        pathname: "/verify",
-        state: { formdata: formData },
+    verifyEmailAndUser(
+      formData.regionId,
+      formData.summoner_name,
+      formData.email
+    )
+      .then(() => {
+        history.push({
+          pathname: "/verify",
+          state: { formdata: formData },
+        });
+      })
+      .catch((err) => {
+        setIsError(true);
+        setStateMessage("Summoner or email already exist.");
       });
-    })
-    .catch((err) => {
-      setIsError(true);
-      setStateMessage('Summoner or email already exist.');
-    });
   };
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    e.preventDefault();
     setFormData({ ...formData, [e.currentTarget.name]: e.currentTarget.value });
   };
 
@@ -94,13 +114,7 @@ const RegisterUser = () => {
               </FormControl>
               <FormControl isRequired mt={4} mb={4}>
                 <FormLabel> Regional ID </FormLabel>
-                <Input
-                  type="number"
-                  name="regionId"
-                  value={formData.regionId || ""}
-                  size="lg"
-                  onChange={handleChange}
-                ></Input>
+                <SelectRegion name="regionId" handleChange={handleChange}regions={regions} />
               </FormControl>
               <FormLabel> Email </FormLabel>
               <Input

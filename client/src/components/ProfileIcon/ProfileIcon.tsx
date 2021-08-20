@@ -7,6 +7,7 @@ import {
   Button,
   Flex,
   useColorModeValue,
+  Image
 } from "@chakra-ui/react";
 import Badges from "./Badges";
 import RankImage from "./RankImage";
@@ -61,8 +62,10 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
       </Text>
       <Flex justifyContent="space-around">
         <Flex>
-          {userRank?.length &&
-          <RankImage rank={userRank[0]?.tier} />}
+          {console.log("user rank: ", userRank)}
+          {userRank?.length ?
+          <RankImage rank={userRank[0]?.tier} /> : <Image minW="125px"maxH="125px" src='latest.png'/>
+        }
         </Flex>
         <Flex justifyContent="center" flexDirection="column">
           <Heading

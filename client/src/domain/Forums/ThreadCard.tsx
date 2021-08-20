@@ -2,18 +2,18 @@ import { Box } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { Link } from "react-router-dom";
 import { Text } from "@chakra-ui/layout";
+import { useAppSelector } from "../../redux/hooks";
 
 const Forums: React.FC<Props> = ({thread}) => {
+  const user = useAppSelector((state) => state.userReducer.userState);
   return (
     <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" m={2}>
       <Box
-        fontWeight="bold"
-        textTransform="uppercase"
-        fontSize="sm"
+        fontSize="md"
         letterSpacing="wide"
       >
         <Link to={`/topic/${thread.id}`}>
-          {thread.title}
+          <Text><b>{thread.title}</b> by: {user?.summoner_name}</Text>
         </Link>
       </Box>
       <Box
@@ -23,8 +23,6 @@ const Forums: React.FC<Props> = ({thread}) => {
         fontSize="xs"
         textTransform="uppercase"
       >
-        {/* Note, user doesn't exist yet. We'll replace userid with user here when we have access to it.*/}
-        By: {String(thread.userid)}
         <Text>At {new Date(thread.created_at).toLocaleTimeString() + ' on ' + new Date(thread.created_at).toLocaleDateString()}</Text>
 
       </Box>
