@@ -11,6 +11,7 @@ import {
   FiTrendingUp,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
+import { SiNintendogamecube } from "react-icons/si";
 import { GoCommentDiscussion } from "react-icons/go";
 import NavItem from "./NavItem"
 
@@ -28,6 +29,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, linkName: "/" },
   { name: "Trending", icon: FiTrendingUp, linkName: "Trending" },
   { name: "Topics", icon: GoCommentDiscussion, linkName: "/topics" },
+  { name: "Scrims", icon: SiNintendogamecube, linkName: "/scrims" },
 ];
 
 // Change REACT.FC for types of components

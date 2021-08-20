@@ -1,4 +1,5 @@
 import { EReduxActionTypes } from '../actions/ActionTypes';
+//SHOULD USE REDUX INSTEAD OF getRecentMatches
 import { getRecentMatches } from '../../api/backendApi';
 
 // Action Creators - functions that return an action

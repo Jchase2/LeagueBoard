@@ -1,6 +1,7 @@
 import { Flex, useMediaQuery, Image } from "@chakra-ui/react"
 import { useEffect } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
+import UserDonutGraph from "./UserDonutGraph";
 // import ProfileMatch from "./ProfileMatch";
 // import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -45,6 +46,7 @@ const Layout: React.FC<Props> = (props: Props) => {
         Also just realized it isnt in redux so im going to sleep
         <Image src="10.jpg" alt="coming soon" borderRadius="20px"/>
         </Flex>
+        <UserDonutGraph/>
       </Flex>
     </Flex>
   );

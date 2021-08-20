@@ -1,14 +1,15 @@
 import React from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
+import { Container, Divider } from "@chakra-ui/react"
 
-
-const PredictionsGraph = ({team1, team2}) => {
+const PredictionsGraph = () => {
  
  // const { holdings } = useSelector((state: any) => state.holdings);
   
  
   return (
     <div>
+      <Divider orientation="horizontal"></Divider>
       <CanvasJSChart
         options={ {
           title: {
@@ -33,7 +34,7 @@ const PredictionsGraph = ({team1, team2}) => {
             dataPoints: [
               { label: "team1",   y: 85 },
             ]
-          },{
+          }/*,{
             type: "stackedBar100",
             color: "#3457D5",
             name: "Team-1 Player2",
@@ -43,7 +44,7 @@ const PredictionsGraph = ({team1, team2}) => {
             dataPoints: [
               { label: "team1",   y: 85 },
             ]
-          },{
+          }, {
             type: "stackedBar100",
             color: "#1E90FF",
             name: "Team-1 Player3",
@@ -83,7 +84,7 @@ const PredictionsGraph = ({team1, team2}) => {
             dataPoints: [
               { label: "team2",   y: 34 },
             ]
-          },{
+          } ,{
             type: "stackedBar100",
             color: "#B7410E",
             name: "Team-2 Player2",
@@ -107,14 +108,13 @@ const PredictionsGraph = ({team1, team2}) => {
             type: "stackedBar100",
             color: "#DA2C43",
             name: "Team-2 Player4",
-
             indexLabel: "{y}",
             indexLabelFontColor: "white",
             yValueFormatString: "#,###'%'",
             dataPoints: [
               { label: "team2",   y: 34 },
             ]
-          },{
+          }*/,{
             type: "stackedBar100",
             color: "#B7410E",
             name: "Team-2 Player5",
@@ -123,7 +123,7 @@ const PredictionsGraph = ({team1, team2}) => {
             indexLabelFontColor: "white",
             yValueFormatString: "#,###'%'",
             dataPoints: [
-              { label: "team2",   y: 34 },
+              { label: "team2",   y: 13 },
             ]
           },{
             type: "stackedBar100",
