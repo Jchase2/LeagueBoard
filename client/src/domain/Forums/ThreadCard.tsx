@@ -9,7 +9,7 @@ const Forums: React.FC<Props> = ({thread}) => {
   return (
     <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" m={2}>
       <Box
-        fontSize="md"
+        fontSize="sm"
         letterSpacing="wide"
       >
         <Link to={`/topic/${thread.id}`}>
