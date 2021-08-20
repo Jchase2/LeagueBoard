@@ -60,34 +60,11 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
       <Text fontWeight={600} color={"gray.500"} mb={4} mt={2}>
         # {regionName}
       </Text>
-      <Flex justifyContent="space-around">
-        <Flex>
-          {userRank?.length ?
-          <RankImage rank={userRank[0]?.tier} /> : <Image minW="125px"maxH="125px" src='latest.png'/>
-        }
-        </Flex>
-        <Flex justifyContent="center" flexDirection="column">
-          <Heading
-            as="h3"
-            size="md"
-            color={useColorModeValue("gray.700", "gray.300")}
-            px={3}
-          >
-            Rank :{" "}
-            {userRank?.length
-              ? `${userRank[0]?.tier} ${userRank[0]?.rank}`
-              : "Unranked"}
-          </Heading>
-          <Text>
-            {" "}
-            {userRank?.length
-              ? `${userRank[0].wins}W ${userRank[0].losses}L | ${Math.round(
-                  (userRank[0].wins / (userRank[0].wins + userRank[0].losses)) *
-                    100
-                )}%`
-              : ""}{" "}
-          </Text>
-        </Flex>
+      <Flex>
+      
+        <Text as="em" color={useColorModeValue("gray.700", "gray.300")} px={3}>
+        {/* Rank :{userRank ?  `${userRank[0].tier} ${userRank[0].rank}` : "Unranked"} */}
+        </Text>
       </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>
         <Button
