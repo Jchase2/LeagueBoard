@@ -52,7 +52,7 @@ const Badges:React.FC<Props> = ({ userRank }) => {
               <Tooltip hasArrow label="This player has lost his last 3 games">
                 <Button
                   size="xs"
-                  colorScheme="teal"
+                  colorScheme="red"
                   variant="solid"
                   margin="5px"
                 >
