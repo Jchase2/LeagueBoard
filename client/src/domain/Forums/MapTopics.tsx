@@ -1,8 +1,6 @@
 import ThreadCard from "./ThreadCard";
 
-
 const MapTopics: React.FC<{topics:any}> = ({topics}) => {
-   
   return (
     <>
       {
