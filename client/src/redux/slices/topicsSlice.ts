@@ -74,7 +74,7 @@ export const topicSlice = createSlice({
       }
     });
     builder.addCase(createNewTopic.fulfilled, (state, action,) => {
-      state.topics = [action.payload, ...state.topics].sort((a, b) => b.created_at - a.created_at)
+      state.topics = [action.payload, ...state.topics];
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
     builder.addCase(createNewTopic.rejected, (state, action: any) => {

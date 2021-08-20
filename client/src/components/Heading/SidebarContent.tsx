@@ -35,9 +35,9 @@ const LinkItems: Array<LinkItemProps> = [
 const SidebarContent: React.FC<SidebarProps> = ({ onClose, ...rest }) => (
   <Box
     transition="0.5s ease"
-    bg={useColorModeValue("	white", "gray.900")}
+    bg={useColorModeValue("#F0F8FF", "gray.900")}
     borderRight="2px"
-    borderRightColor={useColorModeValue("gray.100", "gray.700")}
+    borderRightColor={useColorModeValue("gray.200", "gray.700")}
     w={{ base: "full", md: 60 }}
     pos="fixed"
     h="full"

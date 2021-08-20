@@ -7,12 +7,16 @@ import {
   Button,
   Flex,
   useColorModeValue,
+  Image
 } from "@chakra-ui/react";
+import Badges from "./Badges";
+import RankImage from "./RankImage";
+
 
 interface props {
   users: any;
   userRank: any;
-  regionName: string
+  regionName: any
 }
 
 const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
@@ -47,29 +51,55 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
           right: 3,
         }}
       />
-      <Heading fontSize={"2xl"} fontFamily={"body"}>
+      <Heading fontSize={"2xl"} fontFamily={"body"} mb={2}>
         {users ? `${users?.summoner_name}` : ""}
       </Heading>
-      <Button size="xs" colorScheme="teal" variant="solid" margin="5px">
-        Button
-      </Button>
-      <Text fontWeight={600} color={"gray.500"} mb={4}>
-        {regionName}
+
+      <Badges userRank={userRank} />
+
+      <Text fontWeight={600} color={"gray.500"} mb={4} mt={2}>
+        # {regionName}
       </Text>
-      <Flex>
-      
-        <Text as="em" color={useColorModeValue("gray.700", "gray.300")} px={3}>
-        Rank :{/*  {userRank ?  `${userRank[0].tier} ${userRank[0].rank}` : "Unranked"} */}
-        </Text>
+      <Flex justifyContent="space-around">
+        <Flex>
+          {userRank?.length ?
+          <RankImage rank={userRank[0]?.tier} /> : <Image minW="125px"maxH="125px" src='latest.png'/>
+        }
+        </Flex>
+        <Flex justifyContent="center" flexDirection="column">
+          <Heading
+            as="h3"
+            size="md"
+            color={useColorModeValue("gray.700", "gray.300")}
+            px={3}
+          >
+            Rank :{" "}
+            {userRank?.length
+              ? `${userRank[0]?.tier} ${userRank[0]?.rank}`
+              : "Unranked"}
+          </Heading>
+          <Text>
+            {" "}
+            {userRank?.length
+              ? `${userRank[0].wins}W ${userRank[0].losses}L | ${Math.round(
+                  (userRank[0].wins / (userRank[0].wins + userRank[0].losses)) *
+                    100
+                )}%`
+              : ""}{" "}
+          </Text>
+        </Flex>
       </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>
         <Button
-          bgGradient="linear(to-l, #7928CA,#FF0080)"
+          bgGradient={useColorModeValue(
+            "#63a4ff; background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);",
+            "#7f5a83; background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);)"
+          )}
           flex={1}
           fontSize={"sm"}
           rounded={"full"}
           _hover={{
-            bg: "red.500",
+            bg: "blue.500",
           }}
         >
           Update
@@ -84,10 +114,10 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
             "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
           }
           _hover={{
-            bg: "blue.500",
+            bg: "green.500",
           }}
           _focus={{
-            bg: "blue.500",
+            bg: "green.500",
           }}
         >
           Follow
