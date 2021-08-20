@@ -1,5 +1,4 @@
 import { Table, Column, Model, CreatedAt, HasMany } from 'sequelize-typescript'
-const { Votes } = require('./vote.model');
 
 @Table
 export class User extends Model {

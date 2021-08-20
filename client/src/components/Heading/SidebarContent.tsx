@@ -20,13 +20,14 @@ interface SidebarProps extends BoxProps {
 
 interface LinkItemProps {
   name: string;
+  linkName: string;
   icon: IconType;
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Discussion", icon: GoCommentDiscussion },
+  { name: "Home", icon: FiHome, linkName: "/" },
+  { name: "Trending", icon: FiTrendingUp, linkName: "Trending" },
+  { name: "Topics", icon: GoCommentDiscussion, linkName: "/topics" },
 ];
 
 // Change REACT.FC for types of components
@@ -34,9 +35,9 @@ const LinkItems: Array<LinkItemProps> = [
 const SidebarContent: React.FC<SidebarProps> = ({ onClose, ...rest }) => (
   <Box
     transition="0.5s ease"
-    bg={useColorModeValue("	white", "gray.900")}
+    bg={useColorModeValue("#F0F8FF", "gray.900")}
     borderRight="2px"
-    borderRightColor={useColorModeValue("gray.100", "gray.700")}
+    borderRightColor={useColorModeValue("gray.200", "gray.700")}
     w={{ base: "full", md: 60 }}
     pos="fixed"
     h="full"
@@ -54,7 +55,7 @@ const SidebarContent: React.FC<SidebarProps> = ({ onClose, ...rest }) => (
       <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
     </Flex>
     {LinkItems.map((link) => (
-      <NavItem key={link.name} icon={link.icon}>
+      <NavItem key={link.name} icon={link.icon} linkName={link.linkName}>
         {link.name}
       </NavItem>
     ))}

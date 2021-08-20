@@ -1,18 +1,20 @@
 import {
   Input,
-  FormControl,
   FormLabel,
   Button,
   Flex,
   Textarea,
+  Heading,
+  useColorModeValue
 } from "@chakra-ui/react";
-import { createTopic } from "../../api/backendApi";
 import { useState } from "react";
 import { useHistory } from "react-router";
-import SidebarWithHeader from "../../components/Heading/Heading";
+import { createNewTopic } from "../../redux/slices/topicsSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 const CreateTopic: React.FC = () => {
   let history = useHistory();
+  const dispatch = useAppDispatch()
 
   const [topicData, setTopicData] = useState({
     userid: 1,
@@ -25,12 +27,10 @@ const CreateTopic: React.FC = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      createTopic(topicData).then((resp) => {
-        console.log("Successfully created topic.");
-        history.push(`/topics/${resp.id}`);
-      });
+      dispatch(createNewTopic(topicData));
+      history.push('/topics')
     } catch (error) {
-      alert("Something went wrong when creating your topic, please try again!");
+      alert("Something went wrong when creating your reply, please try again!");
       console.log(error);
     }
   };
@@ -47,39 +47,51 @@ const CreateTopic: React.FC = () => {
   };
 
   return (
-    <SidebarWithHeader>
-      <Flex align="center" flexDirection="column">
+    <Flex align="center" flexDirection="column" marginTop={5}>
+      <Flex
+        boxShadow="lg"
+        colorScheme={useColorModeValue("#F0F8FF", "black")}
+        padding="30px"
+        borderRadius="20px"
+      >
         <form onSubmit={handleSubmit}>
-          <FormControl m={2}>
-            <FormLabel m={1}>New Topic</FormLabel>
-            <Input
-              type="text"
-              placeholder="Title"
-              size="sm"
-              name="title"
-              value={topicData.title}
-              onChange={handleChange}
-              m={1}
-            />
-            <Textarea
-              type="text"
-              placeholder="Topic Text"
-              size="lg"
-              name="text"
-              value={topicData.text}
-              onChange={handleChange}
-              m={1}
-            />
-            <Button type="submit" m={1}>
-              Create
-            </Button>
-            <Button onClick={() => history.push("/topics")} m={1}>
-              Cancel
-            </Button>
-          </FormControl>
+          <u>
+            <Heading mb={4}> Create a post</Heading>
+          </u>
+          <FormLabel mb={2}>New Topic</FormLabel>
+          <Input
+            type="text"
+            placeholder="Title"
+            size="sm"
+            name="title"
+            value={topicData.title}
+            onChange={handleChange}
+            backgroundColor={useColorModeValue("#F0F8FF", "gray.900")}
+            rounded="md"
+            m={1}
+          />
+          <Textarea
+            type="text"
+            placeholder="Text (optional)"
+            size="lg"
+            name="text"
+            backgroundColor={useColorModeValue("#F0F8FF", "gray.900")}
+            value={topicData.text}
+            onChange={handleChange}
+            m={1}
+            minW="30vw"
+          />
+          <Flex justifyContent="flex-end"> 
+          <Button type="submit" m={1} >
+            Create
+          </Button>
+          <Button onClick={() => history.push("/topics")} m={1}>
+            Cancel
+          </Button>
+          </Flex>
         </form>
       </Flex>
-    </SidebarWithHeader>
+    </Flex>
   );
 };
 

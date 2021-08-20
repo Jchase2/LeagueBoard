@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ITopic, IUser } from "../interfaces";
+import { ITopic } from "../interfaces";
 import { IRegisterForm } from "../interfaces/RegisterForm";
 import { setToken } from "./helpers";
 
@@ -55,7 +55,6 @@ export const verifyEmailAndUser = async (
       summoner_name: summoner_name,
     },
   };
-  console.log("regionid: ", regionId, " summoner_name: ", summoner_name, " email: ", email)
   await axios
     .get(
       process.env.REACT_APP_BACKEND_URL + "/verify/register/user" ||
@@ -103,19 +102,7 @@ export const getForumTopic = async (topicid: number) => {
     .then((res: { data: any }) => res.data);
 };
 
-export const getForumComments = async (parentid: number) => {
-  return axios
-    .get(process.env.REACT_APP_BACKEND_URL + `/topics/comments/${parentid}` || "http://localhost:3001/topics")
-    .then((res: { data: any }) => res.data);
-};
-
-export const getForumTopics = async () => {
-  return axios
-    .get(process.env.REACT_APP_BACKEND_URL + "/topics" || "http://localhost:3001/topics")
-    .then((res: { data: any }) => res.data);
-};
-
-export const createTopic = async (formData: ITopic) => {
+export const createNewTopic = async (formData: ITopic) => {
   return axios
     .post(
       process.env.REACT_APP_BACKEND_URL + "/topics" ||
@@ -128,10 +115,7 @@ export const createTopic = async (formData: ITopic) => {
         "parentid": formData.parentid
       }
     )
-    .then((res: any) => {
-      setToken(res);
-      return res;
-    })
+    .then((res: { data: any }) => res.data)
     .catch((err) => console.log(err));
 };
 

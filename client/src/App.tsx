@@ -5,12 +5,12 @@ import {
   Switch,
 } from "react-router-dom";
 import Login from "./domain/Login/Login";
-import index from "./pages";
 import VerificationComponent from "./domain/Register/VerificationComponent";
 import Topics from './domain/Forums/Topics';
 import CreateTopic from './domain/Forums/CreateTopic';
 import ThreadPage from './domain/Forums/ThreadPage';
-import { Scrimmage } from "./domain/Dashboard/Scrimmage/Scrimmage";
+import SidebarWithHeader from "./components/Heading/Heading";
+import Layout from "./domain/Profile/Layout";
 
 
 function App() {
@@ -18,15 +18,34 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Route exact path="/" component={index}></Route>
+          <Route exact path="/">
+            <SidebarWithHeader>
+              <Layout />
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="/Home">
+            <SidebarWithHeader>
+              <Layout />
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="/topics">
+            <SidebarWithHeader>
+              <Topics />
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="/topics/create">
+            <SidebarWithHeader>
+              <CreateTopic />
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="/topic/:id">
+            <SidebarWithHeader>
+              <ThreadPage />
+            </SidebarWithHeader>
+          </Route>
           <Route exact path="/signup" component={RegisterUser}></Route>
           <Route exact path="/signin" component={Login}></Route>
           <Route exact path="/verify" component={VerificationComponent}></Route>
-          <Route exact path="/topics" component={Topics}></Route>
-          <Route exact path="/topics/create" component={CreateTopic}></Route>
-          <Route exact path="/topics/:id" component={ThreadPage}></Route>
-          <Route exact path="/scrim" component={Scrimmage}></Route>
-
         </Switch>
       </Router>
       

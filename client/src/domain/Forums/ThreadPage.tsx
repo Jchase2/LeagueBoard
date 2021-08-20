@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
-import { getForumComments, getForumTopic } from "../../api/api";
+import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
-import SidebarWithHeader from "../../components/Heading/Heading";
-import Comment from "./Comment";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { deleteForumTopic, fetchUserInfo } from "../../redux/slices";
+import MapComments from "./MapComments";
 
 const ThreadPage: React.FC = () => {
-
-  let history = useHistory();
+  const history = useHistory();
+  const user = useAppSelector((state) => state.userReducer.userState);
+  const { id } = useParams<urlParams>();
+  const dispatch = useAppDispatch();
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -23,82 +26,70 @@ const ThreadPage: React.FC = () => {
     updated_at: "",
   });
   const [isReply, setIsReply] = useState(false);
-  const [commentsArray, setCommentsArray] = useState<ITopicResp[]>([]);
 
   type urlParams = {
     id: string;
   };
 
-  const updateComments = () => {
-    getForumComments(+id).then((res) => {
-      setCommentsArray(res);
-    });
-  };
-
-  let { id } = useParams<urlParams>();
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);
+      dispatch(fetchUserInfo());
     });
-    updateComments();
-  }, [id]);
+  }, [id, dispatch]);
+
+  const handleDelete = () => {
+    dispatch(deleteForumTopic(threadData.id));
+    history.push("/topics");
+  };
 
   return (
-    <SidebarWithHeader>
-      <Flex minH="100vh" align="center" flexDirection="column" m={2}>
-        <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px">
-          <Box
-            fontWeight="bold"
-            textTransform="uppercase"
-            fontSize="sm"
-            letterSpacing="wide"
-            color="fff"
-          >
-            {threadData.title}
-          </Box>
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-          >
-            {/* TODO: Need to replace this with username */}
-            By: {threadData.userid}
-          </Box>
-          <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
-            <Text>{threadData.text}</Text>
-          </Box>
-          {isReply ? (
-            <ReplyTopic
-              setIsReply={setIsReply}
-              topicid={id}
-              updateComments={updateComments}
-            />
-          ) : null}
-          {!isReply ? (
-            <Button onClick={() => setIsReply(true)} m={1}>
-              Reply
-            </Button>
-          ) : null}
-          <Button onClick={() => history.push("/topics")} m={1}>
-            Back
+    <Flex minH="100vh" align="center" flexDirection="column" m={2}>
+      <Box w="50vw"   minW="300px"p={4} borderWidth="1px" borderRadius="lg">
+        <Box
+          fontWeight="bold"
+          textTransform="uppercase"
+          fontSize="sm"
+          letterSpacing="wide"
+          color="fff"
+        >
+          {threadData.title}
+        </Box>
+        <Box
+          color="gray.500"
+          fontWeight="semibold"
+          letterSpacing="wide"
+          fontSize="xs"
+          textTransform="uppercase"
+        >
+          <Text>
+            By: {user?.summoner_name}
+            At{" "}
+            {new Date(threadData.created_at).toLocaleTimeString() +
+              " on " +
+              new Date(threadData.created_at).toLocaleDateString()}
+          </Text>
+        </Box>
+        <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
+          <Text>{threadData.text}</Text>
+        </Box>
+        {isReply && <ReplyTopic setIsReply={setIsReply} topicid={id} />}
+        {!isReply && (
+          <Button onClick={() => setIsReply(true)} m={1}>
+            Reply
           </Button>
-          <Box>
-          {commentsArray.map((thread) => (
-            <>
-              {thread.parentid ? (
-                <>
-                  {console.log("Thread: ", thread)}
-                  <Comment id={thread.id} thread={thread} updateComments={updateComments}/>
-                </>
-              ) : null}
-            </>
-          ))}
+        )}
+        <Button onClick={() => history.push("/topics")} m={1}>
+          Back
+        </Button>
+        <Button m={1} onClick={handleDelete}>
+          Delete
+        </Button>
+        <Box>
+          <MapComments id={threadData.id} />
         </Box>
-        </Box>
-      </Flex>
-    </SidebarWithHeader>
+      </Box>
+    </Flex>
   );
 };
 
