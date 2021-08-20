@@ -4,6 +4,8 @@ import {
   Button,
   Flex,
   Textarea,
+  Heading,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useHistory } from "react-router";
@@ -45,36 +47,51 @@ const CreateTopic: React.FC = () => {
   };
 
   return (
-      <Flex align="center" flexDirection="column">
+    <Flex align="center" flexDirection="column" marginTop={5}>
+      <Flex
+        boxShadow="lg"
+        colorScheme={useColorModeValue("#F0F8FF", "black")}
+        padding="30px"
+        borderRadius="20px"
+      >
         <form onSubmit={handleSubmit}>
-            <FormLabel m={1}>New Topic</FormLabel>
-            <Input
-              type="text"
-              placeholder="Title"
-              size="sm"
-              name="title"
-              value={topicData.title}
-              onChange={handleChange}
-              rounded="md"
-              m={1}
-            />
-            <Textarea
-              type="text"
-              placeholder="Topic Text"
-              size="lg"
-              name="text"
-              value={topicData.text}
-              onChange={handleChange}
-              m={1}
-            />
-            <Button type="submit" m={1}>
-              Create
-            </Button>
-            <Button onClick={() => history.push("/topics")} m={1}>
-              Cancel
-            </Button>
+          <u>
+            <Heading mb={4}> Create a post</Heading>
+          </u>
+          <FormLabel mb={2}>New Topic</FormLabel>
+          <Input
+            type="text"
+            placeholder="Title"
+            size="sm"
+            name="title"
+            value={topicData.title}
+            onChange={handleChange}
+            backgroundColor={useColorModeValue("#F0F8FF", "gray.900")}
+            rounded="md"
+            m={1}
+          />
+          <Textarea
+            type="text"
+            placeholder="Text (optional)"
+            size="lg"
+            name="text"
+            backgroundColor={useColorModeValue("#F0F8FF", "gray.900")}
+            value={topicData.text}
+            onChange={handleChange}
+            m={1}
+            minW="30vw"
+          />
+          <Flex justifyContent="flex-end"> 
+          <Button type="submit" m={1} >
+            Create
+          </Button>
+          <Button onClick={() => history.push("/topics")} m={1}>
+            Cancel
+          </Button>
+          </Flex>
         </form>
       </Flex>
+    </Flex>
   );
 };
 

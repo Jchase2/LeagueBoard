@@ -12,10 +12,7 @@ const Topics: React.FC = () => {
   const [query, setQuery] = useState<string>('');
   let history = useHistory();
   const dispatch = useAppDispatch()
-  const topics:any[] = useAppSelector((state) => state.topicsReducer.topics);
-  
-  console.log(topics);
-
+  const topics:ITopic[] = useAppSelector((state) => state.topicsReducer.topics);
 
   useEffect(() => {
     dispatch(fetchForumTopics());
@@ -50,7 +47,8 @@ const Topics: React.FC = () => {
           <MapTopics topics={query.length ? filteredTopics : topics}/>
           
         </Box>
-      </Flex>
+      
+    </Flex>
   );
 };
 

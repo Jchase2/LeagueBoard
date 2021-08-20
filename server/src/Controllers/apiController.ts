@@ -4,6 +4,8 @@ import { sequelize } from "../Models/index";
 const { Region } = require("../Models/region.model");
 const { Topic } = require("../Models/topic.model");
 const { User } = require("../Models/user.model");
+const { Matches } = require("../Models/match.model");
+
 import {
   getMatchesByPuuid,
   getMatchInfoByMatchId,
@@ -26,10 +28,21 @@ export const getRegions = async (
   }
 };
 
-export const getRecentMatches = async (req: Request, res: Response, next: Function) => {
+export const getMatches = async (req: Request, res: Response, next: Function) => {
   try {
     let { puuid } = req.params;
-    puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
+    //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
+    const matches = await Matches.findAll({where: { puuid: puuid }});
+    res.send(matches[0].dataValues).status(200);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const updateMatchesInDb = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { puuid } = req.params;
+    //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
 
     let query: any = await sequelize.query(
       `SELECT region FROM public."Users" as U LEFT JOIN public."Regions" as R on U.regionid = R.id WHERE puuid = '${puuid}';`
@@ -37,16 +50,22 @@ export const getRecentMatches = async (req: Request, res: Response, next: Functi
     let region = query[0][0].region;
 
     const matches = await getMatchesByPuuid(puuid, region);
-    await asyncForEach(matches, async (match: string) => {
-      const { data } = await getMatchInfoByMatchId(match, region);
-      // console.log(data.info, 'DATA');
-      // console.count();
+    await Matches.destroy({
+      where: {
+        puuid: puuid
+      }
     });
 
-    //insert in db the matchInfo
-    // await sequelize.query(
-    //   `INSERT INTO public."MatchInfos" (matchid, region, matchinfo) VALUES ('${matches[0]}', '${region}', '${JSON.stringify(
-
+    await sequelize.query(
+      `INSERT INTO public."Matches" (puuid, "updatedAt") VALUES ('${puuid}', '2021-08-19 21:16:44.969-03');`
+    );
+    let i = 1;
+    await asyncForEach(matches, async (match: string) => {
+      const { data } = await getMatchInfoByMatchId(match, region);
+      let query = `UPDATE public."Matches" SET match${i} = '${JSON.stringify(data.info)}'::jsonb WHERE puuid = '${puuid}';`;
+      await sequelize.query(query);
+      i++;
+    });
     res.send().status(200);
   } catch (err) {
     next(err);
@@ -71,10 +90,13 @@ export const deleteForumTopic = async (req: Request, res: Response, next: Functi
   try {
     let { topicid } = req.params;
     const topic = await Topic.findByPk(topicid);
+    //const topics = await Topic.findAll({});
+    await Topic.destroy({ where: { parentid: topic.id }})
     await topic.destroy();
     res.json(topic)
     res.status(204)
   } catch (err) {
+    console.log(err.message)
     next(err);
   }
 }
@@ -169,17 +191,14 @@ export const getForumComments = async (
           public."Topics" AS P
       WHERE
           P.id = ${parentid}
-
       UNION ALL
-
       SELECT
         p.id, P.title, p.text, p.userid, p.parentid, p.closed, p.created_at, s.title as parenttitle
       FROM
           public."Topics" AS P
       INNER JOIN comments s ON s.ID = p.parentid
   )
-
-  SELECT * FROM comments ORDER BY parentid, id;`
+  SELECT * FROM comments ORDER BY created_at asc;`
     );
     res.json(query[0]);
   } catch (err) {

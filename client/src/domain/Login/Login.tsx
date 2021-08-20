@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { IUser } from "../../interfaces/User";
-import { signIn } from "../../api/backendApi";
+import { signIn } from "../../api/api";
 import { ErrorShow } from "../../components/Error/ErrorShow";
 
 import {

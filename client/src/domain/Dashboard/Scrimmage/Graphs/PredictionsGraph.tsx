@@ -108,7 +108,6 @@ const PredictionsGraph = () => {
             type: "stackedBar100",
             color: "#DA2C43",
             name: "Team-2 Player4",
-
             indexLabel: "{y}",
             indexLabelFontColor: "white",
             yValueFormatString: "#,###'%'",

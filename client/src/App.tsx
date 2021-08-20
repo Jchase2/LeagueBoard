@@ -9,9 +9,9 @@ import VerificationComponent from "./domain/Register/VerificationComponent";
 import Topics from './domain/Forums/Topics';
 import CreateTopic from './domain/Forums/CreateTopic';
 import ThreadPage from './domain/Forums/ThreadPage';
-import { ScrimLayout } from "./domain/Dashboard/Scrimmage/ScrimLayout";
 import SidebarWithHeader from "./components/Heading/Heading";
 import Layout from "./domain/Profile/Layout";
+import { ScrimLayout } from "./domain/Dashboard/Scrimmage/ScrimLayout";
 
 
 function App() {
@@ -44,7 +44,7 @@ function App() {
               <ThreadPage />
             </SidebarWithHeader>
           </Route>
-          <Route exact path="/topics/scrim">
+          <Route exact path="/scrims">
             <SidebarWithHeader>
               <ScrimLayout/>
             </SidebarWithHeader>
@@ -52,11 +52,6 @@ function App() {
           <Route exact path="/signup" component={RegisterUser}></Route>
           <Route exact path="/signin" component={Login}></Route>
           <Route exact path="/verify" component={VerificationComponent}></Route>
-          <Route exact path="/topics" component={Topics}></Route>
-          <Route exact path="/topics/create" component={CreateTopic}></Route>
-          <Route exact path="/topics/:id" component={ThreadPage}></Route>
-          <Route exact path="/topics/scrim" component={ScrimLayout}></Route>
-
         </Switch>
       </Router>
       

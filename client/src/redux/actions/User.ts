@@ -1,22 +1,21 @@
-import { getUserInfo } from "../../api/profileAPI";
-import { EReduxActionTypes } from './ActionTypes';
+import { EReduxActionTypes } from '../actions/ActionTypes';
+//SHOULD USE REDUX INSTEAD OF getRecentMatches
+import { getRecentMatches } from '../../api/backendApi';
 
+// Action Creators - functions that return an action
 
-export const getUser = () => async (dispatch: (arg: { type: string; payload: { data: any[]; }; }) => void) => {
-    try {
+export const getAllScrimmages = () => async (dispatch: (arg: { type: string; payload: { data: any[]; }; }) => void) => {
+   try {
+    const { data } = await getRecentMatches(); // decontruct response to grab data from response object
+    
+    const action = {
+      type: EReduxActionTypes.FETCH_USER_INFO,
+      payload: { data },
+    };
+    dispatch(action);
+  } catch (error) {
+    console.log(error.message);
+  } 
+};
 
-        const { data } = await getUserInfo();
-
-        const action = {
-            type: EReduxActionTypes.FETCH_USER_INFO,
-            payload: { data }
-        }
-
-        dispatch(action)
-
-    } catch (err) {
-        console.log(err);
-    }
-
-}
 

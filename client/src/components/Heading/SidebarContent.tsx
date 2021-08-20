@@ -11,6 +11,7 @@ import {
   FiTrendingUp,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
+import { SiNintendogamecube } from "react-icons/si";
 import { GoCommentDiscussion } from "react-icons/go";
 import NavItem from "./NavItem"
 
@@ -28,6 +29,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, linkName: "/" },
   { name: "Trending", icon: FiTrendingUp, linkName: "Trending" },
   { name: "Topics", icon: GoCommentDiscussion, linkName: "/topics" },
+  { name: "Scrims", icon: SiNintendogamecube, linkName: "/scrims" },
 ];
 
 // Change REACT.FC for types of components
@@ -35,9 +37,9 @@ const LinkItems: Array<LinkItemProps> = [
 const SidebarContent: React.FC<SidebarProps> = ({ onClose, ...rest }) => (
   <Box
     transition="0.5s ease"
-    bg={useColorModeValue("	white", "gray.900")}
+    bg={useColorModeValue("#F0F8FF", "gray.900")}
     borderRight="2px"
-    borderRightColor={useColorModeValue("gray.100", "gray.700")}
+    borderRightColor={useColorModeValue("gray.200", "gray.700")}
     w={{ base: "full", md: 60 }}
     pos="fixed"
     h="full"
