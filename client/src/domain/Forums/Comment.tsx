@@ -3,8 +3,11 @@ import { Box, Button, Text } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces/";
 import { Props } from "framer-motion/types/types";
 import ReplyTopic from "./ReplyTopic";
+import { useAppSelector } from "../../redux/hooks";
 
 const Comment: React.FC<Props> = (props) => {
+  const user = useAppSelector((state) => state.userReducer.userState);
+
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
     userid: 1,
@@ -45,8 +48,7 @@ const Comment: React.FC<Props> = (props) => {
         fontSize="xs"
         textTransform="uppercase"
       >
-        {/* TODO: Need to replace this with username */}
-        <Text>By: {threadData.userid}</Text>
+        <Text>By: {user.summoner_name}</Text>
         <Text>
           At{" "}
           {new Date(threadData.created_at).toLocaleTimeString() +

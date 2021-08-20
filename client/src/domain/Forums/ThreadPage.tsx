@@ -4,13 +4,14 @@ import { ITopicResp } from "../../interfaces";
 import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
-import { useAppDispatch } from "../../redux/hooks";
-import { deleteForumTopic } from "../../redux/slices";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { deleteForumTopic, fetchUserInfo } from "../../redux/slices";
 import MapComments from './MapComments';
 
 const ThreadPage: React.FC = () => {
 
   const history = useHistory();
+  const user = useAppSelector((state) => state.userReducer.userState);
   const { id } = useParams<urlParams>();
   const dispatch = useAppDispatch();
 
@@ -34,6 +35,7 @@ const ThreadPage: React.FC = () => {
   useEffect(() => {
     getForumTopic(+id).then((res) => {
       setThreadData(res);
+      dispatch(fetchUserInfo())
     });
   }, [id, dispatch]);
 
@@ -62,7 +64,7 @@ const ThreadPage: React.FC = () => {
             textTransform="uppercase"
           >
             {/* TODO: Need to replace this with username */}
-            <Text>By: {threadData.userid}</Text>
+            <Text>By: {user.summoner_name}</Text>
             <Text>
               At{" "}
               {new Date(threadData.created_at).toLocaleTimeString() +
