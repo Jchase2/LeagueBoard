@@ -63,7 +63,6 @@ const ThreadPage: React.FC = () => {
             fontSize="xs"
             textTransform="uppercase"
           >
-            {/* TODO: Need to replace this with username */}
             <Text>By: {user.summoner_name}</Text>
             <Text>
               At{" "}
