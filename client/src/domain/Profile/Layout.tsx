@@ -33,6 +33,7 @@ const Layout: React.FC<Props> = (props: Props) => {
     console.log("Matches: ", matches)
 
   return (
+    <>
     <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
       <Flex minW="20vw" justifyContent="center" alignContent="center">
         <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
@@ -46,9 +47,11 @@ const Layout: React.FC<Props> = (props: Props) => {
         Also just realized it isnt in redux so im going to sleep
         <Image src="10.jpg" alt="coming soon" borderRadius="20px"/>
         </Flex>
-        <UserDonutGraph/>
       </Flex>
     </Flex>
+        <br/><br/>
+        <UserDonutGraph/>
+    </>
   );
 }
 
