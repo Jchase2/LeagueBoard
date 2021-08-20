@@ -55,7 +55,6 @@ export const verifyEmailAndUser = async (
       summoner_name: summoner_name,
     },
   };
-  console.log("regionid: ", regionId, " summoner_name: ", summoner_name, " email: ", email)
   await axios
     .get(
       process.env.REACT_APP_BACKEND_URL + "/verify/register/user" ||
