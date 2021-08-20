@@ -36,7 +36,6 @@ export const getMatches = async (req: Request, res: Response, next: Function) =>
   
     const letArr = [];
     for (let i = 1; i < 11; i++) {
-      console.log(matches[0]['match1']);
       letArr.push(matches[0]['match' + i]);
     }
     
