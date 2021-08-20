@@ -48,7 +48,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         px={{ base: 4, md: 4 }}
         height="20"
         alignItems="center"
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("#F0F8FF", "gray.900")}
         borderBottomWidth="1px"
         borderBottomColor={useColorModeValue("gray.200", "gray.700")}
         justifyContent={{ base: "space-between", md: "flex-end" }}
@@ -61,7 +61,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           aria-label="open menu"
           icon={<FiMenu />}
         />
-        <Searchbar message={"Search for Summoners"}/>
+        <Searchbar message={"Search for Summoners"} />
         <HStack spacing={{ base: "0", md: "6" }}>
           <IconButton
             size="md"
@@ -92,7 +92,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                       src={
                         user
                           ? `http://ddragon.leagueoflegends.com/cdn/11.16.1/img/profileicon/${user?.iconid}.png`
-                          : "" 
+                          : ""
                       }
                     />
                     <VStack
@@ -113,7 +113,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 </>
               </MenuButton>
               <MenuList
-                bg={useColorModeValue("#E8E8E8", "gray.900")}
+                bg={useColorModeValue("#F0F8FF", "gray.900")}
                 borderColor={useColorModeValue("gray.200", "gray.700")}
               >
                 <Link href="/Profile">
