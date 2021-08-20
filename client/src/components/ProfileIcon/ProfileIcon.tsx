@@ -8,11 +8,13 @@ import {
   Flex,
   useColorModeValue,
 } from "@chakra-ui/react";
+import Badges from "./Badges";
+import RankImage from "./RankImage";
 
 interface props {
   users: any;
   userRank: any;
-  regionName: string
+  regionName: any
 }
 
 const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
@@ -50,17 +52,37 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
       <Heading fontSize={"2xl"} fontFamily={"body"}>
         {users ? `${users?.summoner_name}` : ""}
       </Heading>
+      <Badges userRank={userRank}/>
       <Button size="xs" colorScheme="teal" variant="solid" margin="5px">
         Button
       </Button>
       <Text fontWeight={600} color={"gray.500"} mb={4}>
         {regionName}
       </Text>
-      <Flex>
-
-        <Text as="em" color={useColorModeValue("gray.700", "gray.300")} px={3}>
-        Rank : {userRank.length ?  `${userRank[0].tier} ${userRank[0].rank}` : "Unranked"}
-        </Text>
+      <Flex justifyContent="space-around">
+        <Flex>
+          {userRank?.length &&
+          <RankImage rank={userRank[0]?.tier} />}
+        </Flex>
+        <Flex justifyContent="center" flexDirection="column">
+          <Heading
+            as="h3"
+            size="md"
+            color={useColorModeValue("gray.700", "gray.300")}
+            px={3}
+          >
+            Rank :{" "}
+            {userRank?.length
+              ? `${userRank[0]?.tier} ${userRank[0]?.rank}`
+              : "Unranked"}
+          </Heading>
+          <Text>
+            {" "}
+            {userRank?.length
+              ? `${userRank[0].wins}W ${userRank[0].losses}L | ${Math.round((userRank[0].wins / (userRank[0].wins + userRank[0].losses)) * 100)}%`
+              : ""}{" "}
+          </Text>
+        </Flex>
       </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>
         <Button
