@@ -91,10 +91,13 @@ export const deleteForumTopic = async (req: Request, res: Response, next: Functi
   try {
     let { topicid } = req.params;
     const topic = await Topic.findByPk(topicid);
+    //const topics = await Topic.findAll({});
+    await Topic.destroy({ where: { parentid: topic.id }})
     await topic.destroy();
     res.json(topic)
     res.status(204)
   } catch (err) {
+    console.log(err.message)
     next(err);
   }
 }
@@ -199,7 +202,7 @@ export const getForumComments = async (
       INNER JOIN comments s ON s.ID = p.parentid
   )
 
-  SELECT * FROM comments ORDER BY parentid, id;`
+  SELECT * FROM comments ORDER BY created_at asc;`
     );
     res.json(query[0]);
   } catch (err) {

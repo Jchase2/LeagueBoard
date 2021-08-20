@@ -11,7 +11,7 @@ const MapTopics: React.FC = () => {
   }, [dispatch]);  return (
     <>
       {threadArray &&
-        threadArray.map((thread) => (
+        [...threadArray].sort((a, b) => b.id - a.id).map((thread) => (
           <div key={thread.id}>
             {!(thread.parentid >= 1) && <ThreadCard thread={thread} />}
           </div>
