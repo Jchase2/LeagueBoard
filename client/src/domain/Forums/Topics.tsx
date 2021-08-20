@@ -37,6 +37,17 @@ const Topics: React.FC = () => {
       </Box>
       <Flex flexDirection="column" padding="10px">
         <Flex flexDirection="column">
+          <InputGroup size="sm" mb={4}>
+            <InputLeftAddon borderRadius="10px" children={<SearchIcon color="gray.900" />} />
+            <Input
+              size="sm"
+              backgroundColor={useColorModeValue("#F0F8FF", "gray.900")}
+              borderRadius="10px"
+              type="tel"
+              placeholder="Search Thread"
+              minW="40vw"
+            />
+          </InputGroup>
           <Button
             size="lg"
             boxShadow="lg"
@@ -65,12 +76,12 @@ const Topics: React.FC = () => {
             ></Icon>
           </Button>
         </Flex>
-        <InputGroup size="md">
-              <InputLeftAddon children={<SearchIcon color="gray.900" />} />
-              <Input variant="filled" type="tel" placeholder="Search" onChange={event => filteringTopics(event.target.value)}/>
-            </InputGroup>
-        <Flex flexDirection="column" justifyContent="center" alignItems="center">
-        <MapTopics topics={query.length ? filteredTopics : topics}/>
+        <Flex
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <MapTopics topics={query.length ? filteredTopics : topics} />
         </Flex>
       </Flex>
     </Flex>
