@@ -7,10 +7,10 @@ import ReplyTopic from "./ReplyTopic";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { deleteForumTopic, fetchUserInfo } from "../../redux/slices";
 import MapComments from "./MapComments";
+import ByComp from "./ByComp";
 
 const ThreadPage: React.FC = () => {
   const history = useHistory();
-  const user = useAppSelector((state) => state.userReducer.userState);
   const { id } = useParams<urlParams>();
   const dispatch = useAppDispatch();
 
@@ -62,13 +62,9 @@ const ThreadPage: React.FC = () => {
           fontSize="xs"
           textTransform="uppercase"
         >
-          <Text>
-            By: {user?.summoner_name}
-            At{" "}
-            {new Date(threadData.created_at).toLocaleTimeString() +
-              " on " +
-              new Date(threadData.created_at).toLocaleDateString()}
-          </Text>
+          <Flex direction="row">
+            <ByComp thread={threadData} />
+          </Flex>
         </Box>
         <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
           <Text>{threadData.text}</Text>

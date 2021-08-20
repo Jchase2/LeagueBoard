@@ -131,3 +131,12 @@ export const signIn = async (form: any) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const getTopicOwner = async (id: number) => {
+  return axios
+    .get(
+      process.env.REACT_APP_BACKEND_URL + `/topics/user/${id}` || `localhost:3001/topics/user/${id}`,
+    )
+    .then((res: { data: any }) => res.data)
+    .catch((err) => console.log(err));
+};

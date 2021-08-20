@@ -1,8 +1,9 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { Link } from "react-router-dom";
 import { Text } from "@chakra-ui/layout";
 import { useAppSelector } from "../../redux/hooks";
+import ByComp from "./ByComp";
 
 const Forums: React.FC<Props> = ({ thread }) => {
   const user = useAppSelector((state) => state.userReducer.userState);
@@ -24,7 +25,7 @@ const Forums: React.FC<Props> = ({ thread }) => {
           max-width="75ch"
           textOverflow="ellipsis"
         >
-          <b>{thread.title}</b> by: {user?.summoner_name}
+          <b>{thread.title}</b>
         </Text>
         <Flex fontSize="sm" letterSpacing="wide">
           <Text
@@ -43,12 +44,7 @@ const Forums: React.FC<Props> = ({ thread }) => {
           fontSize="xs"
           textTransform="uppercase"
         >
-          <Text>
-            At{" "}
-            {new Date(thread.created_at).toLocaleTimeString() +
-              " on " +
-              new Date(thread.created_at).toLocaleDateString()}
-          </Text>
+          <ByComp thread={thread} />
         </Flex>
       </Flex>
     </Link>

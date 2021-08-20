@@ -7,17 +7,23 @@ import {
   Heading,
   useColorModeValue
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { createNewTopic } from "../../redux/slices/topicsSlice";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchUserInfo } from "../../redux/slices";
 
 const CreateTopic: React.FC = () => {
   let history = useHistory();
   const dispatch = useAppDispatch()
+  const user = useAppSelector((state) => state.userReducer.userState);
+
+  useEffect(() => {
+    dispatch(fetchUserInfo())
+  }, [dispatch]);
 
   const [topicData, setTopicData] = useState({
-    userid: 1,
+    userid: user.id,
     title: "",
     text: "",
     closed: false,
@@ -81,7 +87,7 @@ const CreateTopic: React.FC = () => {
             m={1}
             minW="30vw"
           />
-          <Flex justifyContent="flex-end"> 
+          <Flex justifyContent="flex-end">
           <Button type="submit" m={1} >
             Create
           </Button>

@@ -6,10 +6,10 @@ import {
   Flex,
   Textarea,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Props } from "framer-motion/types/types";
-import { createNewTopic } from "../../redux/slices";
-import { useAppDispatch } from "../../redux/hooks";
+import { createNewTopic, fetchUserInfo } from "../../redux/slices";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 
 interface myProps extends Props {
@@ -19,10 +19,15 @@ interface myProps extends Props {
 const ReplyTopic: React.FC<myProps> = (props) => {
 
   const dispatch = useAppDispatch()
+  const user = useAppSelector((state) => state.userReducer.userState);
+
+  useEffect(() => {
+    dispatch(fetchUserInfo())
+  }, [dispatch]);
 
   const [topicData, setTopicData] = useState({
     parentid: Number(props.topicid),
-    userid: 1,
+    userid: user.id,
     title: "",
     text: "",
     closed: false,

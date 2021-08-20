@@ -86,6 +86,21 @@ export const getForumTopicById = async (
   }
 };
 
+export const getForumOwner = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
+  try {
+    let { topicid } = req.params;
+    const topic = await Topic.findByPk(topicid);
+    const user = await User.findByPk(topic.userid);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const deleteForumTopic = async (req: Request, res: Response, next: Function) => {
   try {
     let { topicid } = req.params;

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces/";
 import { Props } from "framer-motion/types/types";
 import ReplyTopic from "./ReplyTopic";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { deleteForumTopic } from "../../redux/slices";
+import ByComp from "./ByComp";
 
 const Comment: React.FC<Props> = (props) => {
-  const user = useAppSelector((state) => state.userReducer.userState);
   const dispatch = useAppDispatch();
 
   const [threadData, setThreadData] = useState<ITopicResp>({
@@ -59,12 +59,9 @@ const Comment: React.FC<Props> = (props) => {
         fontSize="xs"
         textTransform="uppercase"
       >
-        <Text>
-          By: {user?.summoner_name} At{" "}
-          {new Date(threadData.created_at).toLocaleTimeString() +
-            " on " +
-            new Date(threadData.created_at).toLocaleDateString()}
-        </Text>
+        <Flex direction="row">
+          <ByComp thread={threadData} />
+        </Flex>
       </Box>
       <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
         <Text>{threadData.text}</Text>
