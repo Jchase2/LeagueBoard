@@ -37,7 +37,12 @@ const Layout: React.FC<Props> = (props: Props) => {
       <Flex minW="20vw" justifyContent="center" alignContent="center">
         <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
       </Flex>
-      <Flex minW="55vw" justifyContent="center" alignContent="center">
+      <Flex
+        minW="55vw"
+        justifyContent="center"
+        alignContent="center"
+        flexDirection="column"
+      >
         <Flex flexDirection="column">
           {/* {userMatches?.map((match: any) => (
           <ProfileMatch match={match} key={uuidv4()} />
@@ -46,8 +51,8 @@ const Layout: React.FC<Props> = (props: Props) => {
           realized it isnt in redux so im going to sleep
           <Image src="10.jpg" alt="coming soon" borderRadius="20px" />
         </Flex>
+        <UserDonutGraph />
       </Flex>
-      <UserDonutGraph />
     </Flex>
   );
 }

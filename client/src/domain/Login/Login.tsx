@@ -33,7 +33,7 @@ const Login = () => {
     signIn(loginData)
       .then((res) => {
         console.log(res)
-        if (res.data.success) {
+        if (res.success) {
           setIsError(false);
           window.location.href = "/Home"
         }
