@@ -9,13 +9,11 @@ const Forums: React.FC<Props> = ({thread}) => {
   return (
     <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" m={2}>
       <Box
-        fontWeight="bold"
-        textTransform="uppercase"
-        fontSize="sm"
+        fontSize="md"
         letterSpacing="wide"
       >
         <Link to={`/topic/${thread.id}`}>
-          {thread.title}
+          <Text><b>{thread.title}</b> by: {user.summoner_name}</Text>
         </Link>
       </Box>
       <Box
@@ -25,7 +23,6 @@ const Forums: React.FC<Props> = ({thread}) => {
         fontSize="xs"
         textTransform="uppercase"
       >
-        By: {user.summoner_name}
         <Text>At {new Date(thread.created_at).toLocaleTimeString() + ' on ' + new Date(thread.created_at).toLocaleDateString()}</Text>
 
       </Box>
