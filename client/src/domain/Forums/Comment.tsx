@@ -5,12 +5,10 @@ import { Props } from "framer-motion/types/types";
 import ReplyTopic from "./ReplyTopic";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { deleteForumTopic } from "../../redux/slices";
-import { useHistory } from "react-router";
 
 const Comment: React.FC<Props> = (props) => {
   const user = useAppSelector((state) => state.userReducer.userState);
   const dispatch = useAppDispatch();
-  const history = useHistory();
 
   const [threadData, setThreadData] = useState<ITopicResp>({
     id: 0,
@@ -34,11 +32,6 @@ const Comment: React.FC<Props> = (props) => {
   };
   return (
     <Box w="48vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px" m={2}>
-      {threadData.parenttitle && (
-        <Box>
-          <Text>Reply To: {threadData.parenttitle}</Text>
-        </Box>
-      )}
       <Box
         fontWeight="bold"
         textTransform="uppercase"
@@ -48,6 +41,17 @@ const Comment: React.FC<Props> = (props) => {
       >
         {threadData.title}
       </Box>
+      {threadData.parenttitle && (
+        <Box
+          color="gray.500"
+          fontWeight="semibold"
+          letterSpacing="wide"
+          fontSize="xs"
+          textTransform="uppercase"
+        >
+          <Text>Reply To: {threadData.parenttitle}</Text>
+        </Box>
+      )}
       <Box
         color="gray.500"
         fontWeight="semibold"
@@ -55,9 +59,8 @@ const Comment: React.FC<Props> = (props) => {
         fontSize="xs"
         textTransform="uppercase"
       >
-        <Text>By: {user?.summoner_name}</Text>
         <Text>
-          At{" "}
+          By: {user?.summoner_name} At{" "}
           {new Date(threadData.created_at).toLocaleTimeString() +
             " on " +
             new Date(threadData.created_at).toLocaleDateString()}

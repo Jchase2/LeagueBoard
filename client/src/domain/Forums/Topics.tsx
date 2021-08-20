@@ -11,6 +11,7 @@ const Topics: React.FC = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    console.log("Delete")
     dispatch(fetchForumTopics());
     dispatch(fetchUserInfo())
   }, [dispatch]);

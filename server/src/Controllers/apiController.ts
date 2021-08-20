@@ -179,7 +179,7 @@ export const getForumComments = async (
       INNER JOIN comments s ON s.ID = p.parentid
   )
 
-  SELECT * FROM comments ORDER BY parentid, id;`
+  SELECT * FROM comments ORDER BY created_at asc;`
     );
     res.json(query[0]);
   } catch (err) {
