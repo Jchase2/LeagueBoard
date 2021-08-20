@@ -32,7 +32,6 @@ const UserDonutGraph = ({team1, team2}:any) => {
 
     useEffect(() => {
       dispatch(fetchUserInfo());
-      console.log(user)
       const match = async () => {
          /* currentUser = decoded?.user.summoner_name;
         console.log(currentUser)
