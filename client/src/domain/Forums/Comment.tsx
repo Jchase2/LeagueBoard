@@ -31,7 +31,7 @@ const Comment: React.FC<Props> = (props) => {
     dispatch(deleteForumTopic(threadData.id));
   };
   return (
-    <Box w="48vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px" m={2}>
+    <Box w="48vw" p={4} borderWidth="1px" borderRadius="lg" m={2}>
       <Box
         fontWeight="bold"
         textTransform="uppercase"

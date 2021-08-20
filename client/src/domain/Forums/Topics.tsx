@@ -32,6 +32,7 @@ const Topics: React.FC = () => {
             onClick={() => history.push("/topics/create")}
             mb={4}
             padding="30px"
+            maxW="100vw"
           >
             <Icon
               as={IoMdCreate}
@@ -52,7 +53,7 @@ const Topics: React.FC = () => {
             ></Icon>
           </Button>
         </Flex>
-        <Flex flexDirection="column">
+        <Flex flexDirection="column" justifyContent="center" alignItems="center">
           <MapTopics />
         </Flex>
       </Flex>

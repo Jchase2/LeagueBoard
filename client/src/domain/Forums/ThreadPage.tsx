@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Flex, Text, Button } from "@chakra-ui/react";
+import { Box, Flex, Text, Button, Container } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
 import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
@@ -45,7 +45,7 @@ const ThreadPage: React.FC = () => {
 
   return (
     <Flex minH="100vh" align="center" flexDirection="column" m={2}>
-      <Box w="50vw" p={4} borderWidth="1px" borderRadius="lg" minW="300px">
+      <Box w="50vw" minW="300px" p={4} borderWidth="1px" borderRadius="lg">
         <Box
           fontWeight="bold"
           textTransform="uppercase"
@@ -85,9 +85,9 @@ const ThreadPage: React.FC = () => {
         <Button m={1} onClick={handleDelete}>
           Delete
         </Button>
-        <Box>
+        <Container>
           <MapComments id={threadData.id} />
-        </Box>
+        </Container>
       </Box>
     </Flex>
   );
