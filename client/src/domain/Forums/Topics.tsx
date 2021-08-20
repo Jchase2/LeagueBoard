@@ -16,7 +16,7 @@ const Topics: React.FC = () => {
 
   const [filteredTopics, setFilteredTopics] = useState<ITopic[]>([]);
   const [query, setQuery] = useState<string>('');
-  const topics:any[] = useAppSelector((state) => state.topicsReducer.topics);
+  const topics = useAppSelector((state) => state.topicsReducer.topics);
 
   useEffect(() => {
     dispatch(fetchForumTopics());
