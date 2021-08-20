@@ -32,6 +32,7 @@ const Login = () => {
     //set token in localstorage and redirect to index
     signIn(loginData)
       .then((res) => {
+        console.log(res)
         if (res.data.success) {
           setIsError(false);
           window.location.href = "/Home"

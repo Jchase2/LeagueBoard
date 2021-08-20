@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 // import ProfileMatch from "./ProfileMatch";
 // import { v4 as uuidv4 } from "uuid";
+import UserDonutGraph from "./UserDonutGraph";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchMatches, setMatches, fetchRegions, fetchUserInfo, fetchUserRank } from "../../redux/slices";
 
@@ -32,22 +33,21 @@ const Layout: React.FC<Props> = (props: Props) => {
 
   
   return (
-
     <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
       <Flex minW="20vw" justifyContent="center" alignContent="center">
         <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
       </Flex>
       <Flex minW="55vw" justifyContent="center" alignContent="center">
         <Flex flexDirection="column">
-        {/* {userMatches?.map((match: any) => (
+          {/* {userMatches?.map((match: any) => (
           <ProfileMatch match={match} key={uuidv4()} />
         ))} */}
-        Matches will be here when rafel wants to make the endpoint.
-        Also just realized it isnt in redux so im going to sleep
-        <Image src="10.jpg" alt="coming soon" borderRadius="20px"/>
+          Matches will be here when rafel wants to make the endpoint. Also just
+          realized it isnt in redux so im going to sleep
+          <Image src="10.jpg" alt="coming soon" borderRadius="20px" />
         </Flex>
       </Flex>
-      <UserDonutGraph/>
+      <UserDonutGraph />
     </Flex>
   );
 }

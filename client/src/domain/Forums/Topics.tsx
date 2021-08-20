@@ -52,7 +52,6 @@ const Topics: React.FC = () => {
           
         </Box>
       </Flex>
-    </Flex>
   );
 };
 

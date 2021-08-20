@@ -44,7 +44,7 @@ function App() {
               <ThreadPage />
             </SidebarWithHeader>
           </Route>
-          <Route exact path="/topics/scrim">
+          <Route exact path="/topics/scrims">
             <SidebarWithHeader>
               <ScrimLayout/>
             </SidebarWithHeader>
