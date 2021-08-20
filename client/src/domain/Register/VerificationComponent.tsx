@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 import { getVerifyInfo, signUp } from "../../api/api";
 import { ErrorShow } from "../../components/Error/ErrorShow";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchRegions, fetchUserInfo, fetchUserRank } from "../../redux/slices";
+import { fetchRegions } from "../../redux/slices";
 
 import {
   Flex,

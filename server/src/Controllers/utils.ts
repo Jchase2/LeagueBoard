@@ -41,7 +41,6 @@ export const getMatchesByPuuid = async (puuid: string, region: string) => {
   const { data } = await axios.get(url, {
     headers: header,
   });
-  console.log("Data: ", data)
   return data;
 };
 
