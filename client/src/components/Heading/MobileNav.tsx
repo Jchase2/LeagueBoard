@@ -48,7 +48,10 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         px={{ base: 4, md: 4 }}
         height="20"
         alignItems="center"
-        bg={useColorModeValue("#F0F8FF", "gray.900")}
+        bg={useColorModeValue(
+          "#bdd4e7; background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);",
+          "#130f40; background-image: linear-gradient(315deg, #130f40 0%, #000000 74%);"
+        )}
         borderBottomWidth="1px"
         borderBottomColor={useColorModeValue("gray.200", "gray.700")}
         justifyContent={{ base: "space-between", md: "flex-end" }}

@@ -50,14 +50,13 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
           right: 3,
         }}
       />
-      <Heading fontSize={"2xl"} fontFamily={"body"}>
+      <Heading fontSize={"2xl"} fontFamily={"body"} mb={2}>
         {users ? `${users?.summoner_name}` : ""}
       </Heading>
-      <Badges userRank={userRank}/>
-      <Button size="xs" colorScheme="teal" variant="solid" margin="5px">
-        Button
-      </Button>
-      <Text fontWeight={600} color={"gray.500"} mb={4}>
+
+      <Badges userRank={userRank} />
+
+      <Text fontWeight={600} color={"gray.500"} mb={4} mt={2}>
         {regionName}
       </Text>
       <Flex justifyContent="space-around">

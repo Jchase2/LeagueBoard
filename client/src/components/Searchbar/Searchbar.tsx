@@ -9,7 +9,7 @@ const Searchbar: React.FC<Props> = ({ message }) => {
   return (
     <Container marginLeft="25px" padding="0px">
       <InputGroup size="md">
-        <InputLeftAddon children={<SearchIcon color="gray.900" />} />
+        <InputLeftAddon children={<SearchIcon color="black" />} />
         <Input variant="filled" type="tel" placeholder={message} />
       </InputGroup>
     </Container>
