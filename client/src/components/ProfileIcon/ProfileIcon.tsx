@@ -63,7 +63,7 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
       <Flex justifyContent="space-around">
         <Flex>
           {console.log("user rank: ", userRank)}
-          {userRank.length ?
+          {userRank?.length ?
           <RankImage rank={userRank[0]?.tier} /> : <Image minW="125px"maxH="125px" src='latest.png'/>
         }
         </Flex>
