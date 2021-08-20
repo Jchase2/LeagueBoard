@@ -32,7 +32,7 @@ const Topics: React.FC = () => {
             onClick={() => history.push("/topics/create")}
             mb={4}
             padding="30px"
-            maxW="100vw"
+            minW="40vw"
           >
             <Icon
               as={IoMdCreate}
