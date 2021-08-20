@@ -59,7 +59,7 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
       <Flex>
       
         <Text as="em" color={useColorModeValue("gray.700", "gray.300")} px={3}>
-        Rank : {userRank ?  `${userRank[0].tier} ${userRank[0].rank}` : "Unranked"}
+        {/* Rank :{userRank ?  `${userRank[0].tier} ${userRank[0].rank}` : "Unranked"} */}
         </Text>
       </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>

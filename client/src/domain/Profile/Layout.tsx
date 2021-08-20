@@ -32,15 +32,6 @@ const Layout: React.FC<Props> = (props: Props) => {
       dispatch(fetchUserRank())
     }, [dispatch]);
 
-    console.log(userMatches);
-    console.log("user: ", user)
-    console.log("userRank: ", userRank)
-    console.log("Regions: ", regions)
-
-      
-      
-    
-    
   
 
   //const user = useGetUsers();
