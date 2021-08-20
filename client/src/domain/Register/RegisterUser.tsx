@@ -146,7 +146,6 @@ const RegisterUser = () => {
               />
             </FormControl>
             <Button
-              isLoading
               variantcolor="teal"
               variant="outline"
               width="full"
