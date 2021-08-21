@@ -143,6 +143,18 @@ export const deleteForumTopic = async (req: Request, res: Response, next: Functi
   }
 }
 
+export const getVote = async (req: Request, res: Response, next: Function) => {
+  const { userid, value } = req.headers;
+  const { id } = req.params;
+  try {
+    let val = await Votes.findOne({where: {
+      [Op.and]: [{ topicid: id }, { userid: userid }]}})
+    res.json(val)
+  } catch(err){
+    next(err)
+  }
+}
+
 export const voteTopic = async (req: Request, res: Response, next: Function) => {
   try {
     let { topicid, userid, value } = req.body;

@@ -151,23 +151,44 @@ export const closeForumTopic = async (id: number, state: boolean) => {
     .put(
       process.env.REACT_APP_BACKEND_URL + `/topics/close/${id}` ||
         `localhost:3001/topics/close/${id}`,
-        {
-          topicid: id,
-          state: state
-        }
+      {
+        topicid: id,
+        state: state,
+      }
     )
     .then((res: { data: any }) => res.data)
     .catch((err) => console.log(err));
 };
 
-export const voteTopic = async (topicid: number, userid: number, vote: number) => {
+export const voteTopic = async (
+  topicid: number,
+  userid: number,
+  vote: number
+) => {
   return axios
     .put(
       process.env.REACT_APP_BACKEND_URL + `/topics/vote` ||
         `localhost:3001/topics/vote`,
-        {
-          topicid, userid, value: vote
-        }
+      {
+        topicid,
+        userid,
+        value: vote,
+      }
+    )
+    .then((res: { data: any }) => res.data)
+    .catch((err) => console.log(err));
+};
+
+export const getVotes = async (id: number, userid: number) => {
+  return axios
+    .get(
+      process.env.REACT_APP_BACKEND_URL + `/topics/vote/${id}` ||
+        "localhost:3001/",
+      {
+        headers: {
+          userid: userid,
+        },
+      }
     )
     .then((res: { data: any }) => res.data)
     .catch((err) => console.log(err));
