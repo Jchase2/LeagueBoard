@@ -17,7 +17,7 @@ const UserDonutGraph = ({team1, team2}:any) => {
   const [graph, setGraph] = useState<any>('');
   //const user = useAppSelector((state) => state.userReducer.userState);
   const dispatch = useAppDispatch();
-  console.log(userDeathHistory, userKillHistory, userAssistHistory);
+  
   const [user, setUser] = useState<any>({})
 
     useEffect(() => {
@@ -174,3 +174,6 @@ const UserDonutGraph = ({team1, team2}:any) => {
 }
 
 export default UserDonutGraph
+
+
+

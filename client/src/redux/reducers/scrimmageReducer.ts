@@ -1,4 +1,4 @@
-import { Scrimmage } from '../../domain/Dashboard/Scrimmage/Scrimmage';
+import { Scrimmage } from '../../domain/Dashboard/Scrimmage/ScrimmageTable';
 import { EReduxActionTypes, IReduxBaseAction } from '../actions/ActionTypes';
 import { IScrimmage } from '../../interfaces/Scrimmage';
 

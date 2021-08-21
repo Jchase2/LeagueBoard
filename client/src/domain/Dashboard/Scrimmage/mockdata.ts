@@ -9,28 +9,24 @@ const mockScrimmage = {
         {
           name: 'StarFish',
           rank: 'Iron',
-          level: 25
-          
+          level: 25, 
+          puuid: '1',
         },
         {
           name: 'StingRay',
           rank: 'Iron',
-          level: 36
-          
+          level: 36,
+          puuid: '1',
         },
         {
-          name: 'GreatWhite',
-          
+          name: 'GreatWhite', 
           rank: 'Iron',
           level: 14
-          
         },
         {
           name: 'Grouper',
-          
           rank: 'Iron',
           level: 1
-          
         },
         {
           name: 'Plankton',

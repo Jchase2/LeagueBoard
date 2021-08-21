@@ -12,6 +12,7 @@ import ThreadPage from './domain/Forums/ThreadPage';
 import SidebarWithHeader from "./components/Heading/Heading";
 import Layout from "./domain/Profile/Layout";
 import { ScrimLayout } from "./domain/Dashboard/Scrimmage/ScrimLayout";
+import CreateScrimmage from './domain/Scrimmages/CreateScrimmage'
 
 
 function App() {
@@ -47,6 +48,11 @@ function App() {
           <Route exact path="/scrims">
             <SidebarWithHeader>
               <ScrimLayout/>
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="/scrims/create">
+            <SidebarWithHeader>
+              <CreateScrimmage />
             </SidebarWithHeader>
           </Route>
           <Route exact path="/signup" component={RegisterUser}></Route>

@@ -3,8 +3,7 @@ import { CanvasJSChart } from 'canvasjs-react-charts';
 import { Container, Divider } from "@chakra-ui/react"
 
 const PredictionsGraph = () => {
- 
- // const { holdings } = useSelector((state: any) => state.holdings);
+
   
  
   return (

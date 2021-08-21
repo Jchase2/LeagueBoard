@@ -28,6 +28,9 @@ const Layout: React.FC<Props> = (props: Props) => {
     }, [dispatch]);
 
 
+  //const user = useGetUsers();
+
+  
   return (
     <>
     <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
@@ -44,6 +47,7 @@ const Layout: React.FC<Props> = (props: Props) => {
         <Image src="10.jpg" alt="coming soon" borderRadius="20px"/>
         </Flex>
       </Flex>
+
     </Flex>
         <br/><br/>
         <UserDonutGraph/>
