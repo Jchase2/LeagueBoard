@@ -28,12 +28,25 @@ export const getRegions = async (
   }
 };
 
-export const getMatches = async (req: Request, res: Response, next: Function) => {
+export const getMatches = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     let { puuid } = req.params;
     //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
-    const matches = await Matches.findAll({where: { puuid: puuid }});
-    res.send(matches[0].dataValues).status(200);
+    const matches = await Matches.findAll({
+      where: { puuid: puuid },
+      raw: true,
+    });
+
+    const letArr = [];
+    for (let i = 1; i < 11; i++) {
+      letArr.push(matches[0]["match" + i]);
+    }
+
+    res.send(letArr).status(200);
   } catch (err) {
     next(err);
   }
