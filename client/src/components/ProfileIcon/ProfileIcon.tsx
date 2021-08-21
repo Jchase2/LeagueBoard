@@ -7,16 +7,17 @@ import {
   Button,
   Flex,
   useColorModeValue,
-  Image
+  Image,
+  Tooltip,
 } from "@chakra-ui/react";
 import Badges from "./Badges";
 import RankImage from "./RankImage";
-
+import { changeNum } from "../../utils/romanToNum";
 
 interface props {
   users: any;
   userRank: any;
-  regionName: any
+  regionName: any;
 }
 
 const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
@@ -62,9 +63,11 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
       </Text>
       <Flex justifyContent="space-around">
         <Flex>
-          {userRank?.length ?
-          <RankImage rank={userRank[0]?.tier} /> : <Image minW="125px"maxH="125px" src='latest.png'/>
-        }
+          {userRank?.length ? (
+            <RankImage rank={userRank[0]?.tier} rankNum={userRank[0]?.rank} />
+          ) : (
+            <Image minW="125px" maxH="125px" src="latest.png" />
+          )}
         </Flex>
         <Flex justifyContent="center" flexDirection="column">
           <Heading
@@ -73,20 +76,22 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
             color={useColorModeValue("gray.700", "gray.300")}
             px={3}
           >
-            Rank :{" "}
+            Rank Solo/Duo :{" "}
             {userRank?.length
-              ? `${userRank[0]?.tier} ${userRank[0]?.rank}`
+              ? `${userRank[0]?.tier} ${changeNum(userRank[0]?.rank)}`
               : "Unranked"}
           </Heading>
-          <Text>
-            {" "}
-            {userRank?.length
-              ? `${userRank[0].wins}W ${userRank[0].losses}L | ${Math.round(
-                  (userRank[0].wins / (userRank[0].wins + userRank[0].losses)) *
-                    100
-                )}%`
-              : ""}{" "}
-          </Text>
+          <Tooltip hasArrow label="Winrate for games played this season">
+            <Text>
+              {userRank?.length
+                ? `${userRank[0].wins}W ${userRank[0].losses}L | ${Math.round(
+                    (userRank[0].wins /
+                      (userRank[0].wins + userRank[0].losses)) *
+                      100
+                  )}%`
+                : ""}
+            </Text>
+          </Tooltip>
         </Flex>
       </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>
@@ -127,4 +132,4 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
   );
 };
 
-export default ProfileIcon
+export default ProfileIcon;
