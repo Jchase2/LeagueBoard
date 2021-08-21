@@ -5,9 +5,10 @@ import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
 import { useAppDispatch } from "../../redux/hooks";
-import { deleteForumTopic, fetchUserInfo } from "../../redux/slices";
+import { fetchUserInfo } from "../../redux/slices";
 import MapComments from "./MapComments";
 import ByComp from "./ByComp";
+import ReplyOrDelete from "./ReplyOrDelete";
 
 const ThreadPage: React.FC = () => {
   const history = useHistory();
@@ -38,11 +39,6 @@ const ThreadPage: React.FC = () => {
     });
   }, [id, dispatch]);
 
-  const handleDelete = () => {
-    dispatch(deleteForumTopic(threadData.id));
-    history.push("/topics");
-  };
-
   return (
     <Flex minH="100vh" align="center" flexDirection="column" m={2}>
       <Box w="50vw"   minW="300px"p={4} borderWidth="1px" borderRadius="lg">
@@ -70,11 +66,7 @@ const ThreadPage: React.FC = () => {
           <Text>{threadData.text}</Text>
         </Box>
         {isReply && <ReplyTopic setIsReply={setIsReply} topicid={id} />}
-        {!isReply && (
-          <Button onClick={() => setIsReply(true)} m={1}>
-            Reply
-          </Button>
-        )}
+        <ReplyOrDelete isReply={isReply}  setIsReply={setIsReply} thread={threadData}/>
         <Button onClick={() => history.push("/topics")} m={1}>
           Back
         </Button>
