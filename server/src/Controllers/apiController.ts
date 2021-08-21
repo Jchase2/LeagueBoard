@@ -144,7 +144,7 @@ export const deleteForumTopic = async (req: Request, res: Response, next: Functi
 }
 
 export const getVote = async (req: Request, res: Response, next: Function) => {
-  const { userid, value } = req.headers;
+  const { userid } = req.headers;
   const { id } = req.params;
   try {
     let val = await Votes.findOne({where: {
