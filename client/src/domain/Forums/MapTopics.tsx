@@ -6,7 +6,7 @@ const MapTopics: React.FC<{topics:any}> = ({topics}) => {
       {
       topics && [...topics].sort((a, b) => b.id - a.id).map((thread) => (
         <div key={thread.id}>
-          {!(thread.parentid >= 1) && <ThreadCard thread={thread} />}
+          {(thread.parentid === 0) && <ThreadCard thread={thread} />}
         </div>
       ))
       }

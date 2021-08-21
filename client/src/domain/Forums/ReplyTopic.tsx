@@ -8,15 +8,10 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Props } from "framer-motion/types/types";
-import { createNewTopic, fetchUserInfo } from "../../redux/slices";
+import { createNewTopic, fetchComments, fetchUserInfo } from "../../redux/slices";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-
-interface myProps extends Props {
-  setIsReply: Function
-}
-
-const ReplyTopic: React.FC<myProps> = (props) => {
+const ReplyTopic: React.FC<Props> = ({thread, setIsReply}) => {
 
   const dispatch = useAppDispatch()
   const user = useAppSelector((state) => state.userReducer.userState);
@@ -26,7 +21,7 @@ const ReplyTopic: React.FC<myProps> = (props) => {
   }, [dispatch]);
 
   const [topicData, setTopicData] = useState({
-    parentid: Number(props.topicid),
+    parentid: Number(thread.id),
     userid: user.id,
     title: "",
     text: "",
@@ -36,13 +31,15 @@ const ReplyTopic: React.FC<myProps> = (props) => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      dispatch(createNewTopic(topicData));
-      props.setIsReply(false);
+      dispatch(createNewTopic(topicData)).then(() => {
+        dispatch(fetchComments(thread.id))
+      })
+      setIsReply(false);
     } catch (error) {
+      console.log(error)
       alert("Something went wrong when creating your reply, please try again!");
     }
   };
-
 
   const handleChange = (
     e:
@@ -81,7 +78,7 @@ const ReplyTopic: React.FC<myProps> = (props) => {
           <Button type="submit" m={1}>
             Create
           </Button>
-          <Button onClick={() => props.setIsReply(false)} m={1}>
+          <Button onClick={() => setIsReply(false)} m={1}>
             Cancel
           </Button>
         </FormControl>

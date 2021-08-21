@@ -86,6 +86,19 @@ export const getForumTopicById = async (
   }
 };
 
+export const closeForumTopic = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { topicid, state } = req.body;
+    const topic = await Topic.findByPk(topicid);
+    await topic.update({ closed: state });
+    res.json(topic);
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+
 export const getForumOwner = async (
   req: Request,
   res: Response,
@@ -111,7 +124,6 @@ export const deleteForumTopic = async (req: Request, res: Response, next: Functi
     res.json(topic)
     res.status(204)
   } catch (err) {
-    console.log(err.message)
     next(err);
   }
 }
@@ -215,6 +227,7 @@ export const getForumComments = async (
   )
   SELECT * FROM comments ORDER BY created_at asc;`
     );
+    console.log("query: ", query)
     res.json(query[0]);
   } catch (err) {
     next(err);

@@ -62,7 +62,9 @@ export const verifyEmailAndUser = async (
       configVerify
     )
     .then((res: { data: any }) => (data = res.data))
-    .catch((err) => {throw new Error(err)});
+    .catch((err) => {
+      throw new Error(err);
+    });
   return data;
 };
 
@@ -85,7 +87,6 @@ export const getVerifyInfo = async (
   return data;
 };
 
-
 export const getRegions = async () => {
   return axios
     .get(
@@ -98,7 +99,10 @@ export const getRegions = async () => {
 
 export const getForumTopic = async (topicid: number) => {
   return axios
-    .get(process.env.REACT_APP_BACKEND_URL + `/topics/${topicid}` || `http://localhost:3001/topics/${topicid}`)
+    .get(
+      process.env.REACT_APP_BACKEND_URL + `/topics/${topicid}` ||
+        `http://localhost:3001/topics/${topicid}`
+    )
     .then((res: { data: any }) => res.data);
 };
 
@@ -108,11 +112,11 @@ export const createNewTopic = async (formData: ITopic) => {
       process.env.REACT_APP_BACKEND_URL + "/topics" ||
         "http://localhost:3000/topics",
       {
-        "title": formData.title,
-        "text": formData.text,
-        "userid": formData.userid,
-        "closed": formData.closed,
-        "parentid": formData.parentid
+        title: formData.title,
+        text: formData.text,
+        userid: formData.userid,
+        closed: formData.closed,
+        parentid: formData.parentid,
       }
     )
     .then((res: { data: any }) => res.data)
@@ -135,7 +139,22 @@ export const signIn = async (form: any) => {
 export const getTopicOwner = async (id: number) => {
   return axios
     .get(
-      process.env.REACT_APP_BACKEND_URL + `/topics/user/${id}` || `localhost:3001/topics/user/${id}`,
+      process.env.REACT_APP_BACKEND_URL + `/topics/user/${id}` ||
+        `localhost:3001/topics/user/${id}`
+    )
+    .then((res: { data: any }) => res.data)
+    .catch((err) => console.log(err));
+};
+
+export const closeForumTopic = async (id: number, state: boolean) => {
+  return axios
+    .put(
+      process.env.REACT_APP_BACKEND_URL + `/topics/close/${id}` ||
+        `localhost:3001/topics/close/${id}`,
+        {
+          topicid: id,
+          state: state
+        }
     )
     .then((res: { data: any }) => res.data)
     .catch((err) => console.log(err));

@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchUserInfo, createNewTopic, fetchForumTopics } from "../../redux/slices";
 import {
   Input,
   FormLabel,
@@ -7,11 +11,6 @@ import {
   Heading,
   useColorModeValue
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
-import { createNewTopic } from "../../redux/slices/topicsSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchUserInfo } from "../../redux/slices";
 
 const CreateTopic: React.FC = () => {
   let history = useHistory();
@@ -34,6 +33,7 @@ const CreateTopic: React.FC = () => {
     e.preventDefault();
     try {
       dispatch(createNewTopic(topicData));
+      dispatch(fetchForumTopics());
       history.push('/topics')
     } catch (error) {
       alert("Something went wrong when creating your reply, please try again!");

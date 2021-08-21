@@ -9,7 +9,6 @@ const DateComp: React.FC<Props> = ({ thread }) => {
 
   useEffect(() => {
     getTopicOwner(thread.id).then(owner => {
-      console.log("Owner: ", owner)
       setThreadCreator(owner?.summoner_name)
     })
   }, [thread.id]);

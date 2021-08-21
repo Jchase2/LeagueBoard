@@ -4,8 +4,7 @@ import { IoMdCreate } from "react-icons/io"
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchUserInfo } from "../../redux/slices";
-import { fetchForumTopics } from "../../redux/slices/topicsSlice";
+import { fetchUserInfo, fetchForumTopics } from "../../redux/slices";
 import MapTopics from "./MapTopics";
 import { ITopic } from "../../interfaces";
 
@@ -26,7 +25,6 @@ const Topics: React.FC = () => {
   const filteringTopics = (value:string) => {
     setQuery(value);
     const result = topics.filter(topic => topic.title.toLowerCase().includes(value));
-    console.log(value)
     setFilteredTopics(result);
   }
 
