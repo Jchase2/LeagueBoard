@@ -1,22 +1,39 @@
 import React, { useEffect, useState} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
-import { getRecentMatches } from '../../../../api/backendApi';
-import { useSelector } from 'react-redux';
-import jwt_decode from 'jwt-decode';
-import { getUserMatches } from '../../../../api/profileAPI';
 import { allMatches } from './matchData';
 import { Container, Radio, RadioGroup, Stack, Divider } from "@chakra-ui/react"
+import { fetchUserInfo, setMatches, fetchMatches } from '../../../../redux/slices';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 
-const DonutGraph = ({team1, team2}:any) => {
+const DonutGraph = () => {
   const [userHistory, setUserHistory] = useState<any[]>([])
-  const [userMatches, setuserMatches] = useState<any[]>([])
+  const [userMatches, setUserMatches] = useState<any[]>([])
+  const [userName, setUserName] = useState<any>('');
   const [userDeathHistory, setUserDeathHistory] = useState<any>({});
   const [userKillHistory, setUserKillHistory] = useState<any>({});
   const [userAssistHistory, setUserAssistHistory] = useState<any>({});
   const [userValue, setUserValue] = useState<any>({}) 
   const [graph, setGraph] = useState<any>('');
   
-  console.log(userDeathHistory, userKillHistory, userAssistHistory);
+  const user = useAppSelector((state) => state.userReducer.userState);
+  const dispatch = useAppDispatch();
+  const matches:any = useAppSelector((state) => state.matchReducer.matchState);
+  
+
+  useEffect(() => {
+    
+    dispatch(fetchUserInfo()).then(() => {return user})
+    dispatch(fetchMatches()).then(() => {return}); 
+    dispatch(setMatches()).then(() => {return matches});
+
+  }, [dispatch]);
+
+
+  console.log(user, "user", matches, "matches")
+
+
+
+  //console.log(userHistory, "userHistory")
 
     useEffect(() => {
       console.log("2nd use effect")
@@ -52,7 +69,7 @@ const DonutGraph = ({team1, team2}:any) => {
           let deaths:any[] = [];
           let assists:any[] = [];
           for (let i:number = 0; i < allMatches.length; i++) {
-            console.log(allMatches)
+
             let matchInfo = allMatches[i][j];
             let participants = matchInfo.info['participants'];
             participants.forEach(element => {
@@ -78,7 +95,7 @@ const DonutGraph = ({team1, team2}:any) => {
         if (deaths.length !== 0) {
           userDeaths.high = Math.max(...deaths);
           userDeaths.low = Math.min(...deaths);
-          console.log(...deaths)
+          //console.log(...deaths)
           userDeaths.avg = deaths.reduce((a, b) => (a + b)) / deaths.length;
           setUserDeathHistory(userDeaths);
         }
@@ -137,7 +154,7 @@ const DonutGraph = ({team1, team2}:any) => {
 
         <Divider orientation="vertical" />
 
-        {console.log(userValue)}
+        
          <CanvasJSChart
           options={{
             colorSet:  "customColorSet1",

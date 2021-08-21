@@ -66,6 +66,7 @@ const CreateScrimmage: React.FC = (props: Props) => {
         padding="30px"
         borderRadius="20px">
         <form onSubmit={handleSubmit}>
+        <FormControl isRequired>
           <Center>
             <u>
               <Heading mb={4}> Create Scrimmage </Heading>
@@ -78,7 +79,6 @@ const CreateScrimmage: React.FC = (props: Props) => {
                 <FormLabel mb={2}>Date</FormLabel>
               </Center>
               <Input
-                isRequired
                 type="date"
                 placeholder="Date"
                 size="sm"
@@ -105,7 +105,6 @@ const CreateScrimmage: React.FC = (props: Props) => {
                 <FormLabel mb={2}>Time</FormLabel>
               </Center>
               <Input
-              isRequired
               type="time"
               placeholder="Time"
               size="sm"
@@ -125,7 +124,6 @@ const CreateScrimmage: React.FC = (props: Props) => {
                 <FormLabel mb={2}>Team 1</FormLabel>
               </Center>
               <Input
-                isRequired
                 type="text"
                 placeholder="Team Name"
                 size="sm"
@@ -137,7 +135,6 @@ const CreateScrimmage: React.FC = (props: Props) => {
                 m={1}
               />
               <Input
-                isRequired
                 type="text"
                 placeholder="Player 1"
                 size="sm"
@@ -150,7 +147,6 @@ const CreateScrimmage: React.FC = (props: Props) => {
               />
               <Input
                 type="text"
-                isRequired
                 placeholder="Player 2"
                 size="sm"
                 name="player2"
@@ -162,7 +158,6 @@ const CreateScrimmage: React.FC = (props: Props) => {
               />
               <Input
                 type="text"
-                isRequired
                 placeholder="Player 3"
                 size="sm"
                 name="player3"
@@ -174,7 +169,6 @@ const CreateScrimmage: React.FC = (props: Props) => {
               />
               <Input
                 type="text"
-                isRequired
                 placeholder="Player 4"
                 size="sm"
                 name="player4"
@@ -186,7 +180,6 @@ const CreateScrimmage: React.FC = (props: Props) => {
               />
               <Input
                 type="text"
-                isRequired
                 placeholder="Player 5"
                 size="sm"
                 name="player5"
@@ -279,6 +272,7 @@ const CreateScrimmage: React.FC = (props: Props) => {
               Cancel
             </Button>
           </Flex>
+          </FormControl>
         </form>
       </Flex>
     </Flex>

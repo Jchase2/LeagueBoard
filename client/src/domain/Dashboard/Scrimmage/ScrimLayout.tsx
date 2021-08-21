@@ -5,13 +5,11 @@ import PredictionsGraph from './Graphs/PredictionsGraph';
 
 import { ScrimmageTable } from './ScrimmageTable';
 import ParticipationGraph from './Graphs/ParticipationGraph';
-
+import DonutGraph from './Graphs/DonutGraph';
 
 
 export const ScrimLayout = () => {
-  
-  
-  
+
   return (
     <div>
 
@@ -31,7 +29,16 @@ export const ScrimLayout = () => {
         </Container>
       </Center>
 
-      
+      <Center>
+        <Container>
+          <DonutGraph/>
+        </Container>
+      </Center>
+      <Center>
+        <Container>
+          
+        </Container>
+      </Center>
 
     </div>
   );

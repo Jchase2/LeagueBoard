@@ -1,24 +1,34 @@
-import React, { useEffect, useState} from 'react'
-import { CanvasJSChart } from 'canvasjs-react-charts';
-import { getUserInfo } from "../../api/profileAPI";
-import { useSelector } from 'react-redux'; 
+import { useEffect, useState} from 'react'
+import { CanvasJSChart } from 'canvasjs-react-charts'; 
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { allMatches } from '../Dashboard/Scrimmage/Graphs/matchData';
+//import { allMatches } from '../Dashboard/Scrimmage/Graphs/matchData';
 import { Center, Container, Radio, RadioGroup, Stack, Divider } from "@chakra-ui/react"
-import { fetchUserInfo } from '../../redux/slices';
+import { fetchUserInfo, setMatches, fetchMatches } from '../../redux/slices';
 
 const UserDonutGraph = ({team1, team2}:any) => {
   const [userHistory, setUserHistory] = useState<any[]>([])
-  const [userMatches, setuserMatches] = useState<any[]>([])
+  //const [userMatches, setUserMatches] = useState<any[]>([])
   const [userDeathHistory, setUserDeathHistory] = useState<any>({});
   const [userKillHistory, setUserKillHistory] = useState<any>({});
   const [userAssistHistory, setUserAssistHistory] = useState<any>({});
   const [userValue, setUserValue] = useState<any>({}) 
   const [graph, setGraph] = useState<any>('');
   //const user = useAppSelector((state) => state.userReducer.userState);
+ 
+
+  const user = useAppSelector((state) => state.userReducer.userState);
   const dispatch = useAppDispatch();
-  
-  const [user, setUser] = useState<any>({})
+  const matches:any = useAppSelector((state) => state.matchReducer.matchState);
+
+  let allMatches:any[] = [];
+
+  useEffect(() => {
+    
+    dispatch(fetchUserInfo()).then(() => {})
+    dispatch(fetchMatches()).then(() => {}); 
+    dispatch(setMatches()).then(() => {});
+
+  }, [dispatch]);
 
     useEffect(() => {
       console.log("2nd use effect")
@@ -26,77 +36,85 @@ const UserDonutGraph = ({team1, team2}:any) => {
       setGraph("kills")
     }, [userKillHistory])
 
-    useEffect(() => {
-      localStorage.getItem("accessToken") && getUserInfo().then(res => setUser(res))
-     }, []);
+    //console.log(matches, "after 1 useEffect and outside all useEffects")
 
     useEffect(() => {
-      dispatch(fetchUserInfo());
-      const match = async () => {
-         /* currentUser = decoded?.user.summoner_name;
-        console.log(currentUser)
-        let array:any = [];
-        getUserMatches(decoded?.user?.puuid).then(async (res) => {
-          
-          setUserHistory(await array)
-        } ); */
-         
-        let current = 'demon6kitty2';
-        
-          let userKills = {avg: 0, high: 0, low: 0};
-          let userDeaths = {avg: 0, high: 0, low: 0};
-          let userAssists = {avg: 0, high: 0, low: 0};
-          let j:number = 0;
-          let resultArr:any[] = [];
-          let kills:any[] = [];
-          let deaths:any[] = [];
-          let assists:any[] = [];
-          for (let i:number = 0; i < allMatches.length; i++) {
-            let matchInfo = allMatches[i][j];
-            let participants = matchInfo.info['participants'];
-            participants.forEach(element => {
-              if (element['summonerName'] === current) resultArr.push(element); 
-            });  
-            j++;
+      
+        console.log(matches);
+        const matchFunction = async () => {
+          let value: any;
+          for (value of Object?.values(matches)) {
+            if (value?.mapId) {
+              allMatches.push(value);
+            }
           }
-        resultArr.forEach(match => {
-          kills.push(match['kills'])
-        })
-        if (kills.length !== 0) {
-          userKills.high = Math.max(...kills);
-          userKills.low = Math.min(...kills);
-          userKills.avg = Math.round(kills.reduce((a, b) => (a + b)) / kills.length); 
-          
-          setUserKillHistory(userKills);
-        }
-        
-  
-        resultArr.forEach(match => {
-          deaths.push(match['deaths'])
-        })
-        if (deaths.length !== 0) {
-          userDeaths.high = Math.max(...deaths);
-          userDeaths.low = Math.min(...deaths);
-          userDeaths.avg = deaths.reduce((a, b) => (a + b)) / deaths.length;
-          setUserDeathHistory(userDeaths);
-        }
-  
-        resultArr.forEach(match => {
-          assists.push(match['assists'])
-        })
-        if (assists.length !== 0) {
-          userAssists.high = Math.max(...assists);
-          userAssists.low = Math.min(...assists);
-          userAssists.avg = assists.reduce((a, b) => (a + b)) / assists.length;
-          setUserAssistHistory(userAssists);
-        }
-        
-        }
-        
+          console.log(allMatches, "alllllll");
+
+          //console.log(matches, "matches", allMatches, "allMatches should be an array on matches that are not null");
+          let current = user.summoner_name;
+
+          let userKills = { avg: 0, high: 0, low: 0 };
+          let userDeaths = { avg: 0, high: 0, low: 0 };
+          let userAssists = { avg: 0, high: 0, low: 0 };
+          let j: number = 0;
+          let resultArr: any[] = [];
+          let kills: any[] = [];
+          let deaths: any[] = [];
+          let assists: any[] = [];
+
+          while (j <= allMatches.length) {
+            for (let i: number = 0; i < allMatches.length; i++) {
+              let matchInfo = allMatches[i];
+              console.log(matchInfo);
+              let participants = matchInfo["participants"];
+              participants.forEach((element) => {
+                if (element["summonerName"] === current)
+                  resultArr.push(element);
+              });
+              j++;
+            }
+            resultArr.forEach((match) => {
+              kills.push(match["kills"]);
+            });
+            if (kills.length !== 0) {
+              userKills.high = Math.max(...kills);
+              userKills.low = Math.min(...kills);
+              userKills.avg = Math.round(
+                kills.reduce((a, b) => a + b) / kills.length
+              );
+
+              setUserKillHistory(userKills);
+            }
+
+            resultArr.forEach((match) => {
+              deaths.push(match["deaths"]);
+            });
+            if (deaths.length !== 0) {
+              userDeaths.high = Math.max(...deaths);
+              userDeaths.low = Math.min(...deaths);
+              userDeaths.avg = deaths.reduce((a, b) => a + b) / deaths.length;
+              setUserDeathHistory(userDeaths);
+            }
+
+            resultArr.forEach((match) => {
+              assists.push(match["assists"]);
+            });
+            if (assists.length !== 0) {
+              userAssists.high = Math.max(...assists);
+              userAssists.low = Math.min(...assists);
+              userAssists.avg =
+                assists.reduce((a, b) => a + b) / assists.length;
+              setUserAssistHistory(userAssists);
+            }
+          }
+          j++;
+        };
+        matchFunction();
       
-      match();
+    }, [matches]);  
       
-    }, [])
+      
+   
     
     
    
@@ -174,6 +192,3 @@ const UserDonutGraph = ({team1, team2}:any) => {
 }
 
 export default UserDonutGraph
-
-
-

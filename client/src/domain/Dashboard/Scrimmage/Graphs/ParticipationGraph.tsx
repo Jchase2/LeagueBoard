@@ -1,15 +1,12 @@
 import React, { useEffect, useState} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
-import { getRecentMatches } from '../../../../api/backendApi';
-import { useSelector } from 'react-redux';
-import jwt_decode from 'jwt-decode';
-import { getUserMatches } from '../../../../api/profileAPI';
+
 import { allMatches2 } from './matchData2';
 import { Container, Radio, RadioGroup, Stack, Divider } from "@chakra-ui/react"
 
 const ParticipationGraph = ({team1, team2}:any) => {
-  const [userHistory, setUserHistory] = useState<any[]>([])
-  const [userMatches, setuserMatches] = useState<any[]>([])
+  /* const [userHistory, setUserHistory] = useState<any[]>([])
+  const [userMatches, setuserMatches] = useState<any[]>([]) */
 
   const [userValue, setUserValue] = useState<any>({}) 
   const [graph, setGraph] = useState<any>('');
@@ -41,7 +38,7 @@ const ParticipationGraph = ({team1, team2}:any) => {
          
         let current = 'Zero Brane';
         let currentPlayerId = {player:0, team:0}
-          let userParticipation = { avg: 0}
+          //let userParticipation = { avg: 0}
           let user = {current:
              {kills: {avg: 0, high: 0, low: 0},  assists: {avg: 0, high: 0, low: 0}},
             userTeam:
@@ -141,15 +138,7 @@ const ParticipationGraph = ({team1, team2}:any) => {
   return (
     <div>
       <Container>
-        <RadioGroup defaultValue={'kills'} onChange={(value) => setValue(value)}>
-          <Stack direction="row">
-            <Divider orientation="vertical" />
-            <Radio value="kills">kills</Radio>
-            <Radio value="deaths">deaths</Radio>
-            <Radio value="assists">assists</Radio>
-           
-          </Stack>
-        </RadioGroup>
+        
 
         <Divider orientation="vertical" />
 
