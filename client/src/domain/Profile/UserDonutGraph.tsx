@@ -6,7 +6,7 @@ import { Center, Container, Radio, RadioGroup, Stack, Divider } from "@chakra-ui
 import { fetchUserInfo, setMatches, fetchMatches } from '../../redux/slices';
 
 const UserDonutGraph = ({team1, team2}:any) => {
-  const [userHistory, setUserHistory] = useState<any[]>([])
+  //const [userHistory, setUserHistory] = useState<any[]>([])
   //const [userMatches, setUserMatches] = useState<any[]>([])
   const [userDeathHistory, setUserDeathHistory] = useState<any>({});
   const [userKillHistory, setUserKillHistory] = useState<any>({});
