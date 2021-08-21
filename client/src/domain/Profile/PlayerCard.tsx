@@ -1,4 +1,4 @@
-import { Flex, Stack, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Stack, useColorModeValue, useMediaQuery } from "@chakra-ui/react";
 import ChampMatch from "../../components/Match/ChampMatch";
 import CSMatch from "../../components/Match/CSMatch";
 import { ItemMatch } from "../../components/Match/ItemMatch";
@@ -20,6 +20,7 @@ const PlayerCard: React.FC<Props> = ({
 }) => {
   const loseColor = useColorModeValue("red.300", "red.900");
   const winColor = useColorModeValue("blue.300", "blue.900");
+  const [isLargerThan] = useMediaQuery("(max-width:1050px)");
   return (
     <>
       <Stack
@@ -30,12 +31,13 @@ const PlayerCard: React.FC<Props> = ({
       >
         {participant?.summonerName === users?.summoner_name && (
           <Flex>
+            {!isLargerThan && 
             <TypeMatch
               gameDuration={gameDuration}
               queue={queue}
               win={participant?.win}
               gameTime={participant?.timePlayed}
-            />
+            />}
             <ChampMatch
               championName={participant?.championName}
               SummonerSpell1={participant?.summoner1Id}

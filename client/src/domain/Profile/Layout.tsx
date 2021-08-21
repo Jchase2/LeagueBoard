@@ -36,7 +36,7 @@ const Layout: React.FC<Props> = (props: Props) => {
   return (
     <Flex flexDirection={!isLargerThan ? "row" : "column"}>
       <Flex
-        maxH={isLargerThan ? "65vh" : "47vh"}
+        maxH={isLargerThan ? "80vh" : "47vh"}
         minW="20vw"
         justifyContent="center"
         alignContent="center"

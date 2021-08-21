@@ -15,14 +15,21 @@ export const KDAMatch: React.FC<Props> = ({ kills, deaths, assists }) => {
       maxheight="100%"
       flexDirection="column"
     >
-      <Flex w="100%" marginTop="25px"justifyContent="center" alignItems="center">
-        <Heading as="h6" size="xs" marginLeft="2px">
+      <Flex
+        w="100%"
+        marginTop="25px"
+        justifyContent="center"
+        alignItems="center"
+        flexWrap="wrap"
+        textAlign="center"
+      >
+        <Heading as="h6" size="xs" textAlign="center">
           {kills} /
         </Heading>
-        <Heading as="h6" size="xs" marginLeft="2px" color="red">
+        <Heading as="h6" size="xs" color="red">
           {deaths}
         </Heading>
-        <Heading as="h6" size="xs" marginLeft="2px">
+        <Heading as="h6" size="xs">
           / {assists}
         </Heading>
       </Flex>
