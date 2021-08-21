@@ -1,28 +1,52 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Stack, useColorModeValue } from "@chakra-ui/react";
+import ChampMatch from "../../components/Match/ChampMatch";
+import CSMatch from "../../components/Match/CSMatch";
+import { ItemMatch } from "../../components/Match/ItemMatch";
+import TypeMatch from "../../components/Match/TypeMatch";
 
 interface Props {
   participant: any;
   users: any;
+  queue: any;
+  gameDuration: number;
 }
 
-const PlayerCard: React.FC<Props> = ({ participant, users }) => {
-    
+const PlayerCard: React.FC<Props> = ({
+  participant,
+  users,
+  queue,
+  gameDuration,
+}) => {
+  const loseColor = useColorModeValue("red.300", "red.900");
+  const winColor = useColorModeValue("blue.300", "blue.900");
   return (
     <>
-      <Flex>
-        {participant?.summonerName === users.summoner_name && (
-          <>
-            <Flex>{participant?.championName}</Flex>
-            <Flex></Flex>
-            <Flex></Flex>
-            <Flex></Flex>
-            <Flex></Flex>
-            <Flex></Flex>
-          </>
+      <Stack
+        w="100%"
+        justifyContent="space-evenly"
+        bg={participant?.win ? winColor : loseColor}
+        borderRadius="10px"
+      >
+        {participant?.summonerName === users?.summoner_name && (
+          <Flex>
+            <TypeMatch
+              gameDuration={gameDuration}
+              queue={queue}
+              win={participant?.win}
+              gameTime={participant?.timePlayed}
+            />
+            <ChampMatch
+              championName={participant?.championName}
+              SummonerSpell1={participant?.summoner1Id}
+              SummonerSpell2={participant?.summoner2Id}
+            />
+            <CSMatch />
+            <ItemMatch />
+          </Flex>
         )}
-      </Flex>
+      </Stack>
     </>
   );
 };
 
-export default PlayerCard
+export default PlayerCard;

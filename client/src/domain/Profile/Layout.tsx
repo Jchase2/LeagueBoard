@@ -34,16 +34,18 @@ const Layout: React.FC<Props> = (props: Props) => {
     console.log("Matches: ", matches)
 
   return (
-    <Flex padding="20px" flexDirection={!isLargerThan ? "row" : "column"}>
+    <Flex flexDirection={!isLargerThan ? "row" : "column"}>
       <Flex
-        maxH={isLargerThan ? "66vh" : "40vh"}
+        maxH={isLargerThan ? "65vh" : "47vh"}
         minW="20vw"
         justifyContent="center"
         alignContent="center"
+        mb={isLargerThan ? 3 : 0}
+        mr={isLargerThan ? 0 : 6}
       >
         <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
       </Flex>
-      <Flex minW="60vw" justifyContent="center" alignContent="center" padding="20px">
+      <Flex minW="60vw" justifyContent="center" alignContent="center">
         <Flex
           flexDirection="column"
           w="100%"
@@ -51,7 +53,7 @@ const Layout: React.FC<Props> = (props: Props) => {
           alignContent="center"
         >
           {matches &&
-            matches.map((match: any) => (
+            matches?.map((match: any) => (
               <ProfileMatch match={match} users={user} key={uuidv4()} />
             ))}
         </Flex>
