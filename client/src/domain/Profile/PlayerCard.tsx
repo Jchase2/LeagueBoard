@@ -2,6 +2,7 @@ import { Flex, Stack, useColorModeValue } from "@chakra-ui/react";
 import ChampMatch from "../../components/Match/ChampMatch";
 import CSMatch from "../../components/Match/CSMatch";
 import { ItemMatch } from "../../components/Match/ItemMatch";
+import { KDAMatch } from "../../components/Match/KDAMatch";
 import TypeMatch from "../../components/Match/TypeMatch";
 
 interface Props {
@@ -39,6 +40,11 @@ const PlayerCard: React.FC<Props> = ({
               championName={participant?.championName}
               SummonerSpell1={participant?.summoner1Id}
               SummonerSpell2={participant?.summoner2Id}
+            />
+            <KDAMatch
+              kills={participant.kills}
+              deaths={participant.deaths}
+              assists={participant.assists}
             />
             <CSMatch />
             <ItemMatch />

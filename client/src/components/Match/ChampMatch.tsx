@@ -16,12 +16,13 @@ const ChampMatch: React.FC<Props> = ({
    const spell1 = summonerSpells[0][`${SummonerSpell1}`];
   return (
     <Flex
-      maxW="25%"
+      maxW="20%"
       flexWrap="wrap"
       padding="10px"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      height="100%"
     >
       <Flex>
         <Image
