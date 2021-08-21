@@ -159,3 +159,16 @@ export const closeForumTopic = async (id: number, state: boolean) => {
     .then((res: { data: any }) => res.data)
     .catch((err) => console.log(err));
 };
+
+export const voteTopic = async (topicid: number, userid: number, vote: number) => {
+  return axios
+    .put(
+      process.env.REACT_APP_BACKEND_URL + `/topics/vote` ||
+        `localhost:3001/topics/vote`,
+        {
+          topicid, userid, value: vote
+        }
+    )
+    .then((res: { data: any }) => res.data)
+    .catch((err) => console.log(err));
+};

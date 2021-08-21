@@ -17,22 +17,7 @@ export const matchSlice = createSlice({
   initialState: {
     error: "",
     set: false,
-    matchState: {
-      id: 0,
-      puuid: "",
-      match1: {},
-      match2: {},
-      match3: {},
-      match4: {},
-      match5: {},
-      match6: {},
-      match7: {},
-      match8: {},
-      match9: {},
-      match10: {},
-      created_at: "",
-      updatedAt: "",
-    }
+    matchState: []
   },
 
   // All reducer functions

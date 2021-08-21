@@ -1,8 +1,9 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex, Spacer } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { Link } from "react-router-dom";
 import { Text } from "@chakra-ui/layout";
 import ByComp from "./ByComp";
+import UpOrDownVote from "./UpOrDownVote";
 
 const Forums: React.FC<Props> = ({ thread }) => {
   return (
@@ -23,18 +24,15 @@ const Forums: React.FC<Props> = ({ thread }) => {
           max-width="75ch"
           textOverflow="ellipsis"
         >
-          <b>{thread.title}</b>
+          <Flex direction="row">
+            {thread.title}
+            <Spacer />
+            <UpOrDownVote thread={thread} />
+          </Flex>
         </Text>
-        <Flex fontSize="sm" letterSpacing="wide">
-          <Text
-            flexWrap="wrap"
-            overflow="hidden"
-            max-width="75ch"
-            textOverflow="ellipsis"
-          >
-            <b>{thread.text}</b>
-          </Text>
-        </Flex>
+          <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
+            <Text isTruncated>{thread.text}</Text>
+          </Box>
         <Flex
           color="gray.500"
           fontWeight="semibold"

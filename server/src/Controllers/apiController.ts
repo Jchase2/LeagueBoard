@@ -3,6 +3,7 @@ import { Response, Request } from "express";
 import { sequelize } from "../Models/index";
 const { Region } = require("../Models/region.model");
 const { Topic } = require("../Models/topic.model");
+const { Votes } = require("../Models/vote.model");
 const { User } = require("../Models/user.model");
 const { Matches } = require("../Models/match.model");
 
@@ -13,6 +14,7 @@ import {
   getSummonerEntriesByAccountIdAndRegion,
 } from "./utils";
 import { asyncForEach } from "../Utils/helpers";
+import { Op } from "sequelize";
 const jwt = require("jsonwebtoken");
 
 export const getRegions = async (
@@ -28,12 +30,25 @@ export const getRegions = async (
   }
 };
 
-export const getMatches = async (req: Request, res: Response, next: Function) => {
+export const getMatches = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     let { puuid } = req.params;
     //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
-    const matches = await Matches.findAll({where: { puuid: puuid }});
-    res.send(matches[0].dataValues).status(200);
+    const matches = await Matches.findAll({
+      where: { puuid: puuid },
+      raw: true,
+    });
+
+    const letArr = [];
+    for (let i = 1; i < 11; i++) {
+      letArr.push(matches[0]["match" + i]);
+    }
+
+    res.send(letArr).status(200);
   } catch (err) {
     next(err);
   }
@@ -125,6 +140,33 @@ export const deleteForumTopic = async (req: Request, res: Response, next: Functi
     res.status(204)
   } catch (err) {
     next(err);
+  }
+}
+
+export const voteTopic = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { topicid, userid, value } = req.body;
+    let dupCheck = await Votes.findOne({where: {
+      [Op.and]: [{ topicid: topicid }, { userid: userid }]}})
+    if(dupCheck){
+      if(dupCheck.value === value){
+        res.status(409)
+      } else {
+        dupCheck.update({value: value}, {
+            where: {userid: userid, topicid: topicid}
+          })
+      }
+    } else {
+      const dbVote = await Votes.create({
+        topicid,
+        userid,
+        value: value
+      });
+      res.json(dbVote)
+    }
+  } catch(err){
+    console.log(err)
+    next(err)
   }
 }
 

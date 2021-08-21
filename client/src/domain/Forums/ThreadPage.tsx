@@ -10,6 +10,7 @@ import MapComments from "./MapComments";
 import ByComp from "./ByComp";
 import ReplyOrDelete from "./ReplyOrDelete";
 import CloseThread from "./CloseThread";
+import UpOrDownVote from "./UpOrDownVote";
 
 type urlParams = {
   id: string;
@@ -50,7 +51,10 @@ const ThreadPage: React.FC = () => {
           letterSpacing="wide"
           color="fff"
         >
-          {threadData.title}
+          <Flex direction="row">
+            <UpOrDownVote thread={threadData} />
+            {threadData.title}
+          </Flex>
         </Box>
         <Box
           color="gray.500"

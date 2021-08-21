@@ -2,7 +2,7 @@ const Router = require('express').Router;
 const router = Router();
 import {register, verify, login, verifyEmailAndUser} from '../Controllers/authController';
 import {getRegions, updateMatchesInDb, getMatches, getForumTopics, postForumTopic, getForumTopicById, getForumComments, getUserInfo
-  , deleteForumTopic, getUserRanked, getForumOwner, closeForumTopic } from '../Controllers/apiController';
+  , deleteForumTopic, getUserRanked, getForumOwner, closeForumTopic, voteTopic } from '../Controllers/apiController';
 import { getAllScrimmages, getScrimmage, postScrimmage } from '../Controllers/scrimmageController'
 import {protect} from '../Middleware/auth.middleware';
 
@@ -25,6 +25,7 @@ router.get('/topics', getForumTopics);
 router.get('/topics/comments/:parentid', getForumComments);
 router.get('/topics/:topicid', getForumTopicById);
 router.put('/topics/close/:topicid', closeForumTopic);
+router.put('/topics/vote', voteTopic);
 router.get('/topics/user/:topicid', getForumOwner)
 router.post('/topics', postForumTopic);
 router.delete('/topics/:topicid', deleteForumTopic);
