@@ -21,8 +21,6 @@ const ChampMatch: React.FC<Props> = ({
 
   return (
     <Flex
-      maxW="20%"
-      minW="20%"
       flexWrap="wrap"
       padding="10px"
       flexDirection="column"
@@ -54,14 +52,12 @@ const ChampMatch: React.FC<Props> = ({
           <Tooltip hasArrow label={``}>
             <Image
               src={`https://opgg-static.akamaized.net/images/lol/perk/${rune1}.png?image=c_scale,q_auto,w_18&v=1628647804`}
-              
               marginBottom="3px"
             />
           </Tooltip>
           <Tooltip hasArrow label={``}>
             <Image
-              src={`https://opgg-static.akamaized.net/images/lol/perk/${rune2}.png?image=c_scale,q_auto,w_18&v=1628647804`}
-              
+              src={`//opgg-static.akamaized.net/images/lol/perkStyle/8300.png?image=c_scale,q_auto,w_22&v=1628647804`}
             />
           </Tooltip>
         </Flex>

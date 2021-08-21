@@ -10,6 +10,8 @@ interface Props {
   users: any;
   queue: any;
   gameDuration: number;
+  teamId1: boolean
+  teamId2: boolean
 }
 
 const PlayerCard: React.FC<Props> = ({
@@ -18,9 +20,11 @@ const PlayerCard: React.FC<Props> = ({
   queue,
   gameDuration,
 }) => {
-  const loseColor = useColorModeValue("red.300", "red.900");
-  const winColor = useColorModeValue("blue.300", "blue.900");
+  const loseColor = useColorModeValue("red.300", "red.800");
+  const winColor = useColorModeValue("blue.300", "blue.800");
   const [isLargerThan] = useMediaQuery("(max-width:500px)");
+  //Check if win == teamId and return the kills inside 
+  // pass down total team kills along with the boolean to check and display
   return (
     <>
       <Stack
@@ -44,14 +48,18 @@ const PlayerCard: React.FC<Props> = ({
               SummonerSpell1={participant?.summoner1Id}
               SummonerSpell2={participant?.summoner2Id}
               rune1={participant?.perks.styles[0].selections[0].perk}
-              rune2={participant?.perks.styles[1].selections[0].perk}
+              rune2={participant?.perks.styles[1].style}
             />
             <KDAMatch
               kills={participant.kills}
               deaths={participant.deaths}
               assists={participant.assists}
             />
-            <CSMatch />
+            <CSMatch
+              champLevel={participant.champLevel}
+              totalMinionsKilled={participant.totalMinionsKilled}
+              gameDuration={gameDuration}
+            />
             <ItemMatch />
           </Flex>
         )}

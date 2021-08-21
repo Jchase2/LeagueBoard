@@ -1,6 +1,7 @@
 import React from "react";
 import { Flex, Heading, Text, Tooltip } from "@chakra-ui/react";
 import { Divider } from "@chakra-ui/react";
+import { getFormattedTime, millisToMinutesAndSeconds } from "../../utils/romanToNum";
 
 interface Props {
   queue: any;
@@ -11,22 +12,6 @@ interface Props {
 
 const TypeMatch: React.FC<Props> = ({ queue, gameDuration, win, gameTime }) => {
   gameTime = gameTime + "";
-
-  function getFormattedTime(fourDigitTime: string) {
-    const hours24 = parseInt(fourDigitTime.substring(0, 2));
-    const hours = ((hours24 + 11) % 12) + 1;
-    const amPm = hours24 > 11 ? "pm" : "am";
-    const minutes = fourDigitTime.substring(2);
-
-    return hours + ":" + minutes + amPm;
-  }
-
-  function millisToMinutesAndSeconds(millis: number) {
-    const minutes = Math.floor(millis / 60000);
-    const seconds: any = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-  }
-
   return (
     <Flex
       w="25%"

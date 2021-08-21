@@ -9,8 +9,16 @@ interface Props {
 }
 
 const ProfileMatch: React.FC<Props> = ({ match, users }) => {
+  let teamId1:any
+  let teamId2:any
   const matchQueue = match?.queueId
   const queue = queueTypes?.filter((e) => e.queueId === matchQueue);
+  if (match.teams) {
+     teamId1 = match?.teams    [0]?.win
+     teamId2 = match?.teams[1].win
+  }
+ console.log(teamId1)
+ console.log(teamId2)
     return (
       <VStack key={uuidv4()} padding="5px">
         <Flex
@@ -27,6 +35,8 @@ const ProfileMatch: React.FC<Props> = ({ match, users }) => {
             match?.participants?.map((participant: any) => (
               <PlayerCard
                 gameDuration={match.gameDuration}
+                teamId1={teamId1}
+                teamId2={teamId2}
                 queue={queue}
                 participant={participant}
                 users={users}

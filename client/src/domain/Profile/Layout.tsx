@@ -16,8 +16,6 @@ const Layout: React.FC<Props> = (props: Props) => {
     const matches = useAppSelector((state) => state.matchReducer.matchState);
 
     const [isLargerThan] = useMediaQuery("(max-width:1050px)");
-
-    const [isSmallerThan] = useMediaQuery("(max-width:2248px)");
     const regionName = regions[user?.regionid - 1]?.name
     
     useEffect(() => {
@@ -36,7 +34,7 @@ const Layout: React.FC<Props> = (props: Props) => {
   return (
     <Flex flexDirection={!isLargerThan ? "row" : "column"}>
       <Flex
-        maxH={isLargerThan ? "80vh" : "47vh"}
+        maxH={isLargerThan ? "80vh" : "42vh"}
         minW="20vw"
         justifyContent="center"
         alignContent="center"
@@ -54,6 +52,7 @@ const Layout: React.FC<Props> = (props: Props) => {
         >
           {matches &&
             matches?.map((match: any) => (
+              match && 
               <ProfileMatch match={match} users={user} key={uuidv4()} />
             ))}
         </Flex>

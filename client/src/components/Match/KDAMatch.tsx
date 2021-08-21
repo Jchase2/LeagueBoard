@@ -1,4 +1,4 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 
 interface Props {
   kills: number;
@@ -26,7 +26,7 @@ export const KDAMatch: React.FC<Props> = ({ kills, deaths, assists }) => {
         <Heading as="h6" size="xs" textAlign="center">
           {kills} /
         </Heading>
-        <Heading as="h6" size="xs" color="red">
+        <Heading as="h6" size="xs" margin="2px" color={useColorModeValue("red.700", "red.200")}>
           {deaths}
         </Heading>
         <Heading as="h6" size="xs">
