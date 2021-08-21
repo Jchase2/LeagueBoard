@@ -1,11 +1,10 @@
 import { useEffect, useState} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts'; 
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-//import { allMatches } from '../Dashboard/Scrimmage/Graphs/matchData';
 import { Center, Container, Radio, RadioGroup, Stack, Divider } from "@chakra-ui/react"
 import { fetchUserInfo, setMatches, fetchMatches } from '../../redux/slices';
 
-const UserDonutGraph = ({team1, team2}:any) => {
+const UserDonutGraph = () => {
   const [userDeathHistory, setUserDeathHistory] = useState<any>({});
   const [userKillHistory, setUserKillHistory] = useState<any>({});
   const [userAssistHistory, setUserAssistHistory] = useState<any>({});

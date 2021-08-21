@@ -3,8 +3,8 @@ import { Box, Divider, Container, SimpleGrid, Flex, Center} from "@chakra-ui/rea
 import PredictionsGraph from './Graphs/PredictionsGraph';
 
 import { ScrimmageTable } from './ScrimmageTable';
-//import ParticipationGraph from './Graphs/ParticipationGraph';
-import DonutGraph from './Graphs/DonutGraph';
+import ParticipationGraph from './Graphs/ParticipationGraph';
+
 
 
 export const ScrimLayout = () => {
@@ -30,11 +30,11 @@ export const ScrimLayout = () => {
 
       <Center>
         <Container>
-          <DonutGraph/>
+          <ParticipationGraph/>
         </Container>
       </Center>
   
-
+     
     </div>
   );
 }

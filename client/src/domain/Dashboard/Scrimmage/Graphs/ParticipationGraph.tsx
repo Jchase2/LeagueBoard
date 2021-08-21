@@ -1,134 +1,124 @@
-import React, { useEffect, useState} from 'react'
+/* eslint-disable no-loop-func */
+import { useEffect, useState } from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
-
-import { allMatches2 } from './matchData2';
-import { Container, Radio, RadioGroup, Stack, Divider } from "@chakra-ui/react"
-
-const ParticipationGraph = ({team1, team2}:any) => {
-  /* const [userHistory, setUserHistory] = useState<any[]>([])
-  const [userMatches, setuserMatches] = useState<any[]>([]) */
-
-  const [userValue, setUserValue] = useState<any>({}) 
-  const [graph, setGraph] = useState<any>('');
-  
+import { Container, Center, Divider } from "@chakra-ui/react"
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { fetchUserInfo, setMatches, fetchMatches } from '../../../../redux/slices';
 
 
- /*    useEffect(() => {
-      console.log("2nd use effect")
-      setUserValue(userKillHistory)
-      setGraph("kills")
-    }, [userKillHistory])
- */
+const ParticipationGraph = () => {
+  const [userMatches, setUserMatches] = useState<any[]>([]);
+  const [userParticipation, setUserParticipation] = useState<any>({});
+
+  const user = useAppSelector((state) => state.userReducer.userState);
+  const dispatch = useAppDispatch();
+  const matches:any = useAppSelector((state) => state.matchReducer.matchState);
+
+  useEffect(() => {
+    dispatch(fetchUserInfo()).then(() => {})
+    dispatch(fetchMatches()).then(() => {}); 
+    dispatch(setMatches()).then(() => {});
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("matches", matches)
+    setUserMatches(userParticipation);
+  }, [userParticipation])
+
+ 
 
     useEffect(() => {
-      /* let currentUser = '';
-      let decoded: any
-      const user: string | null = localStorage.getItem("accessToken");
-      if (user) {
-        decoded = jwt_decode(user);
-      } */
       const match = async () => {
-         /* currentUser = decoded?.user.summoner_name;
-        console.log(currentUser)
-        let array:any = [];
-        getUserMatches(decoded?.user?.puuid).then(async (res) => {
-          
-          setUserHistory(await array)
-        } ); */
-         
-        
-        let currentPlayerId = {player:0, team:0}
-          //let userParticipation = { avg: 0}
-          let user = {current:
-             {kills: {avg: 0, high: 0, low: 0},  assists: {avg: 0, high: 0, low: 0}},
-            userTeam:
-             {kills: {teamTotalAvg: 0, teamAvgWithoutCurrent: 0, avg: 0}, assists: {teamTotalAvg: 0, avg: 0} }};
+        let usersTeam: number;
 
-          let j:number = 0;
-          let resultArr:any[] = [];
-          let teamArr:any[] = [];
-          let kills:any[] = [];
-          let assists:any[] = [];
-          let teamTotalkills:any[] = [];
-          let teamTotalassists:any[] = [];
-          for (let i:number = 0; i < allMatches2.length; i++) {
-            let matchInfo = allMatches2[i][j];
-            let currentParticipants = matchInfo["participantIdentities"];
+        let currentUser = {
+          killAvg: 0,
+          assistAvg: 0,
+          participation: 0,
+        };
+        let currentTeam = {
+          killAvg: 0,
+          assistAvg: 0,
+          participation: 0,
+        };
 
-            currentParticipants.forEach(element => {
-              if (element['player']['summonerName'] === current) {
-                currentPlayerId.player = element["participantId"];
-              } 
-            });
-            let participants = matchInfo['participants'];
-            participants.forEach(element => {
-              if (element["participantId"] === currentPlayerId.player) {
+        let current = user.summoner_name;
+        let resultArr: any[] = [];
+        let teamArr: any[] = [];
+        let kills: any[] = [];
+        let assists: any[] = [];
+        let teamTotalkills: any[] = [];
+        let teamTotalassists: any[] = [];
+        for (let i: number = 0; i < matches.length; i++) {
+          if (matches[i]) {
+            let matchInfo = matches[i];
+            let currentparticipants = matchInfo["participants"];
+            let participants = matchInfo["participants"];
+            participants.forEach((element) => {
+              if (element["summonerName"] === current) {
+                usersTeam = element["teamId"];
                 resultArr.push(element);
-                currentPlayerId.team = element["teamId"];
-              }  
+              }
             });
-            participants.forEach(element => {
-              if (element["participantId"] !== currentPlayerId.player && element["teamId"] === currentPlayerId.team) {
+            currentparticipants.forEach((element) => {
+              if (
+                element["summonerName"] !== current &&
+                element["teamId"] === usersTeam
+              ) {
                 teamArr.push(element);
-              }  
+              }
             });
-            j++;
           }
-          console.log(teamArr, resultArr)
-          teamArr.forEach((match) => {
-            teamTotalkills.push(match["stats"]["kills"]);
-            teamTotalassists.push(match["stats"]["assists"]);
-          });
-          resultArr.forEach((match) => {
-            kills.push(match["stats"]["kills"]);
-            assists.push(match["stats"]["assists"]);
-
-          });
-
-
-          if (kills.length !== 0) {
-            let teamKillAvg = 0;
-            for (let i:number = 0; i < teamTotalkills.length; i++) {
-              teamKillAvg += teamTotalkills[i];
-            }
-            user.userTeam.kills.avg = (teamKillAvg / resultArr.length)
-            console.log(user.userTeam.kills.avg)
-            user.current.kills.high = Math.max(...kills);
-            user.current.kills.low = Math.min(...kills);
-            user.current.kills.avg = Math.round(
-              kills.reduce((a, b) => a + b) / kills.length
-            );
-
-            resultArr.slice(0, resultArr.length - 1);
-          }
-        
-        
-        if (assists.length !== 0) {
-          
-          let userAssistAvg = 0;
-          let teamAssistAvg = 0;
-          for (let i:number = 0; i < assists.length; i++) { 
-            userAssistAvg += assists[i];
-          }
-          for (let i:number = 0; i < teamTotalassists.length; i++) {
-            teamAssistAvg += (teamTotalassists[i]);
-          }
-          let total = (userAssistAvg) + (teamAssistAvg);
-          console.log(total, userAssistAvg, teamAssistAvg);
-          
-          user.userTeam.assists.avg = (teamAssistAvg / (resultArr.length + teamArr.length))
-          user.current.assists.high = Math.max(...assists);
-          user.current.assists.low = Math.min(...assists);
-          user.current.assists.avg = Math.round(assists.reduce((a, b) => (a + b)) / assists.length);
-
         }
-        console.log(user)
-      }
-      
-      
+        console.log(teamArr, "teamArr", resultArr, "resultArr");
+
+        teamArr.forEach((match) => {
+          teamTotalkills.push(match["kills"]);
+          teamTotalassists.push(match["assists"]);
+        });
+        resultArr.forEach((match) => {
+          kills.push(match["kills"]);
+          assists.push(match["assists"]);
+        });
+
+        if (kills.length !== 0) {
+          let a = 0;
+          let b = 0;
+          for (let i: number = 0; i < kills.length; i++) {
+            a += kills[i];
+          }
+          for (let i: number = 0; i < teamTotalkills.length; i++) {
+            b += teamTotalkills[i];
+          }
+          currentTeam.killAvg = Math.round((b + a) / a);
+
+          currentUser.killAvg = Math.round(
+            kills.reduce((a, b) => a + b) / kills.length
+          );
+
+          console.log(currentUser.killAvg, currentTeam.killAvg);
+        }
+
+        if (assists.length !== 0) {
+          let a = 0;
+          let b = 0;
+          for (let i: number = 0; i < assists.length; i++) {
+            a += assists[i];
+          }
+          for (let i: number = 0; i < teamTotalassists.length; i++) {
+            b += teamTotalassists[i];
+          }
+          currentTeam.assistAvg = Math.round((b + a) / a);
+
+          currentUser.assistAvg = Math.round(
+            assists.reduce((a, b) => a + b) / assists.length
+          );
+        }
+        console.log(currentUser.assistAvg, currentTeam.assistAvg);
+      };
+
       match();
-      
-    }, [])
+    }, [matches]);
     
     
    
@@ -138,11 +128,7 @@ const ParticipationGraph = ({team1, team2}:any) => {
   return (
     <div>
       <Container>
-        
-
-        <Divider orientation="vertical" />
-
-         <CanvasJSChart
+      <CanvasJSChart
           options={{
             colorSet:  "customColorSet1",
             theme: "light2",
@@ -151,7 +137,7 @@ const ParticipationGraph = ({team1, team2}:any) => {
               fontColor: "#b5b5c6",
             },
             subtitles: [{
-              text: graph,
+              
               verticalAlign: "center",
               fontSize: 24,
               dockInsidePlotArea: true
@@ -160,19 +146,18 @@ const ParticipationGraph = ({team1, team2}:any) => {
             backgroundColor: "#ffffff",
             data: [{
               type: "doughnut",
-              //indexLabel: "{name}: {y}",
               yValueFormatString: "##",
               dataPoints: [
-                { name: "avg", y: userValue.avg },
-                { name: "low", y: userValue.low },
-                { name: "high", y: userValue.high }
+                { name: "avg", y: 8 },
+                { name: "low", y: 7},
+                { name: "high", y: 8 }
               ]
             }]
           } } 
 
         />
-
-        </Container>
+        <Center><h3>kill/death/assist Stats from Past 10 Games</h3></Center>
+      </Container>
       
     </div>
   )

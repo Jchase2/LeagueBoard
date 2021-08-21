@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import mockScrimmage from './mockdata';
 import { IPlayer } from './MockInterface';
-import { Box, Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td, TableCaption, 
-  Container, SimpleGrid, Center} from "@chakra-ui/react";
-import PredictionsGraph from './Graphs/PredictionsGraph';
-import DonutGraph from './Graphs/DonutGraph';
+import { Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td,  SimpleGrid, Center} from "@chakra-ui/react";
+
 
 export const ScrimmageTable = () => {
   const [data, dataSet] = useState(mockScrimmage) 
