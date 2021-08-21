@@ -227,7 +227,6 @@ export const getForumComments = async (
   )
   SELECT * FROM comments ORDER BY created_at asc;`
     );
-    console.log("query: ", query)
     res.json(query[0]);
   } catch (err) {
     next(err);
