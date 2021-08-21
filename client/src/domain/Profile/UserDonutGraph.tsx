@@ -6,28 +6,21 @@ import { Center, Container, Radio, RadioGroup, Stack, Divider } from "@chakra-ui
 import { fetchUserInfo, setMatches, fetchMatches } from '../../redux/slices';
 
 const UserDonutGraph = ({team1, team2}:any) => {
-  //const [userHistory, setUserHistory] = useState<any[]>([])
-  //const [userMatches, setUserMatches] = useState<any[]>([])
   const [userDeathHistory, setUserDeathHistory] = useState<any>({});
   const [userKillHistory, setUserKillHistory] = useState<any>({});
   const [userAssistHistory, setUserAssistHistory] = useState<any>({});
   const [userValue, setUserValue] = useState<any>({}) 
   const [graph, setGraph] = useState<any>('');
-  //const user = useAppSelector((state) => state.userReducer.userState);
  
-
   const user = useAppSelector((state) => state.userReducer.userState);
   const dispatch = useAppDispatch();
   const matches:any = useAppSelector((state) => state.matchReducer.matchState);
 
-  let allMatches:any[] = [];
 
   useEffect(() => {
-    
     dispatch(fetchUserInfo()).then(() => {})
     dispatch(fetchMatches()).then(() => {}); 
     dispatch(setMatches()).then(() => {});
-
   }, [dispatch]);
 
     useEffect(() => {
@@ -36,39 +29,32 @@ const UserDonutGraph = ({team1, team2}:any) => {
       setGraph("kills")
     }, [userKillHistory])
 
-    //console.log(matches, "after 1 useEffect and outside all useEffects")
 
     useEffect(() => {
-      console.log(matches);
-
       const matchFunction = async () => {
-        let value: any;
 
-        console.log(allMatches, "alllllll");
-
-        //console.log(matches, "matches", allMatches, "allMatches should be an array on matches that are not null");
         let current = user.summoner_name;
-
         let userKills = { avg: 0, high: 0, low: 0 };
         let userDeaths = { avg: 0, high: 0, low: 0 };
         let userAssists = { avg: 0, high: 0, low: 0 };
-        let j: number = 0;
         let resultArr: any[] = [];
         let kills: any[] = [];
         let deaths: any[] = [];
         let assists: any[] = [];
-
+        
         for (let i: number = 0; i < matches.length; i++) {
-          let matchInfo = matches[i];
-          console.log(matchInfo);
-          let participants = matchInfo["participants"];
-          participants.forEach((element) => {
-            if (element["summonerName"] === current) resultArr.push(element);
-          });
-          j++;
+          if (matches[i]) {
+            let matchInfo = matches[i];
+            let participants = matchInfo["participants"];
+            participants.forEach((element) => {
+              if (element["summonerName"] === current) resultArr.push(element);
+            });
+          }
         }
         resultArr.forEach((match) => {
+          deaths.push(match["deaths"]);
           kills.push(match["kills"]);
+          assists.push(match["assists"]);
         });
         if (kills.length !== 0) {
           userKills.high = Math.max(...kills);
@@ -76,27 +62,20 @@ const UserDonutGraph = ({team1, team2}:any) => {
           userKills.avg = Math.round(
             kills.reduce((a, b) => a + b) / kills.length
           );
-
           setUserKillHistory(userKills);
         }
 
-        resultArr.forEach((match) => {
-          deaths.push(match["deaths"]);
-        });
         if (deaths.length !== 0) {
           userDeaths.high = Math.max(...deaths);
           userDeaths.low = Math.min(...deaths);
-          userDeaths.avg = deaths.reduce((a, b) => a + b) / deaths.length;
+          userDeaths.avg = Math.round(deaths.reduce((a, b) => a + b) / deaths.length);
           setUserDeathHistory(userDeaths);
         }
 
-        resultArr.forEach((match) => {
-          assists.push(match["assists"]);
-        });
         if (assists.length !== 0) {
           userAssists.high = Math.max(...assists);
           userAssists.low = Math.min(...assists);
-          userAssists.avg = assists.reduce((a, b) => a + b) / assists.length;
+          userAssists.avg = Math.round(assists.reduce((a, b) => a + b) / assists.length);
           setUserAssistHistory(userAssists);
         }
       };
@@ -104,13 +83,7 @@ const UserDonutGraph = ({team1, team2}:any) => {
     }, [matches]);  
       
       
-   
-    
-    
-   
-    
     const setValue = (value: string) => {
-      console.log("set value", value)
       if (value === 'kills') {
         setUserValue(userKillHistory)
         setGraph(value)
@@ -125,7 +98,6 @@ const UserDonutGraph = ({team1, team2}:any) => {
       }
       
     };
-
 
   
   return (
@@ -163,7 +135,6 @@ const UserDonutGraph = ({team1, team2}:any) => {
             backgroundColor: "#ffffff",
             data: [{
               type: "doughnut",
-              //indexLabel: "{name}: {y}",
               yValueFormatString: "##",
               dataPoints: [
                 { name: "avg", y: userValue.avg },

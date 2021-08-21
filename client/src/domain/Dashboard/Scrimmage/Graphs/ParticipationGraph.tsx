@@ -36,7 +36,7 @@ const ParticipationGraph = ({team1, team2}:any) => {
           setUserHistory(await array)
         } ); */
          
-        let current = 'Zero Brane';
+        
         let currentPlayerId = {player:0, team:0}
           //let userParticipation = { avg: 0}
           let user = {current:
