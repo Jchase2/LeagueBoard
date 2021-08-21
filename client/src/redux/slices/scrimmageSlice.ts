@@ -5,7 +5,7 @@ import { IScrimmage } from "../../interfaces/Scrimmages";
 // Creates a thunk which wraps our async calls for redux.
 export const fetchScrimmages = createAsyncThunk(
   //TODO CHANGE TO SCRIMMAGE
-  "topics/getTopics",
+  "scrimmage/getScrimmage",
   async () => await axios
   .get(process.env.REACT_APP_BACKEND_URL + "/scrimmage" || "http://localhost:3001/scrimmage")
   .then((res: { data: any }) => res.data)

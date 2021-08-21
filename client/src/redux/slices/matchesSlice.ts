@@ -17,22 +17,7 @@ export const matchSlice = createSlice({
   initialState: {
     error: "",
     set: false,
-    matchState: {
-      id: 0,
-      puuid: "",
-      match1: {},
-      match2: {},
-      match3: {},
-      match4: {},
-      match5: {},
-      match6: {},
-      match7: {},
-      match8: {},
-      match9: {},
-      match10: {},
-      created_at: "",
-      updatedAt: "",
-    }
+    matchState: []
   },
 
   // All reducer functions
@@ -41,6 +26,7 @@ export const matchSlice = createSlice({
   // Will create fetchUserInfo action that can be used via dispatch
   extraReducers: (builder) => {
     builder.addCase(fetchMatches.fulfilled, (state, { payload }) => {
+      console.log('matches', payload);
       state.matchState = payload;
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
