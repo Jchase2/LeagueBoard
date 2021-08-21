@@ -20,7 +20,7 @@ const PlayerCard: React.FC<Props> = ({
 }) => {
   const loseColor = useColorModeValue("red.300", "red.900");
   const winColor = useColorModeValue("blue.300", "blue.900");
-  const [isLargerThan] = useMediaQuery("(max-width:1050px)");
+  const [isLargerThan] = useMediaQuery("(max-width:500px)");
   return (
     <>
       <Stack
@@ -31,17 +31,20 @@ const PlayerCard: React.FC<Props> = ({
       >
         {participant?.summonerName === users?.summoner_name && (
           <Flex>
-            {!isLargerThan && 
-            <TypeMatch
-              gameDuration={gameDuration}
-              queue={queue}
-              win={participant?.win}
-              gameTime={participant?.timePlayed}
-            />}
+            {!isLargerThan && (
+              <TypeMatch
+                gameDuration={gameDuration}
+                queue={queue}
+                win={participant?.win}
+                gameTime={participant?.timePlayed}
+              />
+            )}
             <ChampMatch
               championName={participant?.championName}
               SummonerSpell1={participant?.summoner1Id}
               SummonerSpell2={participant?.summoner2Id}
+              rune1={participant?.perks.styles[0].selections[0].perk}
+              rune2={participant?.perks.styles[1].selections[0].perk}
             />
             <KDAMatch
               kills={participant.kills}
