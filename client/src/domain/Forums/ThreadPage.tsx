@@ -4,7 +4,7 @@ import { ITopicResp } from "../../interfaces";
 import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
 import ReplyTopic from "./ReplyTopic";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch } from "../../redux/hooks";
 import { deleteForumTopic, fetchUserInfo } from "../../redux/slices";
 import MapComments from "./MapComments";
 import ByComp from "./ByComp";
@@ -77,9 +77,6 @@ const ThreadPage: React.FC = () => {
         )}
         <Button onClick={() => history.push("/topics")} m={1}>
           Back
-        </Button>
-        <Button m={1} onClick={handleDelete}>
-          Delete
         </Button>
         <Box>
           <MapComments id={threadData.id} />

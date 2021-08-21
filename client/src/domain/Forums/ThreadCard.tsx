@@ -2,11 +2,9 @@ import { Flex } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { Link } from "react-router-dom";
 import { Text } from "@chakra-ui/layout";
-import { useAppSelector } from "../../redux/hooks";
 import ByComp from "./ByComp";
 
 const Forums: React.FC<Props> = ({ thread }) => {
-  const user = useAppSelector((state) => state.userReducer.userState);
   return (
     <Link to={`/topic/${thread.id}`}>
       <Flex
