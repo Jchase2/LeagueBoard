@@ -5,7 +5,7 @@ import UserDonutGraph from "./UserDonutGraph";
 // import ProfileMatch from "./ProfileMatch";
 // import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchMatches, setMatches, fetchRegions, fetchUserInfo, fetchUserRank } from "../../redux/slices";
+import { setMatches, fetchRegions, fetchUserInfo, fetchUserRank } from "../../redux/slices";
 
 interface Props {}
 
@@ -23,7 +23,6 @@ const Layout: React.FC<Props> = (props: Props) => {
       dispatch(fetchUserInfo());
       dispatch(fetchRegions())
       dispatch(setMatches())
-      dispatch(fetchMatches())
       dispatch(fetchUserRank())
     }, [dispatch]);
 

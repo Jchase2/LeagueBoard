@@ -37,7 +37,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
           <IconButton
             onClick={() => handleClick(1)}
             variant="outline"
-            colorScheme="green"
+            colorscheme="green"
             aria-label="Call Sage"
             fontSize="20px"
             icon={<BiUpvote />}
@@ -45,7 +45,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
           <IconButton
             onClick={() => handleClick(-1)}
             variant="outline"
-            colorScheme="red"
+            colorscheme="red"
             aria-label="Call Sage"
             fontSize="20px"
             icon={<BiDownvote />}
@@ -56,7 +56,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
           <IconButton
             onClick={() => handleClick(1)}
             variant="solid"
-            colorScheme="green"
+            colorscheme="green"
             aria-label="Call Sage"
             fontSize="20px"
             icon={<BiUpvote />}
@@ -64,7 +64,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
           <IconButton
             onClick={() => handleClick(-1)}
             variant="outline"
-            colorScheme="red"
+            colorscheme="red"
             aria-label="Call Sage"
             fontSize="20px"
             icon={<BiDownvote />}
@@ -75,7 +75,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
           <IconButton
             onClick={() => handleClick(1)}
             variant="outline"
-            colorScheme="green"
+            colorscheme="green"
             aria-label="Call Sage"
             fontSize="20px"
             icon={<BiUpvote />}
@@ -83,7 +83,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
           <IconButton
             onClick={() => handleClick(-1)}
             variant="solid"
-            colorScheme="red"
+            colorcheme="red"
             aria-label="Call Sage"
             fontSize="20px"
             icon={<BiDownvote />}
