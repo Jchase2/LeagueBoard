@@ -193,3 +193,13 @@ export const getVotes = async (id: number, userid: number) => {
     .then((res: { data: any }) => res.data)
     .catch((err) => console.log(err));
 };
+
+export const getVoteCount = async (id: number) => {
+  return axios
+    .get(
+      process.env.REACT_APP_BACKEND_URL + `/votescore/${id}` ||
+        "localhost:3001/votescore",
+    )
+    .then((res: { data: any }) => res.data)
+    .catch((err) => console.log(err));
+};

@@ -54,6 +54,7 @@ export const getMatches = async (
   }
 };
 
+
 export const updateMatchesInDb = async (req: Request, res: Response, next: Function) => {
   try {
     let { puuid } = req.params;
@@ -151,6 +152,22 @@ export const getVote = async (req: Request, res: Response, next: Function) => {
       [Op.and]: [{ topicid: id }, { userid: userid }]}})
     res.json(val)
   } catch(err){
+    next(err)
+  }
+}
+
+export const getVoteCount = async (req: Request, res: Response, next: Function) => {
+  const {id} = req.params;
+  try {
+    let votesArr = await Votes.findAll({where: {
+      topicid: id
+    }});
+    let count = 0;
+    votesArr.map((votesObj: any) => {
+      count = count + votesObj.dataValues.value
+    })
+    res.json({votes: count})
+  } catch (err) {
     next(err)
   }
 }

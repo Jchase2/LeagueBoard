@@ -21,7 +21,7 @@ const ChampMatch: React.FC<Props> = ({
 
   return (
     <>
-      {championName && 
+      {championName &&
         <Flex
           flexWrap="wrap"
           padding="10px"
@@ -63,7 +63,7 @@ const ChampMatch: React.FC<Props> = ({
               </Tooltip>
               <Tooltip hasArrow label={``}>
                 <Image
-                  src={`//opgg-static.akamaized.net/images/lol/perkStyle/${rune2}.png?image=c_scale,q_auto,w_22&v=1628647804`}
+                  src={`https:////opgg-static.akamaized.net/images/lol/perkStyle/${rune2}.png?image=c_scale,q_auto,w_22&v=1628647804`}
                 />
               </Tooltip>
             </Flex>
