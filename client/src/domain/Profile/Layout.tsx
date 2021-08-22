@@ -20,9 +20,9 @@ const Layout: React.FC<Props> = (props: Props) => {
   const userRank = useAppSelector((state) => state.userReducer.userRank);
   const regions = useAppSelector((state) => state.regionReducer.regionState);
   const matches = useAppSelector((state) => state.matchReducer.matchState);
-
+  let regionName: any
   const [isLargerThan] = useMediaQuery("(max-width:1050px)");
-  const regionName = regions[user?.regionid - 1]?.name;
+  if(regions) { regionName = regions[user?.regionid - 1]?.name; }
   const [loading, setLoading] = useState<boolean>(false)
 
    const handleLoad = () => {
@@ -44,9 +44,9 @@ const Layout: React.FC<Props> = (props: Props) => {
   console.log("Matches: ", matches);
 
   return (
-    <Flex flexDirection={!isLargerThan ? "row" : "column"}>
+    <Flex justifyContent="space-evenly" flexDirection={!isLargerThan ? "row" : "column"}>
       <Flex
-        maxH={isLargerThan ? "80vh" : "42vh"}
+        h="500px"
         minW="20vw"
         justifyContent="center"
         alignContent="center"
@@ -65,6 +65,7 @@ const Layout: React.FC<Props> = (props: Props) => {
         <Flex
           flexDirection="column"
           w="100%"
+          h="100%"
           justifyContent="center"
           alignContent="center"
         >
