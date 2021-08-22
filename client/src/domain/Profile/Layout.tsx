@@ -1,4 +1,4 @@
-import { Flex, useMediaQuery, Image } from "@chakra-ui/react"
+import { Flex, useMediaQuery, Image, SimpleGrid, Center } from "@chakra-ui/react"
 import { useEffect } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import UserDonutGraph from "./UserDonutGraph";
@@ -6,6 +6,7 @@ import UserDonutGraph from "./UserDonutGraph";
 // import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchMatches, setMatches, fetchRegions, fetchUserInfo, fetchUserRank } from "../../redux/slices";
+import ParticipationGraph from './ParticipationGraph';
 
 interface Props {}
 
@@ -51,7 +52,16 @@ const Layout: React.FC<Props> = (props: Props) => {
 
     </Flex>
         <br/><br/>
-        <UserDonutGraph/>
+     
+        <SimpleGrid columns={2} spacing={2}>
+          
+            <ParticipationGraph/>
+
+            <UserDonutGraph/>
+          
+        </SimpleGrid>
+       
+        
     </>
   );
 }

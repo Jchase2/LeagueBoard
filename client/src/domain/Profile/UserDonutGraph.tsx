@@ -1,7 +1,7 @@
 import { useEffect, useState} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts'; 
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { Center, Container, Radio, RadioGroup, Stack, Divider } from "@chakra-ui/react"
+import { Center, Box, Radio, RadioGroup, VStack, Divider, SimpleGrid } from "@chakra-ui/react"
 import { fetchUserInfo, setMatches, fetchMatches } from '../../redux/slices';
 
 const UserDonutGraph = () => {
@@ -15,7 +15,6 @@ const UserDonutGraph = () => {
   const dispatch = useAppDispatch();
   const matches:any = useAppSelector((state) => state.matchReducer.matchState);
 
-
   useEffect(() => {
     dispatch(fetchUserInfo()).then(() => {})
     dispatch(fetchMatches()).then(() => {}); 
@@ -23,15 +22,12 @@ const UserDonutGraph = () => {
   }, [dispatch]);
 
     useEffect(() => {
-      console.log("2nd use effect")
       setUserValue(userKillHistory)
-      setGraph("kills")
+      setGraph(" kills ")
     }, [userKillHistory])
-
 
     useEffect(() => {
       const matchFunction = async () => {
-
         let current = user.summoner_name;
         let userKills = { avg: 0, high: 0, low: 0 };
         let userDeaths = { avg: 0, high: 0, low: 0 };
@@ -63,14 +59,12 @@ const UserDonutGraph = () => {
           );
           setUserKillHistory(userKills);
         }
-
         if (deaths.length !== 0) {
           userDeaths.high = Math.max(...deaths);
           userDeaths.low = Math.min(...deaths);
           userDeaths.avg = Math.round(deaths.reduce((a, b) => a + b) / deaths.length);
           setUserDeathHistory(userDeaths);
         }
-
         if (assists.length !== 0) {
           userAssists.high = Math.max(...assists);
           userAssists.low = Math.min(...assists);
@@ -80,10 +74,9 @@ const UserDonutGraph = () => {
       };
       matchFunction();
     }, [matches]);  
-      
-      
+       
     const setValue = (value: string) => {
-      if (value === 'kills') {
+      if (value === ' kills ') {
         setUserValue(userKillHistory)
         setGraph(value)
       }
@@ -93,35 +86,23 @@ const UserDonutGraph = () => {
       }
       if (value === 'assists') {
         setUserValue(userAssistHistory)
+        console.log(value)
         setGraph(value)
-      }
-      
+      } 
     };
 
-  
   return (
-    <div>
-      <Container>
-        <Divider orientation="horizontal"/>
-       
-        <RadioGroup defaultValue={'kills'} onChange={(value) => setValue(value)}>
-          <Stack direction="row">
-            <Divider orientation="vertical" />
-            <Radio value="kills">kills</Radio>
-            <Radio value="deaths">deaths</Radio>
-            <Radio value="assists">assists</Radio>
-           
-          </Stack>
-        </RadioGroup>
-
-        <Divider orientation="vertical" />
-
+    <>
+      
+        <SimpleGrid columns={2} spacing={5}>
          <CanvasJSChart
           options={{
+            width:230,
+            height:230,
             colorSet:  "customColorSet1",
             theme: "light2",
             title: {
-              text: ``,
+              text: `Stat Averages`,
               fontColor: "#b5b5c6",
             },
             subtitles: [{
@@ -129,9 +110,8 @@ const UserDonutGraph = () => {
               verticalAlign: "center",
               fontSize: 24,
               dockInsidePlotArea: true
-            }],
-            
-            backgroundColor: "#ffffff",
+            }], 
+            backgroundColor: "transparent",
             data: [{
               type: "doughnut",
               yValueFormatString: "##",
@@ -141,13 +121,17 @@ const UserDonutGraph = () => {
                 { name: "high", y: userValue.high }
               ]
             }]
-          } } 
-
-        />
-        <Center><h3>kill/death/assist Stats from Past 10 Games</h3></Center>
-        </Container>
-      
-    </div>
+          } }/>
+        
+          <RadioGroup defaultValue={' kills '} onChange={(value) => setValue(value)}>
+            <VStack>
+              <Radio value=" kills ">kills</Radio>
+              <Radio value="deaths">deaths</Radio>
+              <Radio value="assists">assists</Radio>
+            </VStack>
+          </RadioGroup>
+        </SimpleGrid> 
+    </>
   )
 }
 
