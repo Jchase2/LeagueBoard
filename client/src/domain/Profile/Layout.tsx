@@ -53,15 +53,13 @@ const Layout: React.FC<Props> = (props: Props) => {
         mb={isLargerThan ? 3 : 0}
         mr={isLargerThan ? 0 : 6}
       >
-        {!loading ? (
+      
           <ProfileIcon
             users={user}
             userRank={userRank}
             regionName={regionName}
           />
-        ) : (
-          <></>
-        )}
+        
       </Flex>
       <Flex minW="60vw" justifyContent="center" alignContent="center">
         <Flex
