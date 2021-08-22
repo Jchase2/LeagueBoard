@@ -4,16 +4,12 @@ import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-<<<<<<< HEAD
-import { setMatches, fetchRegions, fetchUserInfo, fetchUserRank } from "../../redux/slices";
-=======
 import {
   fetchMatches,
   fetchRegions,
   fetchUserInfo,
   fetchUserRank,
 } from "../../redux/slices";
->>>>>>> origin/lewis
 
 interface Props {}
 
@@ -27,21 +23,12 @@ const Layout: React.FC<Props> = (props: Props) => {
   const [isLargerThan] = useMediaQuery("(max-width:1050px)");
   const regionName = regions[user?.regionid - 1]?.name;
 
-<<<<<<< HEAD
-    useEffect(() => {
-      dispatch(fetchUserInfo());
-      dispatch(fetchRegions())
-      dispatch(setMatches())
-      dispatch(fetchUserRank())
-    }, [dispatch]);
-=======
   useEffect(() => {
     dispatch(fetchUserInfo());
     dispatch(fetchRegions());
     dispatch(fetchMatches());
     dispatch(fetchUserRank());
   }, [dispatch]);
->>>>>>> origin/lewis
 
   console.log("user: ", user);
   console.log("userRank: ", userRank);
