@@ -1,12 +1,7 @@
 import { useState, useEffect } from 'react';
 import mockScrimmage from './mockdata';
 import { IPlayer } from './MockInterface';
-<<<<<<< HEAD
-import { Table, Tfoot, Thead, Tbody, Th, Tr, Td, TableCaption,
-  Container, SimpleGrid} from "@chakra-ui/react";
-=======
 import { Table, Tfoot, Thead, Tbody, Th, Tr, Td, SimpleGrid} from "@chakra-ui/react";
->>>>>>> origin/lewis
 import PredictionsGraph from './Graphs/PredictionsGraph';
 import DonutGraph from './Graphs/DonutGraph';
 
