@@ -29,6 +29,7 @@ const ProfileMatch: React.FC<Props> = ({ match, users }) => {
         borderWidth="1px"
         borderRadius="10px"
         w="100%"
+        justifyContent="center"
         maxw="100%"
         padding="5px"
         flexWrap="wrap"

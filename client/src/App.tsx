@@ -24,11 +24,6 @@ function App() {
               <Layout />
             </SidebarWithHeader>
           </Route>
-          <Route exact path="/Home">
-            <SidebarWithHeader>
-              <Layout />
-            </SidebarWithHeader>
-          </Route>
           <Route exact path="/topics">
             <SidebarWithHeader>
               <Topics />
@@ -54,7 +49,7 @@ function App() {
           <Route exact path="/verify" component={VerificationComponent}></Route>
         </Switch>
       </Router>
-
+      
     </>
   );
 }

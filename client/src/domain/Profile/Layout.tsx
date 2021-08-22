@@ -1,4 +1,4 @@
-import { Flex, useMediaQuery, Image } from "@chakra-ui/react";
+import { Flex, Spinner, useMediaQuery } from "@chakra-ui/react";
 import { useEffect } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
@@ -10,6 +10,7 @@ import {
   fetchUserInfo,
   fetchUserRank,
 } from "../../redux/slices";
+import { useState } from "react";
 
 interface Props {}
 
@@ -22,12 +23,21 @@ const Layout: React.FC<Props> = (props: Props) => {
 
   const [isLargerThan] = useMediaQuery("(max-width:1050px)");
   const regionName = regions[user?.regionid - 1]?.name;
+  const [loading, setLoading] = useState<boolean>(false)
+
+   const handleLoad = () => {
+     setLoading(true);
+     setTimeout(() => {
+       setLoading(false);
+     }, 1200);
+   };
 
   useEffect(() => {
     dispatch(fetchUserInfo());
     dispatch(fetchRegions());
     dispatch(fetchMatches());
     dispatch(fetchUserRank());
+    handleLoad();
   }, [dispatch]);
 
 
@@ -43,7 +53,15 @@ const Layout: React.FC<Props> = (props: Props) => {
         mb={isLargerThan ? 3 : 0}
         mr={isLargerThan ? 0 : 6}
       >
-        <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
+        {!loading ? (
+          <ProfileIcon
+            users={user}
+            userRank={userRank}
+            regionName={regionName}
+          />
+        ) : (
+          <></>
+        )}
       </Flex>
       <Flex minW="60vw" justifyContent="center" alignContent="center">
         <Flex
@@ -52,13 +70,25 @@ const Layout: React.FC<Props> = (props: Props) => {
           justifyContent="center"
           alignContent="center"
         >
-          {matches &&
-            matches?.map(
-              (match: any) =>
-                match && (
-                  <ProfileMatch match={match} users={user} key={uuidv4()} />
-                )
-            )}
+          {!loading ? (
+            <>
+              {matches &&
+                matches?.map(
+                  (match: any) =>
+                    match && (
+                      <ProfileMatch match={match} users={user} key={uuidv4()} />
+                    )
+                )}
+            </>
+          ) : (
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+          )}
         </Flex>
       </Flex>
     </Flex>

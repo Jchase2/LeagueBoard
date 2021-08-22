@@ -52,8 +52,6 @@ const VerificationComponent = () => {
     if (data.iconid !== icon) {
       //register call api
 
-
-
       signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {
         if (res.data.success) {
           setIsError(false);

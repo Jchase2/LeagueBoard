@@ -124,7 +124,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   <MenuItem>Settings</MenuItem>
                 </Link>
                 <MenuDivider />
-                <Link href={user ? "/Home" : "/signin"}>
+                <Link href={user ? "/" : "/signin"}>
                   <MenuItem
                     onClick={() => localStorage.removeItem("accessToken")}
                   >

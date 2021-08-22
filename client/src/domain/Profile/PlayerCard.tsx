@@ -33,7 +33,7 @@ const PlayerCard: React.FC<Props> = ({
 }) => {
   const loseColor = useColorModeValue("red.200", "red.900");
   const winColor = useColorModeValue("blue.200", "blue.900");
-  const [isLargerThan] = useMediaQuery("(max-width:500px)");
+  const [isLargerThan] = useMediaQuery("(max-width:760px)");
   let totalKill = 0
   //Check if win == teamId and return the kills inside
   // pass down total team kills along with the boolean to check and display
@@ -46,7 +46,7 @@ const PlayerCard: React.FC<Props> = ({
         w="100%"
         justifyContent="space-evenly"
         bg={participant?.win ? winColor : loseColor}
-        borderRadius="10px"
+        borderRadius="20px"
       >
         {participant && (
           <>
