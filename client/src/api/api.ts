@@ -167,8 +167,8 @@ export const voteTopic = async (
 ) => {
   return axios
     .put(
-      process.env.REACT_APP_BACKEND_URL + `/topics/vote` ||
-        `localhost:3001/topics/vote`,
+      process.env.REACT_APP_BACKEND_URL + `/vote` ||
+        `localhost:3001/vote`,
       {
         topicid,
         userid,
@@ -182,8 +182,8 @@ export const voteTopic = async (
 export const getVotes = async (id: number, userid: number) => {
   return axios
     .get(
-      process.env.REACT_APP_BACKEND_URL + `/topics/vote/${id}` ||
-        "localhost:3001/",
+      process.env.REACT_APP_BACKEND_URL + `/vote/${id}` ||
+        "localhost:3001/vote",
       {
         headers: {
           userid: userid,

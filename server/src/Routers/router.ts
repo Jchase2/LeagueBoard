@@ -16,20 +16,20 @@ router.post('/login', login);
 //private
 
 //TODO: change matches/:puuid to retrieve directly from db
-
-
 router.get('/matches/:puuid', getMatches);
 router.post('/matches/update/:puuid', updateMatchesInDb);
 
+// FORUMS
 router.get('/topics', getForumTopics);
 router.get('/topics/comments/:parentid', getForumComments);
-router.get('/topics/:topicid', getForumTopicById);
-router.put('/topics/close/:topicid', closeForumTopic);
-router.put('/topics/vote', voteTopic);
-router.get('/topics/vote/:id', getVote);
 router.get('/topics/user/:topicid', getForumOwner)
+router.get('/topics/:topicid', getForumTopicById);
+router.put('/vote', voteTopic);
+router.get('/vote/:id', getVote);
 router.post('/topics', postForumTopic);
 router.delete('/topics/:topicid', deleteForumTopic);
+router.put('/topics/close/:topicid', closeForumTopic);
+
 
 router.get('/scrimmage', getAllScrimmages);
 router.get('/scrimmage/:id', getScrimmage);

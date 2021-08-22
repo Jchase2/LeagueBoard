@@ -8,9 +8,11 @@ const DateComp: React.FC<Props> = ({ thread }) => {
   const [threadCreator, setThreadCreator] = useState<String>("");
 
   useEffect(() => {
-    getTopicOwner(thread.id).then(owner => {
-      setThreadCreator(owner?.summoner_name)
-    })
+    if(thread.id){
+      getTopicOwner(thread.id).then(owner => {
+        setThreadCreator(owner?.summoner_name)
+      })
+    }
   }, [thread.id]);
 
   return (
