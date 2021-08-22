@@ -22,8 +22,6 @@ const ProfileMatch: React.FC<Props> = ({ match, users }) => {
      teamkills1 = match?.teams[0].objectives.champion.kills
      teamkills2 = match?.teams[1].objectives.champion.kills
   }
-  console.log(teamId1);
-  console.log(teamId2);
   return (
     <VStack key={uuidv4()} padding="5px">
       <Flex

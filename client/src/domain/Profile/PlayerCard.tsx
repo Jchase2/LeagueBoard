@@ -48,43 +48,51 @@ const PlayerCard: React.FC<Props> = ({
         bg={participant?.win ? winColor : loseColor}
         borderRadius="10px"
       >
-        {participant && 
-        <>
-          {participant?.summonerName === users?.summoner_name && (
-            <Flex>
-              {!isLargerThan && (
-                <TypeMatch
-                  gameDuration={gameDuration}
-                  queue={queue}
-                  win={participant?.win}
-                  gameTime={participant?.timePlayed}
+        {participant && (
+          <>
+            {participant?.summonerName === users?.summoner_name && (
+              <Flex>
+                {!isLargerThan && (
+                  <TypeMatch
+                    gameDuration={gameDuration}
+                    queue={queue}
+                    win={participant?.win}
+                    gameTime={participant?.timePlayed}
+                  />
+                )}
+                <ChampMatch
+                  championName={participant?.championName}
+                  SummonerSpell1={participant?.summoner1Id}
+                  SummonerSpell2={participant?.summoner2Id}
+                  rune1={participant?.perks?.styles[0]?.selections[0]?.perk}
+                  rune2={participant?.perks?.styles[1]?.style}
                 />
-              )}
-              <ChampMatch
-                championName={participant?.championName}
-                SummonerSpell1={participant?.summoner1Id}
-                SummonerSpell2={participant?.summoner2Id}
-                rune1={participant?.perks?.styles[0]?.selections[0]?.perk}
-                rune2={participant?.perks?.styles[1]?.style}
-              />
-              <KDAMatch
-                kills={participant?.kills}
-                deaths={participant?.deaths}
-                assists={participant?.assists}
-              />
-              <CSMatch
-                champLevel={participant?.champLevel}
-                totalMinionsKilled={participant?.totalMinionsKilled}
-                gameDuration={gameDuration}
-                kills={participant?.kills}
-                totalKill={totalKill}
-                assists={participant?.assists}
-              />
-              <ItemMatch />
-            </Flex>
-          )}
-        </>}
-    </Stack>
+                <KDAMatch
+                  kills={participant?.kills}
+                  deaths={participant?.deaths}
+                  assists={participant?.assists}
+                />
+                <CSMatch
+                  champLevel={participant?.champLevel}
+                  totalMinionsKilled={participant?.totalMinionsKilled}
+                  gameDuration={gameDuration}
+                  kills={participant?.kills}
+                  totalKill={totalKill}
+                  assists={participant?.assists}
+                />
+                <ItemMatch
+                  item1={participant?.item1}
+                  item2={participant?.item2}
+                  item3={participant?.item3}
+                  item4={participant?.item4}
+                  item5={participant?.item5}
+                  item6={participant?.item6}
+                />
+              </Flex>
+            )}
+          </>
+        )}
+      </Stack>
     </>
   );
 };

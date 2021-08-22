@@ -1,9 +1,23 @@
 import { Flex, Image } from "@chakra-ui/react";
 import React from "react";
 
-interface Props {}
+interface Props {
+  item1: number;
+  item2: number;
+  item3: number;
+  item4: number;
+  item5: number;
+  item6: number;
+}
 
-export const ItemMatch: React.FC<Props> = () => {
+export const ItemMatch: React.FC<Props> = ({
+  item1,
+  item2,
+  item3,
+  item4,
+  item5,
+  item6,
+}) => {
   return (
     <Flex
       w="20%"
@@ -14,6 +28,7 @@ export const ItemMatch: React.FC<Props> = () => {
       alignItems="center"
       justifyContent="center"
     >
+        {console.log(item1,item2, item3)}
       <Flex>
         <Image />
         <Image />
