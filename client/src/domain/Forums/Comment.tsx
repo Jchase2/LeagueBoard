@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces/";
 import { Props } from "framer-motion/types/types";
-import ReplyTopic from "./ReplyTopic";
-import ByComp from "./ByComp";
-import ReplyOrDelete from "./ReplyOrDelete";
+import { ReplyTopic, ByComp, ReplyOrDelete} from "./";
 
 const Comment: React.FC<Props> = (props) => {
 
@@ -61,7 +59,7 @@ const Comment: React.FC<Props> = (props) => {
         <Text>{threadData.text}</Text>
       </Box>
       {isReply && threadData.id && (
-        <ReplyTopic setIsReply={setIsReply} topicid={threadData.id} />
+        <ReplyTopic setIsReply={setIsReply} thread={threadData} />
       )}
       {threadData.id && <ReplyOrDelete isReply={isReply} setIsReply={setIsReply} thread={threadData}/>}
     </Box>

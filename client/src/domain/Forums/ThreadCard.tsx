@@ -2,8 +2,7 @@ import { Box, Flex, Spacer } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { Link } from "react-router-dom";
 import { Text } from "@chakra-ui/layout";
-import ByComp from "./ByComp";
-import UpOrDownVote from "./UpOrDownVote";
+import { ByComp, UpOrDownVote } from "./";
 
 const Forums: React.FC<Props> = ({ thread }) => {
   return (

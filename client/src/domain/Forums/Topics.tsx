@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchUserInfo, fetchForumTopics } from "../../redux/slices";
-import MapTopics from "./MapTopics";
+import { MapTopics } from "./";
 import { ITopic } from "../../interfaces";
 
 const Topics: React.FC = () => {

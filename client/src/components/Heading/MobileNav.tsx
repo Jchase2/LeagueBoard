@@ -69,6 +69,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             variant="ghost"
             aria-label="open menu"
             icon={<FiBell />}
+            isActive={true}
           />
           <IconButton
             icon={<SwitchIcon />}

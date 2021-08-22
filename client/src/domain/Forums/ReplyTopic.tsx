@@ -16,6 +16,8 @@ const ReplyTopic: React.FC<Props> = ({thread, setIsReply}) => {
   const dispatch = useAppDispatch()
   const user = useAppSelector((state) => state.userReducer.userState);
 
+  console.log("Thread id: ", thread?.id)
+
   useEffect(() => {
     dispatch(fetchUserInfo())
   }, [dispatch]);

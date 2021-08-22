@@ -3,14 +3,9 @@ import { Box, Flex, Text, Button, Spacer } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
 import { getForumTopic } from "../../api/api";
 import { useParams, useHistory } from "react-router-dom";
-import ReplyTopic from "./ReplyTopic";
 import { useAppDispatch } from "../../redux/hooks";
 import { fetchUserInfo } from "../../redux/slices";
-import MapComments from "./MapComments";
-import ByComp from "./ByComp";
-import ReplyOrDelete from "./ReplyOrDelete";
-import CloseThread from "./CloseThread";
-import UpOrDownVote from "./UpOrDownVote";
+import { ReplyTopic, MapComments, ByComp, ReplyOrDelete, CloseThread, UpOrDownVote } from './'
 
 type urlParams = {
   id: string;
