@@ -61,7 +61,7 @@ const Layout: React.FC<Props> = (props: Props) => {
           />
         
       </Flex>
-      <Flex minW="60vw" justifyContent="center" alignContent="center">
+      <Flex minW="50vw" justifyContent="center" alignContent="center">
         <Flex
           flexDirection="column"
           w="100%"
