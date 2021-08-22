@@ -54,7 +54,7 @@ function App() {
           <Route exact path="/verify" component={VerificationComponent}></Route>
         </Switch>
       </Router>
-      
+
     </>
   );
 }

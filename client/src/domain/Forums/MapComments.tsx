@@ -12,7 +12,7 @@ const MapComments: React.FC<myProps> = (props: myProps) => {
   );
   return (
     <>
-      {commentsArray.map((thread: any) => (
+      {commentsArray.length !== 0 && commentsArray.map((thread: any) => (
         <div key={thread.id}>
           {thread.parentid !== 0 && <Comment id={thread.id} thread={thread} />}
         </div>

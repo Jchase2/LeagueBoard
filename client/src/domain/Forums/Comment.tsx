@@ -60,10 +60,10 @@ const Comment: React.FC<Props> = (props) => {
       <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
         <Text>{threadData.text}</Text>
       </Box>
-      {isReply && (
+      {isReply && threadData.id && (
         <ReplyTopic setIsReply={setIsReply} topicid={threadData.id} />
       )}
-      <ReplyOrDelete isReply={isReply} setIsReply={setIsReply} thread={threadData}/>
+      {threadData.id && <ReplyOrDelete isReply={isReply} setIsReply={setIsReply} thread={threadData}/>}
     </Box>
   );
 };

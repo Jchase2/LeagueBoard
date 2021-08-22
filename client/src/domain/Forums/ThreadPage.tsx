@@ -35,10 +35,12 @@ const ThreadPage: React.FC = () => {
   const [isReply, setIsReply] = useState(false);
 
   useEffect(() => {
-    getForumTopic(+id).then((res) => {
-      setThreadData(res);
-      dispatch(fetchUserInfo());
-    });
+    if(Number(id) !== 0){
+      getForumTopic(+id).then((res) => {
+        setThreadData(res);
+        dispatch(fetchUserInfo());
+      });
+    }
   }, [id, dispatch]);
 
   return (
@@ -52,7 +54,7 @@ const ThreadPage: React.FC = () => {
           color="fff"
         >
           <Flex direction="row">
-            <UpOrDownVote thread={threadData} />
+            {threadData.id && <UpOrDownVote thread={threadData} />}
             {threadData.title}
           </Flex>
         </Box>
@@ -72,11 +74,11 @@ const ThreadPage: React.FC = () => {
         </Box>
         {isReply && <ReplyTopic setIsReply={setIsReply} thread={threadData} />}
         <Flex direction="row">
-          <ReplyOrDelete
+          { threadData.id && <ReplyOrDelete
             isReply={isReply}
             setIsReply={setIsReply}
             thread={threadData}
-          />
+          />}
           <Button onClick={() => history.push("/topics")} m={1}>
             Back
           </Button>
@@ -84,7 +86,7 @@ const ThreadPage: React.FC = () => {
           <CloseThread setThreadData={setThreadData} threadData={threadData} />
         </Flex>
         <Box>
-          <MapComments id={threadData.id} />
+          {threadData.id && <MapComments id={threadData.id} />}
         </Box>
       </Box>
     </Flex>
