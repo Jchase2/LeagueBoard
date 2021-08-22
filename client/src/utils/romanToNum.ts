@@ -9,9 +9,16 @@ export const getFormattedTime = (fourDigitTime: string) => {
   const hours24 = parseInt(fourDigitTime.substring(0, 2));
   const hours = ((hours24 + 11) % 12) + 1;
   const amPm = hours24 > 11 ? "pm" : "am";
-  const minutes = fourDigitTime.substring(2);
-
-  return hours + ":" + minutes + amPm;
+  let minutes = fourDigitTime.substring(2);
+  let newMinutes = Number(minutes)
+  let newHours = Number(hours)
+  if (newMinutes > 60) {
+      newMinutes -= 60; 
+      newHours += 1;
+      return newHours.toString() + ':' + newMinutes + amPm
+  } else {
+  return hours + ":" + minutes + amPm
+  };
 };
 
 export const millisToMinutesAndSeconds = (millis: number) => {

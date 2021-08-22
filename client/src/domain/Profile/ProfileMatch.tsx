@@ -11,11 +11,16 @@ interface Props {
 const ProfileMatch: React.FC<Props> = ({ match, users }) => {
   let teamId1: any;
   let teamId2: any;
+  let teamkills1: any;
+  let teamkills2: any;
+
   const matchQueue = match?.queueId;
   const queue = queueTypes?.filter((e) => e.queueId === matchQueue);
   if (match.teams) {
     teamId1 = match?.teams[0]?.win;
     teamId2 = match?.teams[1].win;
+     teamkills1 = match?.teams[0].objectives.champion.kills
+     teamkills2 = match?.teams[1].objectives.champion.kills
   }
   console.log(teamId1);
   console.log(teamId2);
@@ -37,6 +42,8 @@ const ProfileMatch: React.FC<Props> = ({ match, users }) => {
               gameDuration={match.gameDuration}
               teamId1={teamId1}
               teamId2={teamId2}
+              teamkills1={teamkills1}
+              teamkills2={teamkills2}
               queue={queue}
               participant={participant}
               users={users}

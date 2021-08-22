@@ -12,7 +12,14 @@ import {
 } from "@chakra-ui/react";
 import Badges from "./Badges";
 import RankImage from "./RankImage";
+import {useState} from 'react'
 import { changeNum } from "../../utils/romanToNum";
+import { useAppDispatch } from "../../redux/hooks";
+import {
+  setMatches,
+} from "../../redux/slices";
+import UpdateButton from "./UpdateButton"
+
 
 interface props {
   users: any;
@@ -21,6 +28,18 @@ interface props {
 }
 
 const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
+
+  const [loading, setLoading] = useState<boolean>(false)
+  const dispatch = useAppDispatch();
+
+  const handleUpdate = () => {
+    setLoading(true);
+    dispatch(setMatches());
+    setTimeout(() => {
+      setLoading(false)
+    }, 10000)
+  }
+
   return (
     <Box
       w={"full"}
@@ -55,15 +74,15 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
       <Heading fontSize={"2xl"} fontFamily={"body"} mb={2}>
         {users ? `${users?.summoner_name}` : ""}
       </Heading>
-
-      <Badges userRank={userRank} />
+        {userRank?.length && 
+           <Badges userRank={userRank} />}
 
       <Text fontWeight={600} color={"gray.500"} mb={4} mt={2}>
         # {regionName}
       </Text>
       <Flex justifyContent="space-around">
         <Flex>
-          {userRank?.length ? (
+          {userRank && userRank?.length ? (
             <RankImage rank={userRank[0]?.tier} rankNum={userRank[0]?.rank} />
           ) : (
             <Image minW="125px" maxH="125px" src="latest.png" />
@@ -95,20 +114,7 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
         </Flex>
       </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>
-        <Button
-          bgGradient={useColorModeValue(
-            "#63a4ff; background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);",
-            "#7f5a83; background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);)"
-          )}
-          flex={1}
-          fontSize={"sm"}
-          rounded={"full"}
-          _hover={{
-            bg: "blue.500",
-          }}
-        >
-          Update
-        </Button>
+        <UpdateButton handleupdate={handleUpdate} loading={loading} />
         <Button
           flex={1}
           fontSize={"sm"}

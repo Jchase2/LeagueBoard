@@ -17,6 +17,8 @@ interface Props {
   gameDuration: number;
   teamId1: boolean;
   teamId2: boolean;
+  teamkills1 : any;
+  teamkills2 : any;
 }
 
 const PlayerCard: React.FC<Props> = ({
@@ -24,12 +26,20 @@ const PlayerCard: React.FC<Props> = ({
   users,
   queue,
   gameDuration,
+  teamId1,
+  teamId2,
+  teamkills1,
+  teamkills2,
 }) => {
-  const loseColor = useColorModeValue("red.300", "red.800");
-  const winColor = useColorModeValue("blue.300", "blue.800");
+  const loseColor = useColorModeValue("red.200", "red.900");
+  const winColor = useColorModeValue("blue.200", "blue.900");
   const [isLargerThan] = useMediaQuery("(max-width:500px)");
+  let totalKill = 0
   //Check if win == teamId and return the kills inside
   // pass down total team kills along with the boolean to check and display
+  if (participant?.win === teamId1) {totalKill = teamkills1;}
+  if (participant?.win === teamId2) {totalKill = teamkills2;}
+
   return (
     <>
       <Stack
@@ -38,37 +48,43 @@ const PlayerCard: React.FC<Props> = ({
         bg={participant?.win ? winColor : loseColor}
         borderRadius="10px"
       >
-        {participant?.summonerName === users?.summoner_name && (
-          <Flex>
-            {!isLargerThan && (
-              <TypeMatch
-                gameDuration={gameDuration}
-                queue={queue}
-                win={participant?.win}
-                gameTime={participant?.timePlayed}
+        {participant && 
+        <>
+          {participant?.summonerName === users?.summoner_name && (
+            <Flex>
+              {!isLargerThan && (
+                <TypeMatch
+                  gameDuration={gameDuration}
+                  queue={queue}
+                  win={participant?.win}
+                  gameTime={participant?.timePlayed}
+                />
+              )}
+              <ChampMatch
+                championName={participant?.championName}
+                SummonerSpell1={participant?.summoner1Id}
+                SummonerSpell2={participant?.summoner2Id}
+                rune1={participant?.perks?.styles[0]?.selections[0]?.perk}
+                rune2={participant?.perks?.styles[1]?.style}
               />
-            )}
-            <ChampMatch
-              championName={participant?.championName}
-              SummonerSpell1={participant?.summoner1Id}
-              SummonerSpell2={participant?.summoner2Id}
-              rune1={participant?.perks.styles[0].selections[0].perk}
-              rune2={participant?.perks.styles[1].style}
-            />
-            <KDAMatch
-              kills={participant.kills}
-              deaths={participant.deaths}
-              assists={participant.assists}
-            />
-            <CSMatch
-              champLevel={participant.champLevel}
-              totalMinionsKilled={participant.totalMinionsKilled}
-              gameDuration={gameDuration}
-            />
-            <ItemMatch />
-          </Flex>
-        )}
-      </Stack>
+              <KDAMatch
+                kills={participant?.kills}
+                deaths={participant?.deaths}
+                assists={participant?.assists}
+              />
+              <CSMatch
+                champLevel={participant?.champLevel}
+                totalMinionsKilled={participant?.totalMinionsKilled}
+                gameDuration={gameDuration}
+                kills={participant?.kills}
+                totalKill={totalKill}
+                assists={participant?.assists}
+              />
+              <ItemMatch />
+            </Flex>
+          )}
+        </>}
+    </Stack>
     </>
   );
 };

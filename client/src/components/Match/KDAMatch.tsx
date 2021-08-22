@@ -1,4 +1,4 @@
-import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Heading, Tooltip, useColorModeValue } from "@chakra-ui/react";
 
 interface Props {
   kills: number;
@@ -39,7 +39,9 @@ export const KDAMatch: React.FC<Props> = ({ kills, deaths, assists }) => {
         </Heading>
       </Flex>
       <Flex justifyContent="center" alignItems="center">
+          <Tooltip hasArrow label="Kill/Death Average"> 
         {`${((kills + assists) / deaths).toFixed(2)} KDA`}
+        </Tooltip>
       </Flex>
     </Flex>
   );

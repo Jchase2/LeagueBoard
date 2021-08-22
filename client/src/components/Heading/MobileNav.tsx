@@ -28,10 +28,11 @@ interface MobileProps extends FlexProps {
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
+  let regionName: any
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userReducer.userState);
   const regions = useAppSelector((state) => state.regionReducer.regionState);
-  const regionName = regions[user?.regionid - 1]?.name;
+  if (regions) { regionName = regions[user?.regionid - 1]?.name }
 
    useEffect(() => {
      dispatch(fetchUserInfo());

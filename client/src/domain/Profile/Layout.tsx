@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   fetchMatches,
-  setMatches,
   fetchRegions,
   fetchUserInfo,
   fetchUserRank,
@@ -27,7 +26,6 @@ const Layout: React.FC<Props> = (props: Props) => {
   useEffect(() => {
     dispatch(fetchUserInfo());
     dispatch(fetchRegions());
-    dispatch(setMatches());
     dispatch(fetchMatches());
     dispatch(fetchUserRank());
   }, [dispatch]);
