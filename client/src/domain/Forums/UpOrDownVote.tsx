@@ -8,21 +8,24 @@ import {
   voteTopic,
   getVoteCount,
 } from "../../api/api";
+import { useAppSelector } from "../../redux/hooks";
 
 const UpOrDownVote: React.FC<Props> = ({ thread }) => {
+  const user = useAppSelector((state) => state.userReducer.userState);
   const [threadCreator, setThreadCreator] = useState<number>(0);
   const [hasVoted, setHasVoted] = useState<boolean>(false);
   const [votedValue, setVotedValue] = useState<number>(0);
   const [voteCount, setVoteCount] = useState<number>(0);
 
+  console.log(user)
   useEffect(() => {
     if (thread.id) {
       getTopicOwner(thread.id).then((owner) => {
         setThreadCreator(owner?.id);
       });
-      getVotes(thread.id, threadCreator).then((res) => {
+      getVotes(thread.id, user.id).then((res) => {
         console.log("RES: ", res);
-        if (res?.value) {
+        if (res?.value && (user.id === res.userid)) {
           setHasVoted(true);
           setVotedValue(res.value);
         }
@@ -34,13 +37,11 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
   }, [thread.id, threadCreator]);
 
   const handleClick = async (val) => {
-    setVoteCount(voteCount + val)
+    !hasVoted ? setVoteCount(voteCount + val) : setVoteCount(voteCount + (val * 2))
     setHasVoted(true);
     setVotedValue(val);
-    await voteTopic(thread.id, threadCreator, val);
-    getVoteCount(thread.id).then((res) => {
-      setVoteCount(res?.votes);
-    });
+    let resp = await voteTopic(thread.id, user.id, val);
+    console.log("RESP: ", resp)
   };
 
   return (

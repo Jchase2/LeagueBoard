@@ -194,7 +194,6 @@ export const voteTopic = async (req: Request, res: Response, next: Function) => 
       res.json(dbVote)
     }
   } catch(err){
-    console.log(err)
     next(err)
   }
 }
