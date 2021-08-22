@@ -18,21 +18,22 @@ const Forums: React.FC<Props> = ({ thread }) => {
         justifyContent="center"
         alignContent="center"
       >
-        <Text
-          flexWrap="wrap"
-          overflow="hidden"
-          max-width="75ch"
-          textOverflow="ellipsis"
-        >
-          <Flex direction="row">
+        <Flex direction="row">
+          <Text
+            flexWrap="wrap"
+            overflow="hidden"
+            max-width="75ch"
+            textOverflow="ellipsis"
+          >
             {thread.title}
-            <Spacer />
-            <UpOrDownVote thread={thread} />
-          </Flex>
-        </Text>
-          <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
-            <Text isTruncated>{thread.text}</Text>
-          </Box>
+          </Text>
+
+          <Spacer />
+          {thread.id && <UpOrDownVote thread={thread} />}
+        </Flex>
+        <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
+          <Text isTruncated>{thread.text}</Text>
+        </Box>
         <Flex
           color="gray.500"
           fontWeight="semibold"
@@ -40,7 +41,7 @@ const Forums: React.FC<Props> = ({ thread }) => {
           fontSize="xs"
           textTransform="uppercase"
         >
-          <ByComp thread={thread} />
+          {thread.id && <ByComp thread={thread} />}
         </Flex>
       </Flex>
     </Link>
