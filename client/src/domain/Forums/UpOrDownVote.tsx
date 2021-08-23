@@ -11,7 +11,9 @@ import {
 import { useAppSelector } from "../../redux/hooks";
 
 const UpOrDownVote: React.FC<Props> = ({ thread }) => {
+
   const user = useAppSelector((state) => state.userReducer.userState);
+
   const [threadCreator, setThreadCreator] = useState<number>(0);
   const [hasVoted, setHasVoted] = useState<boolean>(false);
   const [votedValue, setVotedValue] = useState<number>(0);

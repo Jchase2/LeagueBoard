@@ -10,4 +10,6 @@ export {default as ThreadCard}  from './ThreadCard';
 export {default as ThreadPage}  from './ThreadPage';
 export {default as Topics}  from './Topics';
 export {default as UpOrDownVote}  from './UpOrDownVote';
+export {default as CreateTopicButton}  from './CreateTopicButton';
+
 

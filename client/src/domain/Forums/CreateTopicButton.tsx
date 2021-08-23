@@ -3,7 +3,8 @@ import { LinkIcon } from "@chakra-ui/icons";
 import { IoMdCreate } from "react-icons/io";
 import { useHistory } from "react-router";
 
-const CreateTopicsButton: React.FC = () => {
+const CreateTopicButton: React.FC = () => {
+
   let history = useHistory();
 
   return (
@@ -20,7 +21,7 @@ const CreateTopicsButton: React.FC = () => {
         as={IoMdCreate}
         color={useColorModeValue("Black", "white")}
         marginRight="10px"
-      ></Icon>
+      />
       <Input
         size="sm"
         backgroundColor={useColorModeValue("#F0F8FF", "gray.900")}
@@ -32,9 +33,9 @@ const CreateTopicsButton: React.FC = () => {
         as={LinkIcon}
         color={useColorModeValue("Black", "white")}
         marginLeft="10px"
-      ></Icon>
+      />
     </Button>
   );
 };
 
-export default CreateTopicsButton;
+export default CreateTopicButton;

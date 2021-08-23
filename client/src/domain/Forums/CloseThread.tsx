@@ -6,13 +6,13 @@ import { Button } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 
 const CloseThread: React.FC<Props> = ({ threadData, setThreadData }) => {
-  const [threadCreator, setThreadCreator] = useState<number>(0);
 
+  const [threadCreator, setThreadCreator] = useState<number>(0);
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.userReducer.userState);
   const commentsArray = useAppSelector(
     (state) => state.commentsReducer.comments
   );
-  const user = useAppSelector((state) => state.userReducer.userState);
 
   useEffect(() => {
     if (threadData.id) {

@@ -11,19 +11,17 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchUserInfo, fetchForumTopics } from "../../redux/slices";
-import { MapTopics } from "./";
+import { MapTopics, CreateTopicButton } from "./";
 import { ITopic } from "../../interfaces";
-import CreateTopicsButton from "./CreateTopicButton";
 
 const Topics: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userReducer.userState);
-
+  const topics = useAppSelector((state) => state.topicsReducer.topics);
 
   const [filteredTopics, setFilteredTopics] = useState<ITopic[]>([]);
   const [query, setQuery] = useState<string>("");
-  const topics = useAppSelector((state) => state.topicsReducer.topics);
 
   useEffect(() => {
     dispatch(fetchForumTopics());
@@ -60,7 +58,7 @@ const Topics: React.FC = () => {
               minW="40vw"
             />
           </InputGroup>
-          {user && <CreateTopicsButton />}
+          {user && <CreateTopicButton />}
         </Flex>
         <Flex
           flexDirection="column"

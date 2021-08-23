@@ -80,7 +80,7 @@ const ThreadPage: React.FC = () => {
           <CloseThread setThreadData={setThreadData} threadData={threadData} />
         </Flex>
         <Box>
-          {threadData.id && <MapComments id={threadData.id} />}
+          {threadData.id && <MapComments />}
         </Box>
       </Box>
     </Flex>

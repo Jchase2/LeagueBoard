@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getTopicOwner, getGrandParent } from "../../api";
 
 const ReplyOrDelete: React.FC<Props> = ({ isReply, setIsReply, thread }) => {
+
   const dispatch = useAppDispatch();
   let history = useHistory();
   const user = useAppSelector((state) => state.userReducer.userState);

@@ -1,14 +1,12 @@
 import { useAppSelector } from "../../redux/hooks";
 import { Comment } from "./";
 
-interface myProps {
-  id: number;
-}
+const MapComments: React.FC = () => {
 
-const MapComments: React.FC<myProps> = (props: myProps) => {
   const commentsArray = useAppSelector(
     (state) => state.commentsReducer.comments
   );
+
   return (
     <>
       {commentsArray.length !== 0 &&
