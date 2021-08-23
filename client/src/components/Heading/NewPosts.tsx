@@ -38,7 +38,6 @@ const NewPosts = () => {
             variant="ghost"
             aria-label="open menu"
             icon={<FiBell />}
-            isActive={true}
           />
         </MenuButton>
       ) : (
