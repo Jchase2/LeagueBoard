@@ -20,8 +20,10 @@ const NewPosts = () => {
   const friendsPosts = useAppSelector((state) => state.friendsReducer.newPosts);
 
   useEffect(() => {
-    dispatch(checkFriends(user.id));
-  }, [dispatch, user.id]);
+    if(user){
+      dispatch(checkFriends(user.id));
+    }
+  }, [dispatch, user?.id, user]);
 
   const handleClear = async () => {
     if(user.id){
