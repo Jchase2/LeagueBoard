@@ -56,7 +56,7 @@ const CreateTopic: React.FC = () => {
     <Flex align="center" flexDirection="column" marginTop={5}>
       <Flex
         boxShadow="lg"
-        colorScheme={useColorModeValue("#F0F8FF", "black")}
+        colorscheme={useColorModeValue("#F0F8FF", "black")}
         padding="30px"
         borderRadius="20px"
       >

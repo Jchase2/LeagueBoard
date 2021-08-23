@@ -55,7 +55,7 @@ const Comment: React.FC<Props> = (props) => {
           <ByComp thread={threadData} />
         </Flex>
       </Box>
-      <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
+      <Box border="1px" borderRadius="lg" p={2} m={2}>
         <Text>{threadData.text}</Text>
       </Box>
       {isReply && threadData.id && (

@@ -47,7 +47,6 @@ const ThreadPage: React.FC = () => {
           textTransform="uppercase"
           fontSize="sm"
           letterSpacing="wide"
-          color="fff"
         >
           <Flex direction="row">
             {threadData.id && <UpOrDownVote thread={threadData} />}
@@ -55,7 +54,6 @@ const ThreadPage: React.FC = () => {
           </Flex>
         </Box>
         <Box
-          color="gray.500"
           fontWeight="semibold"
           letterSpacing="wide"
           fontSize="xs"
@@ -65,7 +63,7 @@ const ThreadPage: React.FC = () => {
             <ByComp thread={threadData} />
           </Flex>
         </Box>
-        <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
+        <Box border="1px" borderRadius="lg" p={2} m={2}>
           <Text>{threadData.text}</Text>
         </Box>
         {isReply && <ReplyTopic setIsReply={setIsReply} thread={threadData} />}

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ITopic } from "../../interfaces";
 
@@ -56,14 +56,11 @@ export const topicSlice = createSlice({
   },
 
   // All reducer functions
-  reducers: {
-    deleteComment: (state, action: PayloadAction<number>) => { state.topics.filter(comment => comment.id !== action.payload) },
-  },
+  reducers: {},
 
   // Will create fetchUserInfo action that can be used via dispatch
   extraReducers: (builder) => {
     builder.addCase(fetchForumTopics.fulfilled, (state, { payload }) => {
-      console.log("payload: ", payload)
       state.status = "resolved";
       state.topics = payload
     });
@@ -87,7 +84,6 @@ export const topicSlice = createSlice({
       }
     });
     builder.addCase(deleteForumTopic.fulfilled, (state, action,) => {
-      console.log("payload: ", action.payload)
       state.topics = state.topics.filter((topic) => topic.id !== action.payload.id)
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
