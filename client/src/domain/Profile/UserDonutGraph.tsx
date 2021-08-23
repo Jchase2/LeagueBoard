@@ -1,8 +1,10 @@
 import { useEffect, useState} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts'; 
+import { CanvasJS } from 'canvasjs';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Center, Box, Radio, RadioGroup, VStack, Divider, SimpleGrid } from "@chakra-ui/react"
 import { fetchUserInfo, setMatches, fetchMatches } from '../../redux/slices';
+import './styles.css';
 
 const UserDonutGraph = () => {
   const [userDeathHistory, setUserDeathHistory] = useState<any>({});
@@ -90,50 +92,57 @@ const UserDonutGraph = () => {
       } 
     };
 
+  const options = {
+    width:230,
+    height:230,
+    colorSet:  "customColorSet1",
+    theme: "light2",
+    title: {
+      text: `Stat Averages`,
+      fontColor: "#b5b5c6",
+    },
+    subtitles: [{
+      text: graph,
+      verticalAlign: "center",
+      fontSize: 24,
+      dockInsidePlotArea: true
+    }], 
+    backgroundColor: "transparent",
+    data: [{
+      type: "doughnut",
+      yValueFormatString: "##",
+      dataPoints: [
+        { name: "avg", y: userValue.avg },
+        { name: "low", y: userValue.low },
+        { name: "high", y: userValue.high }
+      ]
+    }]
+  };
+ /*  let chart:any = document.getElementById("chart");
+  let radioList:any = document.getElementById("radioList");
+  radioList.style.top = (chart.bounds.y2 - chart.bounds.y1) / 2 + "px";
+  radioList.style.left = (chart.bounds.x2 - chart.bounds.x1) / 2 - 20 + "px"; */
+
   return (
     <>
-      
-        <Box>
-          <SimpleGrid columns={2} spacing={1}>
-         <CanvasJSChart
-          options={{
-            width:230,
-            height:230,
-            colorSet:  "customColorSet1",
-            theme: "light2",
-            title: {
-              text: `Stat Averages`,
-              fontColor: "#b5b5c6",
-            },
-            subtitles: [{
-              text: graph,
-              verticalAlign: "center",
-              fontSize: 24,
-              dockInsidePlotArea: true
-            }], 
-            backgroundColor: "transparent",
-            data: [{
-              type: "doughnut",
-              yValueFormatString: "##",
-              dataPoints: [
-                { name: "avg", y: userValue.avg },
-                { name: "low", y: userValue.low },
-                { name: "high", y: userValue.high }
-              ]
-            }]
-          } }/>
-        
-          <RadioGroup defaultValue={' kills '} onChange={(value) => setValue(value)}>
-            <VStack>
-              <Radio value=" kills ">kills</Radio>
-              <Radio value="deaths">deaths</Radio>
-              <Radio value="assists">assists</Radio>
-            </VStack>
-          </RadioGroup>
-          </SimpleGrid>
-        </Box> 
+    <div>
+     
+      <div>
+        <CanvasJSChart id="chart" options={options}/>
+      </div>
+      <RadioGroup
+        id="radioList"
+        defaultValue={" kills "}
+        onChange={(value) => setValue(value)}>
+        <VStack>
+          <Radio value=" kills ">kills</Radio>
+          <Radio value="deaths">deaths</Radio>
+          <Radio value="assists">assists</Radio>
+        </VStack>
+      </RadioGroup>
+      </div>
     </>
-  )
+  );
 }
 
 export default UserDonutGraph

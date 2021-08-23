@@ -22,6 +22,7 @@
     "canvasjs": "^1.8.3",
     "canvasjs-react-charts": "^1.0.5",
     "framer-motion": "^4",
+    "html-react-parser": "^1.2.8",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",

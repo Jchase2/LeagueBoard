@@ -92,7 +92,7 @@ const ParticipationGraph = () => {
             colorSet: "customColorSet1",
             theme: "light2",
             title: {
-              text: `Participation Percentage`,
+              text: `Participation %`,
               fontColor: "#b5b5c6",
             },
             subtitles: [

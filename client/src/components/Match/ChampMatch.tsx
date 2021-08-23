@@ -1,5 +1,6 @@
 import { Flex, Image, Tooltip, Text } from "@chakra-ui/react";
 import { summonerSpells } from "../../utils/summonerSpells";
+import { runes } from "../../utils/runes"
 
 interface Props {
   championName: string;
@@ -18,6 +19,15 @@ const ChampMatch: React.FC<Props> = ({
 }) => {
   const spell2 = summonerSpells[0][`${SummonerSpell2}`];
   const spell1 = summonerSpells[0][`${SummonerSpell1}`];
+  const rune1View = runes[0][`${rune1}`];
+  const rune2View = runes[0][`${rune2}`];
+  console.log(runes);
+  console.log(rune1);
+
+   const runeview = runes.map((rune) => rune.slots)
+   console.log(runeview)
+   const idkwhatimdoing = runeview.map((rune) => rune)
+   console.log(idkwhatimdoing);
 
   return (
     <>

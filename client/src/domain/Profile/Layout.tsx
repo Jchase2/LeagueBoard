@@ -1,4 +1,4 @@
-import { Flex, useMediaQuery, Image, SimpleGrid, Center, Spinner } from "@chakra-ui/react"
+import { Flex, useMediaQuery, Image, SimpleGrid, Center, Spinner, Box } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import UserDonutGraph from "./UserDonutGraph";
@@ -41,26 +41,38 @@ const Layout: React.FC<Props> = (props: Props) => {
   
   return (
     <>
-    <Flex padding="20px" flexDirection={isLargerThan ? "row" : "column"}>
-    <Flex
-        h="500px"
-        minW="20vw"
-        justifyContent="center"
-        alignContent="center"
-        mb={isLargerThan ? 3 : 0}
-        mr={isLargerThan ? 0 : 6}
-      >
+    <Flex justifyContent="space-evenly" flexDirection={!isLargerThan ? "row" : "column"}>
+      <Box>
+        <Flex
+          h="500px"
+          minW="20vw"
+          justifyContent="center"
+          alignContent="center"
+          mb={isLargerThan ? 3 : 0}
+          mr={isLargerThan ? 0 : 6}
+        >
       
           <ProfileIcon
             users={user}
             userRank={userRank}
             regionName={regionName}
           />
-        
-      </Flex>
+        </Flex>
+        <br></br>  
+        <SimpleGrid columns={2} spacing={2}>
+          <Box>
+            <UserDonutGraph/>
+          </Box>
+          <ParticipationGraph/>
 
-    </Flex>
-    <Flex minW="50vw" justifyContent="center" alignContent="center">
+          
+ 
+        </SimpleGrid>
+
+      </Box>
+      
+
+      <Flex minW="50vw" justifyContent="center" alignContent="center">
         <Flex
           flexDirection="column"
           w="100%"
@@ -89,15 +101,8 @@ const Layout: React.FC<Props> = (props: Props) => {
           )}
         </Flex>
       </Flex>
-        <br/><br/>
-     
-        <SimpleGrid columns={2} spacing={2}>
-          
-            <ParticipationGraph/>
-
-            <UserDonutGraph/>
-          
-        </SimpleGrid>
+    </Flex>
+       
        
         
     </>
