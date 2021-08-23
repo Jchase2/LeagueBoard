@@ -4,7 +4,6 @@ import { IScrimmage } from "../../interfaces/Scrimmages";
 
 // Creates a thunk which wraps our async calls for redux.
 export const fetchScrimmages = createAsyncThunk(
-  //TODO CHANGE TO SCRIMMAGE
   "scrimmage/getScrimmage",
   async () => await axios
   .get(process.env.REACT_APP_BACKEND_URL + "/scrimmage" || "http://localhost:3001/scrimmage")
@@ -12,10 +11,9 @@ export const fetchScrimmages = createAsyncThunk(
 );
 
 export const createScrimmage = createAsyncThunk(
-  //TODO CHANGE TO SCRIMMAGE
   "scrimmage/createScrimmage",
   async (formData: IScrimmage) => await axios
-  .post(process.env.REACT_APP_BACKEND_URL + "/scrimmage" || "http://localhost:3001/scrimmage")
+  .post(process.env.REACT_APP_BACKEND_URL + "/scrimmage" || "http://localhost:3001/scrimmage", formData)
   .then((res: { data: any }) => res.data)
 );
 
@@ -28,6 +26,7 @@ export const scrimmageSlice = createSlice({
     status: "",
     error: "",
     scrimmages: [{
+      userid: "",
       date: "",
       time: "",
       bestOf: "",
@@ -60,6 +59,7 @@ export const scrimmageSlice = createSlice({
     });
 
     builder.addCase(createScrimmage.fulfilled, (state, action,) => {
+      console.log(action.payload, 'PAYLOAD');
       state.scrimmages = [action.payload, ...state.scrimmages];
     });
 
