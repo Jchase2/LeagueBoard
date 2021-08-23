@@ -11,6 +11,9 @@ export class Friend extends Model {
   @Column
   userfriend!: number;
 
+  @Column(DataType.ARRAY(DataType.INTEGER))
+  seenposts!: []
+
   @CreatedAt
   @Column
   created_at!: Date;

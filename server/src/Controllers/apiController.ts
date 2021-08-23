@@ -4,6 +4,8 @@ import { sequelize } from "../Models/index";
 const { Region } = require("../Models/region.model");
 const { User } = require("../Models/user.model");
 const { Matches } = require("../Models/match.model");
+import { Topic } from "../Models/topic.model";
+
 
 import {
   getMatchesByPuuid,
@@ -12,6 +14,7 @@ import {
   getSummonerEntriesByAccountIdAndRegion,
 } from "./utils";
 import { asyncForEach } from "../Utils/helpers";
+import { Friend } from "../Models/friend.model";
 const jwt = require("jsonwebtoken");
 
 export const getRegions = async (
@@ -146,3 +149,64 @@ export const getUserRanked = async (req: Request, res: Response, next: Function)
     next(err);
   }
 };
+
+export const addFriend = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { userid, friendid } = req.body;
+    const friend = await Friend.create({
+      userid: userid,
+      userfriend: friendid
+    });
+    res.status(201)
+    res.json(friend)
+  } catch(err){
+    next(err)
+  }
+}
+
+export const removeFriend = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { userid, friendid } = req.body;
+    const friend = await Friend.findOne({where: {userid: userid, userfriend: friendid}});
+    friend?.destroy()
+    res.status(204)
+  } catch(err){
+    next(err)
+  }
+}
+
+export const addSeen = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { userid, friendid, postid } = req.body;
+    const friend = await Friend.findOne({where: {userid: userid, userfriend: friendid}});
+
+    let friendArr = friend?.seenposts;
+    if(friendArr === null || friendArr === undefined || friendArr.length <= 0){
+      friendArr = [];
+    }
+    friend?.update({ seenposts: [...friendArr, postid] });
+    res.status(201)
+    res.json(friend)
+  } catch(err){
+    next(err)
+  }
+}
+
+
+export const checkFriend = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { userid, friendid } = req.body;
+    const friend: any = await Friend.findOne({where: {userid: userid, userfriend: friendid}});
+    const topics: any = await Topic.findAll({where: {userid: friendid}});
+
+    let newArray: number[] = [];
+    topics.map((topic: any) => {
+      if(!friend.seenposts?.includes(topic.id)){
+        newArray.push(topic.id)
+      }
+    })
+    res.json({newPosts: newArray})
+  } catch(err){
+    next(err)
+  }
+}

@@ -12,6 +12,10 @@ import {
   getMatches,
   getUserInfo,
   getUserRanked,
+  addFriend,
+  removeFriend,
+  addSeen,
+  checkFriend,
 } from "../Controllers/apiController";
 import {
   getForumTopics,
@@ -62,6 +66,11 @@ router.put("/topics/close/:topicid", closeForumTopic);
 router.get("/scrimmage", getAllScrimmages);
 router.get("/scrimmage/:id", getScrimmage);
 router.post("/scrimmage", postScrimmage);
+
+router.post("/friend/create", addFriend);
+router.delete("/friend/remove", removeFriend)
+router.put("/friend/seen", addSeen);
+router.post("/friend/check", checkFriend);
 
 router.get("/regions", getRegions);
 
