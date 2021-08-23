@@ -32,6 +32,19 @@ export const markSeen = createAsyncThunk(
   ).then((res: {data: any}) => res.data)
 );
 
+
+export const clearNotifications = createAsyncThunk(
+  "friends/clearNotifications",
+  async (userid: number) => await axios
+  .delete(process.env.REACT_APP_BACKEND_URL + '/friend/clear',
+    {
+     data: {
+       userid: userid
+     }
+    }
+  ).then((res: {data: any}) => res.data)
+);
+
 // Slice: Handles actions and reducers at the same time.
 export const friendSlice = createSlice({
   // Name of state and initial state
@@ -68,6 +81,18 @@ export const friendSlice = createSlice({
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
     builder.addCase(markSeen.rejected, (state, action: any) => {
+      if (action.payload) {
+        state.error = action.payload.errorMessage;
+      } else {
+        state.error = action.error;
+      }
+    });
+    builder.addCase(clearNotifications.fulfilled, (state, { payload }) => {
+      state.status = "resolved";
+      state.newPosts = [];
+    });
+    // TODO: Fix any on action. Should probably be type of fetchUserInfo
+    builder.addCase(clearNotifications.rejected, (state, action: any) => {
       if (action.payload) {
         state.error = action.payload.errorMessage;
       } else {

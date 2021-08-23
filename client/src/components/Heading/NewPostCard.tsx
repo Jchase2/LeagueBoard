@@ -1,5 +1,5 @@
 import { Props } from "framer-motion/types/types";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ITopicResp } from "../../interfaces";
 import { getTopicOwner, getForumTopic } from "../../api";

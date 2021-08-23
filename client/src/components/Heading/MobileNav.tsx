@@ -16,7 +16,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
+import { FiMenu, FiChevronDown } from "react-icons/fi";
 import { FaMoon, FaSun } from "react-icons/fa";
 import Searchbar from "../Searchbar/Searchbar";
 import { useEffect } from "react";

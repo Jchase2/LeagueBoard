@@ -5,12 +5,13 @@ import {
   MenuButton,
   Menu,
   IconButton,
+  Button,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { FiBell } from "react-icons/fi";
 import { VscBellDot } from 'react-icons/vsc';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkFriends } from "../../redux/slices/friendsSlice";
+import { checkFriends, clearNotifications } from "../../redux/slices/friendsSlice";
 import NewPostCard from "./NewPostCard";
 
 const NewPosts = () => {
@@ -21,6 +22,12 @@ const NewPosts = () => {
   useEffect(() => {
     dispatch(checkFriends(user.id));
   }, [dispatch, user.id]);
+
+  const handleClear = async () => {
+    if(user.id){
+      dispatch(clearNotifications(user.id))
+    }
+  }
 
   return (
     <Menu>
@@ -50,6 +57,9 @@ const NewPosts = () => {
         bg={useColorModeValue("#F0F8FF", "gray.900")}
         borderColor={useColorModeValue("gray.200", "gray.700")}
       >
+        <MenuItem>
+          <Button onClick={() => handleClear()}>Clear All</Button>
+        </MenuItem>
         {(friendsPosts.length > 0 && user) &&
           friendsPosts.map((topic) => (
             <MenuItem>
