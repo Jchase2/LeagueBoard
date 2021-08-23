@@ -1,4 +1,5 @@
 export interface IScrimmage {
+  userid: number,
   date: string,
   time: string,
   bestOf: string,
