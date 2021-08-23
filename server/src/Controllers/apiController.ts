@@ -192,20 +192,33 @@ export const addSeen = async (req: Request, res: Response, next: Function) => {
   }
 }
 
-export const checkFriend = async (req: Request, res: Response, next: Function) => {
+export const checkFriends = async (req: Request, res: Response, next: Function) => {
   try {
-    let { userid, friendid } = req.body;
-    const friend: any = await Friend.findOne({where: {userid: userid, userfriend: friendid}});
-    const topics: any = await Topic.findAll({where: {userid: friendid}});
+    let { userid } = req.body;
+    const friends: any = await Friend.findAll({where: { userid: userid }});
 
-    let newArray: number[] = [];
-    topics.map((topic: any) => {
-      if(!friend.seenposts?.includes(topic.id)){
-        newArray.push(topic.id)
+    // list of all friends
+    let friendsList: number[] = [];
+    let seenArray: number[] = [];
+    friends.forEach((friend: any) => {
+      friendsList.push(friend.dataValues.userfriend);
+      friend.dataValues.seenposts?.forEach((val: number) => {
+        seenArray.push(val);
+      })
+    });
+
+    let allTopics: any[] = await Topic.findAll({});
+    let allFriendsTopics: number[] = [];
+    allTopics.forEach((topic: any) => {
+      if(friendsList.includes(topic.userid)){
+        allFriendsTopics.push(topic.id)
       }
     })
-    res.json({newPosts: newArray})
+    let newFriendPosts = allFriendsTopics.filter(post => !seenArray.includes(post));
+    res.status(200)
+    res.json(newFriendPosts)
   } catch(err){
     next(err)
   }
 }
+

@@ -15,7 +15,7 @@ import {
   addFriend,
   removeFriend,
   addSeen,
-  checkFriend,
+  checkFriends,
 } from "../Controllers/apiController";
 import {
   getForumTopics,
@@ -70,7 +70,7 @@ router.post("/scrimmage", postScrimmage);
 router.post("/friend/create", addFriend);
 router.delete("/friend/remove", removeFriend)
 router.put("/friend/seen", addSeen);
-router.post("/friend/check", checkFriend);
+router.post("/friend/check", checkFriends);
 
 router.get("/regions", getRegions);
 
