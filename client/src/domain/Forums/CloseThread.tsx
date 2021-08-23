@@ -15,10 +15,12 @@ const CloseThread: React.FC<Props> = ({ threadData, setThreadData }) => {
   const user = useAppSelector((state) => state.userReducer.userState);
 
   useEffect(() => {
-    dispatch(fetchComments(threadData.id));
-    getTopicOwner(threadData.id).then((owner) => {
-      setThreadCreator(owner?.id);
-    });
+    if (threadData.id) {
+      dispatch(fetchComments(threadData.id));
+      getTopicOwner(threadData.id).then((owner) => {
+        setThreadCreator(owner?.id);
+      });
+    }
   }, [dispatch, threadData.id]);
 
   const closeThread = () => {
