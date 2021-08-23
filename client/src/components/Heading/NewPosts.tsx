@@ -63,7 +63,7 @@ const NewPosts = () => {
         </MenuItem>
         {(friendsPosts.length > 0 && user) &&
           friendsPosts.map((topic) => (
-            <MenuItem>
+            <MenuItem key={topic}>
               <NewPostCard threadid={topic} user={user} />
             </MenuItem>
           ))}
