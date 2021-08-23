@@ -33,13 +33,13 @@ const CloseThread: React.FC<Props> = ({ threadData, setThreadData }) => {
     });
   };
 
-  return threadData.closed && threadCreator === user.id ? (
+  return threadData.closed && threadCreator === user?.id ? (
     <Button onClick={() => closeThread()} m={1}>
       Open Topic
     </Button>
   ) : (
     <>
-      {threadCreator === user.id && (
+      {threadCreator === user?.id && (
         <Button onClick={() => closeThread()} m={1}>
           Close Topic
         </Button>

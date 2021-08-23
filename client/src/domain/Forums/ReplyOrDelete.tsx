@@ -32,7 +32,7 @@ const ReplyOrDelete: React.FC<Props> = ({ isReply, setIsReply, thread }) => {
     setIsReply(true);
   };
 
-  return !isReply ? (
+  return !isReply && user ? (
     <>
       {!thread.closed && (
         <Button onClick={() => handleSubmit()} m={1}>

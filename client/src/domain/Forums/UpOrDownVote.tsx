@@ -18,7 +18,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
   const [voteCount, setVoteCount] = useState<number>(0);
 
   useEffect(() => {
-    if (thread.id) {
+    if (thread.id && user) {
       getTopicOwner(thread.id).then((owner) => {
         setThreadCreator(owner?.id);
       });
@@ -32,7 +32,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
         setVoteCount(res?.votes);
       });
     }
-  }, [thread.id, threadCreator, user.id]);
+  }, [thread.id, threadCreator, user]);
 
   const handleClick = async (val) => {
     !hasVoted ? setVoteCount(voteCount + val) : setVoteCount(voteCount + (val * 2))
@@ -43,7 +43,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
 
   return (
     <VStack>
-      {hasVoted === false ? (
+      {hasVoted === false && user ? (
         <>
           <IconButton
             onClick={() => handleClick(1)}
@@ -63,7 +63,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             icon={<BiDownvote />}
           />{" "}
         </>
-      ) : hasVoted && votedValue === 1 ? (
+      ) : hasVoted && votedValue === 1 && user ? (
         <>
           <IconButton
             onClick={() => handleClick(1)}
@@ -83,7 +83,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             icon={<BiDownvote />}
           />
         </>
-      ) : (
+      ) : user ? (
         <>
           <IconButton
             onClick={() => handleClick(1)}
@@ -103,7 +103,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             icon={<BiDownvote />}
           />{" "}
         </>
-      )}
+      ) : <></>}
     </VStack>
   );
 };
