@@ -178,3 +178,20 @@ export const postForumTopic = async (
     next(err);
   }
 };
+
+export const getParentId = async (req: Request, res: Response, next: Function) => {
+  try {
+    const { id } = req.params;
+    let topic: any = await Topic.findByPk(id);
+    let parentid = topic.parentid;
+    let lastParentId = -1;
+    while(parentid && parentid > 0){
+      topic = await Topic.findByPk(topic.parentid)
+      parentid = topic.parentid;
+      lastParentId = topic.id
+    }
+    res.json({grandparent: lastParentId})
+  } catch (err){
+    next(err);
+  }
+}

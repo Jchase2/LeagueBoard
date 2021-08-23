@@ -27,6 +27,7 @@ const ThreadPage: React.FC = () => {
     created_at: "",
     updated_at: "",
   });
+
   const [isReply, setIsReply] = useState(false);
 
   useEffect(() => {

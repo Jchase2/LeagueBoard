@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ITopic } from "../../interfaces";
 
@@ -56,7 +56,9 @@ export const topicSlice = createSlice({
   },
 
   // All reducer functions
-  reducers: {},
+  reducers: {
+    deleteComment: (state, action: PayloadAction<number>) => { state.topics.filter(comment => comment.id !== action.payload) },
+  },
 
   // Will create fetchUserInfo action that can be used via dispatch
   extraReducers: (builder) => {

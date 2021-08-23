@@ -23,7 +23,8 @@ import {
   voteTopic,
   getVote,
   getVoteCount,
-  deleteForumTopic
+  deleteForumTopic,
+  getParentId
 } from "../Controllers/forumsController";
 import {
   getAllScrimmages,
@@ -47,6 +48,7 @@ router.post("/matches/update/:puuid", updateMatchesInDb);
 // FORUMS
 router.get("/topics", getForumTopics);
 router.get("/topics/comments/:parentid", getForumComments);
+router.get("/topics/grandparent/:id", getParentId)
 router.get("/topics/user/:topicid", getForumOwner);
 router.get("/topics/:topicid", getForumTopicById);
 router.put("/vote", voteTopic);
@@ -56,6 +58,7 @@ router.post("/topics", postForumTopic);
 router.delete("/topics/:topicid", deleteForumTopic);
 router.put("/topics/close/:topicid", closeForumTopic);
 
+// SCRIMMAGE
 router.get("/scrimmage", getAllScrimmages);
 router.get("/scrimmage/:id", getScrimmage);
 router.post("/scrimmage", postScrimmage);

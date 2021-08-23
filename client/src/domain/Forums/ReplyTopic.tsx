@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Props } from "framer-motion/types/types";
 import { createNewTopic, fetchComments, fetchUserInfo } from "../../redux/slices";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getGrandParent } from "../../api";
 
 const ReplyTopic: React.FC<Props> = ({thread, setIsReply}) => {
 
@@ -28,12 +29,12 @@ const ReplyTopic: React.FC<Props> = ({thread, setIsReply}) => {
     closed: false,
   });
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      dispatch(createNewTopic(topicData)).then(() => {
-        dispatch(fetchComments(thread.id))
-      })
+      let gpTopic = await getGrandParent(thread.id);
+      await dispatch(createNewTopic(topicData))
+      await dispatch(fetchComments(gpTopic.grandparent))
       setIsReply(false);
     } catch (error) {
       console.log(error)

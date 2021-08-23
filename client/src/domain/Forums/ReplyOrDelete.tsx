@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { deleteForumTopic, fetchComments } from "../../redux/slices";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getTopicOwner } from "../../api";
+import { getTopicOwner, getGrandParent } from "../../api";
 
 const ReplyOrDelete: React.FC<Props> = ({ isReply, setIsReply, thread }) => {
   const dispatch = useAppDispatch();
@@ -19,10 +19,10 @@ const ReplyOrDelete: React.FC<Props> = ({ isReply, setIsReply, thread }) => {
     });
   }, [thread.id]);
 
-  const handleDelete = () => {
-    dispatch(deleteForumTopic(thread.id)).then(() => {
-      dispatch(fetchComments(thread.parentid));
-    });
+  const handleDelete = async () => {
+    let gpTopic = await getGrandParent(thread.id);
+    await dispatch(deleteForumTopic(thread.id));
+    await dispatch(fetchComments(gpTopic.grandparent))
     if (!thread.parentid) {
       history.push("/topics");
     }
@@ -30,7 +30,6 @@ const ReplyOrDelete: React.FC<Props> = ({ isReply, setIsReply, thread }) => {
 
   const handleSubmit = () => {
     setIsReply(true);
-    dispatch(fetchComments(thread.id));
   };
 
   return !isReply ? (

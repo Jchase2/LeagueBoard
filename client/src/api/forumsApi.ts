@@ -76,3 +76,11 @@ export const getForumTopic = async (topicid: number) => {
     )
     .then((res: { data: any }) => res.data);
 };
+
+export const getGrandParent = async (topicid: number) => {
+  return axios
+    .get(
+      process.env.REACT_APP_BACKEND_URL + `/topics/grandparent/${topicid}` ||
+      `http://localhost:3001/topics/grandparent/${topicid}`
+    ).then((res: { data: any }) => res.data);
+}
