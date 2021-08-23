@@ -37,10 +37,12 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
   }, [thread.id, threadCreator, user]);
 
   const handleClick = async (val) => {
-    !hasVoted ? setVoteCount(voteCount + val) : setVoteCount(voteCount + (val * 2))
+    // !hasVoted ? setVoteCount(voteCount + val) : setVoteCount(voteCount + (val * 2))
     setHasVoted(true);
     setVotedValue(val);
     await voteTopic(thread.id, user.id, val);
+    let vc = await getVoteCount(thread.id)
+    setVoteCount(vc.votes)
   };
 
   return (
