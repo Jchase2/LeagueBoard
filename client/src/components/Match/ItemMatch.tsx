@@ -27,84 +27,137 @@ export const ItemMatch: React.FC<Props> = ({
     const item5View = items[0]?.data[0][`${item5}`]
   return (
     <>
-    <Flex
-      flexDirection="column"
-      h="100%"
-      maxH="83px"
-      maxW="150px"
-      margin="1px"
-      padding="1px"
-    >
       <Flex
-        h="50%"
-        flexDirection="row"
+        flexDirection="column"
+        h="100%"
+        maxH="83px"
+        maxW="150px"
+        margin="1px"
         padding="1px"
-        justifyContent="space-evenly"
       >
-        <Tooltip hasArrow  label={<> {item0View?.name} : {parse(`${item0View?.description}`)}   </>}>
-          <Image
-            src={
-              item0 !== 0
-                ? `https://opgg-static.akamaized.net/images/lol/item/${item0}.png?image=q_auto:best&v=1628647804`
-                : ""
+        <Flex
+          h="50%"
+          flexDirection="row"
+          padding="1px"
+          justifyContent="space-evenly"
+        >
+          <Tooltip
+            hasArrow
+            label={
+              <>
+                {" "}
+                {item0View?.name} : {parse(`${item0View?.description}`)}{" "}
+              </>
             }
-            borderRadius="10px"
-          />
-        </Tooltip>
-        <Tooltip hasArrow label={<> {item1View?.name} : {parse(`${item1View?.description}`)}   </>}>
-          <Image
-            src={
-              item1 !== 0
-                ? `https://opgg-static.akamaized.net/images/lol/item/${item1}.png?image=q_auto:best&v=1628647804`
-                : ""
+          >
+            <Image
+              src={
+                item0 !== 0
+                  ? `https://opgg-static.akamaized.net/images/lol/item/${item0}.png?image=q_auto:best&v=1628647804`
+                  : ""
+              }
+              borderRadius="10px"
+            />
+          </Tooltip>
+          <Tooltip
+            hasArrow
+            label={
+              <>
+                {" "}
+                {item1View?.name} : {parse(`${item1View?.description}`)}{" "}
+              </>
             }
-            borderRadius="10px"
-          />
-        </Tooltip>
-        <Tooltip hasArrow label={<> {item2View?.name} : {parse(`${item2View?.description}`)}   </>}>
-          <Image
-            src={
-              item2 !== 0
-                ? `https://opgg-static.akamaized.net/images/lol/item/${item2}.png?image=q_auto:best&v=1628647804`
-                : ""
+          >
+            <Image
+              src={
+                item1 !== 0
+                  ? `https://opgg-static.akamaized.net/images/lol/item/${item1}.png?image=q_auto:best&v=1628647804`
+                  : ""
+              }
+              borderRadius="10px"
+            />
+          </Tooltip>
+          <Tooltip
+            hasArrow
+            label={
+              <>
+                {" "}
+                {item2View?.name} : {parse(`${item2View?.description}`)}{" "}
+              </>
             }
-            borderRadius="10px"
-          />
-        </Tooltip>
+          >
+            <Image
+              src={
+                item2 !== 0
+                  ? `https://opgg-static.akamaized.net/images/lol/item/${item2}.png?image=q_auto:best&v=1628647804`
+                  : ""
+              }
+              borderRadius="10px"
+            />
+          </Tooltip>
+        </Flex>
+        <Flex
+          h="50%"
+          flexDirection="row"
+          padding="1px"
+          justifyContent="space-evenly"
+        >
+          <Tooltip
+            hasArrow
+            label={
+              <>
+                {" "}
+                {item3View?.name} : {parse(`${item3View?.description}`)}{" "}
+              </>
+            }
+          >
+            <Image
+              src={
+                item3 !== 0
+                  ? `https://opgg-static.akamaized.net/images/lol/item/${item3}.png?image=q_auto:best&v=1628647804`
+                  : ""
+              }
+              borderRadius="10px"
+            />
+          </Tooltip>
+          <Tooltip
+            hasArrow
+            label={
+              <>
+                {" "}
+                {item4View?.name} : {parse(`${item4View?.description}`)}{" "}
+              </>
+            }
+          >
+            <Image
+              src={
+                item4 !== 0
+                  ? `https://opgg-static.akamaized.net/images/lol/item/${item4}.png?image=q_auto:best&v=1628647804`
+                  : ""
+              }
+              borderRadius="10px"
+            />
+          </Tooltip>
+          <Tooltip
+            hasArrow
+            label={
+              <>
+                {" "}
+                {item5View?.name} : {parse(`${item5View?.description}`)}{" "}
+              </>
+            }
+          >
+            <Image
+              src={
+                item5 !== 0
+                  ? `https://opgg-static.akamaized.net/images/lol/item/${item5}.png?image=q_auto:best&v=1628647804`
+                  : ""
+              }
+              borderRadius="10px"
+            />
+          </Tooltip>
+        </Flex>
       </Flex>
-      <Flex h="50%" flexDirection="row" padding="1px" justifyContent="center">
-        <Tooltip hasArrow label={<> {item3View?.name} : {parse(`${item3View?.description}`)}   </>}>
-          <Image
-            src={
-              item3 !== 0
-                ? `https://opgg-static.akamaized.net/images/lol/item/${item3}.png?image=q_auto:best&v=1628647804`
-                : ""
-            }
-            borderRadius="10px"
-          />
-        </Tooltip>
-        <Tooltip hasArrow label={<> {item4View?.name} : {parse(`${item4View?.description}`)}   </>}>
-          <Image
-            src={
-              item4 !== 0
-                ? `https://opgg-static.akamaized.net/images/lol/item/${item4}.png?image=q_auto:best&v=1628647804`
-                : ""
-            }
-            borderRadius="10px"
-          />
-        </Tooltip>
-        <Tooltip hasArrow label={<> {item5View?.name} : {parse(`${item5View?.description}`)}   </>}>
-          <Image
-            src={
-              item5 !== 0
-                ? `https://opgg-static.akamaized.net/images/lol/item/${item5}.png?image=q_auto:best&v=1628647804`
-                : ""
-            }
-            borderRadius="10px"
-          />
-        </Tooltip>
-      </Flex>
-    </Flex>
     </>
   );
 };

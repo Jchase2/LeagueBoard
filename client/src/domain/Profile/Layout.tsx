@@ -14,7 +14,7 @@ import { useState } from "react";
 
 interface Props {}
 
-const Layout: React.FC<Props> = (props: Props) => {
+const Layout: React.FC<Props> = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userReducer.userState);
   const userRank = useAppSelector((state) => state.userReducer.userRank);
@@ -22,14 +22,14 @@ const Layout: React.FC<Props> = (props: Props) => {
   const matches = useAppSelector((state) => state.matchReducer.matchState);
   let regionName: any
   const [isLargerThan] = useMediaQuery("(max-width:1050px)");
-  if(regions) { regionName = regions[user?.regionid - 1]?.name; }
+  if(regions) { regionName = regions[user?.regionid - 1]?.name }
   const [loading, setLoading] = useState<boolean>(false)
 
    const handleLoad = () => {
      setLoading(true);
      setTimeout(() => {
        setLoading(false);
-     }, 1400);
+     }, 900);
    };
 
   useEffect(() => {
