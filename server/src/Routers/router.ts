@@ -12,11 +12,13 @@ import {
   getMatches,
   getUserInfo,
   getUserRanked,
+} from "../Controllers/apiController";
+import {
   addFriend,
   removeFriend,
   addSeen,
-  checkFriends,
-} from "../Controllers/apiController";
+  checkFriends
+} from "../Controllers/friendsController";
 import {
   getForumTopics,
   postForumTopic,
