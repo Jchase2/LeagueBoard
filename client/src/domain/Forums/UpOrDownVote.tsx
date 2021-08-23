@@ -17,14 +17,12 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
   const [votedValue, setVotedValue] = useState<number>(0);
   const [voteCount, setVoteCount] = useState<number>(0);
 
-  console.log(user)
   useEffect(() => {
     if (thread.id) {
       getTopicOwner(thread.id).then((owner) => {
         setThreadCreator(owner?.id);
       });
       getVotes(thread.id, user.id).then((res) => {
-        console.log("RES: ", res);
         if (res?.value && (user.id === res.userid)) {
           setHasVoted(true);
           setVotedValue(res.value);
