@@ -72,6 +72,7 @@ const PlayerCard: React.FC<Props> = ({
                   deaths={participant?.deaths}
                   assists={participant?.assists}
                 />
+                {!isLargerThan &&
                 <CSMatch
                   champLevel={participant?.champLevel}
                   totalMinionsKilled={participant?.totalMinionsKilled}
@@ -79,14 +80,14 @@ const PlayerCard: React.FC<Props> = ({
                   kills={participant?.kills}
                   totalKill={totalKill}
                   assists={participant?.assists}
-                />
+                />}
                 <ItemMatch
+                  item0={participant?.item0}
                   item1={participant?.item1}
                   item2={participant?.item2}
                   item3={participant?.item3}
                   item4={participant?.item4}
                   item5={participant?.item5}
-                  item6={participant?.item6}
                 />
               </Flex>
             )}
