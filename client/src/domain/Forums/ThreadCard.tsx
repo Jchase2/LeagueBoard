@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer } from "@chakra-ui/react";
+import { Box, Divider, Flex } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { Link } from "react-router-dom";
 import { Text } from "@chakra-ui/layout";
@@ -6,44 +6,34 @@ import { ByComp, UpOrDownVote } from "./";
 
 const Forums: React.FC<Props> = ({ thread }) => {
   return (
-    <Link to={`/topic/${thread.id}`}>
-      <Flex
-        p={4}
-        borderWidth="1px"
-        borderRadius="lg"
-        m={2}
-        w="50vw"
-        flexDirection="column"
-        justifyContent="center"
-        alignContent="center"
+    // <Link to={`/topic/${thread.id}`}>
+    //   {thread.title}
+    //   {thread.id && <UpOrDownVote thread={thread} />}
+    //   <Text isTruncated>{thread.text}</Text>
+    //   {thread.id && <ByComp thread={thread} />}
+    // </Link>
+    <Flex color="white" borderRadius="lg" borderWidth="2px" m="2" p="2">
+      <Box minW="50px" w="5vw" p={2} m={1}>
+        {thread.id && <UpOrDownVote thread={thread} />}
+      </Box>
+      <Box
+        minW="200px"
+        w="40vw"
+        p={2}
+        m={1}
       >
-        <Flex direction="row">
-          <Text
-            flexWrap="wrap"
-            overflow="hidden"
-            max-width="75ch"
-            textOverflow="ellipsis"
-          >
-            {thread.title}
+        <Link to={`/topic/${thread.id}`}>
+          <Box>
+            <Text isTruncated>{thread.title}</Text>
+          </Box>
+          <Divider size="sm"/>
+          <Text isTruncated mt={2}>
+            {thread.text}
           </Text>
-
-          <Spacer />
-          {thread.id && <UpOrDownVote thread={thread} />}
-        </Flex>
-        <Box border="1px" borderRadius="lg" p={2} m={2} color="gray.500">
-          <Text isTruncated>{thread.text}</Text>
-        </Box>
-        <Flex
-          color="gray.500"
-          fontWeight="semibold"
-          letterSpacing="wide"
-          fontSize="xs"
-          textTransform="uppercase"
-        >
           {thread.id && <ByComp thread={thread} />}
-        </Flex>
-      </Flex>
-    </Link>
+        </Link>
+      </Box>
+    </Flex>
   );
 };
 
