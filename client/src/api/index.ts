@@ -1,0 +1,1 @@
+export { closeForumTopic, getForumTopic, getTopicOwner, getVotes, voteTopic, getVoteCount } from './forumsApi';

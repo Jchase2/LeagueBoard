@@ -7,7 +7,7 @@ import {
   getVotes,
   voteTopic,
   getVoteCount,
-} from "../../api/api";
+} from "../../api";
 import { useAppSelector } from "../../redux/hooks";
 
 const UpOrDownVote: React.FC<Props> = ({ thread }) => {

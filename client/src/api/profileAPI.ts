@@ -1,12 +1,6 @@
 import axios from "axios";
+import { config } from './config';
 //API request for user information
-
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + localStorage.getItem("accessToken"),
-  },
-};
 
 export const getUserMatches = async (puuid: string) => {
   return axios

@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { useEffect, useState } from "react";
-import { getTopicOwner } from "../../api/api";
+import { getTopicOwner } from "../../api";
 
 const DateComp: React.FC<Props> = ({ thread }) => {
   const [threadCreator, setThreadCreator] = useState<String>("");

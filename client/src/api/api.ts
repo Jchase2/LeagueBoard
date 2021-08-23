@@ -1,20 +1,7 @@
 import axios from "axios";
-import { ITopic } from "../interfaces";
 import { IRegisterForm } from "../interfaces/RegisterForm";
 import { setToken } from "./helpers";
-
-// Api file, for now all API calls will be handled from here.
-// If we end up with lots of different calls to the backend, we
-// can split this out into multiple files.
-// add catch blocks lol
-// Post request to signup
-
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + localStorage.getItem("accessToken"),
-  },
-};
+import { config } from './config';
 
 export const signUp = async (
   formData: IRegisterForm,
@@ -97,32 +84,6 @@ export const getRegions = async () => {
     .catch((err) => console.log(err));
 };
 
-export const getForumTopic = async (topicid: number) => {
-  return axios
-    .get(
-      process.env.REACT_APP_BACKEND_URL + `/topics/${topicid}` ||
-        `http://localhost:3001/topics/${topicid}`
-    )
-    .then((res: { data: any }) => res.data);
-};
-
-export const createNewTopic = async (formData: ITopic) => {
-  return axios
-    .post(
-      process.env.REACT_APP_BACKEND_URL + "/topics" ||
-        "http://localhost:3000/topics",
-      {
-        title: formData.title,
-        text: formData.text,
-        userid: formData.userid,
-        closed: formData.closed,
-        parentid: formData.parentid,
-      }
-    )
-    .then((res: { data: any }) => res.data)
-    .catch((err) => console.log(err));
-};
-
 export const signIn = async (form: any) => {
   return axios
     .post(
@@ -133,73 +94,5 @@ export const signIn = async (form: any) => {
       setToken(res);
       return res;
     })
-    .catch((err) => console.log(err));
-};
-
-export const getTopicOwner = async (id: number) => {
-  return axios
-    .get(
-      process.env.REACT_APP_BACKEND_URL + `/topics/user/${id}` ||
-        `localhost:3001/topics/user/${id}`
-    )
-    .then((res: { data: any }) => res.data)
-    .catch((err) => console.log(err));
-};
-
-export const closeForumTopic = async (id: number, state: boolean) => {
-  return axios
-    .put(
-      process.env.REACT_APP_BACKEND_URL + `/topics/close/${id}` ||
-        `localhost:3001/topics/close/${id}`,
-      {
-        topicid: id,
-        state: state,
-      }
-    )
-    .then((res: { data: any }) => res.data)
-    .catch((err) => console.log(err));
-};
-
-export const voteTopic = async (
-  topicid: number,
-  userid: number,
-  vote: number
-) => {
-  return axios
-    .put(
-      process.env.REACT_APP_BACKEND_URL + `/vote` ||
-        `localhost:3001/vote`,
-      {
-        topicid,
-        userid,
-        value: vote,
-      }
-    )
-    .then((res: { data: any }) => res.data)
-    .catch((err) => console.log(err));
-};
-
-export const getVotes = async (id: number, userid: number) => {
-  return axios
-    .get(
-      process.env.REACT_APP_BACKEND_URL + `/vote/${id}` ||
-        "localhost:3001/vote",
-      {
-        headers: {
-          userid: userid,
-        },
-      }
-    )
-    .then((res: { data: any }) => res.data)
-    .catch((err) => console.log(err));
-};
-
-export const getVoteCount = async (id: number) => {
-  return axios
-    .get(
-      process.env.REACT_APP_BACKEND_URL + `/votescore/${id}` ||
-        "localhost:3001/votescore",
-    )
-    .then((res: { data: any }) => res.data)
     .catch((err) => console.log(err));
 };

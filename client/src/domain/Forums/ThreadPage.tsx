@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Flex, Text, Button, Spacer } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
-import { getForumTopic } from "../../api/api";
+import { getForumTopic } from "../../api";
 import { useParams, useHistory } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
 import { fetchUserInfo } from "../../redux/slices";

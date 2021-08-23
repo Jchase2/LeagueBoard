@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { deleteForumTopic, fetchComments } from "../../redux/slices";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getTopicOwner } from "../../api/api";
+import { getTopicOwner } from "../../api";
 
 const ReplyOrDelete: React.FC<Props> = ({ isReply, setIsReply, thread }) => {
   const dispatch = useAppDispatch();

@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useEffect, useState } from "react";
 import { fetchComments } from "../../redux/slices";
-import { closeForumTopic, getTopicOwner } from "../../api/api";
+import { closeForumTopic, getTopicOwner } from '../../api';
 import { Button } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 
