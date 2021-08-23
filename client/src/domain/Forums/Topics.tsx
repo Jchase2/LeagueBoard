@@ -1,32 +1,42 @@
-import { Flex, Box, Heading, Button, InputGroup, Input, useColorModeValue, Icon, InputLeftAddon } from "@chakra-ui/react";
-import { LinkIcon, SearchIcon } from "@chakra-ui/icons";
-import { IoMdCreate } from "react-icons/io"
+import {
+  Flex,
+  Box,
+  Heading,
+  InputGroup,
+  Input,
+  useColorModeValue,
+  InputLeftAddon,
+} from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchUserInfo, fetchForumTopics } from "../../redux/slices";
 import { MapTopics } from "./";
 import { ITopic } from "../../interfaces";
+import CreateTopicsButton from "./CreateTopicButton";
 
 const Topics: React.FC = () => {
 
-  let history = useHistory();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.userReducer.userState);
+
 
   const [filteredTopics, setFilteredTopics] = useState<ITopic[]>([]);
-  const [query, setQuery] = useState<string>('');
+  const [query, setQuery] = useState<string>("");
   const topics = useAppSelector((state) => state.topicsReducer.topics);
 
   useEffect(() => {
     dispatch(fetchForumTopics());
-    dispatch(fetchUserInfo())
+    dispatch(fetchUserInfo());
   }, [dispatch]);
 
-  const filteringTopics = (value:string) => {
+  const filteringTopics = (value: string) => {
     setQuery(value);
-    const result = topics.filter(topic => topic.title.toLowerCase().includes(value));
+    const result = topics.filter((topic) =>
+      topic.title.toLowerCase().includes(value)
+    );
     setFilteredTopics(result);
-  }
+  };
 
   return (
     <Flex minH="100vh" align="center" flexDirection="column">
@@ -50,33 +60,7 @@ const Topics: React.FC = () => {
               minW="40vw"
             />
           </InputGroup>
-          <Button
-            size="lg"
-            boxShadow="lg"
-            colorScheme={useColorModeValue("#F0F8FF", "black")}
-            onClick={() => history.push("/topics/create")}
-            mb={4}
-            padding="30px"
-            minW="40vw"
-          >
-            <Icon
-              as={IoMdCreate}
-              color={useColorModeValue("Black", "white")}
-              marginRight="10px"
-            ></Icon>
-            <Input
-              size="sm"
-              backgroundColor={useColorModeValue("#F0F8FF", "gray.900")}
-              borderRadius="10px"
-              type="tel"
-              placeholder="Create Thread"
-            />
-            <Icon
-              as={LinkIcon}
-              color={useColorModeValue("Black", "white")}
-              marginLeft="10px"
-            ></Icon>
-          </Button>
+          {user && <CreateTopicsButton />}
         </Flex>
         <Flex
           flexDirection="column"
