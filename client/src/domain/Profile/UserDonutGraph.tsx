@@ -28,7 +28,7 @@ const UserDonutGraph = () => {
 
     useEffect(() => {
       const matchFunction = async () => {
-        let current = user.summoner_name;
+        let current = user.summoner_name.toLowerCase();
         let userKills = { avg: 0, high: 0, low: 0 };
         let userDeaths = { avg: 0, high: 0, low: 0 };
         let userAssists = { avg: 0, high: 0, low: 0 };
@@ -42,7 +42,7 @@ const UserDonutGraph = () => {
             let matchInfo = matches[i];
             let participants = matchInfo["participants"];
             participants.forEach((element) => {
-              if (element["summonerName"] === current) resultArr.push(element);
+              if (element["summonerName"].toLowerCase() === current) resultArr.push(element);
             });
           }
         }
@@ -86,7 +86,6 @@ const UserDonutGraph = () => {
       }
       if (value === 'assists') {
         setUserValue(userAssistHistory)
-        console.log(value)
         setGraph(value)
       } 
     };
@@ -94,7 +93,8 @@ const UserDonutGraph = () => {
   return (
     <>
       
-        <SimpleGrid columns={2} spacing={5}>
+        <Box>
+          <SimpleGrid columns={2} spacing={1}>
          <CanvasJSChart
           options={{
             width:230,
@@ -130,7 +130,8 @@ const UserDonutGraph = () => {
               <Radio value="assists">assists</Radio>
             </VStack>
           </RadioGroup>
-        </SimpleGrid> 
+          </SimpleGrid>
+        </Box> 
     </>
   )
 }

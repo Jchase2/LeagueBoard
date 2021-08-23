@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import mockScrimmage from './mockdata';
+import { mockScrimmage } from './mockdata';
 import { IPlayer } from './MockInterface';
 import { Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td,  SimpleGrid, Center} from "@chakra-ui/react";
 

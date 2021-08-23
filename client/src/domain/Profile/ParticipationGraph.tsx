@@ -28,7 +28,7 @@ const ParticipationGraph = () => {
       const match = async () => {
         let usersTeam: number;
         let participation = {user: 0, team: 0}
-        let current = user.summoner_name;
+        let current = user.summoner_name.toLowerCase();
         let resultArr: any[] = [];
         let teamArr: any[] = [];
         let kills: any[] = [];
@@ -40,7 +40,7 @@ const ParticipationGraph = () => {
             let currentparticipants = matchInfo["participants"];
             let participants = matchInfo["participants"];
             participants.forEach((element) => {
-              if (element["summonerName"] === current) {
+              if (element["summonerName"].toLowerCase() === current) {
                 usersTeam = element["teamId"];
                 resultArr.push(element);
               }

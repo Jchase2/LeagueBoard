@@ -1,4 +1,4 @@
-import { Scrimmage } from '../../domain/Dashboard/Scrimmage/ScrimmageTable';
+//import { Scrimmage } from '../../domain/Dashboard/Scrimmage/ScrimmageTable';
 import { EReduxActionTypes, IReduxBaseAction } from '../actions/ActionTypes';
 import { IScrimmage } from '../../interfaces/Scrimmage';
 
@@ -12,7 +12,7 @@ const scrimmageReducer = (scrimmages: IScrimmage[] = [], action:IReduxBaseAction
     case EReduxActionTypes.UPDATE_UPCOMING_SCRIMMAGES:
       return action.payload;
     default:
-      return Scrimmage;
+      return;
   }
 };
 

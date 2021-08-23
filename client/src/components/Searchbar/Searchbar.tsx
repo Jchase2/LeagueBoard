@@ -1,10 +1,10 @@
 import { InputGroup, InputLeftAddon, Input, Container } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import React,{ useEffect, useState } from "react";
-import { fetchForumTopics } from "../../redux/slices/topicsSlice";
+/* import { useAppDispatch, useAppSelector } from "../../redux/hooks"; */
+import React,{ /* useEffect, useState */ } from "react";
+/* import { fetchForumTopics } from "../../redux/slices/topicsSlice";
 import { getForumTopic } from "../../api/api";
-import { getUserInfo } from "../../../api/profileAPI";
+import { getUserInfo } from "../../../api/profileAPI"; */
 
 interface Props {
    message: string 

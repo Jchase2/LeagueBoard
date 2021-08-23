@@ -6,20 +6,18 @@ import { useSelector } from 'react-redux';
 const LineGraph = ({team1, team2}:any) => {
   const [userHistory, setUserHistory] = useState<any[]>([])
 
-  const { matches } = useSelector((state: any[]) => state.userMatches);
+  
 
 
   useEffect(() => {
     const getUserHistoy = async () => {
-      let userMatches: any[] = await Promise.all(matches);
+      
       //const userMatches = await getRecentMatches();
       
       console.log(JSON.stringify(userHistory));
       
       
-      console.log(userMatches);
       
-      setUserHistory(userMatches);
       //let user = await Promise.all(getRecentMatches);
      
       //console.log(JSON.stringify(user));
@@ -29,7 +27,7 @@ const LineGraph = ({team1, team2}:any) => {
 
     
 
-  }, [matches, userHistory]);
+  }, []);
   
   
   

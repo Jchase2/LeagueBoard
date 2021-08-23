@@ -5,10 +5,10 @@ import { useHistory } from "react-router";
 import { IScrimmage } from "../../interfaces/Scrimmages";
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { fetchScrimmages } from "../../redux/slices/scrimmageSlice";
-import { MapScrims } from './MapScrims';
+import MapScrims from "./MapScrims";
 
 const ListScrimmages: React.FC = () => {
-  
+
   const [filteredScrims, setFilteredScrims] = useState<IScrimmage[]>([]);
   const [query, setQuery] = useState<string>('');
   let history = useHistory();
@@ -45,7 +45,7 @@ const ListScrimmages: React.FC = () => {
             New Scrimmage
           </Button>
           
-          <MapScrims topics={query.length ? filteredScrims : scrims}/>
+          <MapScrims scrims={query.length ? filteredScrims : scrims}/>
           
         </Box>
       

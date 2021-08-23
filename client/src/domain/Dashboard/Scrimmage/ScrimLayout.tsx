@@ -1,4 +1,3 @@
-
 import { Box, Divider, Container, SimpleGrid, Flex, Center} from "@chakra-ui/react";
 import PredictionsGraph from './Graphs/PredictionsGraph';
 
