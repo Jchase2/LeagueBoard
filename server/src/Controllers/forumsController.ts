@@ -183,6 +183,9 @@ export const getParentId = async (req: Request, res: Response, next: Function) =
   try {
     const { id } = req.params;
     let topic: any = await Topic.findByPk(id);
+    if(topic.parentid <= 0){
+      return res.json(topic.id)
+    }
     let parentid = topic.parentid;
     let lastParentId = -1;
     while(parentid && parentid > 0){

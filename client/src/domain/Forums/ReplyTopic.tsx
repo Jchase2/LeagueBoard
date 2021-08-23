@@ -32,10 +32,16 @@ const ReplyTopic: React.FC<Props> = ({thread, setIsReply}) => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      let gpTopic = await getGrandParent(thread.id);
-      await dispatch(createNewTopic(topicData))
-      await dispatch(fetchComments(gpTopic.grandparent))
-      setIsReply(false);
+      if(!thread.parentid){
+        await dispatch(createNewTopic(topicData))
+        await dispatch(fetchComments(thread.id))
+        setIsReply(false);
+      } else {
+        let gpTopic = await getGrandParent(thread.id);
+        await dispatch(createNewTopic(topicData))
+        await dispatch(fetchComments(gpTopic.grandparent))
+        setIsReply(false);
+      }
     } catch (error) {
       console.log(error)
       alert("Something went wrong when creating your reply, please try again!");
