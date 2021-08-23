@@ -72,3 +72,34 @@ export const checkFriends = async (req: Request, res: Response, next: Function) 
     next(err)
   }
 }
+
+export const clearNotifications = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { userid } = req.body;
+
+    const friends: any = await Friend.findAll({where: { userid: userid }});
+
+    // list of all friends
+    let friendsList: number[] = [];
+    friends.forEach((friend: any) => {
+      friendsList.push(friend.dataValues.userfriend);
+    });
+
+    // For each friend in friends list, add list of topics by that frined friend
+    // to seenposts.
+    friendsList.forEach(async friend => {
+      let friendObject = await Friend.findOne({where: {userfriend: friend}})
+      let friendTopics = await Topic.findAll({where: {userid: friend}})
+      let seent = friendObject?.seenposts || [];
+      if(friendObject && !friendObject.seenposts){
+        friendObject.seenposts = []
+      }
+      friendTopics.forEach(friendTopic => {
+        friendObject?.update({seenposts: [...friendObject.seenposts, friendTopic.id]})
+      })
+    })
+    res.sendStatus(201)
+  } catch(err){
+    next(err)
+  }
+}
