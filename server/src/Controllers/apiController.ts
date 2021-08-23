@@ -192,7 +192,6 @@ export const addSeen = async (req: Request, res: Response, next: Function) => {
   }
 }
 
-
 export const checkFriend = async (req: Request, res: Response, next: Function) => {
   try {
     let { userid, friendid } = req.body;
