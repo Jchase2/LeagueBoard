@@ -2,10 +2,12 @@ import {
   Input, FormLabel, Button, Flex, Heading, useColorModeValue,
   Center, SimpleGrid, Container, Select, FormControl
 } from "@chakra-ui/react";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { createScrimmage } from "../../redux/slices/scrimmageSlice";
+import { fetchUserInfo } from "../../redux/slices/userSlice";
+import { useEffect } from "react";
 
 interface Props {
   
@@ -15,7 +17,15 @@ const CreateScrimmage: React.FC = (props: Props) => {
   let history = useHistory();
   const dispatch = useAppDispatch()
 
+  const user = useAppSelector((state) => state.userReducer.userState);
+  console.log(user.id, ' USER INFO');
+
+  useEffect(() => {
+    dispatch(fetchUserInfo())
+  }, [dispatch]);
+
   const [scrimmageForm, setScrimmageForm] = useState({
+    userid: user.id,
     date: "",
     time: "",
     bestOf: "",
@@ -37,8 +47,12 @@ const CreateScrimmage: React.FC = (props: Props) => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
+      setScrimmageForm({
+        ...scrimmageForm,
+        userid: user.id,
+      });
       dispatch(createScrimmage(scrimmageForm));
-      history.push('/scrimmages')
+      //history.push('/scrimmages')
     } catch (error) {
       alert("Something went wrong when creating your Scrimmage, please correct the input fields");
       console.log(error);
@@ -50,6 +64,7 @@ const CreateScrimmage: React.FC = (props: Props) => {
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) => {
     setScrimmageForm({
       ...scrimmageForm,
@@ -91,9 +106,9 @@ const CreateScrimmage: React.FC = (props: Props) => {
               />
             </Container>
             <Container>
-              <FormControl isRequired id="Bestof">
+              <FormControl isRequired id="bestof">
                 <Center><FormLabel>Best Of</FormLabel></Center>
-                <Select placeholder="Best Of" name="bo">
+                <Select placeholder="Best Of" name="bestOf" onChange={handleChange}>
                   <option>5</option>
                   <option>3</option>
                   <option>1</option>
@@ -280,3 +295,7 @@ const CreateScrimmage: React.FC = (props: Props) => {
 }
 
 export default CreateScrimmage
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+

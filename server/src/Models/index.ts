@@ -5,11 +5,12 @@ import { Region } from './region.model';
 import { Topic } from './topic.model';
 import { Votes } from './vote.model';
 import { Matches } from './match.model';
+import { Scrimmages } from './scrimmage.model';
 
 const {DATABASE_TEST, DATABASE, NODE_ENV, DB_USERNAME, DB_PW} = process.env;
 
 export const sequelize = new Sequelize({
-  models: [User, Friend, Region, Topic, Votes, Matches],
+  models: [User, Friend, Region, Topic, Votes, Matches, Scrimmages],
   database: NODE_ENV === 'test' ? DATABASE_TEST : DATABASE,
   dialect: 'postgres',
   logging: false,
