@@ -72,7 +72,7 @@ router.post("/scrimmage", postScrimmage);
 router.post("/friend/create", addFriend);
 router.delete("/friend/remove", removeFriend)
 router.put("/friend/seen", addSeen);
-router.post("/friend/check", checkFriends);
+router.get("/friend/check", checkFriends);
 
 router.get("/regions", getRegions);
 

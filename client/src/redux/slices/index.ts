@@ -4,3 +4,4 @@ export { topicSlice, deleteForumTopic, createNewTopic, fetchForumTopics } from "
 export { commentsSlice, fetchComments } from "./commentsSlice";
 export { regionSlice, fetchRegions } from "./regionsSlice";
 export { matchSlice, fetchMatches, setMatches } from './matchesSlice';
+export { friendSlice, checkFriends, markSeen } from './friendsSlice'

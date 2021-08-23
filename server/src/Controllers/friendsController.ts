@@ -29,14 +29,13 @@ export const removeFriend = async (req: Request, res: Response, next: Function) 
 
 export const addSeen = async (req: Request, res: Response, next: Function) => {
   try {
-    let { userid, friendid, postid } = req.body;
+    let { userid, friendid, topicid } = req.body;
     const friend = await Friend.findOne({where: {userid: userid, userfriend: friendid}});
-
     let friendArr = friend?.seenposts;
     if(friendArr === null || friendArr === undefined || friendArr.length <= 0){
       friendArr = [];
     }
-    friend?.update({ seenposts: [...friendArr, postid] });
+    await friend?.update({ seenposts: [...friendArr, topicid] });
     res.status(201)
     res.json(friend)
   } catch(err){
@@ -46,7 +45,7 @@ export const addSeen = async (req: Request, res: Response, next: Function) => {
 
 export const checkFriends = async (req: Request, res: Response, next: Function) => {
   try {
-    let { userid } = req.body;
+    let { userid } = req.headers;
     const friends: any = await Friend.findAll({where: { userid: userid }});
 
     // list of all friends
