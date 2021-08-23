@@ -110,7 +110,7 @@ export const items = [{
       "12": true
     }
   },
-  "data": {
+  "data": [{
     "1001": {
       "name": "Boots",
       "description": "<mainText><stats><attention>25</attention> Move Speed</stats></mainText><br>",
@@ -8926,7 +8926,7 @@ export const items = [{
       },
       "depth": 3
     }
-  },
+  }],
   "groups": [
     {
       "id": "HuntersTalismanGroup",

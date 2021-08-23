@@ -29,7 +29,7 @@ const Layout: React.FC<Props> = (props: Props) => {
      setLoading(true);
      setTimeout(() => {
        setLoading(false);
-     }, 1200);
+     }, 1400);
    };
 
   useEffect(() => {
