@@ -23,7 +23,6 @@ const ParticipationGraph = () => {
     setUserMatches(userParticipation);
   }, [userParticipation])
 
-
     useEffect(() => {
       const match = async () => {
         let usersTeam: number;
