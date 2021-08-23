@@ -1,4 +1,5 @@
 export interface IScrimmage {
+  id: number,
   userid: number,
   date: string,
   time: string,

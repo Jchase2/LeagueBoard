@@ -18,13 +18,13 @@ const CreateScrimmage: React.FC = (props: Props) => {
   const dispatch = useAppDispatch()
 
   const user = useAppSelector((state) => state.userReducer.userState);
-  console.log(user.id, ' USER INFO');
 
   useEffect(() => {
     dispatch(fetchUserInfo())
   }, [dispatch]);
 
   const [scrimmageForm, setScrimmageForm] = useState({
+    id: 0,
     userid: user.id,
     date: "",
     time: "",
@@ -52,7 +52,7 @@ const CreateScrimmage: React.FC = (props: Props) => {
         userid: user.id,
       });
       dispatch(createScrimmage(scrimmageForm));
-      //history.push('/scrimmages')
+      history.push('/scrims');
     } catch (error) {
       alert("Something went wrong when creating your Scrimmage, please correct the input fields");
       console.log(error);

@@ -18,9 +18,9 @@ const ProfileMatch: React.FC<Props> = ({ match, users }) => {
   const queue = queueTypes?.filter((e) => e.queueId === matchQueue);
   if (match.teams) {
     teamId1 = match?.teams[0]?.win;
-    teamId2 = match?.teams[1].win;
-     teamkills1 = match?.teams[0].objectives.champion.kills
-     teamkills2 = match?.teams[1].objectives.champion.kills
+    teamId2 = match?.teams[1]?.win;
+     teamkills1 = match?.teams[0]?.objectives?.champion.kills
+     teamkills2 = match?.teams[1]?.objectives?.champion.kills
   }
   return (
     <VStack key={uuidv4()} padding="5px">

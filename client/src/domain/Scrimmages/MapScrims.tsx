@@ -1,24 +1,18 @@
-import { Container, LinkBox, LinkOverlay, SimpleGrid, Center } from "@chakra-ui/react"
 import { IScrimmage } from "../../interfaces/Scrimmages";
+import ScrimCard from "./ScrimCard";
 
-const MapScrims: React.FC<{scrims:IScrimmage[]}> = ({scrims}) => {
+const MapScrims: React.FC<{scrims:any}> = ({scrims}) => {
+  console.log(scrims)
   return (
     <>
       {
       scrims && [...scrims].sort((a, b) => Number(b.date) - Number(a.date)).map((scrim) => (
-        <LinkBox>
-          
-            <LinkOverlay>
-              <SimpleGrid columns={3} spacing={2}>
-                <Center>
-                  <Container>{scrim.team1Name}</Container>
-                  <Container><h3>Vs</h3></Container>
-                  <Container>{scrim.team2Name}</Container>
-                </Center>
-              </SimpleGrid>
-            </LinkOverlay>
-          
-        </LinkBox> 
+        
+        <div key={scrim.id}>
+            {!(scrim.parentid >= 1) && <ScrimCard scrim={scrim} />}
+        </div>
+        
+        
       ))
       }
     </>

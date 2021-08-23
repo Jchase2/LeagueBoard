@@ -1,6 +1,8 @@
 import { Flex, Image, Tooltip, Text } from "@chakra-ui/react";
 import { summonerSpells } from "../../utils/summonerSpells";
 import { runes } from "../../utils/runes"
+import { runesSub } from "../../utils/runeSub";
+import parse from "html-react-parser";
 
 interface Props {
   championName: string;
@@ -22,12 +24,37 @@ const ChampMatch: React.FC<Props> = ({
   const rune1View = runes[0][`${rune1}`];
   const rune2View = runes[0][`${rune2}`];
   console.log(runes);
-  console.log(rune1);
+  console.log(rune2);
 
-   const runeview = runes.map((rune) => rune.slots)
-   console.log(runeview)
-   const idkwhatimdoing = runeview.map((rune) => rune)
-   console.log(idkwhatimdoing);
+  const runeview = runes?.map((rune) => rune.slots);
+  console.log(runeview);
+  const idkwhatimdoing = runeview?.map((rune) => rune[0]);
+  const newLoop = [
+    idkwhatimdoing[0]?.runes[0],
+    idkwhatimdoing[0]?.runes[1],
+    idkwhatimdoing[0]?.runes[2],
+    idkwhatimdoing[0]?.runes[3],
+    idkwhatimdoing[1]?.runes[0],
+    idkwhatimdoing[1]?.runes[1],
+    idkwhatimdoing[1]?.runes[2],
+    idkwhatimdoing[2]?.runes[0],
+    idkwhatimdoing[2]?.runes[1],
+    idkwhatimdoing[2]?.runes[2],
+    idkwhatimdoing[2]?.runes[3],
+    idkwhatimdoing[3]?.runes[0],
+    idkwhatimdoing[3]?.runes[1],
+    idkwhatimdoing[3]?.runes[2],
+    idkwhatimdoing[4]?.runes[0],
+    idkwhatimdoing[4]?.runes[1],
+    idkwhatimdoing[4]?.runes[2],
+  ];
+  const wtfisthis1 = newLoop?.filter((loop) => loop?.id === rune1);
+  const wtfisthis2 = runesSub[0][`${rune2}`];
+  let Desc: any
+  if (wtfisthis1[0]) {Desc = wtfisthis1[0]["shortDesc"]}
+  // console.log(wtfisthis1[0]['shortDesc'])
+  console.log(wtfisthis2);
+  console.log(newLoop);
 
   return (
     <>
@@ -63,14 +90,14 @@ const ChampMatch: React.FC<Props> = ({
               </Tooltip>
             </Flex>
             <Flex flexDirection="column">
-              <Tooltip hasArrow label={``}>
+              <Tooltip hasArrow label={parse(`${Desc}`)}>
                 <Image
                   src={`https://opgg-static.akamaized.net/images/lol/perk/${rune1}.png?image=c_scale,q_auto,w_18&v=1628647804`}
                   marginBottom="3px"
                   alt="Champion"
                 />
               </Tooltip>
-              <Tooltip hasArrow label={``}>
+              <Tooltip hasArrow label={wtfisthis2}>
                 <Image
                   src={`https://opgg-static.akamaized.net/images/lol/perkStyle/${rune2}.png?image=c_scale,q_auto,w_22&v=1628647804`}
                 />

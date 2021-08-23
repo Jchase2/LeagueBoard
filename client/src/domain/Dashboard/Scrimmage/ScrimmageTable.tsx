@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { mockScrimmage } from './mockdata';
 import { IPlayer } from './MockInterface';
 import { Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td,  SimpleGrid, Center} from "@chakra-ui/react";
-
+import { IScrimmage } from '../../../interfaces/Scrimmage';
 
 export const ScrimmageTable = () => {
   const [data, dataSet] = useState(mockScrimmage) 
@@ -10,6 +10,10 @@ export const ScrimmageTable = () => {
   const team20 = data.teams.team2;
   const [player1, player1Set] = useState<IPlayer[]>([])
   const [player2, player2Set] = useState<IPlayer[]>([])
+  //console.log(scrims);
+
+  //USE THIS ONE TO FETCH A SCRIMMAGE
+  //fetchScrimmageById
   
 
   useEffect(() => {

@@ -10,6 +10,14 @@ export const fetchScrimmages = createAsyncThunk(
   .then((res: { data: any }) => res.data)
 );
 
+export const fetchScrimmageById = createAsyncThunk(
+  "scrimmage/getScrimmageById",
+  async (scrimmageid: number) => await axios
+  .get(process.env.REACT_APP_BACKEND_URL + `/scrimmage/${scrimmageid}` || "http://localhost:3001/scrimmage")
+  .then((res: { data: any }) => res.data)
+);
+
+
 export const createScrimmage = createAsyncThunk(
   "scrimmage/createScrimmage",
   async (formData: IScrimmage) => await axios
@@ -26,7 +34,8 @@ export const scrimmageSlice = createSlice({
     status: "",
     error: "",
     scrimmages: [{
-      userid: "",
+      scrimmageid: 0,
+      userid: 0,
       date: "",
       time: "",
       bestOf: "",
@@ -50,6 +59,10 @@ export const scrimmageSlice = createSlice({
 
   extraReducers: (builder) => {
    
+    //CREATING
+    builder.addCase(createScrimmage.fulfilled, (state, action,) => {
+      state.scrimmages = [action.payload, ...state.scrimmages];
+    });
     builder.addCase(createScrimmage.rejected, (state, action: any) => {
       if (action.payload) {
         state.error = action.payload.errorMessage;
@@ -58,13 +71,23 @@ export const scrimmageSlice = createSlice({
       }
     });
 
-    builder.addCase(createScrimmage.fulfilled, (state, action,) => {
-      console.log(action.payload, 'PAYLOAD');
-      state.scrimmages = [action.payload, ...state.scrimmages];
+    //GETTING ONE
+    builder.addCase(fetchScrimmageById.fulfilled, (state, { payload }) => {
+      let nextState = [...payload]
+      state.scrimmages = nextState
+    });
+    
+    builder.addCase(fetchScrimmageById.rejected, (state, action: any) => {
+      if (action.payload) {
+        state.error = action.payload.errorMessage;
+      } else {
+        state.error = action.error;
+      }
     });
 
+
+    //GETTING ALL  
     builder.addCase(fetchScrimmages.fulfilled, (state, { payload }) => {
-      console.log("payload: ", payload)
       state.status = "resolved";
       state.scrimmages = payload
     });

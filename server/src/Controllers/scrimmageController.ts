@@ -5,8 +5,8 @@ import { getSummonerByPuuid, getSummonerEntriesByAccountIdAndRegion } from './ut
 
 export const getAllScrimmages = async (req: Request, res: Response, next: Function) => {
   try {
-    const scrimmages = await sequelize.query(`SELECT S.id as scrimmageid, U.id as userid, date as date,
-    "bestOf", team_name1 as team1, team_name2 as team2, player1, player2, player3, player4, player5,
+    const scrimmages = await sequelize.query(`SELECT S.id as id, U.id as userid, date as date,
+    "bestOf", team_name1 as "team1Name", team_name2 as "team2Name", player1, player2, player3, player4, player5,
     player6, player7, player8, player9, player10, date, time
     FROM public."Scrimmages" as S
     LEFT JOIN

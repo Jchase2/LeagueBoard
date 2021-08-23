@@ -130,8 +130,6 @@ const UserDonutGraph = () => {
         <CanvasJSChart id="chart" options={options}/>
       </div>
       <RadioGroup
-      top={(chart.bounds.y2 - chart.bounds.y1) / 2 + "px"}
-      left={(chart.bounds.x2 - chart.bounds.x1) / 2 - 20 + "px"}
         id="radioList"
         defaultValue={" kills "}
         onChange={(value) => setValue(value)}>

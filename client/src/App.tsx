@@ -11,8 +11,9 @@ import CreateTopic from './domain/Forums/CreateTopic';
 import ThreadPage from './domain/Forums/ThreadPage';
 import SidebarWithHeader from "./components/Heading/Heading";
 import Layout from "./domain/Profile/Layout";
-import { ScrimLayout } from "./domain/Dashboard/Scrimmage/ScrimLayout";
+import ListScrimmages from "./domain/Scrimmages/ListScrimmages";
 import CreateScrimmage from './domain/Scrimmages/CreateScrimmage'
+import ScrimLayout from "./domain/Dashboard/Scrimmage/ScrimLayout";
 
 
 function App() {
@@ -46,6 +47,11 @@ function App() {
             </SidebarWithHeader>
           </Route>
           <Route exact path="/scrims">
+            <SidebarWithHeader>
+              <ListScrimmages/>
+            </SidebarWithHeader>
+          </Route>
+          <Route exact path="scimmage/:id">
             <SidebarWithHeader>
               <ScrimLayout/>
             </SidebarWithHeader>
