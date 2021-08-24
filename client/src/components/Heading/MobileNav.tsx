@@ -15,6 +15,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  useMediaQuery
 } from "@chakra-ui/react";
 import { FiMenu, FiChevronDown } from "react-icons/fi";
 import { FaMoon, FaSun } from "react-icons/fa";
@@ -28,7 +29,7 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-
+  const [isLargerThan] = useMediaQuery("(max-width:400px)");
   let regionName: any
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userReducer.userState);
@@ -49,11 +50,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         ml={{ base: 0, md: 60 }}
         px={{ base: 4, md: 4 }}
         height="20"
+        padding="1px"
         alignItems="center"
         bg={useColorModeValue("grey.900", "gray.900")}
         borderBottomWidth="1px"
         borderBottomColor={useColorModeValue("gray.200", "gray.700")}
-        justifyContent={{ base: "space-between", md: "flex-end" }}
+        justifyContent="space-between"
         {...rest}
       >
         <IconButton
@@ -63,7 +65,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           aria-label="open menu"
           icon={<FiMenu />}
         />
-        <Searchbar message={"Search for Summoners"} />
+        <Searchbar message={"Search for Summoners"} regions={regions} />
         <HStack spacing={{ base: "0", md: "6" }}>
           <NewPosts />
           <IconButton
@@ -85,7 +87,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 <>
                   <HStack>
                     <Avatar
-                      size={"md"}
+                      size={isLargerThan ? "sm" : "md"}
                       src={
                         user
                           ? `http://ddragon.leagueoflegends.com/cdn/11.16.1/img/profileicon/${user?.iconid}.png`

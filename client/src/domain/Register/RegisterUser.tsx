@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { IRegisterForm } from "../../interfaces/RegisterForm";
 import { verifyEmailAndUser } from "../../api/api";
 import {
@@ -15,7 +15,6 @@ import {
 } from "@chakra-ui/react";
 import { SelectRegion } from './SelectRegion';
 import { ErrorShow } from "../../components/Error/ErrorShow";
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchRegions } from "../../redux/slices";
 
@@ -31,6 +30,7 @@ const RegisterUser = () => {
     regionId: 0,
     summoner_name: "",
   });
+
   const [isError, setIsError] = useState<boolean>(false);
   const [stateMessage, setStateMessage] = useState<string>("");
 
