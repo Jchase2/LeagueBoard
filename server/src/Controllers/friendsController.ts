@@ -4,6 +4,7 @@ import { Topic } from "../Models/topic.model";
 import { User } from "../Models/user.model";
 
 export const addFriend = async (req: Request, res: Response, next: Function) => {
+  console.log("WHAT")
   try {
     let { userid, friendid } = req.body;
     const friend = await Friend.create({
@@ -13,6 +14,7 @@ export const addFriend = async (req: Request, res: Response, next: Function) => 
     res.status(201)
     res.json(friend)
   } catch(err){
+    console.log(err.message)
     next(err)
   }
 }
@@ -152,6 +154,17 @@ export const getUserNameById = async (req: Request, res: Response, next: Functio
     let { userid } = req.headers;
     // This call comes from the friend, so these get reversed
     const user = await User.findOne({where: {id: userid}});
+    res.status(200)
+    res.json({summoner_name: user?.summoner_name, userid: user?.id})
+  } catch(err){
+    next(err)
+  }
+}
+
+export const getUserBySummonerName = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { summoner_name } = req.headers;
+    const user = await User.findOne({where: {summoner_name: summoner_name}});
     res.status(200)
     res.json({summoner_name: user?.summoner_name, userid: user?.id})
   } catch(err){

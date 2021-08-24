@@ -15,7 +15,6 @@ import {
   Select,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { SelectRegion } from './SelectRegion';
 import { v4 as uuidv4 } from "uuid";
 import { ErrorShow } from "../../components/Error/ErrorShow";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";

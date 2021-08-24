@@ -22,7 +22,8 @@ import {
   addSeen,
   friendSeen,
   checkAddedBy,
-  getUserNameById
+  getUserNameById,
+  getUserBySummonerName
 } from "../Controllers/friendsController";
 
 import {
@@ -84,6 +85,7 @@ router.get("/friend/check", checkFriends);
 router.put("/friend/hasseen", friendSeen);
 router.get("/friend/checkaddedby", checkAddedBy)
 router.get("/friend/getUserNameById", getUserNameById)
+router.get("/friend/summoner_name", getUserBySummonerName)
 
 router.get("/regions", getRegions);
 

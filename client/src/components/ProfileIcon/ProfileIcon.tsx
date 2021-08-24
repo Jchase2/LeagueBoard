@@ -4,7 +4,6 @@ import {
   Box,
   Text,
   Stack,
-  Button,
   Flex,
   useColorModeValue,
   Image,
@@ -19,6 +18,7 @@ import {
   setMatches,
 } from "../../redux/slices";
 import UpdateButton from "./UpdateButton"
+import FollowButton from "./FollowButton";
 
 
 interface props {
@@ -75,7 +75,7 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
       <Heading fontSize={"2xl"} fontFamily={"body"} mb={2}>
         {users ? `${users?.summoner_name}` : ""}
       </Heading>
-        {userRank?.length && 
+        {userRank?.length &&
            <Badges userRank={userRank} />}
 
       <Text fontWeight={600} color={"gray.500"} mb={4} mt={2}>
@@ -116,24 +116,7 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
       </Flex>
       <Stack mt={8} direction={"row"} spacing={4}>
         <UpdateButton handleupdate={handleUpdate} loading={loading} />
-        <Button
-          flex={1}
-          fontSize={"sm"}
-          rounded={"full"}
-          bg={"blue.400"}
-          color={"white"}
-          boxShadow={
-            "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-          }
-          _hover={{
-            bg: "green.500",
-          }}
-          _focus={{
-            bg: "green.500",
-          }}
-        >
-          Follow
-        </Button>
+        {users && <FollowButton user={users}/>}
       </Stack>
     </Box>
   );
