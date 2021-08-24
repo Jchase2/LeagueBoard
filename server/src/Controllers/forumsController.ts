@@ -100,7 +100,6 @@ export const deleteForumTopic = async (
 ) => {
   try {
     let { topicid } = req.params;
-
     let parentid = topicid;
     let query: any = await sequelize.query(
       `WITH RECURSIVE comments AS (
