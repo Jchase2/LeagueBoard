@@ -49,34 +49,16 @@ const ThreadPage: React.FC = () => {
   return (
     <Flex minH="100vh" align="center" flexDirection="column" m={2}>
       <Box w="50vw" minW="300px" p={4} borderWidth="1px" borderRadius="lg">
-        <Box
-          fontWeight="bold"
-          textTransform="uppercase"
-          fontSize="sm"
-          letterSpacing="wide"
-        >
-          <Flex direction="row">
-            <Box minW="20px" w="3vw" p={2} m={1}>
-              {threadData.id && <UpOrDownVote thread={threadData} />}
-            </Box>
-            <Box minW="200px" w="40vw" p={2} m={1}>
-              <Divider size="sm" />
-              <Text mt={2}>
-                {threadData.title}
-              </Text>
-            </Box>
-          </Flex>
-        </Box>
-        <Box
-          fontWeight="semibold"
-          letterSpacing="wide"
-          fontSize="xs"
-          textTransform="uppercase"
-        >
-          <Flex direction="row">
-            <ByComp thread={threadData} />
-          </Flex>
-        </Box>
+        <Flex direction="row">
+          <Box minW="20px" w="3vw" p={2} m={1}>
+            {threadData.id && <UpOrDownVote thread={threadData} />}
+          </Box>
+          <Box minW="200px" w="40vw" p={2} m={1}>
+            <Divider size="sm" />
+            <Text mt={2}>{threadData.title}</Text>
+          </Box>
+        </Flex>
+        <ByComp thread={threadData} />
         <Box border="1px" borderRadius="lg" mt={2} mb={2} p={3}>
           <Text>{threadData.text}</Text>
         </Box>

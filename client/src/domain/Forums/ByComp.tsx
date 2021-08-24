@@ -15,8 +15,8 @@ const DateComp: React.FC<Props> = ({ thread }) => {
   }, [thread.id]);
 
   return (
-    <Flex direction="column" borderRadius="lg" borderWidth="1px" p={2} mt={2}>
-      <Text fontSize="xs">{`By: ${threadCreator} on ` + new Date(thread.created_at).toLocaleDateString() +
+    <Flex borderRadius="lg" borderWidth="1px" p={2} mt={2}>
+      <Text fontSize="xs" color="gray.500">{`By: ${threadCreator} on ` + new Date(thread.created_at).toLocaleDateString() +
         " at " + new Date(thread.created_at).toLocaleTimeString()}</Text>
     </Flex>
   );
