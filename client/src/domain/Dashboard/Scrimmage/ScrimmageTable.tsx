@@ -1,55 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import mockScrimmage from './mockdata';
-import { IPlayer } from './MockInterface';
-import { Box, Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td, TableCaption, 
-  Container, SimpleGrid, Center} from "@chakra-ui/react";
-import PredictionsGraph from './Graphs/PredictionsGraph';
-import DonutGraph from './Graphs/DonutGraph';
+import { useState, useEffect } from 'react';
+import { Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td,  SimpleGrid, Center} from "@chakra-ui/react";
+import { IScrimmage } from '../../../interfaces/Scrimmages';
 
-export const ScrimmageTable = () => {
-  const [data, dataSet] = useState(mockScrimmage) 
-  const team10 = data.teams.team1;
-  const team20 = data.teams.team2;
-  const [player1, player1Set] = useState<IPlayer[]>([])
-  const [player2, player2Set] = useState<IPlayer[]>([])
+export const ScrimmageTable: React.FC<{scrim:any}> = ({scrim}) => {
+  const [teamOne, setTeamOne] = useState<any>([])
+  const [teamTwo, setTeamTwo] = useState<any>([])
+  //USE THIS ONE TO FETCH A SCRIMMAGE
+  //fetchScrimmageById
+  let data = scrim;  
+  let player:any[] = [];
+  let team1:any = [];
+  let team2:any = [];
   
-
   useEffect(() => {
-    const sortedPlayers1 = team10.players.sort(function (a, b) {
-      return b.level - a.level;
-    });
-    const sortedPlayers2 = team20.players.sort(function (a, b) {
-      return b.level - a.level;
-    });
-    player1Set(sortedPlayers1);
-    player2Set(sortedPlayers2);
-  }, [])
+    if (data.player1info) {
+      const newTeamOne: any[] = []
+      const newTeamTwo: any[] = []
+      for (let i = 1; i <= 10; i++) {
+        const rankedInfo = data[`player${i}ranked`].map(info => {
+          const newInfo = {
+            queueType: info.queueType,
+            losses: info.losses,
+            rank: info.rank,
+            tier: info.tier,
+            wins: info.wins,
+          }
+          return newInfo
+        }).sort((a, b) => (a.queueType === 'RANKED_SOLO_5x5' ? -1 : 1))
+
+        let player = {
+          name: data[`player${i}`],
+          info: data[`player${i}info`],
+          ranked: rankedInfo.length ? rankedInfo[0] : undefined
+        }
+
+        if (i <= 5) {
+          newTeamOne.push(player)
+        } else {
+          newTeamTwo.push(player)
+        }
+      }
+      setTeamOne(newTeamOne);
+      setTeamTwo(newTeamTwo);
+    }
+  }, [data])
+
   
-  
+
   return (
     <div>
       <Center>
       
         <Heading as="h4" size="md">
-          Battle Date: {data.date}  at  {data.time}
+         Battle Date: {scrim?.date}  at  {scrim?.time} 
         </Heading>
 
       </Center>
        
-       
+       {console.log(teamOne, teamTwo)}
       <SimpleGrid columns={2} spacing={2}>
-
+        
         <Table className="team1Table" variant="striped" colorScheme="blue">
-        <Thead><Tr><Th>{team10.teamName}</Th></Tr></Thead>
+        <Center><Thead><Tr><Th>{scrim.team1Name}</Th></Tr></Thead></Center>
           
         <Tbody className="team1Table">
-          {player1.map(element => (
+          {/* {player1.map(element => (
               <Tr key={element.name}>
                 <Td>{element.name}</Td>
                 <Td>{element.level}</Td>
                 <Td>{element.rank}</Td>
               </Tr>
-          ))}
+          ))} */}
         </Tbody>
         <Tfoot>
           <Tr>
@@ -59,20 +80,18 @@ export const ScrimmageTable = () => {
           </Tr>
         </Tfoot>
         </Table>
-
+      
         <Table className="team2Table" variant="striped" colorScheme="red">
-          <Thead>
-            <Tr><Th>{team20.teamName}</Th></Tr>
-          </Thead>
+        <Center><Thead><Tr><Th>{scrim.team2Name}</Th></Tr></Thead></Center>
 
           <Tbody className="team2Table">  
-            {player2.map(element => (
+            {/* {player2.map(element => (
               <Tr key={element.name}>
                 <Td>{element.name}</Td>
                 <Td>{element.level}</Td>
                 <Td>{element.rank}</Td>
               </Tr>
-            ))}
+            ))} */}
           </Tbody>
           <Tfoot>
             <Tr>
@@ -82,7 +101,7 @@ export const ScrimmageTable = () => {
             </Tr>
           </Tfoot>
         </Table>
-
+       
       </SimpleGrid>  
     </div>
   );

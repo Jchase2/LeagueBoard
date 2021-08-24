@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { userSlice, topicSlice, commentsSlice, regionSlice, matchSlice, friendSlice } from './slices'
+import { userSlice, topicSlice, commentsSlice, regionSlice, matchSlice, friendSlice, scrimmageSlice } from './slices'
 
 // Add slices to reducer here
 export const store = configureStore({
@@ -9,7 +9,8 @@ export const store = configureStore({
     commentsReducer: commentsSlice.reducer,
     regionReducer: regionSlice.reducer,
     matchReducer: matchSlice.reducer,
-    friendsReducer: friendSlice.reducer
+    friendsReducer: friendSlice.reducer,
+    scrimmageSlice: scrimmageSlice.reducer,
   },
 })
 

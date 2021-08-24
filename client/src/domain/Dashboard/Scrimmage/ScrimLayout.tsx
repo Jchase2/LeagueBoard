@@ -1,36 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import mockScrimmage from './mockdata';
-import { IPlayer } from './MockInterface';
-import { Box, Divider, Container, SimpleGrid, Flex, Spacer, Center, Square, Circle, Wrap, WrapItem} from "@chakra-ui/react";
+import { Box, Divider, Container, Flex, Center, } from "@chakra-ui/react";
 import PredictionsGraph from './Graphs/PredictionsGraph';
-import DonutGraph from './Graphs/DonutGraph';
+import { useParams } from "react-router-dom";
 import { ScrimmageTable } from './ScrimmageTable';
-import SidebarWithHeader from '../../../components/Heading/Heading';
+import { fetchScrimmageById } from '../../../redux/slices/scrimmageSlice';
+import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
+import { useEffect } from "react";
 
+const ScrimLayout: React.FC = () => {
+  const id = useParams<urlParams>();
+  const dispatch = useAppDispatch()
+  const scrim:any = useAppSelector((state) => state.scrimmageSlice.scrimmages);
 
-export const ScrimLayout = () => {
-  
-  
+  useEffect(() => {
+    dispatch(fetchScrimmageById(Number(id.id)));
+  }, [dispatch]);
+ 
+  console.log(scrim, ' SCRIM IN LAYOUT');
+
+  type urlParams = {
+    id: string;
+  };
   
   return (
     <div>
-
       <Center>
         <Flex>
           <Box>
-            <ScrimmageTable />
+            <ScrimmageTable scrim={scrim}/>
           </Box>
         </Flex>
       </Center>
 
-      <Divider orientation="horizontal"/>
-      
+      <Divider orientation="horizontal" />
+
       <Center>
         <Container>
-          <PredictionsGraph />
+          <PredictionsGraph scrim={scrim}/>
         </Container>
       </Center>
-
     </div>
   );
 }
+
+export default ScrimLayout;
