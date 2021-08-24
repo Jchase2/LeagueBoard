@@ -220,6 +220,7 @@ export const getSummoner = async (req: Request, res: Response, next: Function) =
     let rank = await getSummonerEntriesByAccountIdAndRegion(summoner.data.id, region);
     summoner.data.rank = rank.data
     summoner.data.summoner_name = summoner_name;
+    summoner.data.iconid = summoner.data.profileIconId
 
     let query: any = await sequelize.query(
       `SELECT region FROM public."Regions" as R WHERE R.code = '${region}';`

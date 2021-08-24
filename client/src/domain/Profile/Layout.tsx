@@ -39,8 +39,6 @@ const Layout: React.FC<Props> = () => {
     handleLoad();
   }, [dispatch]);
 
-  console.log("matches", matches)
-
   return (
     <Flex
       justifyContent="space-evenly"

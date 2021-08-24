@@ -1,6 +1,6 @@
 import { Flex, Spinner, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import ProfileIconS from "./PlayerIconS";
+import ProfileIcon from "../../components/ProfileIcon/ProfileIcon"
 import ProfileMatch from "../../domain/Profile/ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
 import { getSummoner } from "../../api/api";
@@ -32,55 +32,66 @@ const Layout: React.FC<Props> = () => {
     ).then((res) => setUser(res));
     handleLoad();
   }, [pathName]);
+  console.log(user)
 
   const matches = user?.matches
-  const userRank = user?.rank[0]
+  const userRank = user?.rank
 
   return (
     <Flex
       justifyContent="space-evenly"
       flexDirection={!isLargerThan ? "row" : "column"}
     >
-      <Flex
-        h="500px"
-        minW="20vw"
-        justifyContent="center"
-        alignContent="center"
-        mb={isLargerThan ? 3 : 0}
-        mr={isLargerThan ? 0 : 6}
-      >
-        <ProfileIconS users={user} userRank={userRank} regionName={regionName} />
-      </Flex>
-      <Flex minW="50vw" justifyContent="center" alignContent="center">
-        <Flex
-          flexDirection="column"
-          w="100%"
-          h="100%"
-          justifyContent="center"
-          alignContent="center"
-        >
-          {!loading ? (
-            <>
-              <Flex borderWidth="1px"></Flex>
-              {matches &&
-                matches?.map(
-                  (match: any) =>
-                    match && (
-                      <ProfileMatch match={match} users={user} key={uuidv4()} />
-                    )
-                )}
-            </>
-          ) : (
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="blue.500"
-              size="xl"
+      {!loading ? (
+        <>
+          <Flex
+            h="500px"
+            minW="20vw"
+            justifyContent="center"
+            alignContent="center"
+            mb={isLargerThan ? 3 : 0}
+            mr={isLargerThan ? 0 : 6}
+          >
+            <ProfileIcon
+              users={user}
+              userRank={userRank}
+              regionName={regionName}
             />
-          )}
-        </Flex>
-      </Flex>
+          </Flex>
+          <Flex minW="50vw" justifyContent="center" alignContent="center">
+            <Flex
+              flexDirection="column"
+              w="100%"
+              h="100%"
+              justifyContent="center"
+              alignContent="center"
+            >
+              <>
+                <Flex borderWidth="1px"></Flex>
+                {matches &&
+                  matches?.map(
+                    (match: any) =>
+                      match && (
+                        <ProfileMatch
+                          match={match}
+                          users={user}
+                          key={uuidv4()}
+                        />
+                      )
+                  )}
+              </>
+            </Flex>
+          </Flex>
+        </>
+      ) : (
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      )}
     </Flex>
   );
 };
