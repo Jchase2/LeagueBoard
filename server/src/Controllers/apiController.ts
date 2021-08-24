@@ -2,7 +2,6 @@ require("dotenv").config();
 import { Response, Request } from "express";
 import { sequelize } from "../Models/index";
 const { Region } = require("../Models/region.model");
-import { parse, stringify, toJSON, fromJSON } from "flatted";
 const { User } = require("../Models/user.model");
 const { Matches } = require("../Models/match.model");
 import { Topic } from "../Models/topic.model";
@@ -247,7 +246,7 @@ export const getSummoner = async (req: Request, res: Response, next: Function) =
       summoner.data.matches.push(data)
       i++;
     });
-    
+
     res.status(200).send(summoner.data);
   } catch (err) {
     console.log(err)
