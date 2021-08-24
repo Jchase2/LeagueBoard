@@ -100,13 +100,37 @@ export const deleteForumTopic = async (
 ) => {
   try {
     let { topicid } = req.params;
+
+    let parentid = topicid;
+    let query: any = await sequelize.query(
+      `WITH RECURSIVE comments AS (
+        SELECT
+        id, title, text, userid, parentid, closed, created_at, text('') as parenttitle
+      FROM
+          public."Topics" AS P
+      WHERE
+          P.id = ${parentid}
+      UNION ALL
+      SELECT
+        p.id, P.title, p.text, p.userid, p.parentid, p.closed, p.created_at, s.title as parenttitle
+      FROM
+          public."Topics" AS P
+      INNER JOIN comments s ON s.ID = p.parentid
+  )
+  SELECT * FROM comments ORDER BY created_at asc;`
+    );
+
+    //console.log("QUERY: ", query)
+    query[0].forEach(async (topic: any) => {
+      let deleteMe: any = await Topic.findOne({ where: { id: topic.id } });
+      deleteMe.destroy();
+    });
     const topic = await Topic.findByPk(topicid);
-    //const topics = await Topic.findAll({});
-    await Topic.destroy({ where: { parentid: topic!.id } });
     await topic!.destroy();
     res.json(topic);
     res.status(204);
   } catch (err) {
+    console.log(err.message);
     next(err);
   }
 };
@@ -120,6 +144,7 @@ export const getVote = async (req: Request, res: Response, next: Function) => {
         [Op.and]: [{ topicid: id }, { userid: userid }],
       },
     });
+    val = val.slice(0, 3);
     res.json(val);
   } catch (err) {
     next(err);

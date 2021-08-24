@@ -47,7 +47,7 @@ export const getVotes = async (id: number, userid: number) => {
   return axios
     .get(
       process.env.REACT_APP_BACKEND_URL + `/vote/${id}` ||
-        "localhost:3001/vote",
+        `localhost:3001/vote/${id}`,
       {
         headers: {
           userid: userid,

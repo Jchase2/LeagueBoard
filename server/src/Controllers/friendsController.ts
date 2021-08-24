@@ -59,14 +59,23 @@ export const checkFriends = async (req: Request, res: Response, next: Function) 
     });
 
     let allTopics: any[] = await Topic.findAll({});
-    let allFriendsTopics: number[] = [];
+    let allFriendsTopics: any[] = [];
     allTopics.forEach((topic: any) => {
       if(friendsList.includes(topic.userid)){
-        allFriendsTopics.push(topic.id)
+        allFriendsTopics.push(topic)
       }
     })
-    let newFriendPosts = allFriendsTopics.filter(post => !seenArray.includes(post));
+    let allFriendsTopicsId: number[] = [];
+    allFriendsTopics.sort((a, b) => b.dataValues.created_at - a.dataValues.created_at);
+    allFriendsTopics.forEach((topic: any) => {
+      if(friendsList.includes(topic.userid)){
+        allFriendsTopicsId.push(topic.id)
+      }
+    })
+    let newFriendPosts = allFriendsTopicsId.filter(post => !seenArray.includes(post));
     res.status(200)
+    // Return last 3 posts
+    newFriendPosts = newFriendPosts.slice(0, 3)
     res.json(newFriendPosts)
   } catch(err){
     next(err)
