@@ -42,9 +42,6 @@ const Layout: React.FC<Props> = () => {
     handleLoad();
   }, [dispatch]);
 
-
-  console.log("Matches: ", matches);
-
   return (
     <Flex justifyContent="space-evenly" flexDirection={!isLargerThan ? "row" : "column"}>
       <Flex

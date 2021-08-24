@@ -20,11 +20,9 @@ const ListScrimmages: React.FC = () => {
     dispatch(fetchScrimmages());
   }, []);
 
-  console.log(scrims);
   const filteringScrims = (value:string) => {
     setQuery(value);
     const result = scrims.filter(scrim => scrim.team1Name.toLowerCase().includes(value) || scrim.team2Name.toLowerCase().includes(value));
-    console.log(value)
     setFilteredScrims(result);
   }
 

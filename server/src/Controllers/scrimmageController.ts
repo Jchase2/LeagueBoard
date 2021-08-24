@@ -22,6 +22,7 @@ export const getAllScrimmages = async (req: Request, res: Response, next: Functi
 export const getScrimmage = async (req: Request, res: Response, next: Function) => {
   try {
     const { id } = req.params;
+
     let scrimmages: any = await sequelize.query(`SELECT S.id as scrimmageid, U.id as userid, R.code as region, date as date,
       "bestOf", team_name1 as team1, team_name2 as team2, player1,
       (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player1) as PUUID1,
@@ -53,7 +54,7 @@ export const getScrimmage = async (req: Request, res: Response, next: Function) 
       WHERE S.id = ${id}`);
 
     scrimmages = scrimmages[0][0];
-    
+
     console.time('time')
     await retrieveAndSetRankInfoOfPlayers(scrimmages);
     console.timeEnd('time')
@@ -99,8 +100,6 @@ export const postScrimmage = async (req: Request, res: Response, next: Function)
 
 
 const retrieveAndSetRankInfoOfPlayers = async (scrimmages: any) => {
-
-  //scrimmages.region = "na1"
 
   //player1
   let player = await getSummonerByPuuid(scrimmages.puuid1, scrimmages.region);

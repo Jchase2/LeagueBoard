@@ -8,31 +8,45 @@ export const ScrimmageTable: React.FC<{scrim:any}> = ({scrim}) => {
   //USE THIS ONE TO FETCH A SCRIMMAGE
   //fetchScrimmageById
   let data = scrim;  
-
+  let player:any[] = [];
+  let team1:any = [];
+  let team2:any = [];
+  
   useEffect(() => {
-    let team1:any = [];
-    let team2:any = [];
-    for (let [key, value] of Object?.entries(data)) {
-      if (key === 'player1' || key === 'player2' || key === 'player3' || key === 'player4'  || key === 'player5') {
-        team1.push(value);
+    if (data.player1info) {
+      const newTeamOne: any[] = []
+      const newTeamTwo: any[] = []
+      for (let i = 1; i <= 10; i++) {
+        const rankedInfo = data[`player${i}ranked`].map(info => {
+          const newInfo = {
+            queueType: info.queueType,
+            losses: info.losses,
+            rank: info.rank,
+            tier: info.tier,
+            wins: info.wins,
+          }
+          return newInfo
+        }).sort((a, b) => (a.queueType === 'RANKED_SOLO_5x5' ? -1 : 1))
+
+        let player = {
+          name: data[`player${i}`],
+          info: data[`player${i}info`],
+          ranked: rankedInfo.length ? rankedInfo[0] : undefined
+        }
+
+        if (i <= 5) {
+          newTeamOne.push(player)
+        } else {
+          newTeamTwo.push(player)
+        }
       }
-       if (key === 'player6' || key === 'player7' || key === 'player8'  || key === 'player9'  || key === 'player10') {
-        team2.push(value);
-      } 
+      setTeamOne(newTeamOne);
+      setTeamTwo(newTeamTwo);
     }
-    
-    
-    /* const sortedPlayers1 = team10.players.sort(function (a, b) {
-      return b.level - a.level;
-    });
-    const sortedPlayers2 = team20.players.sort(function (a, b) {
-      return b.level - a.level;
-    }); */
-    
-    
   }, [data])
+
   
-  
+
   return (
     <div>
       <Center>
@@ -43,7 +57,7 @@ export const ScrimmageTable: React.FC<{scrim:any}> = ({scrim}) => {
 
       </Center>
        
-       
+       {console.log(teamOne, teamTwo)}
       <SimpleGrid columns={2} spacing={2}>
         
         <Table className="team1Table" variant="striped" colorScheme="blue">
