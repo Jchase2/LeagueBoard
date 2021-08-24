@@ -1,10 +1,11 @@
-import { Flex, Spinner, useMediaQuery } from "@chakra-ui/react";
+import { Flex, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon"
 import ProfileMatch from "../../domain/Profile/ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
 import { getSummoner } from "../../api/api";
 import { useLocation } from "react-router";
+import  Spinners from "./Spinners";
 
 
 interface Props {}
@@ -21,7 +22,7 @@ const Layout: React.FC<Props> = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 4000);
   };
 
   useEffect(() => {
@@ -32,8 +33,7 @@ const Layout: React.FC<Props> = () => {
     ).then((res) => setUser(res));
     handleLoad();
   }, [pathName]);
-  console.log(user)
-
+ 
   const matches = user?.matches
   const userRank = user?.rank
 
@@ -84,13 +84,9 @@ const Layout: React.FC<Props> = () => {
           </Flex>
         </>
       ) : (
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="blue.500"
-          size="xl"
-        />
+          <Flex w="100vw" h="60vh" alignItems="center" justifyContent="center">
+        <Spinners />
+       </Flex>
       )}
     </Flex>
   );

@@ -4,6 +4,7 @@ import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import Spinners from "../Search/Spinners"
 import {
   fetchMatches,
   fetchRegions,
@@ -74,12 +75,8 @@ const Layout: React.FC<Props> = () => {
                 )}
             </>
           ) : (
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="blue.500"
-              size="xl"
+            <Spinners
+              
             />
           )}
         </Flex>
