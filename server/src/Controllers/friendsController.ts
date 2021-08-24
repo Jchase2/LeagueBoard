@@ -121,6 +121,8 @@ export const clearNotifications = async (req: Request, res: Response, next: Func
     let { userid } = req.body;
     const friends: any = await Friend.findAll({where: { userid: userid }});
 
+    Friend.update({seen: true}, {where: {userfriend: userid}})
+
     // list of all friends
     let friendsList: number[] = [];
     friends.forEach((friend: any) => {
@@ -149,7 +151,6 @@ export const clearNotifications = async (req: Request, res: Response, next: Func
 export const getUserNameById = async (req: Request, res: Response, next: Function) => {
   try {
     let { userid } = req.headers;
-    console.log(req.body)
     // This call comes from the friend, so these get reversed
     const user = await User.findOne({where: {id: userid}});
     res.status(200)

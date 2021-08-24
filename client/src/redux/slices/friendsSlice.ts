@@ -117,6 +117,7 @@ export const friendSlice = createSlice({
     builder.addCase(clearNotifications.fulfilled, (state, { payload }) => {
       state.status = "resolved";
       state.newPosts = [];
+      state.friendAdds = [];
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
     builder.addCase(clearNotifications.rejected, (state, action: any) => {
