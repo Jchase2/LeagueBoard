@@ -1,45 +1,40 @@
 import { Flex, Spinner, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
-import ProfileMatch from "./ProfileMatch";
+import ProfileIconS from "./PlayerIconS";
+import ProfileMatch from "../../domain/Profile/ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {
-  fetchMatches,
-  fetchRegions,
-  fetchUserInfo,
-  fetchUserRank,
-} from "../../redux/slices";
+import { getSummoner } from "../../api/api";
+import { useLocation } from "react-router";
+
 
 interface Props {}
 
 const Layout: React.FC<Props> = () => {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.userReducer.userState);
-  const userRank = useAppSelector((state) => state.userReducer.userRank);
-  const regions = useAppSelector((state) => state.regionReducer.regionState);
-  const matches = useAppSelector((state) => state.matchReducer.matchState);
-  let regionName: any
+  const location: any = useLocation();
+  let regionName = location.state?.formdata.regionId;
+  const [user, setUser] = useState<any>();
   const [isLargerThan] = useMediaQuery("(max-width:1050px)");
-  if(regions) { regionName = regions[user?.regionid - 1]?.name }
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
+  const pathName = useLocation().pathname;
 
-   const handleLoad = () => {
-     setLoading(true);
-     setTimeout(() => {
-       setLoading(false);
-     }, 1200);
-   };
+  const handleLoad = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  };
 
   useEffect(() => {
-    dispatch(fetchUserInfo());
-    dispatch(fetchRegions());
-    dispatch(fetchMatches());
-    dispatch(fetchUserRank());
+    console.log("Location update");
+    getSummoner(
+      location.state.formdata.summoner_name,
+      location.state.formdata.regionId
+    ).then((res) => setUser(res));
     handleLoad();
-  }, [dispatch]);
+  }, [pathName]);
 
-  console.log("matches", matches)
+  const matches = user?.matches
+  const userRank = user?.rank[0]
 
   return (
     <Flex
@@ -54,7 +49,7 @@ const Layout: React.FC<Props> = () => {
         mb={isLargerThan ? 3 : 0}
         mr={isLargerThan ? 0 : 6}
       >
-        <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
+        <ProfileIconS users={user} userRank={userRank} regionName={regionName} />
       </Flex>
       <Flex minW="50vw" justifyContent="center" alignContent="center">
         <Flex

@@ -2,6 +2,7 @@ require("dotenv").config();
 import { Response, Request } from "express";
 import { sequelize } from "../Models/index";
 const { Region } = require("../Models/region.model");
+import { parse, stringify, toJSON, fromJSON } from "flatted";
 const { User } = require("../Models/user.model");
 const { Matches } = require("../Models/match.model");
 import { Topic } from "../Models/topic.model";
@@ -12,6 +13,7 @@ import {
   getMatchInfoByMatchId,
   getSummonerByNameAndRegion,
   getSummonerEntriesByAccountIdAndRegion,
+  getMatchInfoByMatchId2,
 } from "./utils";
 import { asyncForEach } from "../Utils/helpers";
 import { Friend } from "../Models/friend.model";
@@ -215,10 +217,14 @@ export const getSummoner = async (req: Request, res: Response, next: Function) =
     let { summoner_name, region } = req.body;
 
     let summoner = await getSummonerByNameAndRegion(summoner_name, region);
-    summoner.data.rank = await getSummonerEntriesByAccountIdAndRegion(summoner.data.id, region);
+    let rank = await getSummonerEntriesByAccountIdAndRegion(summoner.data.id, region);
+    summoner.data.rank = rank.data
+    summoner.data.summoner_name = summoner_name;
+
     let query: any = await sequelize.query(
       `SELECT region FROM public."Regions" as R WHERE R.code = '${region}';`
     );
+
     let regionR = query[0][0].region;
 
     const matches = await getMatchesByPuuid(summoner.data.puuid, regionR);
@@ -232,15 +238,18 @@ export const getSummoner = async (req: Request, res: Response, next: Function) =
       `INSERT INTO public."Matches" (puuid, "updatedAt") VALUES ('${summoner.data.puuid}', '2021-08-19 21:16:44.969-03');`
     );
     let i = 1;
+    summoner.data.matches = []
     await asyncForEach(matches, async (match: string) => {
-      const { data } = await getMatchInfoByMatchId(match, region);
-      query = `UPDATE public."Matches" SET match${i} = '${JSON.stringify(data.info)}'::jsonb WHERE puuid = '${summoner.data.puuid}';`;
+      const  data  = await getMatchInfoByMatchId2(match, regionR);
+      query = `UPDATE public."Matches" SET match${i} = '${JSON.stringify(data)}'::jsonb WHERE puuid = '${summoner.data.puuid}';`;
       await sequelize.query(query);
+      summoner.data.matches.push(data)
       i++;
     });
     
     res.status(200).send(summoner.data);
   } catch (err) {
+    console.log(err)
     next(err);
   }
 }

@@ -12,8 +12,11 @@ import {
   Button,
   Image,
   useColorModeValue,
+  Select,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { SelectRegion } from './SelectRegion';
+import { v4 as uuidv4 } from "uuid";
 import { ErrorShow } from "../../components/Error/ErrorShow";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchRegions } from "../../redux/slices";
@@ -33,6 +36,7 @@ const RegisterUser = () => {
 
   const [isError, setIsError] = useState<boolean>(false);
   const [stateMessage, setStateMessage] = useState<string>("");
+  const [isLargerThan] = useMediaQuery("(max-width:400px)");
 
   useEffect(() => {
     dispatch(fetchRegions());
@@ -114,7 +118,18 @@ const RegisterUser = () => {
               </FormControl>
               <FormControl isRequired mt={4} mb={4}>
                 <FormLabel> Regional ID </FormLabel>
-                <SelectRegion name="regionId" handleChange={handleChange} regions={regions} />
+                <Select
+                  size={isLargerThan ? "sm" : "md"}
+                  name="regionId"
+                  value={formData.regionId || ""}
+                  onChange={handleChange}
+                >
+                  {regions?.map((region: any) => (
+                    <option key={uuidv4()} value={region.id}>
+                      {region.name}
+                    </option>
+                  ))}
+                </Select>
               </FormControl>
               <FormLabel> Email </FormLabel>
               <Input

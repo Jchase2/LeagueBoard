@@ -10,16 +10,12 @@ import {
   Image,
   Tooltip,
 } from "@chakra-ui/react";
-import Badges from "./Badges";
-import RankImage from "./RankImage";
-import {useState} from 'react'
+import BadgesS from "./BadgesS";
+import RankImage from "../../components/ProfileIcon/RankImage";
+import { useState } from "react";
 import { changeNum } from "../../utils/romanToNum";
-import { useAppDispatch } from "../../redux/hooks";
-import {
-  setMatches,
-} from "../../redux/slices";
-import UpdateButton from "./UpdateButton"
-
+import UpdateButton from "../../components/ProfileIcon/UpdateButton";
+import { updateUserMatches } from "../../api/profileAPI";
 
 interface props {
   users: any;
@@ -27,19 +23,19 @@ interface props {
   regionName: any;
 }
 
-const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
-
-  const [loading, setLoading] = useState<boolean>(false)
-  const dispatch = useAppDispatch();
+const ProfileIconS: React.FC<props> = ({ users, userRank, regionName }) => {
+    console.log(users)
+    console.log(userRank);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleUpdate = () => {
     setLoading(true);
-    dispatch(setMatches());
+    updateUserMatches(users.puuid);
     setTimeout(() => {
-      setLoading(false)
+      setLoading(false);
       window.location.reload();
-    }, 5000)
-  }
+    }, 10000);
+  };
 
   return (
     <Box
@@ -54,7 +50,7 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
         size={"xl"}
         src={
           users
-            ? `http://ddragon.leagueoflegends.com/cdn/11.16.1/img/profileicon/${users?.iconid}.png`
+            ? `http://ddragon.leagueoflegends.com/cdn/11.16.1/img/profileicon/${users?.profileIconId}.png`
             : ""
         }
         alt={"Avatar Alt"}
@@ -73,18 +69,17 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
         }}
       />
       <Heading fontSize={"2xl"} fontFamily={"body"} mb={2}>
-        {users ? `${users?.summoner_name}` : ""}
+        {users ? `${users?.name}` : ""}
       </Heading>
-        {userRank?.length && 
-           <Badges userRank={userRank} />}
+      {userRank && <BadgesS userRank={userRank} />}
 
       <Text fontWeight={600} color={"gray.500"} mb={4} mt={2}>
         # {regionName}
       </Text>
       <Flex justifyContent="space-around">
         <Flex>
-          {userRank && userRank?.length ? (
-            <RankImage rank={userRank[0]?.tier} rankNum={userRank[0]?.rank} />
+          {userRank ? (
+            <RankImage rank={userRank?.tier} rankNum={userRank?.rank} />
           ) : (
             <Image minW="125px" maxH="125px" src="latest.png" />
           )}
@@ -97,17 +92,15 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
             px={3}
           >
             Rank Solo/Duo :{" "}
-            {userRank?.length
-              ? `${userRank[0]?.tier} ${changeNum(userRank[0]?.rank)}`
+            {userRank
+              ? `${userRank?.tier} ${changeNum(userRank?.rank)}`
               : "Unranked"}
           </Heading>
           <Tooltip hasArrow label="Winrate for games played this season">
             <Text>
-              {userRank?.length
-                ? `${userRank[0].wins}W ${userRank[0].losses}L | ${Math.round(
-                    (userRank[0].wins /
-                      (userRank[0].wins + userRank[0].losses)) *
-                      100
+              {userRank
+                ? `${userRank.wins}W ${userRank.losses}L | ${Math.round(
+                    (userRank.wins / (userRank.wins + userRank.losses)) * 100
                   )}%`
                 : ""}
             </Text>
@@ -139,4 +132,4 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
   );
 };
 
-export default ProfileIcon;
+export default ProfileIconS;
