@@ -16,6 +16,7 @@ import {
   removeFriend,
   addSeen,
   checkFriend,
+  getSummoner,
 } from "../Controllers/apiController";
 import {
   getForumTopics,
@@ -28,7 +29,7 @@ import {
   getVote,
   getVoteCount,
   deleteForumTopic,
-  getParentId
+  getParentId,
 } from "../Controllers/forumsController";
 import {
   getAllScrimmages,
@@ -46,13 +47,14 @@ router.post("/login", login);
 //private
 
 //TODO: change matches/:puuid to retrieve directly from db
+router.post("/summoner", getSummoner);
 router.get("/matches/:puuid", getMatches);
 router.post("/matches/update/:puuid", updateMatchesInDb);
 
 // FORUMS
 router.get("/topics", getForumTopics);
 router.get("/topics/comments/:parentid", getForumComments);
-router.get("/topics/grandparent/:id", getParentId)
+router.get("/topics/grandparent/:id", getParentId);
 router.get("/topics/user/:topicid", getForumOwner);
 router.get("/topics/:topicid", getForumTopicById);
 router.put("/vote", voteTopic);
@@ -68,7 +70,7 @@ router.get("/scrimmage/:id", getScrimmage);
 router.post("/scrimmage", postScrimmage);
 
 router.post("/friend/create", addFriend);
-router.delete("/friend/remove", removeFriend)
+router.delete("/friend/remove", removeFriend);
 router.put("/friend/seen", addSeen);
 router.post("/friend/check", checkFriend);
 
@@ -76,5 +78,7 @@ router.get("/regions", getRegions);
 
 router.get("/user", getUserInfo);
 router.get("/user/ranked", getUserRanked);
+
+router.get("/user");
 
 module.exports = router;

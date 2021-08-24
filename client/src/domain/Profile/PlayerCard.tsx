@@ -4,11 +4,14 @@ import {
   useColorModeValue,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import ChampMatch from "../../components/Match/ChampMatch";
 import CSMatch from "../../components/Match/CSMatch";
 import { ItemMatch } from "../../components/Match/ItemMatch";
 import { KDAMatch } from "../../components/Match/KDAMatch";
 import TypeMatch from "../../components/Match/TypeMatch";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addParticipant } from "../../redux/slices";
 
 interface Props {
   participant: any;
@@ -17,8 +20,8 @@ interface Props {
   gameDuration: number;
   teamId1: boolean;
   teamId2: boolean;
-  teamkills1 : any;
-  teamkills2 : any;
+  teamkills1: any;
+  teamkills2: any;
 }
 
 const PlayerCard: React.FC<Props> = ({
@@ -34,11 +37,26 @@ const PlayerCard: React.FC<Props> = ({
   const loseColor = useColorModeValue("red.200", "red.900");
   const winColor = useColorModeValue("blue.200", "blue.900");
   const [isLargerThan] = useMediaQuery("(max-width:760px)");
-  let totalKill = 0
-  //Check if win == teamId and return the kills inside
-  // pass down total team kills along with the boolean to check and display
-  if (participant?.win === teamId1) {totalKill = teamkills1;}
-  if (participant?.win === teamId2) {totalKill = teamkills2;}
+  let totalKill = 0;
+  if (participant?.win === teamId1) {
+    totalKill = teamkills1;
+  }
+  if (participant?.win === teamId2) {
+    totalKill = teamkills2;
+  }
+  // useEffect(() => {
+  //   if (participant) {
+  //     dispatch(
+  //       addParticipant({
+  //         participantWin: participant?.win,
+  //         participantKills: participant?.kills,
+  //         participantDeaths: participant?.deathsCSMatch,
+  //         participantAssists: participant?.assists,
+  //         role: participant.role,
+  //       })
+  //     );
+  //   }
+  // }, []);
 
   return (
     <>
@@ -72,15 +90,16 @@ const PlayerCard: React.FC<Props> = ({
                   deaths={participant?.deaths}
                   assists={participant?.assists}
                 />
-                {!isLargerThan &&
-                <CSMatch
-                  champLevel={participant?.champLevel}
-                  totalMinionsKilled={participant?.totalMinionsKilled}
-                  gameDuration={gameDuration}
-                  kills={participant?.kills}
-                  totalKill={totalKill}
-                  assists={participant?.assists}
-                />}
+                {!isLargerThan && (
+                  <CSMatch
+                    champLevel={participant?.champLevel}
+                    totalMinionsKilled={participant?.totalMinionsKilled}
+                    gameDuration={gameDuration}
+                    kills={participant?.kills}
+                    totalKill={totalKill}
+                    assists={participant?.assists}
+                  />
+                )}
                 <ItemMatch
                   item0={participant?.item0}
                   item1={participant?.item1}

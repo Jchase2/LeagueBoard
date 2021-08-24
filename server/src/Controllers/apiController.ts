@@ -78,7 +78,7 @@ export const updateMatchesInDb = async (req: Request, res: Response, next: Funct
     let i = 1;
     await asyncForEach(matches, async (match: string) => {
       const { data } = await getMatchInfoByMatchId(match, region);
-      let query = `UPDATE public."Matches" SET match${i} = '${JSON.stringify(data.info)}'::jsonb WHERE puuid = '${puuid}';`;
+      query = `UPDATE public."Matches" SET match${i} = '${JSON.stringify(data.info)}'::jsonb WHERE puuid = '${puuid}';`;
       await sequelize.query(query);
       i++;
     });
@@ -207,5 +207,40 @@ export const checkFriend = async (req: Request, res: Response, next: Function) =
     res.json({newPosts: newArray})
   } catch(err){
     next(err)
+  }
+}
+
+export const getSummoner = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { summoner_name, region } = req.body;
+
+    let summoner = await getSummonerByNameAndRegion(summoner_name, region);
+    summoner.data.rank = await getSummonerEntriesByAccountIdAndRegion(summoner.data.id, region);
+    let query: any = await sequelize.query(
+      `SELECT region FROM public."Regions" as R WHERE R.code = '${region}';`
+    );
+    let regionR = query[0][0].region;
+
+    const matches = await getMatchesByPuuid(summoner.data.puuid, regionR);
+    await Matches.destroy({
+      where: {
+        puuid: summoner.data.puuid
+      }
+    });
+
+    await sequelize.query(
+      `INSERT INTO public."Matches" (puuid, "updatedAt") VALUES ('${summoner.data.puuid}', '2021-08-19 21:16:44.969-03');`
+    );
+    let i = 1;
+    await asyncForEach(matches, async (match: string) => {
+      const { data } = await getMatchInfoByMatchId(match, region);
+      query = `UPDATE public."Matches" SET match${i} = '${JSON.stringify(data.info)}'::jsonb WHERE puuid = '${summoner.data.puuid}';`;
+      await sequelize.query(query);
+      i++;
+    });
+    
+    res.status(200).send(summoner.data);
+  } catch (err) {
+    next(err);
   }
 }

@@ -21,13 +21,7 @@ const ChampMatch: React.FC<Props> = ({
 }) => {
   const spell2 = summonerSpells[0][`${SummonerSpell2}`];
   const spell1 = summonerSpells[0][`${SummonerSpell1}`];
-  const rune1View = runes[0][`${rune1}`];
-  const rune2View = runes[0][`${rune2}`];
-  console.log(runes);
-  console.log(rune2);
-
   const runeview = runes?.map((rune) => rune.slots);
-  console.log(runeview);
   const idkwhatimdoing = runeview?.map((rune) => rune[0]);
   const newLoop = [
     idkwhatimdoing[0]?.runes[0],
@@ -52,9 +46,6 @@ const ChampMatch: React.FC<Props> = ({
   const wtfisthis2 = runesSub[0][`${rune2}`];
   let Desc: any
   if (wtfisthis1[0]) {Desc = wtfisthis1[0]["shortDesc"]}
-  // console.log(wtfisthis1[0]['shortDesc'])
-  console.log(wtfisthis2);
-  console.log(newLoop);
 
   return (
     <>

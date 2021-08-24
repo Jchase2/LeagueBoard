@@ -96,3 +96,15 @@ export const signIn = async (form: any) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const getSummoner = async (summoner_name, regionCode) => {
+  return axios.post(process.env.REACT_APP_BACKEND_URL + "/summoner" || "localhost:3001/", 
+      {
+        summoner_name: summoner_name,
+        region: regionCode,
+      },
+      config
+    ).then((res: { data: any }) => res.data)
+    .catch((err) => console.log(err));
+};
+

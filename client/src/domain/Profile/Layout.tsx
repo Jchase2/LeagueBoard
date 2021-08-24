@@ -1,5 +1,5 @@
 import { Flex, Spinner, useMediaQuery } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
@@ -10,7 +10,6 @@ import {
   fetchUserInfo,
   fetchUserRank,
 } from "../../redux/slices";
-import { useState } from "react";
 
 interface Props {}
 
@@ -29,7 +28,7 @@ const Layout: React.FC<Props> = () => {
      setLoading(true);
      setTimeout(() => {
        setLoading(false);
-     }, 900);
+     }, 1200);
    };
 
   useEffect(() => {
@@ -41,10 +40,11 @@ const Layout: React.FC<Props> = () => {
   }, [dispatch]);
 
 
-  console.log("Matches: ", matches);
-
   return (
-    <Flex justifyContent="space-evenly" flexDirection={!isLargerThan ? "row" : "column"}>
+    <Flex
+      justifyContent="space-evenly"
+      flexDirection={!isLargerThan ? "row" : "column"}
+    >
       <Flex
         h="500px"
         minW="20vw"
@@ -53,13 +53,7 @@ const Layout: React.FC<Props> = () => {
         mb={isLargerThan ? 3 : 0}
         mr={isLargerThan ? 0 : 6}
       >
-      
-          <ProfileIcon
-            users={user}
-            userRank={userRank}
-            regionName={regionName}
-          />
-        
+        <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
       </Flex>
       <Flex minW="50vw" justifyContent="center" alignContent="center">
         <Flex
@@ -71,6 +65,7 @@ const Layout: React.FC<Props> = () => {
         >
           {!loading ? (
             <>
+              <Flex borderWidth="1px"></Flex>
               {matches &&
                 matches?.map(
                   (match: any) =>
