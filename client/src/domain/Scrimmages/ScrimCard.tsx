@@ -1,9 +1,5 @@
-import { Container, LinkBox, LinkOverlay, SimpleGrid, Center, Box } from "@chakra-ui/react"
+import { Container, SimpleGrid, Center, Box, Table, Tfoot, Thead, Tbody, Th, Tr, Td,} from "@chakra-ui/react"
 import { Link } from "react-router-dom";
-
-interface Props {
-  
-}
 
 const ScrimCard: React.FC<{scrim:any}> = ({scrim}) => {
   return (

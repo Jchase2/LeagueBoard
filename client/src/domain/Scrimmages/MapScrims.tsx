@@ -1,4 +1,3 @@
-import { IScrimmage } from "../../interfaces/Scrimmages";
 import ScrimCard from "./ScrimCard";
 
 const MapScrims: React.FC<{scrims:any}> = ({scrims}) => {

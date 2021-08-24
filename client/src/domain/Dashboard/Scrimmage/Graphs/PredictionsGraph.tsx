@@ -1,10 +1,11 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
-import { Container, Divider } from "@chakra-ui/react"
+import { Divider } from "@chakra-ui/react"
+import { IScrimmage } from '../../../../interfaces/Scrimmage';
 
-const PredictionsGraph = () => {
+const PredictionsGraph = ({scrim}:any) => {
 
-  
+  console.log(scrim)  
  
   return (
     <div>
@@ -47,7 +48,7 @@ const PredictionsGraph = () => {
             ]
           },{
             type: "stackedBar100",
-            color: "blue",
+            color: "#B7410E",
             name: "team1",
             showInLegend: true,
             indexLabel: "{y}",
@@ -60,7 +61,7 @@ const PredictionsGraph = () => {
             ]
           },{
             type: "stackedBar100",
-            color: "red",
+            color: "#5072A7",
             name: "team2",
             showInLegend: true,
             indexLabel: "{y}",

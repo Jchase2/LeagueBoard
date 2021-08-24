@@ -21,7 +21,7 @@ export const getAllScrimmages = async (req: Request, res: Response, next: Functi
 
 export const getScrimmage = async (req: Request, res: Response, next: Function) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     let scrimmages: any = await sequelize.query(`SELECT S.id as scrimmageid, U.id as userid, R.code as region, date as date,
       "bestOf", team_name1 as team1, team_name2 as team2, player1,
       (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player1) as PUUID1,
@@ -100,6 +100,8 @@ export const postScrimmage = async (req: Request, res: Response, next: Function)
 
 const retrieveAndSetRankInfoOfPlayers = async (scrimmages: any) => {
 
+  //scrimmages.region = "na1"
+
   //player1
   let player = await getSummonerByPuuid(scrimmages.puuid1, scrimmages.region);
   scrimmages.player1info = player;
@@ -110,53 +112,53 @@ const retrieveAndSetRankInfoOfPlayers = async (scrimmages: any) => {
   player = await getSummonerByPuuid(scrimmages.puuid2, scrimmages.region);
   scrimmages.player2info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
-  scrimmages.player1ranked = ranked.data;
+  scrimmages.player2ranked = ranked.data;
 
   //player3
   player = await getSummonerByPuuid(scrimmages.puuid3, scrimmages.region);
   scrimmages.player3info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
-  scrimmages.player1ranked = ranked.data;
+  scrimmages.player3ranked = ranked.data;
   
   //player4
   player = await getSummonerByPuuid(scrimmages.puuid4, scrimmages.region);
   scrimmages.player4info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
-  scrimmages.player1ranked = ranked.data;
+  scrimmages.player4ranked = ranked.data;
 
-  //plaey6
+  //player5
   player = await getSummonerByPuuid(scrimmages.puuid5, scrimmages.region);
   scrimmages.player5info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
-  scrimmages.player1ranked = ranked.data;
+  scrimmages.player5ranked = ranked.data;
 
   //player6
   player = await getSummonerByPuuid(scrimmages.puuid6, scrimmages.region);
   scrimmages.player6info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
-  scrimmages.player1ranked = ranked.data;
+  scrimmages.player6ranked = ranked.data;
 
   //player7
   player = await getSummonerByPuuid(scrimmages.puuid7, scrimmages.region);
   scrimmages.player7info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
-  scrimmages.player1ranked = ranked.data;
+  scrimmages.player7ranked = ranked.data;
 
   //player8
   player = await getSummonerByPuuid(scrimmages.puuid8, scrimmages.region);
   scrimmages.player8info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
-  scrimmages.player1ranked = ranked.data;
+  scrimmages.player8ranked = ranked.data;
 
   //player9
   player = await getSummonerByPuuid(scrimmages.puuid9, scrimmages.region);
   scrimmages.player9info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
-  scrimmages.player1ranked = ranked.data;
+  scrimmages.player9ranked = ranked.data;
 
   //player10
   player = await getSummonerByPuuid(scrimmages.puuid10, scrimmages.region);
   scrimmages.player10info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
-  scrimmages.player1ranked = ranked.data;
+  scrimmages.player10ranked = ranked.data;
 }

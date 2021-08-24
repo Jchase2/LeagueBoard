@@ -51,7 +51,7 @@ function App() {
               <ListScrimmages/>
             </SidebarWithHeader>
           </Route>
-          <Route exact path="scimmage/:id">
+          <Route exact path="/scimmage/:id">
             <SidebarWithHeader>
               <ScrimLayout/>
             </SidebarWithHeader>
