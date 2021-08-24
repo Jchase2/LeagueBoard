@@ -9,4 +9,3 @@ export {
 export { commentsSlice, fetchComments } from "./commentsSlice";
 export { regionSlice, fetchRegions } from "./regionsSlice";
 export { matchSlice, fetchMatches, setMatches } from "./matchesSlice";
-export { playerSlice, addParticipant } from "./playerSlice";

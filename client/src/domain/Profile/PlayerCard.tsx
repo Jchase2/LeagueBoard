@@ -4,14 +4,11 @@ import {
   useColorModeValue,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
 import ChampMatch from "../../components/Match/ChampMatch";
 import CSMatch from "../../components/Match/CSMatch";
 import { ItemMatch } from "../../components/Match/ItemMatch";
 import { KDAMatch } from "../../components/Match/KDAMatch";
 import TypeMatch from "../../components/Match/TypeMatch";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { addParticipant } from "../../redux/slices";
 
 interface Props {
   participant: any;
@@ -44,19 +41,7 @@ const PlayerCard: React.FC<Props> = ({
   if (participant?.win === teamId2) {
     totalKill = teamkills2;
   }
-  // useEffect(() => {
-  //   if (participant) {
-  //     dispatch(
-  //       addParticipant({
-  //         participantWin: participant?.win,
-  //         participantKills: participant?.kills,
-  //         participantDeaths: participant?.deathsCSMatch,
-  //         participantAssists: participant?.assists,
-  //         role: participant.role,
-  //       })
-  //     );
-  //   }
-  // }, []);
+ 
 
   return (
     <>
