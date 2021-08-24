@@ -30,20 +30,6 @@ export const removeFriend = (userid: number, friendid: number) => {
     .catch((err) => console.log(err));
 };
 
-export const markFriendHasSeen = (userid: number, friendid: number) => {
-  axios
-    .put(
-      process.env.REACT_APP_BACKEND_URL + "/friend/hasseen" ||
-        "http://localhost:3000/friend/hasseen",
-      {
-        userid: userid,
-        friendid: friendid,
-      }
-    )
-    .then((res: { data: any }) => res.data)
-    .catch((err) => console.log(err));
-};
-
 export const getUserNameById = (userid: number) => {
   return axios.get(
     process.env.REACT_APP_BACKEND_URL + "/friend/getUserNameById" || "http://localhost:3000/friend/getUserNameById",

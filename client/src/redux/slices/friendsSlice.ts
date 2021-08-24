@@ -45,6 +45,21 @@ export const markSeen = createAsyncThunk(
   ).then((res: {data: any}) => res.data)
 );
 
+export const markFriendHasSeen = createAsyncThunk(
+  "friends/markFriendSeen",
+  async (data: any) => await axios
+  .put(
+    process.env.REACT_APP_BACKEND_URL + "/friend/hasseen" ||
+      "http://localhost:3000/friend/hasseen",
+    {
+      userid: data.userid,
+      friendid: data.friendid,
+    }
+  )
+  .then((res: { data: any }) => res.data)
+  .catch((err) => console.log(err))
+);
+
 
 export const clearNotifications = createAsyncThunk(
   "friends/clearNotifications",
@@ -90,7 +105,6 @@ export const friendSlice = createSlice({
     });
     builder.addCase(checkAdds.fulfilled, (state, { payload }) => {
       state.status = "resolved";
-      console.log("PAYLOAD: ", payload)
       state.friendAdds = payload
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
@@ -108,6 +122,18 @@ export const friendSlice = createSlice({
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
     builder.addCase(markSeen.rejected, (state, action: any) => {
+      if (action.payload) {
+        state.error = action.payload.errorMessage;
+      } else {
+        state.error = action.error;
+      }
+    });
+    builder.addCase(markFriendHasSeen.fulfilled, (state, { payload }) => {
+      state.status = "resolved";
+      state.friendAdds = state.friendAdds.filter((friend) => friend !== payload.userid)
+    });
+    // TODO: Fix any on action. Should probably be type of fetchUserInfo
+    builder.addCase(markFriendHasSeen.rejected, (state, action: any) => {
       if (action.payload) {
         state.error = action.payload.errorMessage;
       } else {

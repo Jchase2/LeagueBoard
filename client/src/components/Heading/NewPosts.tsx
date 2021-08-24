@@ -31,13 +31,13 @@ const NewPosts = () => {
 
   const handleClear = async () => {
     if(user.id){
-      dispatch(clearNotifications(user.id))
+      dispatch(clearNotifications(user.id));
     }
   }
 
   return (
     <Menu>
-      {(friendsPosts.length === 0 && newAdds.length === 0) ? (
+      {(friendsPosts?.length <= 0 && newAdds?.length <= 0) ? (
         <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }}>
           <IconButton
             size="md"
@@ -65,17 +65,15 @@ const NewPosts = () => {
         <MenuItem>
           <Button onClick={() => handleClear()}>Clear All</Button>
         </MenuItem>
-        {(friendsPosts.length > 0 && user) &&
-          friendsPosts.map((topic) => (
+        {(friendsPosts?.length > 0 && user) &&
+          friendsPosts?.map((topic) => (
             <MenuItem key={topic}>
               <NewPostCard threadid={topic} user={user} />
             </MenuItem>
           ))}
-          {console.log("NEW ADDS: ", newAdds)}
-        {(newAdds.length > 0) &&
+        {(newAdds?.length > 0) &&
           newAdds.map((addedUser) => (
             <MenuItem key={addedUser}>
-              {console.log(addedUser)}
               <NewAddCard friendid={addedUser} user={user} />
             </MenuItem>
           ))

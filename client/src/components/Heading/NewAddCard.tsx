@@ -2,27 +2,24 @@ import { Props } from "framer-motion/types/types";
 import { useEffect, useState } from "react";
 import { Text, Container, Button } from "@chakra-ui/react";
 import { getUserNameById } from "../../api/friendApi";
+import { markFriendHasSeen } from "../../redux/slices/friendsSlice";
+import { useAppDispatch } from "../../redux/hooks";
 const NewPostCard: React.FC<Props> = ({ user, friendid }) => {
 
-  console.log("FRIEND ID: ", friendid)
-
+  const dispatch = useAppDispatch();
   const [userName, setUserName] = useState<string>("")
 
-  useEffect(() => {
-    console.log("WTF")
-    getUserNameById(friendid).then((res) => {
-      console.log("RES: ", res)
-      setUserName(res)
-    })
-  }, [])
 
-  console.log("userName: ", userName)
+  useEffect(() => {
+    getUserNameById(friendid).then((res) => {
+      setUserName(res.summoner_name)
+    })
+  }, [friendid])
 
   const handleClick = async () => {
-    // TODO
-    // mark as seen
-
-    // redirect to use page
+    if(user?.id && friendid){
+      dispatch(markFriendHasSeen({userid: user.id, friendid: friendid}))
+    }
   }
 
   return userName ? (

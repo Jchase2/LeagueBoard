@@ -68,7 +68,6 @@ export const checkAddedBy = async (req: Request, res: Response, next: Function) 
         addedMe.push(friend.dataValues.userid)
       }
     })
-    console.log(addedMe)
     res.json(addedMe)
   } catch(err){
     next(err)
@@ -154,9 +153,8 @@ export const getUserNameById = async (req: Request, res: Response, next: Functio
     // This call comes from the friend, so these get reversed
     const user = await User.findOne({where: {id: userid}});
     res.status(200)
-    res.json(user?.summoner_name)
+    res.json({summoner_name: user?.summoner_name, userid: user?.id})
   } catch(err){
-    console.log(err.message)
     next(err)
   }
 }
