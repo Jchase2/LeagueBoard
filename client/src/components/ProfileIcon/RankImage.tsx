@@ -7,7 +7,7 @@ interface props {
 }
 
 const RankImage: React.FC<props> = ({ rank, rankNum }) => {
-  rank = rank.toLowerCase();
+  rank = rank?.toLowerCase();
   const num = changeNum(rankNum);
   return (
     <Image

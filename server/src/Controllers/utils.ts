@@ -53,3 +53,14 @@ export const getMatchInfoByMatchId = async (
     headers: header,
   });
 };
+export const getMatchInfoByMatchId2 = async (
+  matchid: string,
+  region: string
+) => {
+  const url = `https://${region}.api.riotgames.com/lol/match/v5/matches/${matchid}`;
+  const obj = await axios.get(url, {
+    headers: header,
+  });
+  return obj.data.info
+};
+

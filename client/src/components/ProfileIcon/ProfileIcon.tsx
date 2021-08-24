@@ -37,7 +37,8 @@ const ProfileIcon: React.FC<props> = ({ users, userRank, regionName }) => {
     dispatch(setMatches());
     setTimeout(() => {
       setLoading(false)
-    }, 10000)
+      window.location.reload();
+    }, 5000)
   }
 
   return (
