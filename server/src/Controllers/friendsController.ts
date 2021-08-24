@@ -85,7 +85,6 @@ export const checkFriends = async (req: Request, res: Response, next: Function) 
 export const clearNotifications = async (req: Request, res: Response, next: Function) => {
   try {
     let { userid } = req.body;
-
     const friends: any = await Friend.findAll({where: { userid: userid }});
 
     // list of all friends

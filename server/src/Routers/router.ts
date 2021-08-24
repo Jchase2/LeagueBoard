@@ -12,17 +12,14 @@ import {
   getMatches,
   getUserInfo,
   getUserRanked,
-} from "../Controllers/apiController";
-import {
-  addFriend,
-  removeFriend,
-  addSeen,
-  checkFriend,
   getSummoner,
 } from "../Controllers/apiController";
 import {
   checkFriends,
-  clearNotifications
+  clearNotifications,
+  addFriend,
+  removeFriend,
+  addSeen
 } from "../Controllers/friendsController";
 
 import {
