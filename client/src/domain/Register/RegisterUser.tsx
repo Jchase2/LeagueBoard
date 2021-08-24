@@ -114,7 +114,7 @@ const RegisterUser = () => {
               </FormControl>
               <FormControl isRequired mt={4} mb={4}>
                 <FormLabel> Regional ID </FormLabel>
-                <SelectRegion name="regionId" handleChange={handleChange}regions={regions} />
+                <SelectRegion name="regionId" handleChange={handleChange} regions={regions} />
               </FormControl>
               <FormLabel> Email </FormLabel>
               <Input

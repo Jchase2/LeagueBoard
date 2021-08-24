@@ -1,4 +1,4 @@
-import { Divider, Flex, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { useEffect, useState } from "react";
 import { getTopicOwner } from "../../api";

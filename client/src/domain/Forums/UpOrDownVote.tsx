@@ -1,17 +1,18 @@
-import { IconButton, VStack, Text } from "@chakra-ui/react";
+import {
+  IconButton,
+  VStack,
+  Text,
+  Flex,
+  Icon,
+} from "@chakra-ui/react";
 import { BiDownvote, BiUpvote } from "react-icons/bi";
 import { Props } from "framer-motion/types/types";
 import { useEffect, useState } from "react";
-import {
-  getTopicOwner,
-  getVotes,
-  voteTopic,
-  getVoteCount,
-} from "../../api";
+import { getTopicOwner, getVotes, voteTopic, getVoteCount } from "../../api";
 import { useAppSelector } from "../../redux/hooks";
+import { FiStar } from "react-icons/fi";
 
 const UpOrDownVote: React.FC<Props> = ({ thread }) => {
-
   const user = useAppSelector((state) => state.userReducer.userState);
 
   const [threadCreator, setThreadCreator] = useState<number>(0);
@@ -25,11 +26,13 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
         setThreadCreator(owner?.id);
       });
       getVotes(thread.id, user.id).then((res) => {
-        if (res?.value && (user.id === res.userid)) {
+        if (res?.value && user.id === res.userid) {
           setHasVoted(true);
           setVotedValue(res.value);
         }
       });
+    }
+    if (thread.id) {
       getVoteCount(thread.id).then((res) => {
         setVoteCount(res?.votes);
       });
@@ -41,14 +44,14 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
     setHasVoted(true);
     setVotedValue(val);
     await voteTopic(thread.id, user.id, val);
-    let vc = await getVoteCount(thread.id)
-    setVoteCount(vc.votes)
+    let vc = await getVoteCount(thread.id);
+    setVoteCount(vc.votes);
   };
 
   return (
-    <VStack>
+    <>
       {hasVoted === false && user ? (
-        <>
+        <VStack>
           <IconButton
             onClick={() => handleClick(1)}
             variant="outline"
@@ -66,9 +69,9 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             icon={<BiDownvote />}
             size="xs"
           />{" "}
-        </>
+        </VStack>
       ) : hasVoted && votedValue === 1 && user ? (
-        <>
+        <VStack>
           <IconButton
             onClick={() => handleClick(1)}
             variant="solid"
@@ -86,9 +89,10 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             icon={<BiDownvote />}
             size="xs"
           />
-        </>
+        </VStack>
       ) : user ? (
-        <>
+        <VStack>
+          {" "}
           <IconButton
             onClick={() => handleClick(1)}
             variant="outline"
@@ -106,9 +110,16 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             icon={<BiDownvote />}
             size="xs"
           />{" "}
-        </>
-      ) : <></>}
-    </VStack>
+        </VStack>
+      ) : (
+        <Flex direction="row" align="center" justify="center">
+            <Text fontSize="sm">
+              <Icon as={FiStar} />
+              {" " + voteCount}
+            </Text>
+        </Flex>
+      )}
+    </>
   );
 };
 
