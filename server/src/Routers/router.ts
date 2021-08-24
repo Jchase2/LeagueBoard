@@ -12,12 +12,19 @@ import {
   getMatches,
   getUserInfo,
   getUserRanked,
+} from "../Controllers/apiController";
+import {
   addFriend,
   removeFriend,
   addSeen,
   checkFriend,
   getSummoner,
 } from "../Controllers/apiController";
+import {
+  checkFriends,
+  clearNotifications
+} from "../Controllers/friendsController";
+
 import {
   getForumTopics,
   postForumTopic,
@@ -70,9 +77,10 @@ router.get("/scrimmage/:id", getScrimmage);
 router.post("/scrimmage", postScrimmage);
 
 router.post("/friend/create", addFriend);
-router.delete("/friend/remove", removeFriend);
+router.delete("/friend/remove", removeFriend)
+router.delete("/friend/clear", clearNotifications);
 router.put("/friend/seen", addSeen);
-router.post("/friend/check", checkFriend);
+router.get("/friend/check", checkFriends);
 
 router.get("/regions", getRegions);
 

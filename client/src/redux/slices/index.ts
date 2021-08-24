@@ -8,4 +8,5 @@ export {
 } from "./topicsSlice";
 export { commentsSlice, fetchComments } from "./commentsSlice";
 export { regionSlice, fetchRegions } from "./regionsSlice";
-export { matchSlice, fetchMatches, setMatches } from "./matchesSlice";
+export { matchSlice, fetchMatches, setMatches } from './matchesSlice';
+export { friendSlice, checkFriends, markSeen, clearNotifications } from './friendsSlice'

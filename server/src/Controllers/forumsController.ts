@@ -6,8 +6,6 @@ import { Topic } from "../Models/topic.model";
 const { User } = require("../Models/user.model");
 const { Votes } = require("../Models/vote.model");
 
-
-
 export const getForumTopics = async (
   req: Request,
   res: Response,
@@ -65,7 +63,11 @@ export const getForumTopicById = async (
   }
 };
 
-export const closeForumTopic = async (req: Request, res: Response, next: Function) => {
+export const closeForumTopic = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     let { topicid, state } = req.body;
     const topic = await Topic.findByPk(topicid);
@@ -74,7 +76,7 @@ export const closeForumTopic = async (req: Request, res: Response, next: Functio
   } catch (err) {
     next(err);
   }
-}
+};
 
 export const getForumOwner = async (
   req: Request,
@@ -91,73 +93,97 @@ export const getForumOwner = async (
   }
 };
 
-export const deleteForumTopic = async (req: Request, res: Response, next: Function) => {
+export const deleteForumTopic = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     let { topicid } = req.params;
     const topic = await Topic.findByPk(topicid);
     //const topics = await Topic.findAll({});
-    await Topic.destroy({ where: { parentid: topic!.id }})
+    await Topic.destroy({ where: { parentid: topic!.id } });
     await topic!.destroy();
-    res.json(topic)
-    res.status(204)
+    res.json(topic);
+    res.status(204);
   } catch (err) {
     next(err);
   }
-}
+};
 
 export const getVote = async (req: Request, res: Response, next: Function) => {
   const { userid } = req.headers;
   const { id } = req.params;
   try {
-    let val = await Votes.findOne({where: {
-      [Op.and]: [{ topicid: id }, { userid: userid }]}})
-    res.json(val)
-  } catch(err){
-    next(err)
+    let val = await Votes.findOne({
+      where: {
+        [Op.and]: [{ topicid: id }, { userid: userid }],
+      },
+    });
+    res.json(val);
+  } catch (err) {
+    next(err);
   }
-}
+};
 
-export const getVoteCount = async (req: Request, res: Response, next: Function) => {
-  const {id} = req.params;
+export const getVoteCount = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
+  const { id } = req.params;
   try {
-    let votesArr = await Votes.findAll({where: {
-      topicid: id
-    }});
+    let votesArr = await Votes.findAll({
+      where: {
+        topicid: id,
+      },
+    });
     let count = 0;
     votesArr.map((votesObj: any) => {
-      count = count + votesObj.dataValues.value
-    })
-    res.json({votes: count})
+      count = count + votesObj.dataValues.value;
+    });
+    res.json({ votes: count });
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};
 
-export const voteTopic = async (req: Request, res: Response, next: Function) => {
+export const voteTopic = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     let { topicid, userid, value } = req.body;
-    let dupCheck = await Votes.findOne({where: {
-      [Op.and]: [{ topicid: topicid }, { userid: userid }]}})
-    if(dupCheck){
-      if(dupCheck.value === value){
-        res.status(409)
+    let dupCheck = await Votes.findOne({
+      where: {
+        [Op.and]: [{ topicid: topicid }, { userid: userid }],
+      },
+    });
+    if (dupCheck) {
+      if (dupCheck.value === value) {
+        res.status(409);
       } else {
-        dupCheck.update({value: value}, {
-            where: {userid: userid, topicid: topicid}
-          })
+        let resp = dupCheck.update(
+          { value: value },
+          {
+            where: { userid: userid, topicid: topicid },
+          }
+        );
+        res.json(resp);
       }
     } else {
       const dbVote = await Votes.create({
         topicid,
         userid,
-        value: value
+        value: value,
       });
-      res.json(dbVote)
+      res.json(dbVote);
     }
-  } catch(err){
-    next(err)
+  } catch (err) {
+    next(err);
   }
-}
+};
 
 export const postForumTopic = async (
   req: Request,
@@ -179,22 +205,26 @@ export const postForumTopic = async (
   }
 };
 
-export const getParentId = async (req: Request, res: Response, next: Function) => {
+export const getParentId = async (
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   try {
     const { id } = req.params;
     let topic: any = await Topic.findByPk(id);
-    if(topic.parentid <= 0){
-      return res.json(topic.id)
+    if (topic.parentid <= 0) {
+      return res.json(topic.id);
     }
     let parentid = topic.parentid;
     let lastParentId = -1;
-    while(parentid && parentid > 0){
-      topic = await Topic.findByPk(topic.parentid)
+    while (parentid && parentid > 0) {
+      topic = await Topic.findByPk(topic.parentid);
       parentid = topic.parentid;
-      lastParentId = topic.id
+      lastParentId = topic.id;
     }
-    res.json({grandparent: lastParentId})
-  } catch (err){
+    res.json({ grandparent: lastParentId });
+  } catch (err) {
     next(err);
   }
-}
+};

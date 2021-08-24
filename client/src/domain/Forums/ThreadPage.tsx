@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
-import { Box, Flex, Text, Button, Spacer } from "@chakra-ui/react";
+import { Box, Flex, Text, Button, Spacer, Divider } from "@chakra-ui/react";
 import { ITopicResp } from "../../interfaces";
 import { getForumTopic } from "../../api";
 import { useParams, useHistory } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
 import { fetchUserInfo } from "../../redux/slices";
-import { ReplyTopic, MapComments, ByComp, ReplyOrDelete, CloseThread, UpOrDownVote } from './'
+import {
+  ReplyTopic,
+  MapComments,
+  ByComp,
+  ReplyOrDelete,
+  CloseThread,
+  UpOrDownVote,
+} from "./";
 
 type urlParams = {
   id: string;
@@ -31,7 +38,7 @@ const ThreadPage: React.FC = () => {
   const [isReply, setIsReply] = useState(false);
 
   useEffect(() => {
-    if(Number(id) !== 0){
+    if (Number(id) !== 0) {
       getForumTopic(+id).then((res) => {
         setThreadData(res);
         dispatch(fetchUserInfo());
@@ -49,8 +56,15 @@ const ThreadPage: React.FC = () => {
           letterSpacing="wide"
         >
           <Flex direction="row">
-            {threadData.id && <UpOrDownVote thread={threadData} />}
-            {threadData.title}
+            <Box minW="20px" w="3vw" p={2} m={1}>
+              {threadData.id && <UpOrDownVote thread={threadData} />}
+            </Box>
+            <Box minW="200px" w="40vw" p={2} m={1}>
+              <Divider size="sm" />
+              <Text mt={2}>
+                {threadData.title}
+              </Text>
+            </Box>
           </Flex>
         </Box>
         <Box
@@ -63,25 +77,25 @@ const ThreadPage: React.FC = () => {
             <ByComp thread={threadData} />
           </Flex>
         </Box>
-        <Box border="1px" borderRadius="lg" p={2} m={2}>
+        <Box border="1px" borderRadius="lg" mt={2} mb={2} p={3}>
           <Text>{threadData.text}</Text>
         </Box>
         {isReply && <ReplyTopic setIsReply={setIsReply} thread={threadData} />}
         <Flex direction="row">
-          { threadData.id && <ReplyOrDelete
-            isReply={isReply}
-            setIsReply={setIsReply}
-            thread={threadData}
-          />}
+          {threadData.id && (
+            <ReplyOrDelete
+              isReply={isReply}
+              setIsReply={setIsReply}
+              thread={threadData}
+            />
+          )}
           <Button onClick={() => history.push("/topics")} m={1}>
             Back
           </Button>
           <Spacer />
           <CloseThread setThreadData={setThreadData} threadData={threadData} />
         </Flex>
-        <Box>
-          {threadData.id && <MapComments />}
-        </Box>
+        <Box>{threadData.id && <MapComments />}</Box>
       </Box>
     </Flex>
   );

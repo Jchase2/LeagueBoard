@@ -37,10 +37,12 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
   }, [thread.id, threadCreator, user]);
 
   const handleClick = async (val) => {
-    !hasVoted ? setVoteCount(voteCount + val) : setVoteCount(voteCount + (val * 2))
+    // !hasVoted ? setVoteCount(voteCount + val) : setVoteCount(voteCount + (val * 2))
     setHasVoted(true);
     setVotedValue(val);
     await voteTopic(thread.id, user.id, val);
+    let vc = await getVoteCount(thread.id)
+    setVoteCount(vc.votes)
   };
 
   return (
@@ -52,8 +54,8 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             variant="outline"
             colorScheme="green"
             aria-label="Call Sage"
-            fontSize="20px"
             icon={<BiUpvote />}
+            size="xs"
           />
           <Text>{voteCount && voteCount}</Text>
           <IconButton
@@ -61,8 +63,8 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             variant="outline"
             colorScheme="red"
             aria-label="Call Sage"
-            fontSize="20px"
             icon={<BiDownvote />}
+            size="xs"
           />{" "}
         </>
       ) : hasVoted && votedValue === 1 && user ? (
@@ -72,8 +74,8 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             variant="solid"
             colorScheme="green"
             aria-label="Call Sage"
-            fontSize="20px"
             icon={<BiUpvote />}
+            size="xs"
           />
           <Text>{voteCount && voteCount}</Text>
           <IconButton
@@ -81,8 +83,8 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             variant="outline"
             colorScheme="red"
             aria-label="Call Sage"
-            fontSize="20px"
             icon={<BiDownvote />}
+            size="xs"
           />
         </>
       ) : user ? (
@@ -92,8 +94,8 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             variant="outline"
             colorScheme="green"
             aria-label="Call Sage"
-            fontSize="20px"
             icon={<BiUpvote />}
+            size="xs"
           />
           <Text>{voteCount && voteCount}</Text>
           <IconButton
@@ -101,8 +103,8 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
             variant="solid"
             colorScheme="red"
             aria-label="Call Sage"
-            fontSize="20px"
             icon={<BiDownvote />}
+            size="xs"
           />{" "}
         </>
       ) : <></>}

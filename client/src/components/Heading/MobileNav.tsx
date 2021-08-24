@@ -17,12 +17,13 @@ import {
   MenuList,
   useMediaQuery
 } from "@chakra-ui/react";
-import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
+import { FiMenu, FiChevronDown } from "react-icons/fi";
 import { FaMoon, FaSun } from "react-icons/fa";
 import Searchbar from "../Searchbar/Searchbar";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchRegions, fetchUserInfo } from "../../redux/slices";
+import NewPosts from "./NewPosts";
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
@@ -66,13 +67,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         />
         <Searchbar message={"Search for Summoners"} regions={regions} />
         <HStack spacing={{ base: "0", md: "6" }}>
-          <IconButton
-            size={isLargerThan ? "sm" : "md"}
-            variant="ghost"
-            aria-label="open menu"
-            icon={<FiBell />}
-            isActive={true}
-          />
+          <NewPosts />
           <IconButton
             icon={<SwitchIcon />}
             size="md"

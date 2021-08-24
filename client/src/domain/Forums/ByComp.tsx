@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Divider, Flex, Text } from "@chakra-ui/react";
 import { Props } from "framer-motion/types/types";
 import { useEffect, useState } from "react";
 import { getTopicOwner } from "../../api";
@@ -15,11 +15,9 @@ const DateComp: React.FC<Props> = ({ thread }) => {
   }, [thread.id]);
 
   return (
-    <Flex direction="row">
-      {`By: ${threadCreator} at ` +
-        new Date(thread.created_at).toLocaleTimeString() +
-        " on " +
-        new Date(thread.created_at).toLocaleDateString()}
+    <Flex direction="column" borderRadius="lg" borderWidth="1px" p={2} mt={2}>
+      <Text fontSize="xs">{`By: ${threadCreator} on ` + new Date(thread.created_at).toLocaleDateString() +
+        " at " + new Date(thread.created_at).toLocaleTimeString()}</Text>
     </Flex>
   );
 };
