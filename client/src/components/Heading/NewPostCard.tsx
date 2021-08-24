@@ -47,7 +47,7 @@ const NewPostCard: React.FC<Props> = ({ threadid, user }) => {
     })
   }
 
-  return threadData.title ? (
+  return threadData?.title ? (
     <Button variant="link" onClick={() => handleClick()}>
       <Container maxW="sm">
         <Text isTruncated>

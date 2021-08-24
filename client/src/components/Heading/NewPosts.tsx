@@ -11,17 +11,21 @@ import { useEffect } from "react";
 import { FiBell } from "react-icons/fi";
 import { VscBellDot } from 'react-icons/vsc';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkFriends, clearNotifications } from "../../redux/slices/friendsSlice";
+import { checkAdds, checkFriends, clearNotifications } from "../../redux/slices/friendsSlice";
+import NewAddCard from "./NewAddCard";
 import NewPostCard from "./NewPostCard";
 
 const NewPosts = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userReducer.userState);
   const friendsPosts = useAppSelector((state) => state.friendsReducer.newPosts);
+  const newAdds = useAppSelector((state) => state.friendsReducer.friendAdds);
+
 
   useEffect(() => {
-    if(user){
+    if(user && user.id){
       dispatch(checkFriends(user.id));
+      dispatch(checkAdds(user.id));
     }
   }, [dispatch, user?.id, user]);
 
@@ -33,7 +37,7 @@ const NewPosts = () => {
 
   return (
     <Menu>
-      {friendsPosts.length === 0 ? (
+      {(friendsPosts.length === 0 && newAdds.length === 0) ? (
         <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }}>
           <IconButton
             size="md"
@@ -67,6 +71,15 @@ const NewPosts = () => {
               <NewPostCard threadid={topic} user={user} />
             </MenuItem>
           ))}
+          {console.log("NEW ADDS: ", newAdds)}
+        {(newAdds.length > 0) &&
+          newAdds.map((addedUser) => (
+            <MenuItem key={addedUser}>
+              {console.log(addedUser)}
+              <NewAddCard friendid={addedUser} user={user} />
+            </MenuItem>
+          ))
+        }
       </MenuList>
     </Menu>
   );

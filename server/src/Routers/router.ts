@@ -19,7 +19,10 @@ import {
   clearNotifications,
   addFriend,
   removeFriend,
-  addSeen
+  addSeen,
+  friendSeen,
+  checkAddedBy,
+  getUserNameById
 } from "../Controllers/friendsController";
 
 import {
@@ -78,6 +81,9 @@ router.delete("/friend/remove", removeFriend)
 router.delete("/friend/clear", clearNotifications);
 router.put("/friend/seen", addSeen);
 router.get("/friend/check", checkFriends);
+router.put("/friend/hasseen", friendSeen);
+router.get("/friend/checkaddedby", checkAddedBy)
+router.get("/friend/getUserNameById", getUserNameById)
 
 router.get("/regions", getRegions);
 

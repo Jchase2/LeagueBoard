@@ -20,6 +20,19 @@ export const checkFriends = createAsyncThunk(
   .then((res: { data: any }) => res.data)
 );
 
+export const checkAdds = createAsyncThunk(
+  "friends/fetchNewAdds",
+  async (userid: number) => axios.get(
+    process.env.REACT_APP_BACKEND_URL + "/friend/checkaddedby" || "http://localhost:3000/friend/checkaddedby",
+    {
+      headers: {
+        userid: userid
+      }
+    }
+  ).then((res: { data: any }) => res.data)
+  .catch((err) => console.log(err))
+);
+
 export const markSeen = createAsyncThunk(
   "friends/markSeen",
   async (data: ISeen) => await axios
@@ -55,6 +68,7 @@ export const friendSlice = createSlice({
     added: false,
     removed: false,
     newPosts: [],
+    friendAdds: []
   },
 
   // All reducer functions
@@ -68,6 +82,19 @@ export const friendSlice = createSlice({
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo
     builder.addCase(checkFriends.rejected, (state, action: any) => {
+      if (action.payload) {
+        state.error = action.payload.errorMessage;
+      } else {
+        state.error = action.error;
+      }
+    });
+    builder.addCase(checkAdds.fulfilled, (state, { payload }) => {
+      state.status = "resolved";
+      console.log("PAYLOAD: ", payload)
+      state.friendAdds = payload
+    });
+    // TODO: Fix any on action. Should probably be type of fetchUserInfo
+    builder.addCase(checkAdds.rejected, (state, action: any) => {
       if (action.payload) {
         state.error = action.payload.errorMessage;
       } else {

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Friend } from "../Models/friend.model";
 import { Topic } from "../Models/topic.model";
+import { User } from "../Models/user.model";
 
 export const addFriend = async (req: Request, res: Response, next: Function) => {
   try {
@@ -42,6 +43,39 @@ export const addSeen = async (req: Request, res: Response, next: Function) => {
     next(err)
   }
 }
+
+export const friendSeen = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { userid, friendid} = req.body;
+    // This call comes from the friend, so these get reversed
+    const friend = await Friend.findOne({where: {userid: friendid, userfriend: userid}});
+    await friend?.update({ seen: true });
+    res.status(201)
+    res.json(friend)
+  } catch(err){
+    next(err)
+  }
+}
+
+export const checkAddedBy = async (req: Request, res: Response, next: Function) => {
+  let { userid } = req.headers;
+
+  try {
+    const friends: any = await Friend.findAll({});
+    let addedMe: number[] = [];
+    friends.forEach((friend: any) => {
+      if(friend.dataValues.userfriend === Number(userid) && !friend.dataValues.seen){
+        addedMe.push(friend.dataValues.userid)
+      }
+    })
+    console.log(addedMe)
+    res.json(addedMe)
+  } catch(err){
+    next(err)
+  }
+
+}
+
 
 export const checkFriends = async (req: Request, res: Response, next: Function) => {
   try {
@@ -108,6 +142,20 @@ export const clearNotifications = async (req: Request, res: Response, next: Func
     })
     res.sendStatus(201)
   } catch(err){
+    next(err)
+  }
+}
+
+export const getUserNameById = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { userid } = req.headers;
+    console.log(req.body)
+    // This call comes from the friend, so these get reversed
+    const user = await User.findOne({where: {id: userid}});
+    res.status(200)
+    res.json(user?.summoner_name)
+  } catch(err){
+    console.log(err.message)
     next(err)
   }
 }

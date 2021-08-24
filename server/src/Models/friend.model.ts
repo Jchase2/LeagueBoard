@@ -1,4 +1,4 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, DataType, PrimaryKey } from 'sequelize-typescript'
+import { Table, Column, Model, CreatedAt, UpdatedAt, DataType, PrimaryKey, Default } from 'sequelize-typescript'
 
 @Table
 export class Friend extends Model {
@@ -13,6 +13,10 @@ export class Friend extends Model {
 
   @Column(DataType.ARRAY(DataType.INTEGER))
   seenposts!: []
+
+  @Default(false)
+  @Column
+  seen!: boolean;
 
   @CreatedAt
   @Column
