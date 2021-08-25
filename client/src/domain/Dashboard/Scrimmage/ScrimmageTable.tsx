@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td,  SimpleGrid, Center} from "@chakra-ui/react";
+import { Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td,  SimpleGrid, Center, Divider} from "@chakra-ui/react";
 
 export const ScrimmageTable = ({scrim}:any) => {
   const [teamOne, setTeamOne] = useState<any>([])
@@ -7,7 +7,15 @@ export const ScrimmageTable = ({scrim}:any) => {
 
 
   useEffect(() => {
+
     if (scrim.player1info) {
+
+     
+      console.log(scrim);
+
+    let app:any[] = [];
+    app.push(Object.values(scrim));
+
       const newTeamOne: any[] = []
       const newTeamTwo: any[] = []
       for (let i = 1; i <= 10; i++) {
@@ -32,58 +40,41 @@ export const ScrimmageTable = ({scrim}:any) => {
           newTeamTwo.push(player)
         }
       }
+
       setTeamOne(newTeamOne);
       setTeamTwo(newTeamTwo);
-
+    
     }
+      
+
   }, [scrim])
 
   
   return (
     <div>
+      {console.log(teamOne, teamTwo, scrim)}
       <Center>
-      
         <Heading as="h4" size="md">
-         Battle Date: {scrim?.date}  at  {scrim?.time} 
+          {scrim.team1} vs {scrim.team2}
         </Heading>
-
       </Center>
-       
-       {console.log(teamOne, teamTwo)}
+      <Divider></Divider>
       <SimpleGrid columns={2} spacing={2}>
-        
+        <Center>
+          <h3>Battle Day: {scrim?.date}</h3>
+        </Center>
+        <Center>
+          <h3>at {scrim?.time} </h3>
+        </Center>
         <Table className="team1Table" variant="striped" colorScheme="blue">
-        <Center><Thead><Tr><Th>{scrim.team1}</Th></Tr></Thead></Center>
-          
-        <Tbody className="team1Table">
-          { teamOne.map(element => (
+          <Tbody className="team1Table">
+            {teamOne.map((element) => (
               <Tr key={element.name}>
                 <Td>{element.name}</Td>
-                <Td>{element.level}</Td>
-                <Td>{element.rank}</Td>
+                <Td>{element.info.summonerLevel}</Td>
+                <Td>{element.ranked ? element.ranked.rank : "not ranked"}</Td>
               </Tr>
-          )) }
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>Player Name</Th>
-            <Th>level</Th>
-            <Th>rank</Th>
-          </Tr>
-        </Tfoot>
-        </Table>
-      
-        <Table className="team2Table" variant="striped" colorScheme="red">
-        <Center><Thead><Tr><Th>{scrim.team2}</Th></Tr></Thead></Center>
-
-          <Tbody className="team2Table">  
-            {teamTwo.map(element => (
-              <Tr key={element.name}>
-                <Td>{element.name}</Td>
-                <Td>{element.level}</Td>
-                <Td>{element.rank}</Td>
-              </Tr>
-            ))} 
+            ))}
           </Tbody>
           <Tfoot>
             <Tr>
@@ -93,8 +84,26 @@ export const ScrimmageTable = ({scrim}:any) => {
             </Tr>
           </Tfoot>
         </Table>
-       
-      </SimpleGrid>  
+
+        <Table className="team2Table" variant="striped" colorScheme="red">
+          <Tbody className="team2Table">
+            {teamTwo.map((element) => (
+              <Tr key={element.name}>
+                <Td>{element.name}</Td>
+                <Td>{element.info.summonerLevel}</Td>
+                <Td>{element.ranked ? element.ranked.rank : "not ranked"}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+          <Tfoot>
+            <Tr>
+              <Th>Player Name</Th>
+              <Th>level</Th>
+              <Th>rank</Th>
+            </Tr>
+          </Tfoot>
+        </Table>
+      </SimpleGrid>
     </div>
   );
 }

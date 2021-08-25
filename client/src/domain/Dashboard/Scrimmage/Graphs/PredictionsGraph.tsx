@@ -4,8 +4,58 @@ import { Divider } from "@chakra-ui/react"
 import { IScrimmage } from '../../../../interfaces/Scrimmage';
 
 const PredictionsGraph = ({scrim}:any) => {
+  const [teamOne, setTeamOne] = useState<any>([])
+  const [teamTwo, setTeamTwo] = useState<any>([])
 
-  console.log(scrim)  
+
+  useEffect(() => {
+    if (scrim.player1info) {
+    let app:any[] = [];
+    app.push(Object.values(scrim));
+    if (app.length === 48) {
+      const newTeamOne: any[] = []
+      const newTeamTwo: any[] = []
+      for (let i = 1; i <= 10; i++) {
+        const rankedInfo = scrim[`player${i}ranked`].map(info => {
+          const newInfo = {
+            queueType: info.queueType,
+            losses: info.losses,
+            rank: info.rank,
+            tier: info.tier,
+            wins: info.wins,
+          }
+          return newInfo
+        }).sort((a, b) => (a.queueType === 'RANKED_SOLO_5x5' ? -1 : 1))
+        let player = {
+          name: scrim[`player${i}`],
+          info: scrim[`player${i}info`],
+          ranked: rankedInfo.length ? rankedInfo[0] : undefined
+        }
+        if (i <= 5) {
+          newTeamOne.push(player)
+        } else {
+          newTeamTwo.push(player)
+        }
+      }
+      const predict = () => {
+
+      }
+      newTeamOne.sort((a, b) => {
+        return b.ranked.rank - a.ranked.rank;
+      })
+      newTeamTwo.sort((a, b) => {
+        return b.ranked.rank - a.ranked.rank;
+      })
+      setTeamOne(newTeamOne);
+      setTeamTwo(newTeamTwo);
+    }
+    }
+  }, [scrim])
+
+  
+
+
+
 
   return (
     <div>
