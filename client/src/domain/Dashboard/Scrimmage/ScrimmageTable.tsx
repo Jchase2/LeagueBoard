@@ -38,14 +38,15 @@ export const ScrimmageTable = ({scrim}:any) => {
     }
   }, [scrim])
 
-  
   return (
     <div>
       {console.log(teamOne, teamTwo, scrim)}
       <Center>
-        <Heading as="h4" size="md">
-          {scrim.team1} vs {scrim.team2}
-        </Heading>
+      <SimpleGrid columns={3} spacing={2}>
+        <Heading as="h4" size="md">{scrim.team1}</Heading>
+        <Center><Heading as="h4" size="md">vs</Heading></Center>
+        <Heading as="h4" size="md">{scrim.team2}</Heading>
+      </SimpleGrid>
       </Center>
       <Divider></Divider>
       <SimpleGrid columns={2} spacing={2}>
@@ -53,7 +54,7 @@ export const ScrimmageTable = ({scrim}:any) => {
           <h3>Battle Day: {scrim?.date}</h3>
         </Center>
         <Center>
-          <h3>at {scrim?.time} </h3>
+          <h3>Time: {scrim?.time} </h3>
         </Center>
         <Table className="team1Table" variant="striped" colorScheme="blue">
           <Tbody className="team1Table">
