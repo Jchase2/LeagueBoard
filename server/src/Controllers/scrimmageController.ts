@@ -59,8 +59,6 @@ export const getScrimmage = async (req: Request, res: Response, next: Function) 
     await retrieveAndSetRankInfoOfPlayers(scrimmages);
     console.timeEnd('time')
 
-    console.log(scrimmages)
-
     res.json(scrimmages).status(200);
   } catch (err) {
     console.log(err)
