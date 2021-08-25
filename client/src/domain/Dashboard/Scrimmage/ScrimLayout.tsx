@@ -1,4 +1,4 @@
-import { Box, Divider, Container, Flex, Center, } from "@chakra-ui/react";
+import { Box, Divider, Container, Center, } from "@chakra-ui/react";
 import PredictionsGraph from './Graphs/PredictionsGraph';
 import { useParams } from "react-router-dom";
 import { ScrimmageTable } from './ScrimmageTable';
@@ -15,7 +15,7 @@ const ScrimLayout: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchScrimmageById(Number(id.id)));
-  }, [dispatch]);
+  }, [dispatch, id?.id]);
 
   type urlParams = {
     id: string;

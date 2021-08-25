@@ -1,7 +1,5 @@
-import {useState, useEffect} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
 import { Divider } from "@chakra-ui/react"
-import { IScrimmage } from '../../../../interfaces/Scrimmage';
 
 const PredictionsGraph = ({scrim}:any) => {
 
