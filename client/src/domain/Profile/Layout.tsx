@@ -87,16 +87,12 @@ const Layout: React.FC<Props> = () => {
               {!isSmallerThan && (
                 <Flex
                   borderWidth="1px"
-                  h="12vh"
+                  h="155px"
                   mb={3}
                   borderRadius="10px"
                   bg={colors}
                 >
-                  <Flex
-                    w="40%"
-                    justifyContent="space-between"
-                    padding="10px"
-                  >
+                  <Flex w="40%" justifyContent="space-between" padding="10px">
                     <Graph matches={matches} user={user} />
                   </Flex>
                   <Center>
