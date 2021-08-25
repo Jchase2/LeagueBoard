@@ -37,7 +37,7 @@ const FollowButton: React.FC<Props> = ({ user }) => {
   };
 
   const renderButton = () => {
-    if (myUser && myUser.id !== friendid) {
+    if (myUser && (myUser.id !== user.id)) {
       if (!isFollowing) {
         return (
           <Button
