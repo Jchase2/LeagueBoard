@@ -23,7 +23,8 @@ import {
   friendSeen,
   checkAddedBy,
   getUserNameById,
-  getUserBySummonerName
+  getUserBySummonerName,
+  amFollowing
 } from "../Controllers/friendsController";
 
 import {
@@ -78,7 +79,7 @@ router.get("/scrimmage/:id", getScrimmage);
 router.post("/scrimmage", postScrimmage);
 
 router.post("/friend/create", addFriend);
-router.delete("/friend/remove", removeFriend)
+router.put("/friend/remove", removeFriend)
 router.delete("/friend/clear", clearNotifications);
 router.put("/friend/seen", addSeen);
 router.get("/friend/check", checkFriends);
@@ -86,6 +87,7 @@ router.put("/friend/hasseen", friendSeen);
 router.get("/friend/checkaddedby", checkAddedBy)
 router.get("/friend/getUserNameById", getUserNameById)
 router.get("/friend/summoner_name", getUserBySummonerName)
+router.get("/friend/isfriend", amFollowing);
 
 router.get("/regions", getRegions);
 

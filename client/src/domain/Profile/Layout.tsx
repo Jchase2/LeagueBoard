@@ -109,7 +109,9 @@ const Layout: React.FC<Props> = () => {
                 )}
             </>
           ) : (
-            <Spinners />
+            <Spinners
+
+            />
           )}
         </Flex>
       </Flex>
