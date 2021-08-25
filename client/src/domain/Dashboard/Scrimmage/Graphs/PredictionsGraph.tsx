@@ -1,17 +1,18 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
-import { Container, Divider } from "@chakra-ui/react"
+import { Divider } from "@chakra-ui/react"
+import { IScrimmage } from '../../../../interfaces/Scrimmage';
 
-const PredictionsGraph = () => {
- 
- // const { holdings } = useSelector((state: any) => state.holdings);
-  
+const PredictionsGraph = ({scrim}:any) => {
+
+  console.log(scrim)  
  
   return (
     <div>
       <Divider orientation="horizontal"></Divider>
       <CanvasJSChart
         options={ {
+          backgroundColor: "transparent",
           title: {
             text: "team1 vs team2"
           },
@@ -34,87 +35,7 @@ const PredictionsGraph = () => {
             dataPoints: [
               { label: "team1",   y: 85 },
             ]
-          }/*,{
-            type: "stackedBar100",
-            color: "#3457D5",
-            name: "Team-1 Player2",
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team1",   y: 85 },
-            ]
-          }, {
-            type: "stackedBar100",
-            color: "#1E90FF",
-            name: "Team-1 Player3",
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team1",   y: 85 },
-            ]
           },{
-            type: "stackedBar100",
-            color: "#1877F2",
-            name: "Team-1 Player4",
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team1",   y: 85 },
-            ]
-          },{
-            type: "stackedBar100",
-            color: "#0071c5",
-            name: "Team-1 Player5",
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team1",   y: 36 },
-            ]
-          },{
-            type: "stackedBar100",
-            color: "#e4181e",
-            name: "Team-2 Player1",
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team2",   y: 34 },
-            ]
-          } ,{
-            type: "stackedBar100",
-            color: "#B7410E",
-            name: "Team-2 Player2",
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team2",   y: 34 },
-            ]
-          },{
-            type: "stackedBar100",
-            color: "#BC3F4A",
-            name: "Team-2 Player3",
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team2",   y: 34 },
-            ]
-          },{
-            type: "stackedBar100",
-            color: "#DA2C43",
-            name: "Team-2 Player4",
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team2",   y: 34 },
-            ]
-          }*/,{
             type: "stackedBar100",
             color: "#B7410E",
             name: "Team-2 Player5",
@@ -127,7 +48,7 @@ const PredictionsGraph = () => {
             ]
           },{
             type: "stackedBar100",
-            color: "blue",
+            color: "#B7410E",
             name: "team1",
             showInLegend: true,
             indexLabel: "{y}",
@@ -140,7 +61,7 @@ const PredictionsGraph = () => {
             ]
           },{
             type: "stackedBar100",
-            color: "red",
+            color: "#5072A7",
             name: "team2",
             showInLegend: true,
             indexLabel: "{y}",

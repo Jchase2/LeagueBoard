@@ -249,7 +249,6 @@ export const getSummoner = async (req: Request, res: Response, next: Function) =
 
     res.status(200).send(summoner.data);
   } catch (err) {
-    console.log(err)
     next(err);
   }
 }

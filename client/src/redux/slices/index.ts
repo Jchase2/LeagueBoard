@@ -6,6 +6,7 @@ export {
   createNewTopic,
   fetchForumTopics,
 } from "./topicsSlice";
+export { scrimmageSlice, createScrimmage, fetchScrimmages } from "./scrimmageSlice";
 export { commentsSlice, fetchComments } from "./commentsSlice";
 export { regionSlice, fetchRegions } from "./regionsSlice";
 export { matchSlice, fetchMatches, setMatches } from './matchesSlice';

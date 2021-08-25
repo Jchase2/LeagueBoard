@@ -16,15 +16,18 @@ const FollowButton: React.FC<Props> = ({ user }) => {
   const [isFollowing, setIsFollowing] = useState<boolean>();
 
   useEffect(() => {
-    getUserNameBySummonerName(user.name).then((res) => {
-      setFriendId(res.userid);
-      amFollowing(myUser.id, res.userid).then((res) => {
+    getUserNameBySummonerName(user?.name).then((res) => {
+      setFriendId(res?.userid);
+      amFollowing(myUser?.id, res?.userid).then((res) => {
         setIsFollowing(res);
       });
     });
-  }, [myUser.id, user.name]);
+  }, [myUser?.id, user.name]);
 
   const handleClick = async () => {
+    if(!friendid){
+      alert("Summoner is not registered on LeagueBoard.")
+    }
     if (myUser && friendid && myUser?.id !== friendid) {
       if(!isFollowing){
         addNewFriend(myUser.id, friendid)
