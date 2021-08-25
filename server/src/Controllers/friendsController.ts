@@ -4,7 +4,6 @@ import { Topic } from "../Models/topic.model";
 import { User } from "../Models/user.model";
 
 export const addFriend = async (req: Request, res: Response, next: Function) => {
-  console.log("WHAT")
   try {
     let { userid, friendid } = req.body;
     const friend = await Friend.create({
@@ -21,7 +20,7 @@ export const addFriend = async (req: Request, res: Response, next: Function) => 
 
 export const removeFriend = async (req: Request, res: Response, next: Function) => {
   try {
-    let { userid, friendid } = req.body;
+    let { userid, friendid } = req.body.data;
     const friend = await Friend.findOne({where: {userid: userid, userfriend: friendid}});
     friend?.destroy()
     res.status(204)
@@ -167,6 +166,20 @@ export const getUserBySummonerName = async (req: Request, res: Response, next: F
     const user = await User.findOne({where: {summoner_name: summoner_name}});
     res.status(200)
     res.json({summoner_name: user?.summoner_name, userid: user?.id})
+  } catch(err){
+    next(err)
+  }
+}
+
+export const amFollowing = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { userid, friendid } = req.headers
+    const user = await Friend.findOne({where: {userfriend: friendid, userid: userid} })
+    if(user){
+      res.json(true)
+    } else {
+      res.json(false)
+    }
   } catch(err){
     next(err)
   }

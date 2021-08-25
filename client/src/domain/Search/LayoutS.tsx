@@ -32,8 +32,8 @@ const Layout: React.FC<Props> = () => {
       location.state.formdata.regionId
     ).then((res) => setUser(res));
     handleLoad();
-  }, [pathName]);
- 
+  }, [location.state.formdata.regionId, location.state.formdata.summoner_name, pathName]);
+
   const matches = user?.matches
   const userRank = user?.rank
 
