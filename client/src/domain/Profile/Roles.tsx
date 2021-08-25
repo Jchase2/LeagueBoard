@@ -14,7 +14,7 @@ const Roles: React.FC<Props> = ({ matches, user, userRank }) => {
    if (userRank) { tier = userRank[0]?.tier;} else { tier = user?.rank[0]?.tier }
     
    matches?.forEach((match) => {
-     match.participants.forEach((participant) => {
+     match?.participants?.forEach((participant) => {
        if (
          participant?.summonerName?.toLowerCase() ===
          user?.summoner_name?.toLowerCase()

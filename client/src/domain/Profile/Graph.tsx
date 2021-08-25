@@ -20,7 +20,7 @@ const Graph: React.FC<Props> = ({ matches, user }) => {
   let height = (!isSmallerThan ? "110" : "50");
 
   matches?.forEach((match) => {
-    match.participants.forEach((participant) => {
+    match?.participants?.forEach((participant) => {
       teamId1 = match?.teams[0]?.win;
       if (
         participant?.summonerName?.toLowerCase() ===
