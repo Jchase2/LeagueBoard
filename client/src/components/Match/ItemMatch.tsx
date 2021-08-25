@@ -41,66 +41,72 @@ export const ItemMatch: React.FC<Props> = ({
           padding="1px"
           justifyContent="space-evenly"
         >
-          <Tooltip
-            hasArrow
-            label={
-              <>
-                {" "}
-                {item0View?.name} : {parse(`${item0View?.description}`)}{" "}
-              </>
-            }
-          >
-            <Image
-              src={
-                item0 !== 0
-                  ? `https://opgg-static.akamaized.net/images/lol/item/${item0}.png?image=q_auto:best&v=1628647804`
-                  : ""
+          {item0View && (
+            <Tooltip
+              hasArrow
+              label={
+                <>
+                  {" "}
+                  {item0View?.name} : {parse(`${item0View?.description}`)}{" "}
+                </>
               }
-              borderRadius="10px"
-              h="38.500px"
-              w="38.500px"
-            />
-          </Tooltip>
-          <Tooltip
-            hasArrow
-            label={
-              <>
-                {" "}
-                {item1View?.name} : {parse(`${item1View?.description}`)}{" "}
-              </>
-            }
-          >
-            <Image
-              src={
-                item1 !== 0
-                  ? `https://opgg-static.akamaized.net/images/lol/item/${item1}.png?image=q_auto:best&v=1628647804`
-                  : ""
+            >
+              <Image
+                src={
+                  item0 !== 0
+                    ? `https://opgg-static.akamaized.net/images/lol/item/${item0}.png?image=q_auto:best&v=1628647804`
+                    : ""
+                }
+                borderRadius="10px"
+                h="38.500px"
+                w="38.500px"
+              />
+            </Tooltip>
+          )}
+          {item1View && (
+            <Tooltip
+              hasArrow
+              label={
+                <>
+                  {" "}
+                  {item1View?.name} : {parse(`${item1View?.description}`)}{" "}
+                </>
               }
-              borderRadius="10px"
-              h="38.500px"
-              w="38.500px"
-            />
-          </Tooltip>
-          <Tooltip
-            hasArrow
-            label={
-              <>
-                {" "}
-                {item2View?.name} : {parse(`${item2View?.description}`)}{" "}
-              </>
-            }
-          >
-            <Image
-              src={
-                item2 !== 0
-                  ? `https://opgg-static.akamaized.net/images/lol/item/${item2}.png?image=q_auto:best&v=1628647804`
-                  : ""
+            >
+              <Image
+                src={
+                  item1 !== 0
+                    ? `https://opgg-static.akamaized.net/images/lol/item/${item1}.png?image=q_auto:best&v=1628647804`
+                    : ""
+                }
+                borderRadius="10px"
+                h="38.500px"
+                w="38.500px"
+              />
+            </Tooltip>
+          )}
+          {item2View && (
+            <Tooltip
+              hasArrow
+              label={
+                <>
+                  {" "}
+                  {item2View?.name} : {parse(`${item2View?.description}`)}{" "}
+                </>
               }
-              borderRadius="10px"
-              h="38.500px"
-              w="38.500px"
-            />
-          </Tooltip>
+            >
+              <Image
+                src={
+                  item2 !== 0
+                    ? `https://opgg-static.akamaized.net/images/lol/item/${item2}.png?image=q_auto:best&v=1628647804`
+                    : ""
+                }
+                borderRadius="10px"
+                h="38.500px"
+                w="38.500px"
+              />
+            </Tooltip>
+          )}
         </Flex>
         <Flex
           h="50%"
@@ -108,66 +114,72 @@ export const ItemMatch: React.FC<Props> = ({
           padding="1px"
           justifyContent="space-evenly"
         >
-          <Tooltip
-            hasArrow
-            label={
-              <>
-                {" "}
-                {item3View?.name} : {parse(`${item3View?.description}`)}{" "}
-              </>
-            }
-          >
-            <Image
-              src={
-                item3 !== 0
-                  ? `https://opgg-static.akamaized.net/images/lol/item/${item3}.png?image=q_auto:best&v=1628647804`
-                  : ""
+          {item3View && (
+            <Tooltip
+              hasArrow
+              label={
+                <>
+                  {" "}
+                  {item3View?.name} : {parse(`${item3View?.description}`)}{" "}
+                </>
               }
-              borderRadius="10px"
-              h="38.500px"
-              w="38.500px"
-            />
-          </Tooltip>
-          <Tooltip
-            hasArrow
-            label={
-              <>
-                {" "}
-                {item4View?.name} : {parse(`${item4View?.description}`)}{" "}
-              </>
-            }
-          >
-            <Image
-              src={
-                item4 !== 0
-                  ? `https://opgg-static.akamaized.net/images/lol/item/${item4}.png?image=q_auto:best&v=1628647804`
-                  : ""
+            >
+              <Image
+                src={
+                  item3 !== 0
+                    ? `https://opgg-static.akamaized.net/images/lol/item/${item3}.png?image=q_auto:best&v=1628647804`
+                    : ""
+                }
+                borderRadius="10px"
+                h="38.500px"
+                w="38.500px"
+              />
+            </Tooltip>
+          )}
+          {item4View && (
+            <Tooltip
+              hasArrow
+              label={
+                <>
+                  {" "}
+                  {item4View?.name} : {parse(`${item4View?.description}`)}{" "}
+                </>
               }
-              borderRadius="10px"
-              h="38.500px"
-              w="38.500px"
-            />
-          </Tooltip>
-          <Tooltip
-            hasArrow
-            label={
-              <>
-                {" "}
-                {item5View?.name}  {parse(`${item5View?.description}`)}{" "}
-              </>
-            }
-          >
-            <Image
-              src={
-                item5 !== 0
-                  ? `https://opgg-static.akamaized.net/images/lol/item/${item5}.png?image=q_auto:best&v=1628647804`
-                  : "NOTHING"
+            >
+              <Image
+                src={
+                  item4 !== 0
+                    ? `https://opgg-static.akamaized.net/images/lol/item/${item4}.png?image=q_auto:best&v=1628647804`
+                    : ""
+                }
+                borderRadius="10px"
+                h="38.500px"
+                w="38.500px"
+              />
+            </Tooltip>
+          )}
+          {item5View && (
+            <Tooltip
+              hasArrow
+              label={
+                <>
+                  {" "}
+                  {item5View?.name} {parse(`${item5View?.description}`)}{" "}
+                </>
               }
-              borderRadius="10px"
-              h="38.500px"
-              w="38.500px"
-            />
-          </Tooltip>
+            >
+              <Image
+                src={
+                  item5 !== 0
+                    ? `https://opgg-static.akamaized.net/images/lol/item/${item5}.png?image=q_auto:best&v=1628647804`
+                    : "NOTHING"
+                }
+                borderRadius="10px"
+                h="38.500px"
+                w="38.500px"
+              />
+            </Tooltip>
+          )}
         </Flex>
       </Flex>
     </>

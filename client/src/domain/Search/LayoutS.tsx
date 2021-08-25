@@ -4,10 +4,11 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem,
-  MenuDivider,
+  Divider,
+  Center,
+  useColorModeValue
 } from "@chakra-ui/react";
-import { FiMenu, FiChevronDown } from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon"
 import ProfileMatch from "../../domain/Profile/ProfileMatch";
@@ -15,6 +16,8 @@ import { v4 as uuidv4 } from "uuid";
 import { getSummoner } from "../../api/api";
 import { useLocation } from "react-router";
 import  Spinners from "./Spinners";
+import Graph from "../../domain/Profile/Graph";
+import Roles from "../../domain/Profile/Roles";
 
 
 interface Props {}
@@ -25,6 +28,8 @@ const Layout: React.FC<Props> = () => {
   const [user, setUser] = useState<any>();
   const [isLargerThan] = useMediaQuery("(max-width:1050px)");
   const [loading, setLoading] = useState<boolean>(false);
+  const [isSmallerThan] = useMediaQuery("(max-width:450px)");
+  const colors = useColorModeValue("#F0F8FF", "gray.900");
   const pathName = useLocation().pathname;
 
   const handleLoad = () => {
@@ -33,6 +38,7 @@ const Layout: React.FC<Props> = () => {
       setLoading(false);
     }, 5000);
   };
+  console.log(user)
 
   useEffect(() => {
     console.log("Location update");
@@ -41,7 +47,7 @@ const Layout: React.FC<Props> = () => {
       location.state.formdata.regionId
     ).then((res) => setUser(res));
     handleLoad();
-  }, [location.state.formdata.regionId, location.state.formdata.summoner_name, pathName]);
+  }, [location?.state?.formdata?.regionId, location?.state?.formdata?.summoner_name, pathName]);
 
   const matches = user?.matches
   const userRank = user?.rank
@@ -76,7 +82,25 @@ const Layout: React.FC<Props> = () => {
               alignContent="center"
             >
               <>
-                <Flex borderWidth="1px"></Flex>
+                {!isSmallerThan && (
+                  <Flex
+                    borderWidth="1px"
+                    h="12vh"
+                    mb={3}
+                    borderRadius="10px"
+                    bg={colors}
+                  >
+                    <Flex w="40%" justifyContent="space-between" padding="10px">
+                      <Graph matches={matches} user={user} />
+                    </Flex>
+                    <Center>
+                      <Divider orientation="vertical" height="80%" />
+                    </Center>
+                    <Flex w="60%">
+                      <Roles matches={matches} userRank={false} user={user} />
+                    </Flex>
+                  </Flex>
+                )}
                 {matches &&
                   matches?.map(
                     (match: any) =>
