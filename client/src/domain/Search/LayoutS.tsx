@@ -31,7 +31,7 @@ const Layout: React.FC<Props> = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 4000);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -93,7 +93,6 @@ const Layout: React.FC<Props> = () => {
                               <MenuButton>
                                 <FiChevronDown />
                               </MenuButton>
-
                               <MenuList>
                                 <ProfileMatch
                                   match={match}
