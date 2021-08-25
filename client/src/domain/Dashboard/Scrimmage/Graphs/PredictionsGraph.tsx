@@ -50,14 +50,10 @@ const PredictionsGraph = ({scrim}:any) => {
     }
   }, [scrim])
 
-  
 
 
 
-<<<<<<< HEAD
-  console.log(scrim)
-=======
->>>>>>> sarah/scrimmage
+
 
   return (
     <div>

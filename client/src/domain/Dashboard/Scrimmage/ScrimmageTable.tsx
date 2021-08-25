@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td,  SimpleGrid, Center, Divider} from "@chakra-ui/react";
+import { Heading, Table, Tfoot, Tbody, Th, Tr, Td,  SimpleGrid, Center, Divider} from "@chakra-ui/react";
 
 export const ScrimmageTable = ({scrim}:any) => {
   const [teamOne, setTeamOne] = useState<any>([])
@@ -10,7 +10,7 @@ export const ScrimmageTable = ({scrim}:any) => {
 
     if (scrim.player1info) {
 
-     
+
       console.log(scrim);
 
     let app:any[] = [];
@@ -43,9 +43,9 @@ export const ScrimmageTable = ({scrim}:any) => {
 
       setTeamOne(newTeamOne);
       setTeamTwo(newTeamTwo);
-    
+
     }
-      
+
 
   }, [scrim])
 
@@ -55,27 +55,10 @@ export const ScrimmageTable = ({scrim}:any) => {
     <div>
       {console.log(teamOne, teamTwo, scrim)}
       <Center>
-<<<<<<< HEAD
-
-        <Heading as="h4" size="md">
-         Battle Date: {scrim?.date}  at  {scrim?.time}
-=======
         <Heading as="h4" size="md">
           {scrim.team1} vs {scrim.team2}
->>>>>>> sarah/scrimmage
         </Heading>
       </Center>
-<<<<<<< HEAD
-
-       {console.log(teamOne, teamTwo)}
-      <SimpleGrid columns={2} spacing={2}>
-
-        <Table className="team1Table" variant="striped" colorScheme="blue">
-        <Center><Thead><Tr><Th>{scrim.team1}</Th></Tr></Thead></Center>
-
-        <Tbody className="team1Table">
-          { teamOne.map(element => (
-=======
       <Divider></Divider>
       <SimpleGrid columns={2} spacing={2}>
         <Center>
@@ -87,7 +70,6 @@ export const ScrimmageTable = ({scrim}:any) => {
         <Table className="team1Table" variant="striped" colorScheme="blue">
           <Tbody className="team1Table">
             {teamOne.map((element) => (
->>>>>>> sarah/scrimmage
               <Tr key={element.name}>
                 <Td>{element.name}</Td>
                 <Td>{element.info.summonerLevel}</Td>
@@ -103,19 +85,10 @@ export const ScrimmageTable = ({scrim}:any) => {
             </Tr>
           </Tfoot>
         </Table>
-<<<<<<< HEAD
-
-        <Table className="team2Table" variant="striped" colorScheme="red">
-        <Center><Thead><Tr><Th>{scrim.team2}</Th></Tr></Thead></Center>
-
-          <Tbody className="team2Table">
-            {teamTwo.map(element => (
-=======
 
         <Table className="team2Table" variant="striped" colorScheme="red">
           <Tbody className="team2Table">
             {teamTwo.map((element) => (
->>>>>>> sarah/scrimmage
               <Tr key={element.name}>
                 <Td>{element.name}</Td>
                 <Td>{element.info.summonerLevel}</Td>
@@ -131,10 +104,6 @@ export const ScrimmageTable = ({scrim}:any) => {
             </Tr>
           </Tfoot>
         </Table>
-<<<<<<< HEAD
-
-=======
->>>>>>> sarah/scrimmage
       </SimpleGrid>
     </div>
   );
