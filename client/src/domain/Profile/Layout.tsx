@@ -1,4 +1,4 @@
-import { Flex, Spinner, useMediaQuery } from "@chakra-ui/react";
+import { Flex, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
@@ -76,7 +76,7 @@ const Layout: React.FC<Props> = () => {
             </>
           ) : (
             <Spinners
-              
+
             />
           )}
         </Flex>

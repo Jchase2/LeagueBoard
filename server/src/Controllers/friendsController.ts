@@ -13,13 +13,14 @@ export const addFriend = async (req: Request, res: Response, next: Function) => 
     res.status(201)
     res.json(friend)
   } catch(err){
+    console.log(err.message)
     next(err)
   }
 }
 
 export const removeFriend = async (req: Request, res: Response, next: Function) => {
   try {
-    let { userid, friendid } = req.body;
+    let { userid, friendid } = req.body.data;
     const friend = await Friend.findOne({where: {userid: userid, userfriend: friendid}});
     friend?.destroy()
     res.status(204)
@@ -154,6 +155,31 @@ export const getUserNameById = async (req: Request, res: Response, next: Functio
     const user = await User.findOne({where: {id: userid}});
     res.status(200)
     res.json({summoner_name: user?.summoner_name, userid: user?.id})
+  } catch(err){
+    next(err)
+  }
+}
+
+export const getUserBySummonerName = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { summoner_name } = req.headers;
+    const user = await User.findOne({where: {summoner_name: summoner_name}});
+    res.status(200)
+    res.json({summoner_name: user?.summoner_name, userid: user?.id})
+  } catch(err){
+    next(err)
+  }
+}
+
+export const amFollowing = async (req: Request, res: Response, next: Function) => {
+  try {
+    let { userid, friendid } = req.headers
+    const user = await Friend.findOne({where: {userfriend: friendid, userid: userid} })
+    if(user){
+      res.json(true)
+    } else {
+      res.json(false)
+    }
   } catch(err){
     next(err)
   }

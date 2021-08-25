@@ -30,8 +30,8 @@ const Topics: React.FC = () => {
 
   const filteringTopics = (value: string) => {
     setQuery(value);
-    const result = topics.filter((topic) =>
-      topic.title.toLowerCase().includes(value)
+    const result = topics?.filter((topic) =>
+      topic?.title?.toLowerCase().includes(value)
     );
     setFilteredTopics(result);
   };
