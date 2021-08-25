@@ -6,7 +6,7 @@ import { IScrimmage } from '../../../../interfaces/Scrimmage';
 const PredictionsGraph = ({scrim}:any) => {
 
   console.log(scrim)  
- 
+
   return (
     <div>
       <Divider orientation="horizontal"></Divider>
