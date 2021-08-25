@@ -80,7 +80,7 @@ const Layout: React.FC<Props> = () => {
                 matches?.map(
                   (match: any) =>
                     match && (
-                      <>
+                      <div key={uuidv4()}>
                         <ProfileMatch
                           match={match}
                           users={user}
@@ -103,7 +103,7 @@ const Layout: React.FC<Props> = () => {
                             </MenuList>
                           </Menu>
                         </Flex>)}
-                      </>
+                      </div>
                     )
                 )}
             </>

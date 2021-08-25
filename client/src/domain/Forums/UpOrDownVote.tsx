@@ -21,7 +21,7 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
   const [voteCount, setVoteCount] = useState<number>(0);
 
   useEffect(() => {
-    if (thread.id && user) {
+    if (thread?.id && user) {
       getTopicOwner(thread.id).then((owner) => {
         setThreadCreator(owner?.id);
       });
@@ -32,12 +32,12 @@ const UpOrDownVote: React.FC<Props> = ({ thread }) => {
         }
       });
     }
-    if (thread.id) {
+    if (thread && thread.id) {
       getVoteCount(thread.id).then((res) => {
         setVoteCount(res?.votes);
       });
     }
-  }, [thread.id, threadCreator, user]);
+  }, [thread, thread.id, threadCreator, user]);
 
   const handleClick = async (val) => {
     // !hasVoted ? setVoteCount(voteCount + val) : setVoteCount(voteCount + (val * 2))

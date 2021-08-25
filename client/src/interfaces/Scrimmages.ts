@@ -16,8 +16,4 @@ export interface IScrimmage {
   player8: string,
   player9: string,
   player10: string,
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> sarah/scrimmage

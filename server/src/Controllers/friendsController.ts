@@ -5,7 +5,6 @@ import { User } from "../Models/user.model";
 
 export const addFriend = async (req: Request, res: Response, next: Function) => {
   try {
-    console.log(req.body)
     let { userid, friendid } = req.body;
     const friend = await Friend.create({
       userid: userid,
@@ -14,7 +13,6 @@ export const addFriend = async (req: Request, res: Response, next: Function) => 
     res.status(201)
     res.json(friend)
   } catch(err){
-    console.log(err.message)
     next(err)
   }
 }

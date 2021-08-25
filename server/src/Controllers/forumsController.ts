@@ -143,7 +143,6 @@ export const getVote = async (req: Request, res: Response, next: Function) => {
         [Op.and]: [{ topicid: id }, { userid: userid }],
       },
     });
-    val = val.slice(0, 3);
     res.json(val);
   } catch (err) {
     next(err);
