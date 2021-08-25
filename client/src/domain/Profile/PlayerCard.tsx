@@ -53,7 +53,8 @@ const PlayerCard: React.FC<Props> = ({
       >
         {participant && (
           <>
-            {participant?.summonerName === users?.summoner_name && (
+            {(participant?.summonerName).toLowerCase() ===
+              (users?.summoner_name).toLowerCase() && (
               <Flex>
                 {!isLargerThan && (
                   <TypeMatch
