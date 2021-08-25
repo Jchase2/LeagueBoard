@@ -85,7 +85,7 @@ const Graph: React.FC<Props> = ({ matches, user }) => {
         flexDirection="column"
       >
         <Text>
-          {kills} / {deaths} / {assists}
+          {kills / 10 } / {deaths / 10} / {assists / 10}
         </Text>
         <Text
           textAlign="center"
