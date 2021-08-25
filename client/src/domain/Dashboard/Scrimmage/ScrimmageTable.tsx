@@ -1,20 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Heading, Table, Tfoot, Thead, Tbody, Th, Tr, Td,  SimpleGrid, Center, Divider} from "@chakra-ui/react";
+import { Heading, Table, Tfoot, Tbody, Th, Tr, Td,  SimpleGrid, Center, Divider} from "@chakra-ui/react";
 
 export const ScrimmageTable = ({scrim}:any) => {
   const [teamOne, setTeamOne] = useState<any>([])
   const [teamTwo, setTeamTwo] = useState<any>([])
 
-
   useEffect(() => {
 
     if (scrim.player1info) {
-
-     
-      console.log(scrim);
-
-    let app:any[] = [];
-    app.push(Object.values(scrim));
 
       const newTeamOne: any[] = []
       const newTeamTwo: any[] = []
@@ -40,13 +33,9 @@ export const ScrimmageTable = ({scrim}:any) => {
           newTeamTwo.push(player)
         }
       }
-
       setTeamOne(newTeamOne);
       setTeamTwo(newTeamTwo);
-    
     }
-      
-
   }, [scrim])
 
   
