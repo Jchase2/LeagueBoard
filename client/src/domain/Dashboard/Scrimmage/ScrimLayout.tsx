@@ -1,4 +1,4 @@
-import { Box, Divider, Container, Center, } from "@chakra-ui/react";
+import { Box, Center, } from "@chakra-ui/react";
 import PredictionsGraph from './Graphs/PredictionsGraph';
 import { useParams } from "react-router-dom";
 import { ScrimmageTable } from './ScrimmageTable';
@@ -25,21 +25,20 @@ const ScrimLayout: React.FC = () => {
   useEffect(() => {
     let app:any[] = [];
     app.push(Object.values(scrimm));
-    console.log(app)
     if (app[0].length === 48) {
       setScrim(scrimm);
       setLoading(true);
     }
   }, [scrimm, loading])
 
-
-
   return (
     <>
       {loading === false ? (
         <Center>
           <Box>
-            <img className="img" src="https://tenor.com/view/league-of-legends-ahri-aburrido-gif-5315136.gif"
+            <img
+              className="img"
+              src="https://tenor.com/view/league-of-legends-ahri-aburrido-gif-5315136.gif"
               alt="pixel princess with sword"
             />
           </Box>
@@ -47,21 +46,16 @@ const ScrimLayout: React.FC = () => {
       ) : (
         <div>
           <Center>
-            <Box>
-              <ScrimmageTable scrim={scrim} />
-            </Box>
+
+            <ScrimmageTable scrim={scrim} />
+
           </Center>
 
-          <Divider orientation="horizontal" />
+            <PredictionsGraph scrim={scrim} />
 
-          <Center>
-            <Container>
-              <PredictionsGraph scrim={scrim} />
-            </Container>
-          </Center>
         </div>
       )}
-  </>
+    </>
   );
 }
 

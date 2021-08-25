@@ -5,16 +5,9 @@ export const ScrimmageTable = ({scrim}:any) => {
   const [teamOne, setTeamOne] = useState<any>([])
   const [teamTwo, setTeamTwo] = useState<any>([])
 
-
   useEffect(() => {
 
     if (scrim.player1info) {
-
-
-      console.log(scrim);
-
-    let app:any[] = [];
-    app.push(Object.values(scrim));
 
       const newTeamOne: any[] = []
       const newTeamTwo: any[] = []
@@ -40,24 +33,20 @@ export const ScrimmageTable = ({scrim}:any) => {
           newTeamTwo.push(player)
         }
       }
-
       setTeamOne(newTeamOne);
       setTeamTwo(newTeamTwo);
-
     }
-
-
   }, [scrim])
-
-
 
   return (
     <div>
       {console.log(teamOne, teamTwo, scrim)}
       <Center>
-        <Heading as="h4" size="md">
-          {scrim.team1} vs {scrim.team2}
-        </Heading>
+      <SimpleGrid columns={3} spacing={2}>
+        <Heading as="h4" size="md">{scrim.team1}</Heading>
+        <Center><Heading as="h4" size="md">vs</Heading></Center>
+        <Heading as="h4" size="md">{scrim.team2}</Heading>
+      </SimpleGrid>
       </Center>
       <Divider></Divider>
       <SimpleGrid columns={2} spacing={2}>
@@ -65,7 +54,7 @@ export const ScrimmageTable = ({scrim}:any) => {
           <h3>Battle Day: {scrim?.date}</h3>
         </Center>
         <Center>
-          <h3>at {scrim?.time} </h3>
+          <h3>Time: {scrim?.time} </h3>
         </Center>
         <Table className="team1Table" variant="striped" colorScheme="blue">
           <Tbody className="team1Table">

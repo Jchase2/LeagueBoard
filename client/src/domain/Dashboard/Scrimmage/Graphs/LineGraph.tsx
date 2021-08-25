@@ -1,36 +1,35 @@
 import React, {useEffect, useState} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
 //import { getRecentMatches } from '../../../../api/backendApi';
-import { useSelector } from 'react-redux';
 
 const LineGraph = ({team1, team2}:any) => {
-  const [userHistory, setUserHistory] = useState<any[]>([])
+  const [userHistory, ] = useState<any[]>([])
 
-  
+
 
 
   useEffect(() => {
     const getUserHistoy = async () => {
-      
+
       //const userMatches = await getRecentMatches();
-      
+
       console.log(JSON.stringify(userHistory));
-      
-      
-      
+
+
+
       //let user = await Promise.all(getRecentMatches);
-     
+
       //console.log(JSON.stringify(user));
-      
+
     }
     getUserHistoy();
 
-    
 
-  }, []);
-  
-  
-  
+
+  }, [userHistory]);
+
+
+
   useEffect(() => {
 
     const the = async () => {
@@ -38,7 +37,7 @@ const LineGraph = ({team1, team2}:any) => {
       const data2 = await team2;
       console.log(data1, data2)
     }
-    
+
     the();
   }, [team1, team2])
 
@@ -96,8 +95,8 @@ const LineGraph = ({team1, team2}:any) => {
     ]
   }
 
-  
-  
+
+
   return (
     <div>
       <CanvasJSChart
