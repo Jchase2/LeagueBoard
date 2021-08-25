@@ -10,6 +10,8 @@ interface Props {
   SummonerSpell2: number;
   rune1: number;
   rune2: number;
+  opened: boolean;
+  summonerName: string;
 }
 
 const ChampMatch: React.FC<Props> = ({
@@ -18,6 +20,8 @@ const ChampMatch: React.FC<Props> = ({
   SummonerSpell2,
   rune1,
   rune2,
+  summonerName,
+  opened,
 }) => {
   const spell2 = summonerSpells[0][`${SummonerSpell2}`];
   const spell1 = summonerSpells[0][`${SummonerSpell1}`];
@@ -44,8 +48,10 @@ const ChampMatch: React.FC<Props> = ({
   ];
   const wtfisthis1 = newLoop?.filter((loop) => loop?.id === rune1);
   const wtfisthis2 = runesSub[0][`${rune2}`];
-  let Desc: any
-  if (wtfisthis1[0]) {Desc = wtfisthis1[0]["shortDesc"]}
+  let Desc: any;
+  if (wtfisthis1[0]) {
+    Desc = wtfisthis1[0]["shortDesc"];
+  }
 
   return (
     <>
@@ -58,11 +64,15 @@ const ChampMatch: React.FC<Props> = ({
           height="100%"
         >
           <Flex>
-            <Image
-              src={`https://opgg-static.akamaized.net/images/lol/champion/${championName}.png?image=c_scale,q_auto,w_46&v=1628647804`}
-              borderRadius="full"
-              alt="Champion"
-            />
+            <Tooltip hasArrow label={championName}>
+              <Image
+                src={`https://opgg-static.akamaized.net/images/lol/champion/${championName}.png?image=c_scale,q_auto,w_46&v=1628647804`}
+                borderRadius="full"
+                alt="Champion"
+                w="46px"
+                h="47px"
+              />
+            </Tooltip>
             <Flex flexDirection="column">
               <Tooltip hasArrow label={`${spell1.name}: ${spell1.description}`}>
                 <Image
@@ -70,6 +80,8 @@ const ChampMatch: React.FC<Props> = ({
                   borderRadius="full"
                   marginBottom="3px"
                   alt="Champion"
+                  w="22px"
+                  h="22px"
                 />
               </Tooltip>
               <Tooltip hasArrow label={`${spell2.name}: ${spell2.description}`}>
@@ -77,6 +89,8 @@ const ChampMatch: React.FC<Props> = ({
                   src={`https://opgg-static.akamaized.net/images/lol/spell/${spell2.id}.png?image=c_scale,q_auto,w_22&v=1628647804`}
                   borderRadius="full"
                   alt="Champion"
+                  w="22px"
+                  h="22px"
                 />
               </Tooltip>
             </Flex>
@@ -86,16 +100,23 @@ const ChampMatch: React.FC<Props> = ({
                   src={`https://opgg-static.akamaized.net/images/lol/perk/${rune1}.png?image=c_scale,q_auto,w_18&v=1628647804`}
                   marginBottom="3px"
                   alt="Champion"
+                  w="22px"
+                  h="22px"
                 />
               </Tooltip>
               <Tooltip hasArrow label={wtfisthis2}>
                 <Image
                   src={`https://opgg-static.akamaized.net/images/lol/perkStyle/${rune2}.png?image=c_scale,q_auto,w_22&v=1628647804`}
+                  alt="Champion"
+                  w="22px"
+                  h="22px"
                 />
               </Tooltip>
             </Flex>
           </Flex>
-          <Text as="cite">{championName}</Text>
+          <Text as="cite">
+            {!opened && championName} {opened && summonerName}
+          </Text>
         </Flex>
       )}
     </>

@@ -1,4 +1,13 @@
-import { Flex, useMediaQuery } from "@chakra-ui/react";
+import {
+  Flex,
+  useMediaQuery,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+} from "@chakra-ui/react";
+import { FiMenu, FiChevronDown } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon"
 import ProfileMatch from "../../domain/Profile/ProfileMatch";
@@ -72,11 +81,30 @@ const Layout: React.FC<Props> = () => {
                   matches?.map(
                     (match: any) =>
                       match && (
-                        <ProfileMatch
-                          match={match}
-                          users={user}
-                          key={uuidv4()}
-                        />
+                        <>
+                          <ProfileMatch
+                            match={match}
+                            users={user}
+                            key={uuidv4()}
+                            opened={false}
+                          />
+                          <Flex justifyContent="flex-start">
+                            <Menu isLazy>
+                              <MenuButton>
+                                <FiChevronDown />
+                              </MenuButton>
+
+                              <MenuList>
+                                <ProfileMatch
+                                  match={match}
+                                  users={user}
+                                  opened={true}
+                                  key={uuidv4()}
+                                />
+                              </MenuList>
+                            </Menu>
+                          </Flex>
+                        </>
                       )
                   )}
               </>
@@ -84,9 +112,9 @@ const Layout: React.FC<Props> = () => {
           </Flex>
         </>
       ) : (
-          <Flex w="100vw" h="60vh" alignItems="center" justifyContent="center">
-        <Spinners />
-       </Flex>
+        <Flex w="100vw" h="60vh" alignItems="center" justifyContent="center">
+          <Spinners />
+        </Flex>
       )}
     </Flex>
   );

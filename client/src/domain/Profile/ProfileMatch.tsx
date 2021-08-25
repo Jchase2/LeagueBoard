@@ -6,9 +6,10 @@ import { queueTypes } from "../../utils/queueTypes";
 interface Props {
   match: any;
   users: any;
+  opened: boolean
 }
 
-const ProfileMatch: React.FC<Props> = ({ match, users }) => {
+const ProfileMatch: React.FC<Props> = ({ match, users, opened }) => {
   let teamId1: any;
   let teamId2: any;
   let teamkills1: any;
@@ -18,9 +19,9 @@ const ProfileMatch: React.FC<Props> = ({ match, users }) => {
   const queue = queueTypes?.filter((e) => e.queueId === matchQueue);
   if (match.teams) {
     teamId1 = match?.teams[0]?.win;
-    teamId2 = match?.teams[1].win;
-     teamkills1 = match?.teams[0].objectives.champion.kills
-     teamkills2 = match?.teams[1].objectives.champion.kills
+    teamId2 = match?.teams[1]?.win;
+     teamkills1 = match?.teams[0]?.objectives?.champion?.kills
+     teamkills2 = match?.teams[1]?.objectives?.champion?.kills
   }
   return (
     <VStack key={uuidv4()} padding="5px">
@@ -28,9 +29,9 @@ const ProfileMatch: React.FC<Props> = ({ match, users }) => {
         shadow="md"
         borderWidth="1px"
         borderRadius="5px"
-        w="100%"
+        w={opened ? "460px" : "100%"}
+        maxw={opened ? "600px" : "100%"}
         justifyContent="center"
-        maxw="100%"
         padding="5px"
         flexWrap="wrap"
         bg={useColorModeValue("#F0F8FF", "gray.900")}
@@ -38,6 +39,7 @@ const ProfileMatch: React.FC<Props> = ({ match, users }) => {
         {match &&
           match?.participants?.map((participant: any) => (
             <PlayerCard
+              opened={opened}
               gameDuration={match.gameDuration}
               teamId1={teamId1}
               teamId2={teamId2}

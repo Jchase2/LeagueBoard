@@ -1,10 +1,19 @@
-import { Flex, useMediaQuery } from "@chakra-ui/react";
+import {
+  Flex,
+  useMediaQuery,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { FiMenu, FiChevronDown } from "react-icons/fi";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import Spinners from "../Search/Spinners"
+import Spinners from "../Search/Spinners";
 import {
   fetchMatches,
   fetchRegions,
@@ -20,17 +29,19 @@ const Layout: React.FC<Props> = () => {
   const userRank = useAppSelector((state) => state.userReducer.userRank);
   const regions = useAppSelector((state) => state.regionReducer.regionState);
   const matches = useAppSelector((state) => state.matchReducer.matchState);
-  let regionName: any
+  let regionName: any;
   const [isLargerThan] = useMediaQuery("(max-width:1050px)");
-  if(regions) { regionName = regions[user?.regionid - 1]?.name }
-  const [loading, setLoading] = useState<boolean>(false)
+  if (regions) {
+    regionName = regions[user?.regionid - 1]?.name;
+  }
+  const [loading, setLoading] = useState<boolean>(false);
 
-   const handleLoad = () => {
-     setLoading(true);
-     setTimeout(() => {
-       setLoading(false);
-     }, 1200);
-   };
+  const handleLoad = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  };
 
   useEffect(() => {
     dispatch(fetchUserInfo());
@@ -70,14 +81,35 @@ const Layout: React.FC<Props> = () => {
                 matches?.map(
                   (match: any) =>
                     match && (
-                      <ProfileMatch match={match} users={user} key={uuidv4()} />
+                      <>
+                        <ProfileMatch
+                          match={match}
+                          users={user}
+                          key={uuidv4()}
+                          opened={false}
+                        />
+                        <Flex justifyContent="flex-start">
+                          <Menu isLazy>
+                            <MenuButton>
+                              <FiChevronDown />
+                            </MenuButton>
+
+                            <MenuList key={uuidv4()}>
+                              <ProfileMatch
+                                match={match}
+                                users={user}
+                                opened={true}
+                                key={uuidv4()}
+                              />
+                            </MenuList>
+                          </Menu>
+                        </Flex>
+                      </>
                     )
                 )}
             </>
           ) : (
-            <Spinners
-              
-            />
+            <Spinners />
           )}
         </Flex>
       </Flex>
