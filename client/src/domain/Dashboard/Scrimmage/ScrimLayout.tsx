@@ -25,7 +25,6 @@ const ScrimLayout: React.FC = () => {
   useEffect(() => {
     let app:any[] = [];
     app.push(Object.values(scrimm));
-    console.log(app)
     if (app[0].length === 48) {
       setScrim(scrimm);
       setLoading(true);
@@ -39,7 +38,9 @@ const ScrimLayout: React.FC = () => {
       {loading === false ? (
         <Center>
           <Box>
-            <img className="img" src="https://tenor.com/view/league-of-legends-ahri-aburrido-gif-5315136.gif"
+            <img
+              className="img"
+              src="https://tenor.com/view/league-of-legends-ahri-aburrido-gif-5315136.gif"
               alt="pixel princess with sword"
             />
           </Box>
@@ -47,21 +48,16 @@ const ScrimLayout: React.FC = () => {
       ) : (
         <div>
           <Center>
-            <Box>
-              <ScrimmageTable scrim={scrim} />
-            </Box>
+            
+            <ScrimmageTable scrim={scrim} />
+            
           </Center>
-
-          <Divider orientation="horizontal" />
-
-          <Center>
-            <Container>
-              <PredictionsGraph scrim={scrim} />
-            </Container>
-          </Center>
+          
+            <PredictionsGraph scrim={scrim} />
+        
         </div>
       )}
-  </>
+    </>
   );
 }
 

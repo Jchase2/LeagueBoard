@@ -1,18 +1,17 @@
 import {useState, useEffect} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
-import { Divider } from "@chakra-ui/react"
+import { Center, Container, Divider, Flex, Spacer, Box, } from "@chakra-ui/react"
 import { IScrimmage } from '../../../../interfaces/Scrimmage';
 
 const PredictionsGraph = ({scrim}:any) => {
   const [teamOne, setTeamOne] = useState<any>([])
   const [teamTwo, setTeamTwo] = useState<any>([])
+  const [teams, setTeams] = useState<any>({});
 
 
   useEffect(() => {
     if (scrim.player1info) {
-    let app:any[] = [];
-    app.push(Object.values(scrim));
-    if (app.length === 48) {
+
       const newTeamOne: any[] = []
       const newTeamTwo: any[] = []
       for (let i = 1; i <= 10; i++) {
@@ -37,98 +36,148 @@ const PredictionsGraph = ({scrim}:any) => {
           newTeamTwo.push(player)
         }
       }
-      const predict = () => {
+      const predict = (newTeamOne, newTeamTwo) => {
+        let array1:any[] = [];
+        let array2:any[] = [];
+        let teamsInfo = {
+          team1BattleWinAvg: 0,
+          team1Wins: 0,
+          team1Losses:0,
+          team2BattleWinAvg: 0,
+          team2Wins: 0,
+          team2Losses:0
+        }
+        newTeamOne.forEach((player) => {
+          let ratio = {
+            avg: player.ranked ? player.ranked.wins /
+              (player.ranked.wins + player.ranked.losses) : 0,
+            wins: player.ranked ? player.ranked.wins : 0,
+            losses: player.ranked ? player.ranked.losses : 0,
+          }
+          array1.push(ratio);
+        });
+        newTeamTwo.forEach((player) => {
+          let ratio = {
+            avg: player.ranked ? player.ranked.wins /
+              (player.ranked.wins + player.ranked.losses) : 0,
+            wins: player.ranked ? player.ranked.wins : 0,
+            losses: player.ranked ? player.ranked.losses : 0,
+          }
+          array2.push(ratio);
+        });
 
+        array1.forEach((player) => {
+          teamsInfo.team1Wins+=player.wins;
+          teamsInfo.team1Losses+=player.losses;
+          teamsInfo.team1BattleWinAvg+=player.avg;
+        });
+        array2.forEach((player) => {
+          teamsInfo.team2Wins+=player.wins;
+          teamsInfo.team2Losses+=player.losses;
+          teamsInfo.team2BattleWinAvg+=player.avg;
+        });
+
+        console.log(teamsInfo);
+        setTeams(teamsInfo);
       }
-      newTeamOne.sort((a, b) => {
-        return b.ranked.rank - a.ranked.rank;
-      })
-      newTeamTwo.sort((a, b) => {
-        return b.ranked.rank - a.ranked.rank;
-      })
+      predict(newTeamOne, newTeamTwo);
       setTeamOne(newTeamOne);
       setTeamTwo(newTeamTwo);
-    }
     }
   }, [scrim])
 
   
-
-
-
-
   return (
-    <div>
-      <Divider orientation="horizontal"></Divider>
-      <CanvasJSChart
-        options={ {
-          backgroundColor: "transparent",
-          title: {
-            text: "team1 vs team2"
-          },
-          toolTip: {
-            shared: true
-          },
-          legend: {
-            verticalAlign: "top"
-          },
-          axisY: {
-            suffix: "%"
-          },
-          data: [{
-            type: "stackedBar100",
-            color: "#5072A7",
-            name: "Team-1 Player1",
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team1",   y: 85 },
-            ]
-          },{
-            type: "stackedBar100",
-            color: "#B7410E",
-            name: "Team-2 Player5",
-
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team2",   y: 13 },
-            ]
-          },{
-            type: "stackedBar100",
-            color: "#B7410E",
-            name: "team1",
-            showInLegend: true,
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "Team 1"},
-              { label: "team2",   y: 21 },
-              { label: "win predection",   y: 21}
-            ]
-          },{
-            type: "stackedBar100",
-            color: "#5072A7",
-            name: "team2",
-            showInLegend: true,
-            indexLabel: "{y}",
-            indexLabelFontColor: "white",
-            yValueFormatString: "#,###'%'",
-            dataPoints: [
-              { label: "team1",   y: 15, },
-              
-              { label: "team2",   y: 29, },
-              { label: "win predection",   y: 79, }
-            ]
-          }]
-          
-        } }
-      />
-    </div>
-  )
+    
+      <Flex>
+        
+          <CanvasJSChart
+            options={{
+              width: 350,
+              height: 200,
+              title: {
+                text: "Win/Loss Avg's",
+              },
+              toolTip: {
+                shared: true,
+              },
+              legend: {
+                verticalAlign: "top",
+              },
+              data: [
+                {
+                  type: "column",
+                  name: "Wins",
+                  legendText: "Player Win Avg",
+                  indexLabelFontColor: "white",
+                  yValueFormatString: "##",
+                  showInLegend: true,
+                  dataPoints: [
+                    { label: scrim.team1, y: teams.team1Wins / 5 },
+                    { label: scrim.team2, y: teams.team2Wins / 5 },
+                  ],
+                },
+                {
+                  type: "column",
+                  name: "Losses",
+                  legendText: "Player Loss Avg",
+                  showInLegend: true,
+                  indexLabelFontColor: "white",
+                  yValueFormatString: "##",
+                  dataPoints: [
+                    { label: scrim.team1, y: teams.team1Losses / 5 },
+                    { label: scrim.team2, y: teams.team2Losses / 5 },
+                  ],
+                },
+              ],
+            }}
+          />
+       
+        <Spacer />
+        
+          <CanvasJSChart
+            options={{
+              width: 350,
+              height: 200,
+              title: {
+                text: "Win Expectancy",
+              },
+              toolTip: {
+                shared: true,
+              },
+              legend: {
+                verticalAlign: "top",
+              },
+              data: [
+                {
+                  type: "column",
+                  name: scrim.team1,
+                  legendText: scrim.team1,
+                  indexLabelFontColor: "white",
+                  showInLegend: true,
+                  dataPoints: [
+                    { label: "team to win", y: teams.team1BattleWinAvg},
+                    //{ label: "loose", y: 0 },
+                  ],
+                },
+                {
+                  type: "column",
+                  name: scrim.team2,
+                  legendText: scrim.team2,
+                  showInLegend: true,
+                  indexLabelFontColor: "white",
+                  dataPoints: [
+                    //{ label: "win", y: 0  },
+                    { label: "team to win", y: teams.team2BattleWinAvg },
+                  ],
+                },
+              ],
+            }}
+          />
+      
+      </Flex>
+   
+  );
 }
 
 export default PredictionsGraph
