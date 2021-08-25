@@ -88,95 +88,89 @@ const PredictionsGraph = ({scrim}:any) => {
 
   
   return (
-    
-      <Flex>
-        
-          <CanvasJSChart
-            options={{
-              width: 350,
-              height: 200,
-              title: {
-                text: "Win/Loss Avg's",
-              },
-              toolTip: {
-                shared: true,
-              },
-              legend: {
-                verticalAlign: "top",
-              },
-              data: [
-                {
-                  type: "column",
-                  name: "Wins",
-                  legendText: "Player Win Avg",
-                  indexLabelFontColor: "white",
-                  yValueFormatString: "##",
-                  showInLegend: true,
-                  dataPoints: [
-                    { label: scrim.team1, y: teams.team1Wins / 5 },
-                    { label: scrim.team2, y: teams.team2Wins / 5 },
-                  ],
-                },
-                {
-                  type: "column",
-                  name: "Losses",
-                  legendText: "Player Loss Avg",
-                  showInLegend: true,
-                  indexLabelFontColor: "white",
-                  yValueFormatString: "##",
-                  dataPoints: [
-                    { label: scrim.team1, y: teams.team1Losses / 5 },
-                    { label: scrim.team2, y: teams.team2Losses / 5 },
-                  ],
-                },
+    <Flex>
+      <CanvasJSChart
+        options={{
+          width: 350,
+          height: 200,
+          title: {
+            text: "Win/Loss Avg's",
+          },
+          toolTip: {
+            shared: true,
+          },
+          legend: {
+            verticalAlign: "top",
+          },
+          data: [
+            {
+              type: "column",
+              name: "Wins",
+              legendText: "Player Win Avg",
+              indexLabelFontColor: "white",
+              yValueFormatString: "##",
+              showInLegend: true,
+              dataPoints: [
+                { label: scrim.team1, y: teams.team1Wins / 5 },
+                { label: scrim.team2, y: teams.team2Wins / 5 },
               ],
-            }}
-          />
-       
-        <Spacer />
-        
-          <CanvasJSChart
-            options={{
-              width: 350,
-              height: 200,
-              title: {
-                text: "Win Expectancy",
-              },
-              toolTip: {
-                shared: true,
-              },
-              legend: {
-                verticalAlign: "top",
-              },
-              data: [
-                {
-                  type: "column",
-                  name: scrim.team1,
-                  legendText: scrim.team1,
-                  indexLabelFontColor: "white",
-                  showInLegend: true,
-                  dataPoints: [
-                    { label: "team to win", y: teams.team1BattleWinAvg},
-                    //{ label: "loose", y: 0 },
-                  ],
-                },
-                {
-                  type: "column",
-                  name: scrim.team2,
-                  legendText: scrim.team2,
-                  showInLegend: true,
-                  indexLabelFontColor: "white",
-                  dataPoints: [
-                    //{ label: "win", y: 0  },
-                    { label: "team to win", y: teams.team2BattleWinAvg },
-                  ],
-                },
+            },
+            {
+              type: "column",
+              name: "Losses",
+              legendText: "Player Loss Avg",
+              showInLegend: true,
+              indexLabelFontColor: "white",
+              yValueFormatString: "##",
+              dataPoints: [
+                { label: scrim.team1, y: teams.team1Losses / 5 },
+                { label: scrim.team2, y: teams.team2Losses / 5 },
               ],
-            }}
-          />
-      
-      </Flex>
-   
+            },
+          ],
+        }}
+      />
+
+      <Spacer />
+
+      <CanvasJSChart
+        options={{
+          width: 350,
+          height: 200,
+          title: {
+            text: "Win Expectancy",
+          },
+          toolTip: {
+            shared: true,
+          },
+          legend: {
+            verticalAlign: "top",
+          },
+          data: [
+            {
+              type: "column",
+              name: scrim.team1,
+              legendText: scrim.team1,
+              indexLabelFontColor: "white",
+              showInLegend: true,
+              dataPoints: [
+                { label: "team to win", y: teams.team1BattleWinAvg },
+              ],
+            },
+            {
+              type: "column",
+              name: scrim.team2,
+              legendText: scrim.team2,
+              showInLegend: true,
+              indexLabelFontColor: "white",
+              dataPoints: [
+                { label: "team to win", y: teams.team2BattleWinAvg },
+              ],
+            },
+          ],
+        }}
+      />
+    </Flex>
   );
 }
 
