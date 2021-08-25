@@ -1,5 +1,6 @@
 import { CanvasJSChart } from 'canvasjs-react-charts';
 import { Divider } from "@chakra-ui/react"
+import { useEffect, useState } from 'react';
 
 const PredictionsGraph = ({scrim}:any) => {
   const [teamOne, setTeamOne] = useState<any>([])

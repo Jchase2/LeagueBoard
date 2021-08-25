@@ -25,25 +25,25 @@ export const getScrimmage = async (req: Request, res: Response, next: Function) 
 
     let scrimmages: any = await sequelize.query(`SELECT S.id as scrimmageid, U.id as userid, R.code as region, date as date,
       "bestOf", team_name1 as team1, team_name2 as team2, player1,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player1) as PUUID1,
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player1))) as PUUID1,
       player2,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player2) as PUUID2,
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player1))) as PUUID2,
       player3,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player3) as PUUID3,
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player1))) as PUUID3,
       player4,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player4) as PUUID4,
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player1))) as PUUID4,
       player5,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player5) as PUUID5,
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player1))) as PUUID5,
       player6,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player6) as PUUID6,
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player1))) as PUUID6,
       player7,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player7) as PUUID7,
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player7))) as PUUID7,
       player8,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player8) as PUUID8,
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player8))) as PUUID8,
       player9,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player9) as PUUID9,
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player9))) as PUUID9,
       player10,
-      (SELECT P.PUUID FROM public."Users" as P WHERE summoner_name = player10) as PUUID10, date, time
+      (SELECT BTRIM(P.PUUID) FROM public."Users" as P WHERE BTRIM(LOWER(summoner_name)) = BTRIM(LOWER(player10))) as PUUID10, date, time
       FROM public."Scrimmages" as S
       LEFT JOIN
         public."Users" as U
@@ -59,8 +59,11 @@ export const getScrimmage = async (req: Request, res: Response, next: Function) 
     await retrieveAndSetRankInfoOfPlayers(scrimmages);
     console.timeEnd('time')
 
+    console.log(scrimmages)
+
     res.json(scrimmages).status(200);
   } catch (err) {
+    console.log(err)
     next(err);
   }
 }
