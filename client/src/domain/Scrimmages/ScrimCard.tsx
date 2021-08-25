@@ -1,15 +1,24 @@
-import { Container, SimpleGrid, Center, Box, Table, Tfoot, Thead, Tbody, Th, Tr, Td,} from "@chakra-ui/react"
+import { Container, SimpleGrid, Center, Box, extendTheme, GridItem} from "@chakra-ui/react"
 import { Link } from "react-router-dom";
 
 const ScrimCard: React.FC<{scrim:any}> = ({scrim}) => {
+  const theme = extendTheme({
+    colors: {
+      brand: {
+        100: "#3182CE",
+        900: "#F56565",
+      },
+    },
+  })
+  
   return (
     <Link to={`/scimmage/${scrim.id}`}>
       <Box>
         <Center>
           <SimpleGrid columns={3} spacing={2}>
-            <Center><Container>{scrim.team1Name}</Container></Center>
+            <Center><GridItem bg="#3182CE">{scrim.team1Name}</GridItem></Center>
             <Center><h3>Vs</h3></Center>
-            <Center><Container>{scrim.team2Name}</Container></Center>
+            <Center><GridItem bg="#E53E3E">{scrim.team2Name}</GridItem></Center>
           </SimpleGrid>
         </Center>
       </Box>
