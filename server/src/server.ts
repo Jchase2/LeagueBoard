@@ -25,7 +25,7 @@ app.use(router);
 app.use(errorHandler);
 
 (async () => {
-  await sequelize.sync({ alter: true }).then(() => {
+  await sequelize.sync().then(() => {
     Region.destroy({truncate: true});
     regionsCode.forEach((regionCode: string, i: number) => {
       Region.create({
