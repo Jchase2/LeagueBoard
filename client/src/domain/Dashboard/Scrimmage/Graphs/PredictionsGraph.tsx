@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react'
 import { CanvasJSChart } from 'canvasjs-react-charts';
-import { Center, Container, Divider, Flex, Spacer, Box, } from "@chakra-ui/react"
-import { IScrimmage } from '../../../../interfaces/Scrimmage';
+import { Flex, Spacer,  } from "@chakra-ui/react"
 
 const PredictionsGraph = ({scrim}:any) => {
   const [teamOne, setTeamOne] = useState<any>([])
