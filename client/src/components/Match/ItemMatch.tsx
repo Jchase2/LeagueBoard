@@ -57,6 +57,8 @@ export const ItemMatch: React.FC<Props> = ({
                   : ""
               }
               borderRadius="10px"
+              h="38.500px"
+              w="38.500px"
             />
           </Tooltip>
           <Tooltip
@@ -75,6 +77,8 @@ export const ItemMatch: React.FC<Props> = ({
                   : ""
               }
               borderRadius="10px"
+              h="38.500px"
+              w="38.500px"
             />
           </Tooltip>
           <Tooltip
@@ -93,6 +97,8 @@ export const ItemMatch: React.FC<Props> = ({
                   : ""
               }
               borderRadius="10px"
+              h="38.500px"
+              w="38.500px"
             />
           </Tooltip>
         </Flex>
@@ -118,6 +124,8 @@ export const ItemMatch: React.FC<Props> = ({
                   : ""
               }
               borderRadius="10px"
+              h="38.500px"
+              w="38.500px"
             />
           </Tooltip>
           <Tooltip
@@ -136,6 +144,8 @@ export const ItemMatch: React.FC<Props> = ({
                   : ""
               }
               borderRadius="10px"
+              h="38.500px"
+              w="38.500px"
             />
           </Tooltip>
           <Tooltip
@@ -143,7 +153,7 @@ export const ItemMatch: React.FC<Props> = ({
             label={
               <>
                 {" "}
-                {item5View?.name} : {parse(`${item5View?.description}`)}{" "}
+                {item5View?.name}  {parse(`${item5View?.description}`)}{" "}
               </>
             }
           >
@@ -151,9 +161,11 @@ export const ItemMatch: React.FC<Props> = ({
               src={
                 item5 !== 0
                   ? `https://opgg-static.akamaized.net/images/lol/item/${item5}.png?image=q_auto:best&v=1628647804`
-                  : ""
+                  : "NOTHING"
               }
               borderRadius="10px"
+              h="38.500px"
+              w="38.500px"
             />
           </Tooltip>
         </Flex>
