@@ -4,11 +4,9 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem,
-  MenuDivider,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { FiMenu, FiChevronDown } from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
 import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import ProfileMatch from "./ProfileMatch";
 import { v4 as uuidv4 } from "uuid";
@@ -31,6 +29,7 @@ const Layout: React.FC<Props> = () => {
   const matches = useAppSelector((state) => state.matchReducer.matchState);
   let regionName: any;
   const [isLargerThan] = useMediaQuery("(max-width:1050px)");
+  const [isSmallerThan] = useMediaQuery("(max-width:450px)");
   if (regions) {
     regionName = regions[user?.regionid - 1]?.name;
   }
@@ -66,7 +65,7 @@ const Layout: React.FC<Props> = () => {
       >
         <ProfileIcon users={user} userRank={userRank} regionName={regionName} />
       </Flex>
-      <Flex minW="50vw" justifyContent="center" alignContent="center">
+      <Flex minW="40vw">
         <Flex
           flexDirection="column"
           w="100%"
@@ -88,12 +87,12 @@ const Layout: React.FC<Props> = () => {
                           key={uuidv4()}
                           opened={false}
                         />
+                        {!isSmallerThan && (
                         <Flex justifyContent="flex-start">
                           <Menu isLazy>
                             <MenuButton>
                               <FiChevronDown />
                             </MenuButton>
-
                             <MenuList key={uuidv4()}>
                               <ProfileMatch
                                 match={match}
@@ -103,15 +102,13 @@ const Layout: React.FC<Props> = () => {
                               />
                             </MenuList>
                           </Menu>
-                        </Flex>
+                        </Flex>)}
                       </>
                     )
                 )}
             </>
           ) : (
-            <Spinners
-
-            />
+            <Spinners />
           )}
         </Flex>
       </Flex>

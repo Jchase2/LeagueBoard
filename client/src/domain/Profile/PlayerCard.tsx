@@ -38,7 +38,6 @@ const PlayerCard: React.FC<Props> = ({
   const [isLargerThan] = useMediaQuery("(max-width:760px)");
   let totalKill = 0;
   let condition: any
-  let newColor: any
   if (participant?.win === teamId1) {
     totalKill = teamkills1;
   }
@@ -56,13 +55,13 @@ const PlayerCard: React.FC<Props> = ({
           justifyContent="space-evenly"
           bg={(participant?.win ? winColor : loseColor)}
           borderRadius="20px"
+          margin={opened ? "5px" : ""}
           borderWidth={opened ? "1px" : ""}
         >
           <>
             {condition && (
               <Flex
-                w={opened ? "450px" : "100%"}
-                maxw={opened ? "400px" : "100%"}
+                w={(opened) ? "450px" : "100%"}
                 
               >
                 {!opened && (
