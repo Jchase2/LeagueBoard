@@ -5,8 +5,8 @@ import { IScrimmage } from '../../../../interfaces/Scrimmage';
 
 const PredictionsGraph = ({scrim}:any) => {
 
-  console.log(scrim)  
- 
+  console.log(scrim)
+
   return (
     <div>
       <Divider orientation="horizontal"></Divider>
@@ -69,12 +69,12 @@ const PredictionsGraph = ({scrim}:any) => {
             yValueFormatString: "#,###'%'",
             dataPoints: [
               { label: "team1",   y: 15, },
-              
+
               { label: "team2",   y: 29, },
               { label: "win predection",   y: 79, }
             ]
           }]
-          
+
         } }
       />
     </div>

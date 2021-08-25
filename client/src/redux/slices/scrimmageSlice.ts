@@ -66,7 +66,7 @@ export const scrimmageSlice = createSlice({
       player10: "",
       puuid10: "",
       player1info: {},
-      
+
     }],
   },
 
@@ -74,7 +74,7 @@ export const scrimmageSlice = createSlice({
   reducers: {},
 
   extraReducers: (builder) => {
-   
+
     //CREATING
     builder.addCase(createScrimmage.fulfilled, (state, action,) => {
       state.scrimmages = [action.payload, ...state.scrimmages];
@@ -93,7 +93,7 @@ export const scrimmageSlice = createSlice({
       console.log("PAYLOAD FETCH BY ID: ", nextState)
       state.scrimmages = nextState
     });
-    
+
     builder.addCase(fetchScrimmageById.rejected, (state, action: any) => {
       console.log("ERROR ON FETCH SCRIMMAGE BY ID")
       if (action.payload) {
@@ -106,7 +106,7 @@ export const scrimmageSlice = createSlice({
     });
 
 
-    //GETTING ALL  
+    //GETTING ALL
     builder.addCase(fetchScrimmages.fulfilled, (state, { payload }) => {
       state.status = "resolved";
       state.scrimmages = payload

@@ -10,7 +10,7 @@ import { fetchUserInfo } from "../../redux/slices/userSlice";
 import { useEffect } from "react";
 
 interface Props {
-  
+
 }
 
 const CreateScrimmage: React.FC = (props: Props) => {
@@ -154,7 +154,7 @@ const CreateScrimmage: React.FC = (props: Props) => {
                 placeholder="Player 1"
                 size="sm"
                 name="player1"
-                value={scrimmageForm.player1} 
+                value={scrimmageForm.player1}
                 onChange={handleChange}
                 backgroundColor={useColorModeValue("#F0F8FF", "gray.900")}
                 rounded="md"
@@ -295,6 +295,3 @@ const CreateScrimmage: React.FC = (props: Props) => {
 }
 
 export default CreateScrimmage
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}

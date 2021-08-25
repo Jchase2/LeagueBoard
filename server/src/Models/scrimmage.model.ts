@@ -7,53 +7,49 @@ export class Scrimmages extends Model {
   userid_posted!: number;
 
   @Column
+  date!: string;
+  
+  @Column
+  time!: string;
+  
+  @Column
+  bestOf!: string;
+
+  @Column
   team_name1!: string;
 
   @Column
   team_name2!: string;
 
-  //10 players
   @Column
-  player1!: number;
+  player1!: string;
 
   @Column
-  player2!: number;
+  player2!: string;
 
   @Column
-  player3!: number;
+  player3!: string;
 
   @Column
-  player4!: number;
+  player4!: string;
 
   @Column
-  player5!: number;
+  player5!: string;
 
   @Column
-  player6!: number;
+  player6!: string;
 
   @Column
-  player7!: number;
+  player7!: string;
 
   @Column
-  player8!: number;
+  player8!: string;
 
   @Column
-  player9!: number;
+  player9!: string;
 
   @Column
-  player10!: number;
-
-  @Column
-  bo5?: string;
-
-  @Column
-  bo3?: number;
-
-  @Column
-  bo1?: number;
-
-  @Column(DataType.DATE)
-  date!: Date;
+  player10!: string;
 
   @CreatedAt
   @Column

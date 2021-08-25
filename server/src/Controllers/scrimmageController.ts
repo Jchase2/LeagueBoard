@@ -47,10 +47,10 @@ export const getScrimmage = async (req: Request, res: Response, next: Function) 
       FROM public."Scrimmages" as S
       LEFT JOIN
         public."Users" as U
-          on S.userid_posted = U.id 
-      LEFT JOIN 
+          on S.userid_posted = U.id
+      LEFT JOIN
         public."Regions" as R
-	        on R.id = U.regionid 
+	        on R.id = U.regionid
       WHERE S.id = ${id}`);
 
     scrimmages = scrimmages[0][0];
@@ -118,7 +118,7 @@ const retrieveAndSetRankInfoOfPlayers = async (scrimmages: any) => {
   scrimmages.player3info = player;
   ranked = await getSummonerEntriesByAccountIdAndRegion(player.id, scrimmages.region);
   scrimmages.player3ranked = ranked.data;
-  
+
   //player4
   player = await getSummonerByPuuid(scrimmages.puuid4, scrimmages.region);
   scrimmages.player4info = player;

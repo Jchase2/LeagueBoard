@@ -13,7 +13,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchUserInfo, fetchForumTopics } from "../../redux/slices";
 import { MapTopics, CreateTopicButton } from "./";
 import { ITopic } from "../../interfaces";
-
 const Topics: React.FC = () => {
 
   const dispatch = useAppDispatch();

@@ -26,6 +26,7 @@ export const matchSlice = createSlice({
   // Will create fetchUserInfo action that can be used via dispatch
   extraReducers: (builder) => {
     builder.addCase(fetchMatches.fulfilled, (state, { payload }) => {
+      console.log('matches', payload);
       state.matchState = payload;
     });
     // TODO: Fix any on action. Should probably be type of fetchUserInfo

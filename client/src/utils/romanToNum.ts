@@ -13,7 +13,7 @@ export const getFormattedTime = (fourDigitTime: string) => {
   let newMinutes = Number(minutes)
   let newHours = Number(hours)
   if (newMinutes > 60) {
-      newMinutes -= 60; 
+      newMinutes -= 60;
       newHours += 1;
       return newHours.toString() + ':' + newMinutes + amPm
   } else {

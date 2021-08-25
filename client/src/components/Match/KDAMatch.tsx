@@ -39,7 +39,7 @@ export const KDAMatch: React.FC<Props> = ({ kills, deaths, assists }) => {
         </Heading>
       </Flex>
       <Flex justifyContent="center" alignItems="center">
-          <Tooltip hasArrow label="Kill/Death Average"> 
+          <Tooltip hasArrow label="Kill/Death Average">
         {`${((kills + assists) / deaths).toFixed(2)} KDA`}
         </Tooltip>
       </Flex>

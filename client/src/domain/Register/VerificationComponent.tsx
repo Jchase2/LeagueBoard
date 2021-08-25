@@ -49,7 +49,7 @@ const VerificationComponent = () => {
       location.state.formdata.regionId,
       location.state.formdata.summoner_name
     );
-    
+
     if (data.iconid !== icon) {
       //register call api
 

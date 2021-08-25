@@ -29,7 +29,7 @@ const Searchbar: React.FC<Props> = ({ message }) => {
     useEffect(() => {
       dispatch(fetchRegions());
     }, [dispatch]);
-  
+
   const [isLargerThan] = useMediaQuery("(max-width:400px)");
 
   const [formData, setFormData] = useState<any>({

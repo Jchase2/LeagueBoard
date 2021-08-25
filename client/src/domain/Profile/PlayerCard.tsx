@@ -62,7 +62,7 @@ const PlayerCard: React.FC<Props> = ({
             {condition && (
               <Flex
                 w={(opened) ? "450px" : "100%"}
-                
+
               >
                 {!opened && (
                   <>

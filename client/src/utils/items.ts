@@ -23,10 +23,10 @@ export const items = [{
     "depth": 1,
     "consumeOnFull": false,
     "from": [
-      
+
     ],
     "into": [
-      
+
     ],
     "specialRecipe": 0,
     "inStore": true,
@@ -101,7 +101,7 @@ export const items = [{
       "PercentSpellVampMod": 0
     },
     "tags": [
-      
+
     ],
     "maps": {
       "1": true,
@@ -187,7 +187,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "1006": {
@@ -224,7 +224,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "1011": {
@@ -622,7 +622,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "60",
@@ -805,7 +805,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "60",
@@ -1307,7 +1307,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "2010": {
@@ -1335,7 +1335,7 @@ export const items = [{
         "sell": 5
       },
       "tags": [
-        
+
       ],
       "maps": {
         "11": true,
@@ -1344,7 +1344,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "10"
@@ -1428,7 +1428,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "2033": {
@@ -1468,7 +1468,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "depth": 2
     },
@@ -1536,7 +1536,7 @@ export const items = [{
         "sell": 0
       },
       "tags": [
-        
+
       ],
       "maps": {
         "11": true,
@@ -1545,7 +1545,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "2055": {
@@ -1584,7 +1584,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "1",
@@ -1671,7 +1671,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "300",
@@ -1718,7 +1718,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "50",
@@ -1766,7 +1766,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "30",
@@ -1804,7 +1804,7 @@ export const items = [{
         "sell": 0
       },
       "tags": [
-        
+
       ],
       "maps": {
         "11": true,
@@ -1813,7 +1813,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "2419": {
@@ -1850,7 +1850,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "2420": {
@@ -1887,7 +1887,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "0",
@@ -1920,7 +1920,7 @@ export const items = [{
         "sell": 260
       },
       "tags": [
-        
+
       ],
       "maps": {
         "11": true,
@@ -1929,7 +1929,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "0",
@@ -2017,7 +2017,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "0",
@@ -2051,7 +2051,7 @@ export const items = [{
         "sell": 260
       },
       "tags": [
-        
+
       ],
       "maps": {
         "11": true,
@@ -2060,7 +2060,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "0",
@@ -3079,7 +3079,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "3065": {
@@ -4476,7 +4476,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "depth": 2
     },
@@ -5842,7 +5842,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "90",
@@ -5889,7 +5889,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "90",
@@ -5934,7 +5934,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "4000",
@@ -5986,7 +5986,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "6",
@@ -6034,7 +6034,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "3504": {
@@ -6157,7 +6157,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       },
       "effect": {
         "Effect1Amount": "240",
@@ -6197,7 +6197,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "3600": {
@@ -6231,7 +6231,7 @@ export const items = [{
         "22": false
       },
       "stats": {
-        
+
       }
     },
     "3742": {
