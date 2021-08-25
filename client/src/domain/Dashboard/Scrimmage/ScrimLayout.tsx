@@ -7,8 +7,8 @@ import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
 import { useEffect, useState } from "react";
 
 const ScrimLayout: React.FC = () => {
-  const [teamOne, setTeamOne] = useState<any>([])
-  const [teamTwo, setTeamTwo] = useState<any>([])
+  const [, setTeamOne] = useState<any>([])
+  const [, setTeamTwo] = useState<any>([])
   const id = useParams<urlParams>();
   const dispatch = useAppDispatch()
   const scrim:any = useAppSelector((state) => state.scrimmageSlice.scrimmages);
