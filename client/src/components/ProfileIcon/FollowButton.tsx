@@ -25,6 +25,9 @@ const FollowButton: React.FC<Props> = ({ user }) => {
   }, [myUser.id, user.name]);
 
   const handleClick = async () => {
+    if(!friendid){
+      alert("Summoner is not registered on LeagueBoard.")
+    }
     if (myUser && friendid && myUser?.id !== friendid) {
       if(!isFollowing){
         addNewFriend(myUser.id, friendid)
