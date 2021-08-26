@@ -56,9 +56,8 @@ const ListScrimmages: React.FC = () => {
         </Box>
         <Divider></Divider>
       </Center>
-      <Center>
+      
         <MapScrims scrims={query.length ? filteredScrims : scrims} />
-      </Center>
       
     </Flex>
   );
