@@ -8,13 +8,14 @@ import {
   regionsCode,
   regions,
 } from "./Utils/mockData/regionMock";
-const errorHandler = require("./middleware/error");
+const errorHandler = require("./Middleware/error");
 const router = require("./Routers/router");
 
 var app = express();
 
 const corsOptions = {
   exposedHeaders: "Authorization",
+  origin: 'https://hungry-bardeen-a12c9b.netlify.app'
 };
 
 app.use(cors(corsOptions));
