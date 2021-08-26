@@ -27,7 +27,6 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, linkName: "/" },
-  { name: "Trending", icon: FiTrendingUp, linkName: "Trending" },
   { name: "Topics", icon: GoCommentDiscussion, linkName: "/topics" },
   { name: "Scrims", icon: SiNintendogamecube, linkName: "/scrims" },
 ];

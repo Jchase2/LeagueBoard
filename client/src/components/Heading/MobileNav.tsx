@@ -115,11 +115,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 bg={useColorModeValue("#F0F8FF", "gray.900")}
                 borderColor={useColorModeValue("gray.200", "gray.700")}
               >
-                <Link href="/Profile">
+                <Link href="/">
                   <MenuItem>Profile</MenuItem>
-                </Link>
-                <Link href="/Profile">
-                  <MenuItem>Settings</MenuItem>
                 </Link>
                 <MenuDivider />
                 <Link href={user ? "/" : "/signin"}>

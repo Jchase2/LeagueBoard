@@ -1,15 +1,7 @@
-import { Container, SimpleGrid, Center, Box, extendTheme, GridItem} from "@chakra-ui/react"
+import { SimpleGrid, Center, Box, GridItem } from "@chakra-ui/react"
 import { Link } from "react-router-dom";
 
 const ScrimCard: React.FC<{scrim:any}> = ({scrim}) => {
-  const theme = extendTheme({
-    colors: {
-      brand: {
-        100: "#3182CE",
-        900: "#F56565",
-      },
-    },
-  })
 
   return (
     <Link to={`/scimmage/${scrim.id}`}>
