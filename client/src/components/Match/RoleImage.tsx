@@ -9,8 +9,6 @@ interface Props {
 
 const RoleImage: React.FC<Props> = ({ rank, role, message }) => {
   role = convertToRole(role);
-  console.log(role);
-  console.log(rank);
   return (
     <>
       {role && (
