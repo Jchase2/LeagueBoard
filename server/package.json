@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "engines": {
+    "npm": "7.19.1",
     "node": "16.4.0"
   },
   "main": "dist/server.js",
