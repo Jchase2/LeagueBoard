@@ -2,6 +2,9 @@
   "name": "leagueboard",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "16.4.0"
+  },
   "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",
@@ -14,9 +17,6 @@
   },
   "author": "",
   "license": "ISC",
-  "engines": {
-    "node": "16.4.0"
-  },
   "bugs": {
     "url": "https://github.com/Jchase2/LeagueBoard/issues"
   },
