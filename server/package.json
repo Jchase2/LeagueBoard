@@ -8,8 +8,8 @@
   },
   "main": "dist/server.js",
   "scripts": {
-    "start": "cd server && node dist/server.js",
-    "build": "cd ./server && tsc",
+    "start": "node dist/server.js",
+    "build": "tsc",
     "postinstall": "npm run build"
   },
   "repository": {
