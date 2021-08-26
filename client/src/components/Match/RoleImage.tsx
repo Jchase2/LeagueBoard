@@ -14,7 +14,7 @@ const RoleImage: React.FC<Props> = ({ rank, role, message }) => {
       {role && (
         <Flex justifyContent="center" alignItems="center">
           <Image src={`../Position_${rank}-${role}.png`} alt="rankimg" />
-          <Text textAlign="center">{message}</Text>
+          <Text textAlign="center">{message} : {role}</Text>
         </Flex>
       )}
     </>
