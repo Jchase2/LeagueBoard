@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Op } from "sequelize";
 import { Friend } from "../Models/friend.model";
 import { Topic } from "../Models/topic.model";
 import { User } from "../Models/user.model";
@@ -162,7 +163,7 @@ export const getUserNameById = async (req: Request, res: Response, next: Functio
 export const getUserBySummonerName = async (req: Request, res: Response, next: Function) => {
   try {
     let { summoner_name } = req.headers;
-    const user = await User.findOne({where: {summoner_name: summoner_name}});
+    const user = await User.findOne({where: {summoner_name: {[Op.iLike]: summoner_name}}});
     res.status(200)
     res.json({summoner_name: user?.summoner_name, userid: user?.id})
   } catch(err){
