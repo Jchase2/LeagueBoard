@@ -16,15 +16,14 @@ const FollowButton: React.FC<Props> = ({ user }) => {
   const [isFollowing, setIsFollowing] = useState<boolean>();
 
   useEffect(() => {
-    getUserNameBySummonerName(user?.name).then((res) => {
-      setFriendId(res?.userid);
-      if(res && res.userid){
-        amFollowing(myUser?.id, res?.userid).then((res) => {
-          setIsFollowing(res);
-        });
-      }
+    getUserNameBySummonerName(user.name).then((res) => {
+      console.log(res)
+      setFriendId(res.userid);
+      amFollowing(myUser.id, res.userid).then((res) => {
+        setIsFollowing(res);
+      });
     });
-  }, [myUser?.id, user.name]);
+  }, [myUser.id, user.name]);
 
   const handleClick = async () => {
     if(!friendid){

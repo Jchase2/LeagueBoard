@@ -26,7 +26,7 @@ const TypeMatch: React.FC<Props> = ({ queue, gameDuration, win, gameTime }) => {
       padding="5px"
     >
       <Heading as="h6" size="xs" mb={1}>
-        {queue[0].description.split("games")}
+        {queue?.length && queue[0].description.split("games")}
       </Heading>
       <Divider w="60%" />
       <Text mt={1} as="em">

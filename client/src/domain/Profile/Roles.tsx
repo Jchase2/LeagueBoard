@@ -11,7 +11,7 @@ interface Props {
 const Roles: React.FC<Props> = ({ matches, user, userRank }) => {
    let roles: any = []
    let tier: any
-   if (userRank) { tier = userRank[0]?.tier;} else { tier = user?.rank[0]?.tier }
+   if (userRank?.length) { tier = userRank[0]?.tier;} else if(user && user.rank) { tier = user?.rank[0]?.tier }
 
    matches?.forEach((match) => {
      match?.participants?.forEach((participant) => {
