@@ -43,6 +43,7 @@ export const getUserNameById = (userid: number) => {
 }
 
 export const getUserNameBySummonerName = (summoner_name: string) => {
+  console.log("SUMMONER NAME: ", summoner_name)
   return axios.get(
     process.env.REACT_APP_BACKEND_URL + "/friend/summoner_name" || "http://localhost:3000/friend/summoner_name",
     {
