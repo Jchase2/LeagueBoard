@@ -5,7 +5,7 @@ const ScrimCard: React.FC<{scrim:any}> = ({scrim}) => {
 
   return (
     <Link to={`/scimmage/${scrim.id}`}>
-      <Box borderWidth="1px" m={2}>
+      <Box borderRadius="2g" borderWidth="1px" m={2} width={"42vw"}>
         <Center>
           <SimpleGrid columns={3} spacing={2} m={2}>
             <Center><GridItem mg={2} p={1} borderRadius="lg" bg="#3182CE">{scrim.team1Name}</GridItem></Center>
