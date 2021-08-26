@@ -2,7 +2,7 @@
   "name": "leagueboard",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "server.js",
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
