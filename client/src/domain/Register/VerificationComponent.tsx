@@ -54,7 +54,7 @@ const VerificationComponent = () => {
       //register call api
 
       signUp(location.state.formdata, data.puuid, data.iconid).then((res) => {
-        if (res.data.success) {
+        if (res && res.data.success) {
           setIsError(false);
           window.location.href = "/";
         }
