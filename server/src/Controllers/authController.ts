@@ -81,6 +81,7 @@ export const verify = async (req: Request, res: Response, next: Function) => {
       puuid: data.puuid,
     });
   } catch (error) {
+    console.log(error.message)
     next(error);
   }
 };
