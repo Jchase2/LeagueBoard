@@ -18,7 +18,7 @@ const ListScrimmages: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchScrimmages());
-  }, []);
+  }, [dispatch]);
 
   const filteringScrims = (value:string) => {
     setQuery(value);
@@ -43,13 +43,13 @@ const ListScrimmages: React.FC = () => {
       </Center>
 
       <Center>
-        <Box textAlign="center">
+        <Box textAlign="center" m={2}>
           <Heading>UpComing Scrimmages</Heading>
         </Box>
       </Center>
       <Divider></Divider>
       <Center>
-        <Box>
+        <Box mt={2}>
           <Button onClick={() => history.push("/scrims/create")} m={1}>
             New Scrimmage
           </Button>
@@ -59,7 +59,7 @@ const ListScrimmages: React.FC = () => {
       <Center>
         <MapScrims scrims={query.length ? filteredScrims : scrims} />
       </Center>
-      
+
     </Flex>
   );
 };
