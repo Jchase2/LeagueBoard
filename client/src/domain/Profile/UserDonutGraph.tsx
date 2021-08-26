@@ -1,8 +1,7 @@
 import { useEffect, useState} from 'react'
-import { CanvasJSChart } from 'canvasjs-react-charts'; 
-import { CanvasJS } from 'canvasjs';
+import { CanvasJSChart } from 'canvasjs-react-charts';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { Center, Box, Radio, RadioGroup, VStack, Divider, SimpleGrid } from "@chakra-ui/react"
+import { Radio, RadioGroup, VStack } from "@chakra-ui/react"
 import { fetchUserInfo, setMatches, fetchMatches } from '../../redux/slices';
 import './styles.css';
 
@@ -10,16 +9,16 @@ const UserDonutGraph = () => {
   const [userDeathHistory, setUserDeathHistory] = useState<any>({});
   const [userKillHistory, setUserKillHistory] = useState<any>({});
   const [userAssistHistory, setUserAssistHistory] = useState<any>({});
-  const [userValue, setUserValue] = useState<any>({}) 
+  const [userValue, setUserValue] = useState<any>({})
   const [graph, setGraph] = useState<any>('');
- 
+
   const user = useAppSelector((state) => state.userReducer.userState);
   const dispatch = useAppDispatch();
   const matches:any = useAppSelector((state) => state.matchReducer.matchState);
 
   useEffect(() => {
     dispatch(fetchUserInfo()).then(() => {})
-    dispatch(fetchMatches()).then(() => {}); 
+    dispatch(fetchMatches()).then(() => {});
     dispatch(setMatches()).then(() => {});
   }, [dispatch]);
 
@@ -38,7 +37,7 @@ const UserDonutGraph = () => {
         let kills: any[] = [];
         let deaths: any[] = [];
         let assists: any[] = [];
-        
+
         for (let i: number = 0; i < matches.length; i++) {
           if (matches[i]) {
             let matchInfo = matches[i];
@@ -75,8 +74,8 @@ const UserDonutGraph = () => {
         }
       };
       matchFunction();
-    }, [matches]);  
-       
+    }, [matches, user?.summoner_name]);
+
     const setValue = (value: string) => {
       if (value === ' kills ') {
         setUserValue(userKillHistory)
@@ -89,7 +88,7 @@ const UserDonutGraph = () => {
       if (value === 'assists') {
         setUserValue(userAssistHistory)
         setGraph(value)
-      } 
+      }
     };
 
   const options = {
@@ -106,7 +105,7 @@ const UserDonutGraph = () => {
       verticalAlign: "center",
       fontSize: 24,
       dockInsidePlotArea: true
-    }], 
+    }],
     backgroundColor: "transparent",
     data: [{
       type: "doughnut",
@@ -118,14 +117,10 @@ const UserDonutGraph = () => {
       ]
     }]
   };
-  let chart:any = document.getElementById("chart");
-
-  
 
   return (
     <>
     <div>
-     
       <div>
         <CanvasJSChart id="chart" options={options}/>
       </div>

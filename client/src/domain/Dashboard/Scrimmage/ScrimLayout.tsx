@@ -1,4 +1,4 @@
-import { Box, Center, } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import PredictionsGraph from './Graphs/PredictionsGraph';
 import { useParams } from "react-router-dom";
 import { ScrimmageTable } from './ScrimmageTable';
@@ -45,13 +45,14 @@ const ScrimLayout: React.FC = () => {
         </Center>
       ) : (
         <div>
+
           <Center>
-
             <ScrimmageTable scrim={scrim} />
-
           </Center>
 
-            <PredictionsGraph scrim={scrim} />
+          <Center>
+            <PredictionsGraph scrim={scrim}/>
+          </Center>
 
         </div>
       )}

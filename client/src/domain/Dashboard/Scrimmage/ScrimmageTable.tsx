@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Heading, Table, Tfoot, Tbody, Th, Tr, Td,  SimpleGrid, Center, Divider} from "@chakra-ui/react";
 
 export const ScrimmageTable = ({scrim}:any) => {
+
   const [teamOne, setTeamOne] = useState<any>([])
   const [teamTwo, setTeamTwo] = useState<any>([])
 
@@ -42,20 +43,19 @@ export const ScrimmageTable = ({scrim}:any) => {
     <div>
       {console.log(teamOne, teamTwo, scrim)}
       <Center>
-      <SimpleGrid columns={3} spacing={2}>
-        <Heading as="h4" size="md">{scrim.team1}</Heading>
-        <Center><Heading as="h4" size="md">vs</Heading></Center>
-        <Heading as="h4" size="md">{scrim.team2}</Heading>
-      </SimpleGrid>
+        <SimpleGrid columns={3} spacing={2}>
+          <Heading as="h4" size="md">{scrim.team1}</Heading>
+          <Center><Heading as="h4" size="md">vs</Heading></Center>
+          <Heading as="h4" size="md">{scrim.team2}</Heading>
+        </SimpleGrid>
       </Center>
       <Divider></Divider>
       <SimpleGrid columns={2} spacing={2}>
-        <Center>
-          <h3>Battle Day: {scrim?.date}</h3>
-        </Center>
-        <Center>
-          <h3>Time: {scrim?.time} </h3>
-        </Center>
+        <Center><h3>Battle Day: {scrim?.date}</h3></Center>
+        <Center><h3>Time: {scrim?.time} </h3></Center>
+      </SimpleGrid>
+      <Divider></Divider>
+        <SimpleGrid columns={2} spacing={2}>
         <Table className="team1Table" variant="striped" colorScheme="blue">
           <Tbody className="team1Table">
             {teamOne.map((element) => (

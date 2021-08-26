@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import {
   FiHome,
-  FiTrendingUp,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { SiNintendogamecube } from "react-icons/si";

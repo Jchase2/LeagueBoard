@@ -1,6 +1,7 @@
-import { CanvasJSChart } from "canvasjs-react-charts";
-import { Flex, Spacer } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import {useState, useEffect} from 'react'
+import { CanvasJSChart } from 'canvasjs-react-charts';
+import { Grid, GridItem  } from "@chakra-ui/react"
+import '../layoutStyles.css'
 
 const PredictionsGraph = ({ scrim }: any) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -90,10 +91,11 @@ const PredictionsGraph = ({ scrim }: any) => {
   }, [scrim]);
 
   return (
-    <Flex>
+
+    <Grid templateColumns="repeat(2, 1fr)" gap={10} maxWidth="752px" width="100%">
+      <GridItem>
       <CanvasJSChart
         options={{
-          width: 350,
           height: 200,
           title: {
             text: "Win/Loss Avg's",
@@ -130,14 +132,12 @@ const PredictionsGraph = ({ scrim }: any) => {
               ],
             },
           ],
-        }}
-      />
+        }}/>
+      </GridItem>
 
-      <Spacer />
-
+      <GridItem>
       <CanvasJSChart
         options={{
-          width: 350,
           height: 200,
           title: {
             text: "Win Expectancy",
@@ -153,7 +153,6 @@ const PredictionsGraph = ({ scrim }: any) => {
               type: "column",
               name: scrim.team1,
               legendText: scrim.team1,
-              indexLabelFontColor: "white",
               showInLegend: true,
               dataPoints: [
                 { label: "team to win", y: teams.team1BattleWinAvg },
@@ -162,7 +161,6 @@ const PredictionsGraph = ({ scrim }: any) => {
             {
               type: "column",
               name: scrim.team2,
-              legendText: scrim.team2,
               showInLegend: true,
               indexLabelFontColor: "white",
               dataPoints: [
@@ -170,9 +168,10 @@ const PredictionsGraph = ({ scrim }: any) => {
               ],
             },
           ],
-        }}
-      />
-    </Flex>
+        }}/>
+      </GridItem>
+    </Grid>
+
   );
 };
 
