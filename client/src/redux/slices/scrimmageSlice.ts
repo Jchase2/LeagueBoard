@@ -15,7 +15,6 @@ export const fetchScrimmageById = createAsyncThunk(
   async (scrimmageid: number) => await axios
   .get(process.env.REACT_APP_BACKEND_URL + `/scrimmage/${scrimmageid}` || "http://localhost:3001/scrimmage")
   .then((res: { data: any }) => {
-    console.log("FETCH SCRIMMAGE BY ID: ", res.data)
     return res.data
   })
 );
@@ -90,7 +89,6 @@ export const scrimmageSlice = createSlice({
     //GETTING ONE
     builder.addCase(fetchScrimmageById.fulfilled, (state, { payload }) => {
       let nextState = payload
-      console.log("PAYLOAD FETCH BY ID: ", nextState)
       state.scrimmages = nextState
     });
     

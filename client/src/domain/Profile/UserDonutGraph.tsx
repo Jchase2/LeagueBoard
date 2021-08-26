@@ -118,14 +118,10 @@ const UserDonutGraph = () => {
       ]
     }]
   };
-  let chart:any = document.getElementById("chart");
-
   
-
   return (
     <>
     <div>
-     
       <div>
         <CanvasJSChart id="chart" options={options}/>
       </div>
