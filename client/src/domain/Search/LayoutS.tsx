@@ -36,7 +36,7 @@ const Layout: React.FC<Props> = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 6000);
+    }, 7000);
   };
   console.log(user)
 

@@ -26,31 +26,31 @@ const ChampMatch: React.FC<Props> = ({
   const spell2 = summonerSpells[0][`${SummonerSpell2}`];
   const spell1 = summonerSpells[0][`${SummonerSpell1}`];
   const runeview = runes?.map((rune) => rune.slots);
-  const idkwhatimdoing = runeview?.map((rune) => rune[0]);
+  const RUNESVIEWS = runeview?.map((rune) => rune[0]);
   const newLoop = [
-    idkwhatimdoing[0]?.runes[0],
-    idkwhatimdoing[0]?.runes[1],
-    idkwhatimdoing[0]?.runes[2],
-    idkwhatimdoing[0]?.runes[3],
-    idkwhatimdoing[1]?.runes[0],
-    idkwhatimdoing[1]?.runes[1],
-    idkwhatimdoing[1]?.runes[2],
-    idkwhatimdoing[2]?.runes[0],
-    idkwhatimdoing[2]?.runes[1],
-    idkwhatimdoing[2]?.runes[2],
-    idkwhatimdoing[2]?.runes[3],
-    idkwhatimdoing[3]?.runes[0],
-    idkwhatimdoing[3]?.runes[1],
-    idkwhatimdoing[3]?.runes[2],
-    idkwhatimdoing[4]?.runes[0],
-    idkwhatimdoing[4]?.runes[1],
-    idkwhatimdoing[4]?.runes[2],
+    RUNESVIEWS[0]?.runes[0],
+    RUNESVIEWS[0]?.runes[1],
+    RUNESVIEWS[0]?.runes[2],
+    RUNESVIEWS[0]?.runes[3],
+    RUNESVIEWS[1]?.runes[0],
+    RUNESVIEWS[1]?.runes[1],
+    RUNESVIEWS[1]?.runes[2],
+    RUNESVIEWS[2]?.runes[0],
+    RUNESVIEWS[2]?.runes[1],
+    RUNESVIEWS[2]?.runes[2],
+    RUNESVIEWS[2]?.runes[3],
+    RUNESVIEWS[3]?.runes[0],
+    RUNESVIEWS[3]?.runes[1],
+    RUNESVIEWS[3]?.runes[2],
+    RUNESVIEWS[4]?.runes[0],
+    RUNESVIEWS[4]?.runes[1],
+    RUNESVIEWS[4]?.runes[2],
   ];
-  const wtfisthis1 = newLoop?.filter((loop) => loop?.id === rune1);
+  const newLOOP = newLoop?.filter((loop) => loop?.id === rune1);
   const wtfisthis2 = runesSub[0][`${rune2}`];
   let Desc: any;
-  if (wtfisthis1[0]) {
-    Desc = wtfisthis1[0]["shortDesc"];
+  if (newLOOP[0]) {
+    Desc = newLOOP[0]["shortDesc"];
   }
 
   return (
