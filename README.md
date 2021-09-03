@@ -1,27 +1,57 @@
-# LeagueBoard
-League of Legends dashboard with information about a player.
-Able to follow people to recieve notifications of their posts in the forum.
-Topics section where you can create, reply, or delete threads.
-Scrimmage section where you can create a new match to be played in the future.
+# League Board
+
+League Board is an app that allows you to view other players in-game stats and connect with them via a reddit style form system 
+
+## Description
+
+This project idea is to replace the form section on the League of legends website that was taken down, we want to allow players a social and pratical website to not only chat with other players but to authenicate users with their in-game account and then view all kinds of important information regarding any player in any reigion. 
 
 ## Getting Started
-  1. Once cloned, run the next commands:
-    * npm --prefix ./server run install
-    * npm --prefix ./client run install
-  2. In the server folder, create a .env file using the .env_example file.
-  3. Repeat step 2 in the client folder
-  4. Run the next command: 
-    * npm --prefix ./client run start
-    * npm --prefix ./server run start
+
+### Installing
+
+* Only required to install all dependencies
+
+### Tech Stack: Front-End
+* React
+* Charka UI
+* JWT
+* TypeScript
+* Canvas.JS
+
+### Tech Stack: Back-End
+* Express
+* Postgres/SQL
+* Node.JS
+* TypeScript
 
 
-## Tech Stack
-  * TypsScript
-  * React
-  * PostgreSQL
+### Executing program
+
+* How to run the program
+
+
+```
+cd client 
+npm i
+npm start
+```
+
+```
+cd server 
+npm i 
+npm start
+```
+
 
 ### Contributors
   * Lewis Rodriguez
   * James Doug Chase II
   * Sarah Shaffer
   * Rafel Corsten
+
+## Acknowledgments
+Inspiration:
+* [op.gg](https://na.op.gg/)
+* [mobalytics](https://mobalytics.gg/)
+
