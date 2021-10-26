@@ -1,11 +1,10 @@
-import { Response, Request } from "express";
+import type { Response, Request } from "express";
 import { Region } from "../Models/region.model";
 import { User } from "../Models/user.model";
 import { sequelize } from "../Models/index";
-import { getSummonerByNameAndRegion, getSummonerByPuuid } from "./utils";
-
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+import { getSummonerByNameAndRegion } from "./utils";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 export const verifyEmailAndUser = async (
   req: Request,
@@ -14,7 +13,7 @@ export const verifyEmailAndUser = async (
 ) => {
   const { regionid, summoner_name, email } = req.headers;
 
-  let query: any = await sequelize.query(`SELECT id FROM public."Users" as U
+  const query = await sequelize.query(`SELECT id FROM public."Users" as U
   WHERE email = '${email}' OR (summoner_name = '${summoner_name}' AND regionid = '${regionid}');`);
 
   if (query[0][0] === undefined) {
@@ -28,8 +27,8 @@ export const verifyEmailAndUser = async (
 
 export const register = async (req: Request, res: Response, next: Function) => {
   try {
-    let { email, password, regionid, summoner_name, puuid, iconid } = req.body;
-
+    const { email, regionid, summoner_name, puuid, iconid } = req.body;
+    let { password } = req.body;
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
 
@@ -42,7 +41,7 @@ export const register = async (req: Request, res: Response, next: Function) => {
       iconid,
     });
 
-    user.password = '';
+    user.password = "";
     sendToken(user, 201, res);
   } catch (error) {
     next(error);
@@ -81,7 +80,7 @@ export const verify = async (req: Request, res: Response, next: Function) => {
       puuid: data.puuid,
     });
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
     next(error);
   }
 };
@@ -117,10 +116,10 @@ const sendToken = (user: User, statusCode: number, res: Response) => {
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-  res.setHeader('Authorization', 'Bearer ' + token);
-  res.status(statusCode).json({ success: true});
+  res.setHeader("Authorization", "Bearer " + token);
+  res.status(statusCode).json({ success: true });
 };
 
-function comparePasswords(candidatePassword: string, userPassword: string) {
+const comparePasswords = (candidatePassword: string, userPassword: string) => {
   return bcrypt.compare(candidatePassword, userPassword);
-}
+};

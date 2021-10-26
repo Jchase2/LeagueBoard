@@ -1,8 +1,13 @@
-import { Table, Column, Model, CreatedAt, DataType } from 'sequelize-typescript'
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  DataType,
+} from "sequelize-typescript";
 
 @Table
 export class Matches extends Model {
-
   @Column
   puuid!: string;
 
@@ -35,7 +40,6 @@ export class Matches extends Model {
 
   @Column(DataType.JSONB)
   match10!: object | null;
-
 
   @CreatedAt
   @Column

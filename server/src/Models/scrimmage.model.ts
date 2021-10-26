@@ -1,17 +1,22 @@
-import { Table, Column, Model, CreatedAt, DataType } from 'sequelize-typescript'
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  DataType,
+} from "sequelize-typescript";
 
 @Table
 export class Scrimmages extends Model {
-
   @Column
   userid_posted!: number;
 
   @Column
   date!: string;
-  
+
   @Column
   time!: string;
-  
+
   @Column
   bestOf!: string;
 

@@ -1,10 +1,10 @@
 require("dotenv").config();
-import { Response, Request } from "express";
+import type { Response, Request } from "express";
 import { Op } from "sequelize";
 import { sequelize } from "../Models";
 import { Topic } from "../Models/topic.model";
-const { User } = require("../Models/user.model");
-const { Votes } = require("../Models/vote.model");
+import { User } from "../Models/user.model";
+import { Votes } from "../Models/vote.model";
 
 export const getForumTopics = async (
   req: Request,
