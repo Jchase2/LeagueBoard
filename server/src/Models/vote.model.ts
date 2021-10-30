@@ -1,8 +1,15 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, DataType, PrimaryKey } from 'sequelize-typescript'
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  DataType,
+  PrimaryKey,
+} from "sequelize-typescript";
 
 @Table
 export class Votes extends Model {
-
   @PrimaryKey
   @Column
   userid!: number;

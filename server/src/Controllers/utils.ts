@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { RIOT_API_TOKEN } = process.env;
-const axios = require("axios");
+import axios from "axios";
 
 const header = {
   "X-Riot-Token": RIOT_API_TOKEN,
@@ -61,6 +61,5 @@ export const getMatchInfoByMatchId2 = async (
   const obj = await axios.get(url, {
     headers: header,
   });
-  return obj.data.info
+  return obj.data.info;
 };
-

@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-const ErrorResponse = require('../utils/errorResponse');
+import type { Request, Response } from "express";
+import assert from "http-assert";
 
 interface IResponseWithError extends Response {
   message: string;
@@ -8,22 +8,25 @@ interface IResponseWithError extends Response {
   errors: { [message: string]: string[] };
 }
 
-const errorHandler = (err : IResponseWithError, req : Request, res : Response, next : Function) => {
+const errorHandler = (
+  err: IResponseWithError,
+  req: Request,
+  res: Response,
+  next: Function
+) => {
   let error = { ...err };
   error.message = err.message;
-
-  if ( err.code === 11000 ) {
-    error = new ErrorResponse('Duplicate entry', 400);
-  }
-
-  if (err.name === 'ValidationError') {
-    error = new ErrorResponse(Object.values(err.errors).map(val => val), 400);
-  }
+  assert(err.code === 11000, 400, "Duplicate Entry");
+  assert(
+    err.name === "ValidationError",
+    400,
+    Object.values(err.errors).map((x) => x)
+  );
 
   res.status(error.statusCode || 500).json({
     success: false,
-    error: error.message || 'Internal Server Error',
+    error: error.message || "Internal Server Error",
   });
 };
 
-module.exports = errorHandler;
+export default errorHandler;

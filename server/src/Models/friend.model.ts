@@ -1,8 +1,16 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, DataType, PrimaryKey, Default } from 'sequelize-typescript'
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  DataType,
+  PrimaryKey,
+  Default,
+} from "sequelize-typescript";
 
 @Table
 export class Friend extends Model {
-
   @PrimaryKey
   @Column
   userid!: number;
@@ -12,7 +20,7 @@ export class Friend extends Model {
   userfriend!: number;
 
   @Column(DataType.ARRAY(DataType.INTEGER))
-  seenposts!: []
+  seenposts!: [];
 
   @Default(false)
   @Column
