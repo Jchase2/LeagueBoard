@@ -37,7 +37,7 @@ export const getMatches = async (
   try {
     let { puuid } = req.params;
     //puuid = 'RSQ6Hfg8BFk4BEx5x_PDhutycLxXjgD8zc19bgMAxRDSBIrkL0ARyru5S9TjEDln-1qP7PPZzAt9Ow'; //test puuid
-    const matches = await Matches.findAll({
+    const matches: any = await Matches.findAll({
       where: { puuid: puuid },
       raw: true,
     });
@@ -98,7 +98,7 @@ export const getUserInfo = async (
   next: Function
 ) => {
   try {
-    let token;
+    let token = '';
 
     if (
       req.headers.authorization &&
@@ -107,7 +107,7 @@ export const getUserInfo = async (
       token = req.headers.authorization.split(" ")[1];
     }
 
-    const decoded = jwt.decode(token);
+    const decoded:any = jwt.decode(token);
     const user = await User.findOne({ where: { id: decoded.id } });
     if (user) {
       user.password = "";
@@ -126,7 +126,7 @@ export const getUserRanked = async (
   next: Function
 ) => {
   try {
-    let token;
+    let token = '';
 
     if (
       req.headers.authorization &&
@@ -135,7 +135,7 @@ export const getUserRanked = async (
       token = req.headers.authorization.split(" ")[1];
     }
 
-    const decoded = jwt.decode(token);
+    const decoded:any = jwt.decode(token);
     const user = await User.findOne({ where: { id: decoded.id } });
     if (user) {
       let query: any = await sequelize.query(

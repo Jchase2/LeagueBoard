@@ -23,7 +23,8 @@ export const protect = async (
   assert(!token, 401, "Unauthorized");
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const secret: any = process.env.JWT_SECRET;
+    const decoded: any = jwt.verify(token, secret);
     const user = await User.findOne({ where: { id: decoded.id } });
     assert(!user, 404, "Not Found");
     req.user = user;

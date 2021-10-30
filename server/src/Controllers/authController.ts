@@ -79,7 +79,7 @@ export const verify = async (req: Request, res: Response, next: Function) => {
       iconid: data.profileIconId,
       puuid: data.puuid,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
     next(error);
   }
@@ -113,7 +113,9 @@ export const login = async (req: Request, res: Response, next: Function) => {
 };
 
 const sendToken = (user: User, statusCode: number, res: Response) => {
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+  let secretKey: string = process.env.JWT_SECRET || '';
+  const token = jwt.sign({ id: user.id }, secretKey,
+  {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
   res.setHeader("Authorization", "Bearer " + token);

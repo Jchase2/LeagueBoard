@@ -9,6 +9,7 @@ import {
 
 @Table
 export class User extends Model {
+  [x: string]: any;
   @Column
   email!: string;
 

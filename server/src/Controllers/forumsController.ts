@@ -128,7 +128,7 @@ export const deleteForumTopic = async (
     await topic!.destroy();
     res.json(topic);
     res.status(204);
-  } catch (err) {
+  } catch (err: any) {
     console.log(err.message);
     next(err);
   }

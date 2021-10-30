@@ -207,7 +207,7 @@ export const getUserBySummonerName = async (
   next: Function
 ) => {
   try {
-    let { summoner_name } = req.headers;
+    let summoner_name: any = req.headers.summoner_name;
     const user = await User.findOne({
       where: { summoner_name: { [Op.iLike]: summoner_name } },
     });
